@@ -1,0 +1,87 @@
+<div class="bg-blue-800 text-white flex items-center justify-between p-4">
+  <h2 class="text-lg font-semibold">Visualización de Cotización</h2>
+
+  <!-- Botón cerrar -->
+  <button mat-icon-button [mat-dialog-close]="true">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<mat-dialog-content class="px-6 py-2">
+  <div class="flex flex-col gap-2 p-1 max-w-[1600px] mx-auto">
+    <div class="grid lg:grid-cols-[1fr_360px] gap-2">
+      <!-- IZQUIERDA -->
+      <div class="space-y-6">
+        <!-- Cliente -->
+        <div>
+          <label class="font-semibold">Cliente</label>
+          <p class="text-gray-800">{{ pedido().cliente.clienteNombre }} (DNI: {{ pedido().cliente.clienteNumerodocumento }})</p>
+        </div>
+
+        <!-- Carrito -->
+        <div class="overflow-x-auto bg-white rounded-xl shadow">
+          <table class="min-w-full text-sm">
+            <thead class="bg-gray-50 text-gray-600">
+              <tr>
+                <th class="px-4 py-3 text-left">Imagen</th>
+                <th class="px-4 py-3 text-left">Nombre</th>
+                <th class="px-4 py-3 text-left">Precio</th>
+                <th class="px-4 py-3 text-left">Cantidad</th>
+                <th class="px-4 py-3 text-left">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of pedido().pedidosDetalle" class="border-t even:bg-gray-50">
+                <td class="p-3">
+                  <img [src]="item.productoDetalle.imagen" class="w-5 h-5 object-contain bg-gray-100 rounded" />
+                </td>
+                <td class="p-3">{{ item.productoDetalle.nombreProducto }}</td>
+                <td class="p-3">S/ {{ item.precio | number : "1.2-2" }}</td>
+                <td class="p-3">{{ item.cantidad }}</td>
+                <td class="p-3">S/ {{ item.precio * item.cantidad | number : "1.2-2" }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- DERECHA -->
+      <aside class="bg-white rounded-xl shadow p-6 space-y-6 h-max">
+        <div>
+          <label class="text-lg font-semibold">Total</label>
+          <p class="text-3xl font-bold text-green-700">S/ {{ pedido().total | number : "1.2-2" }}</p>
+        </div>
+
+        <!-- Estado -->
+        <div>
+          <label class="font-semibold">Estado</label>
+          <p>{{ pedido().estado.name }}</p>
+        </div>
+
+        <!-- Métodos de pago -->
+        <div>
+          <label class="font-semibold">Métodos de Pago</label>
+          <ul class="list-disc list-inside space-y-1">
+            <li *ngFor="let pago of pedido().pagosPedido">{{ pago.tipo.nombre }} — S/ {{ pago.monto | number : "1.2-2" }}</li>
+          </ul>
+        </div>
+
+        <!-- Fecha de entrega -->
+        <div>
+          <label class="font-semibold">Fecha de Entrega</label>
+          <p>{{ pedido().fechaEntrega | date : "yyyy-MM-dd" }}</p>
+        </div>
+
+        <!-- Nota -->
+        <div>
+          <label class="font-semibold">Nota</label>
+          <p class="whitespace-pre-line">{{ pedido().observacion || "(Sin observación)" }}</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions class="flex justify-center gap-2">
+  <button type="reset" [mat-dialog-close]="true" class="rounded bg-red-600 text-white px-4 py-2 hover:bg-red-400">Cerrar</button>
+</mat-dialog-actions>

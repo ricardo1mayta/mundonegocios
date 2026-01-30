@@ -1,0 +1,32 @@
+<form [formGroup]="formGroup()" class="flex flex-col">
+    <ng-content />
+</form>
+
+@if (mostrarEstado()) {
+    <div class="flex flex-col">
+        <div class="font-medium">{{ tituloEstado() }}</div>
+        <div class="flex gap-x-4">
+            <mat-checkbox
+                [formControl]="checkActivo"
+                (change)="checkChange(1)"
+                >{{ etiquetaActivo() }}</mat-checkbox
+            >
+            <mat-checkbox
+                [formControl]="checkInactivo"
+                (change)="checkChange(2)"
+                >{{ etiquetaInactivo() }}</mat-checkbox
+            >
+        </div>
+    </div>
+}
+
+<div class="flex justify-center mt-2 gap-4">
+    <button mat-stroked-button (click)="limpiarClick()">
+        <mat-icon>cleaning_services</mat-icon>
+        Limpiar
+    </button>
+    <button mat-flat-button color="primary" (click)="buscarClick()">
+        <mat-icon>search</mat-icon>
+        Buscar
+    </button>
+</div>

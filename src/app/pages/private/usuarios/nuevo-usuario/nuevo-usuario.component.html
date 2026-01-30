@@ -1,0 +1,85 @@
+<!-- CABECERA -->
+<div class="bg-blue-800 text-white flex items-center justify-between p-4 rounded-t-2xl">
+  <h2 class="text-lg font-semibold">Usuario</h2>
+  <button mat-icon-button mat-dialog-close class="hover:bg-blue-900/40 rounded-full p-1">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<!-- WIZARD -->
+<mat-dialog-content class="bg-gray-100 px-6 py-4 max-h-[80vh] overflow-y-auto">
+  <mat-horizontal-stepper #stepper linear>
+    <!-- Paso 1 -->
+    <mat-step [stepControl]="personalesForm" label="Datos personales">
+      <form [formGroup]="personalesForm" class="grid grid-cols-1 md:grid-cols-2 gap-4 py-4">
+        <div>
+          <label class="label">Username</label>
+          <input formControlName="username" class="input md:max-w-[240px]" />
+        </div>
+
+        <div>
+          <label class="label">Correo</label>
+          <input formControlName="emailUser" class="input md:max-w-[240px]" />
+        </div>
+
+        <div class="md:col-span-2">
+          <label class="label">Nombres</label>
+          <input formControlName="nombres" class="input" />
+        </div>
+
+        <div class="md:col-span-2">
+          <label class="label">Apellidos</label>
+          <input formControlName="apellidos" class="input" />
+        </div>
+
+        <div class="md:col-span-2">
+          <label class="label">URL imagen (avatar)</label>
+          <input formControlName="img" class="input" />
+        </div>
+
+        <div class="col-span-full flex justify-end pt-4">
+          <button mat-button matStepperNext [disabled]="personalesForm.invalid">Siguiente</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <!-- Paso 2 -->
+    <mat-step [stepControl]="configForm" label="Config & Roles">
+      <form [formGroup]="configForm" class="grid grid-cols-1 md:grid-cols-2 gap-4 py-4">
+        <div>
+          <label class="label">Activo</label>
+          <mat-slide-toggle formControlName="activo"></mat-slide-toggle>
+        </div>
+
+        <div>
+          <label class="label">Tipo usuario</label>
+          <input formControlName="tipoUser" class="input md:max-w-[240px]" />
+        </div>
+
+        <div>
+          <label class="label">Código tipo</label>
+          <input type="number" formControlName="idcodTipoUser" class="input md:max-w-[240px]" />
+        </div>
+
+        <div>
+          <label class="label">Sede</label>
+          <mat-select formControlName="idSede" class="input">
+            <mat-option *ngFor="let s of sedes" [value]="s.id">{{ s.nombresede }}</mat-option>
+          </mat-select>
+        </div>
+
+        <div class="md:col-span-2">
+          <label class="label">Roles</label>
+          <mat-select formControlName="rolesIds" multiple class="input">
+            <mat-option *ngFor="let r of roles" [value]="r.idRol">{{ r.nombreRol }}</mat-option>
+          </mat-select>
+        </div>
+
+        <div class="col-span-full flex justify-between pt-4">
+          <button mat-button matStepperPrevious>Volver</button>
+          <button mat-flat-button color="primary" [disabled]="configForm.invalid" (click)="guardar()">Guardar</button>
+        </div>
+      </form>
+    </mat-step>
+  </mat-horizontal-stepper>
+</mat-dialog-content>

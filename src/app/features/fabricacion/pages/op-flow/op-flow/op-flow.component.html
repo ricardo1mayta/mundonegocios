@@ -1,0 +1,137 @@
+<div class="p-6 space-y-6">
+  <h1 class="text-xl font-semibold">Orden de Producción - Flujo</h1>
+
+  <!-- Crear OP -->
+  <form [formGroup]="opForm" (ngSubmit)="crearOp()" class="bg-white rounded-2xl shadow p-4 space-y-3">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+      <div><label class="text-xs text-gray-500">ID Cotización</label> <input type="number" formControlName="idCotizacion" class="w-full border rounded-xl px-3 py-2" /></div>
+      <div><label class="text-xs text-gray-500">Código OP</label> <input formControlName="codigo" class="w-full border rounded-xl px-3 py-2" /></div>
+      <div><label class="text-xs text-gray-500">Volumen</label> <input type="number" formControlName="volumen" class="w-full border rounded-xl px-3 py-2" /></div>
+    </div>
+    <button class="rounded-xl px-4 py-2 bg-black text-white">Crear OP</button>
+    <div *ngIf="idOp()" class="text-sm text-green-700">OP creada: {{ idOp() }}</div>
+  </form>
+
+  <!-- MRP -->
+  <form [formGroup]="mrpForm" (ngSubmit)="calcularMrp()" class="bg-white rounded-2xl shadow p-4 space-y-3">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+      <div><label class="text-xs text-gray-500">ID OP</label> <input type="number" formControlName="idOp" class="w-full border rounded-xl px-3 py-2" /></div>
+      <div><label class="text-xs text-gray-500">ID Almacén</label> <input type="number" formControlName="idAlmacen" class="w-full border rounded-xl px-3 py-2" /></div>
+      <div class="flex items-end">
+        <button class="w-full rounded-xl px-4 py-2 border">Calcular MRP</button>
+      </div>
+    </div>
+
+    <div *ngIf="mrp()" class="overflow-auto">
+      <div class="flex items-center justify-between mb-2">
+        <div class="text-sm font-semibold">MRP #{{ mrp()!.id }}</div>
+        <button type="button" (click)="crearRequisicion()" class="px-4 py-2 rounded-xl bg-black text-white">Crear Requisición (faltantes)</button>
+      </div>
+
+      <table class="w-full text-sm">
+        <thead class="text-left text-gray-500">
+          <tr>
+            <th class="py-2">Insumo</th>
+            <th>Req</th>
+            <th>Disp</th>
+            <th>Falt</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let d of mrp()!.detalles" class="border-t">
+            <td class="py-2">{{ d.nombreInsumo }} ({{ d.idInsumo }})</td>
+            <td>{{ d.requerido }}</td>
+            <td>{{ d.disponible }}</td>
+            <td class="font-semibold" [class.text-red-600]="d.faltante > 0">{{ d.faltante }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </form>
+
+  <!-- Recepción -->
+  <form [formGroup]="recForm" (ngSubmit)="registrarRecepcion()" class="bg-white rounded-2xl shadow p-4 space-y-3">
+    <div class="text-sm font-semibold">Recepción (Ingreso almacén)</div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+      <div><label class="text-xs text-gray-500">ID Almacén</label> <input type="number" formControlName="idAlmacen" class="w-full border rounded-xl px-3 py-2" /></div>
+      <div><label class="text-xs text-gray-500">Referencia</label> <input formControlName="referencia" class="w-full border rounded-xl px-3 py-2" /></div>
+      <div><label class="text-xs text-gray-500">Proveedor</label> <input formControlName="proveedor" class="w-full border rounded-xl px-3 py-2" /></div>
+    </div>
+
+    <button type="button" class="px-4 py-2 rounded-xl border" (click)="addRecItem()">+ Item</button>
+
+    <div class="overflow-auto">
+      <table class="w-full text-sm">
+        <thead class="text-left text-gray-500">
+          <tr>
+            <th class="py-2">ID Insumo</th>
+            <th>Cantidad</th>
+            <th>Costo Unit</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody formArrayName="detalles">
+          <tr *ngFor="let g of recDetalles.controls; let i = index" [formGroupName]="i" class="border-t">
+            <td class="py-2"><input type="number" formControlName="idInsumo" class="border rounded-lg px-2 py-1 w-28" /></td>
+            <td><input type="number" formControlName="cantidad" class="border rounded-lg px-2 py-1 w-28" /></td>
+            <td><input type="number" formControlName="costoUnit" class="border rounded-lg px-2 py-1 w-28" /></td>
+            <td><button type="button" class="text-red-600" (click)="recDetalles.removeAt(i)">Quitar</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <button class="rounded-xl px-4 py-2 bg-black text-white">Registrar recepción</button>
+
+    <div *ngIf="idRecepcion()" class="text-sm text-green-700 flex items-center gap-2">
+      Recepción creada ID: {{ idRecepcion() }}
+      <button type="button" (click)="validarRecepcion()" class="px-3 py-1 rounded-xl border">Validar</button>
+    </div>
+  </form>
+
+  <!-- Consumo -->
+  <form [formGroup]="consForm" (ngSubmit)="registrarConsumo()" class="bg-white rounded-2xl shadow p-4 space-y-3">
+    <div class="text-sm font-semibold">Consumo (Salida a producción)</div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+      <div><label class="text-xs text-gray-500">ID OP</label> <input type="number" formControlName="idOp" class="w-full border rounded-xl px-3 py-2" /></div>
+      <div><label class="text-xs text-gray-500">ID Almacén</label> <input type="number" formControlName="idAlmacen" class="w-full border rounded-xl px-3 py-2" /></div>
+      <div class="flex items-end">
+        <button type="button" class="w-full rounded-xl px-4 py-2 border" (click)="addConsItem()">+ Item</button>
+      </div>
+    </div>
+
+    <div class="overflow-auto">
+      <table class="w-full text-sm">
+        <thead class="text-left text-gray-500">
+          <tr>
+            <th class="py-2">ID Insumo</th>
+            <th>Cantidad</th>
+            <th>Costo Unit</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody formArrayName="detalles">
+          <tr *ngFor="let g of consDetalles.controls; let i = index" [formGroupName]="i" class="border-t">
+            <td class="py-2"><input type="number" formControlName="idInsumo" class="border rounded-lg px-2 py-1 w-28" /></td>
+            <td><input type="number" formControlName="cantidad" class="border rounded-lg px-2 py-1 w-28" /></td>
+            <td><input type="number" formControlName="costoUnit" class="border rounded-lg px-2 py-1 w-28" /></td>
+            <td><button type="button" class="text-red-600" (click)="consDetalles.removeAt(i)">Quitar</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <button class="rounded-xl px-4 py-2 bg-black text-white">Registrar consumo</button>
+    <div *ngIf="idConsumo()" class="text-sm text-green-700">Consumo creado ID: {{ idConsumo() }}</div>
+  </form>
+
+  <!-- Cierre -->
+  <div class="bg-white rounded-2xl shadow p-4 space-y-3">
+    <div class="text-sm font-semibold">Cierre OP</div>
+    <div class="flex gap-2">
+      <input type="number" formControlName="idOp" class="border rounded-xl px-3 py-2 w-48" placeholder="ID OP" />
+      <input formControlName="lecciones" class="border rounded-xl px-3 py-2 flex-1" placeholder="Lecciones aprendidas" />
+      <button class="rounded-xl px-4 py-2 bg-black text-white" (click)="cerrar()">Cerrar</button>
+    </div>
+  </div>
+</div>

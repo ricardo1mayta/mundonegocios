@@ -1,0 +1,45 @@
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-2 sm:p-4">
+  <div class="w-full max-w-md sm:max-w-lg rounded-2xl bg-white shadow-2xl ring-1 ring-gray-950/5 flex flex-col divide-y divide-gray-100">
+    <div class="flex items-start justify-between px-4 sm:px-6 py-3 sm:py-4">
+      <div>
+        <h2 class="text-lg sm:text-xl font-semibold text-gray-800">Editar Stock</h2>
+        <p class="text-xs sm:text-sm text-gray-600">{{ data.nombreProducto }}</p>
+      </div>
+      <button class="text-gray-500 hover:text-gray-700 focus:outline-none" (click)="cerrar()">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+    <div class="px-2 sm:px-6 py-3 sm:py-4 overflow-x-auto">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead>
+          <tr>
+            <th class="px-2 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Id lote</th>
+            <th class="px-2 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cantidad</th>
+            <th class="px-2 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Precio</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <tr *ngFor="let stock of stocks()">
+            <td class="px-2 sm:px-6 py-4 whitespace-nowrap">{{ stock.id }}</td>
+            <td class="px-2 sm:px-6 py-4 whitespace-nowrap">
+              <input
+                type="number"
+                [value]="stock.cantDisponible"
+                class="w-20 sm:w-24 rounded border border-gray-300 px-2 py-1 text-right focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                (blur)="editarStock(stock.id, $event)" />
+            </td>
+            <td class="px-2 sm:px-6 py-4 whitespace-nowrap">
+              <input
+                type="number"
+                [value]="stock.costoUnitario"
+                class="w-20 sm:w-24 rounded border border-gray-300 px-2 py-1 text-right focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                (blur)="editarPrecio(stock.id, $event)" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

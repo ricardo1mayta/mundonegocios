@@ -1,0 +1,53 @@
+<!-- CONTENEDOR -------------------------------------------------------------->
+<div class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#0a1224] via-[#08192e] to-[#031325]">
+  <!-- Glow borroso #1 -->
+  <div class="absolute -top-32 -left-24 w-96 h-96 rounded-full bg-[#2563eb]/30 blur-3xl pointer-events-none"></div>
+
+  <!-- Glow borroso #2 -->
+  <div class="absolute bottom-0 right-0 w-80 h-80 rounded-full bg-[#0ea5e9]/30 blur-3xl pointer-events-none"></div>
+
+  <!-- TARJETA GLASS -------------------------------------------------------->
+  <div class="w-full max-w-sm sm:max-w-md backdrop-blur-lg bg-white/5 border border-white/15 rounded-2xl shadow-[0_0_40px_#0284c733] p-8 sm:p-10 text-white">
+    <div class="flex justify-center mb-4">
+      <svg class="w-12 h-12 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A9 9 0 1118.88 17.804M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+      </svg>
+    </div>
+    <h2 class="text-center text-2xl sm:text-3xl font-semibold mb-8">Iniciar Sesión</h2>
+
+    <form (ngSubmit)="login()" #form="ngForm" class="space-y-6">
+      <!-- Email -->
+      <div class="space-y-1">
+        <label for="email" class="text-sm font-medium text-white/80"> Correo electrónico </label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          [(ngModel)]="email"
+          required
+          class="w-full py-2 px-3 rounded-lg bg-white/10 placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-cyan-400" />
+      </div>
+
+      <!-- Password -->
+      <div class="space-y-1">
+        <label for="password" class="text-sm font-medium text-white/80"> Contraseña </label>
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          id="password"
+          name="password"
+          [(ngModel)]="password"
+          required
+          class="w-full py-2 px-3 rounded-lg bg-white/10 placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-cyan-400" />
+        <button type="button" (click)="showPassword = !showPassword" class="mt-1 text-xs text-cyan-300 hover:text-white">{{ showPassword ? "Ocultar" : "Mostrar" }} contraseña</button>
+      </div>
+
+      <!-- Submit -->
+      <button
+        type="submit"
+        [disabled]="form.invalid"
+        class="w-full py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-blue-600 hover:to-cyan-500 transition-colors disabled:opacity-40">
+        Iniciar sesión
+      </button>
+    </form>
+  </div>
+</div>

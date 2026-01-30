@@ -1,0 +1,85 @@
+<div class="p-6 space-y-4">
+  <!-- Header modal -->
+  <div class="flex items-center justify-between">
+    <div>
+      <h2 class="text-xl font-semibold tracking-tight">{{ insumoId() ? "Editar Insumo" : "Nuevo Insumo" }}</h2>
+      <p class="text-sm text-gray-500">Registra tipo, unidades, factor y costo.</p>
+    </div>
+
+    <button type="button" class="px-3 py-2 rounded-xl border" (click)="cancelar()">Cerrar</button>
+  </div>
+
+  <!-- Form Card -->
+  <form [formGroup]="form" (ngSubmit)="submit()" class="rounded-2xl border bg-white shadow-sm">
+    <div class="p-4 sm:p-6 space-y-4">
+      <!-- fila 1 -->
+      <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+        <div class="space-y-1">
+          <label class="text-xs font-medium text-gray-600">Tipo</label>
+          <!-- si tu API maneja tipo.id (recomendado) -->
+          <select formControlName="tipoId" class="w-full rounded-xl border px-3 py-2 text-sm">
+            <option [ngValue]="null">Seleccione...</option>
+            <option *ngFor="let t of tipos()" [ngValue]="t.id">{{ t.nombre }}</option>
+          </select>
+          <p *ngIf="form.get('tipoId')?.invalid && form.get('tipoId')?.touched" class="text-xs text-red-600">Tipo requerido</p>
+        </div>
+
+        <div class="space-y-1 md:col-span-2">
+          <label class="text-xs font-medium text-gray-600">Nombre</label>
+          <input formControlName="nombre" class="w-full rounded-xl border px-3 py-2 text-sm" />
+          <p *ngIf="form.get('nombre')?.invalid && form.get('nombre')?.touched" class="text-xs text-red-600">Nombre requerido</p>
+        </div>
+      </div>
+
+      <!-- fila 2 -->
+      <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+        <div class="space-y-1">
+          <label class="text-xs font-medium text-gray-600">Unidad compra</label>
+          <select formControlName="unidadCompraId" class="w-full rounded-xl border px-3 py-2 text-sm">
+            <option [ngValue]="null">Seleccione...</option>
+            <option *ngFor="let u of unidades()" [ngValue]="u.id">{{ u.nombre }} ({{ u.codigo }})</option>
+          </select>
+        </div>
+
+        <div class="space-y-1">
+          <label class="text-xs font-medium text-gray-600">Unidad consumo</label>
+          <select formControlName="unidadConsumoId" class="w-full rounded-xl border px-3 py-2 text-sm">
+            <option [ngValue]="null">Seleccione...</option>
+            <option *ngFor="let u of unidades()" [ngValue]="u.id">{{ u.nombre }} ({{ u.codigo }})</option>
+          </select>
+        </div>
+
+        <div class="space-y-1">
+          <label class="text-xs font-medium text-gray-600">Factor conversión</label>
+          <input type="number" step="0.0001" formControlName="factorConversion" class="w-full rounded-xl border px-3 py-2 text-sm" />
+        </div>
+      </div>
+
+      <!-- fila 3 -->
+      <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+        <div class="space-y-1">
+          <label class="text-xs font-medium text-gray-600">Costo unit compra</label>
+          <input type="number" step="0.01" formControlName="costoUnitCompra" class="w-full rounded-xl border px-3 py-2 text-sm" />
+        </div>
+
+        <div class="space-y-1 flex items-center gap-2 pt-6">
+          <input type="checkbox" formControlName="activo" class="h-4 w-4 accent-black" />
+          <label class="text-sm text-gray-700">Activo</label>
+        </div>
+      </div>
+
+      <p *ngIf="error()" class="text-sm text-red-600">{{ error() }}</p>
+    </div>
+
+    <div class="border-t"></div>
+
+    <!-- footer botones -->
+    <div class="p-4 sm:p-6 flex items-center justify-end gap-2">
+      <button type="button" class="rounded-xl border px-4 py-2 text-sm font-medium hover:bg-gray-50" (click)="cancelar()">Cancelar</button>
+
+      <button type="submit" [disabled]="form.invalid || loading()" class="rounded-xl bg-black px-4 py-2 text-sm font-medium text-white disabled:opacity-50">
+        {{ loading() ? "Guardando..." : insumoId() ? "Actualizar" : "Guardar" }}
+      </button>
+    </div>
+  </form>
+</div>

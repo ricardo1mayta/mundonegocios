@@ -1,0 +1,28 @@
+<div class="bg-blue-800 text-white flex items-center justify-between p-4">
+  <h2 class="text-lg font-semibold">Cliente</h2>
+  <button mat-icon-button [mat-dialog-close]="true"><mat-icon>close</mat-icon></button>
+</div>
+
+<mat-dialog-content class="px-6 py-2">
+  <form [formGroup]="form" (ngSubmit)="guardar()" class="space-y-6">
+    <!-- Nombre del rol -->
+    <div class="flex flex-col gap-1">
+      <label class="font-medium">Nombre del rol</label>
+      <input type="text" formControlName="nombreRol" class="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring focus:ring-blue-600/50 focus:border-blue-600" />
+      <p *ngIf="form.get('nombreRol')?.hasError('required') && form.get('nombreRol')?.touched" class="text-red-600 text-sm">Campo obligatorio</p>
+    </div>
+
+    <!-- Descripción -->
+    <div class="flex flex-col gap-1">
+      <label class="font-medium">Descripción</label>
+      <input type="text" formControlName="descripcionRol" class="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring focus:ring-blue-600/50 focus:border-blue-600" />
+      <p *ngIf="form.get('descripcionRol')?.hasError('required') && form.get('descripcionRol')?.touched" class="text-red-600 text-sm">Campo obligatorio</p>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<!-- BOTONES -->
+<mat-dialog-actions class="flex justify-center gap-2">
+  <button type="submit" [disabled]="form.invalid" (click)="guardar()" class="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 disabled:opacity-60">Guardar</button>
+  <button type="reset" [mat-dialog-close]="true" class="rounded bg-red-600 px-4 py-2 text-white hover:bg-red-500">Cerrar</button>
+</mat-dialog-actions>

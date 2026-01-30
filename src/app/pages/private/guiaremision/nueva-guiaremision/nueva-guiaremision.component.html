@@ -1,0 +1,295 @@
+<!-- CABECERA -->
+<section class="bg-white rounded-2xl shadow p-8 mb-8">
+  <div class="flex items-center justify-between mb-6">
+    <h2 class="text-2xl font-bold text-gray-800">Guía de Remisión</h2>
+    <span class="text-gray-400 text-sm">Nueva Guía</span>
+  </div>
+
+  <mat-horizontal-stepper linear class="w-full">
+    <!-- =============== PASO 1 – Datos =============== -->
+    <mat-step [stepControl]="step1" label="Datos">
+      <form [formGroup]="step1" class="space-y-6 py-4">
+        <!-- serie/correlativo/fecha -->
+        <div class="grid gap-6 md:grid-cols-6">
+          <label class="flex flex-col md:col-span-2">
+            <span class="mb-2 font-medium text-gray-700">Fecha emisión</span>
+            <input type="date" formControlName="fechaEmision" class="input" />
+          </label>
+        </div>
+
+        <!-- Clientes -->
+        <div class="grid gap-6 md:grid-cols-2">
+          <!-- BUSCAR CLIENTE -->
+          <div class="space-y-4">
+            <div class="relative">
+              <input
+                type="text"
+                formControlName="clienteDestinoId"
+                placeholder="Cliente Destino"
+                [(ngModel)]="searchProvedor"
+                (ngModelChange)="updateSearchProvedor($event)"
+                class="w-full placeholder-gray-400 pl-12 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 transition disabled:bg-gray-100" />
+              <span class="absolute left-4 top-2.5 text-blue-800 cursor-pointer" (click)="agregarCliente()">
+                <mat-icon>search</mat-icon>
+              </span>
+              <!-- lista desplegable -->
+              <div *ngIf="suggestionsProvedor().length > 0" class="absolute z-20 left-0 w-full max-h-56 overflow-y-auto bg-white border rounded-lg shadow-lg mt-1">
+                <div *ngFor="let prov of suggestionsProvedor()" (click)="selectProvider(prov)" class="flex items-center gap-3 px-4 py-2 cursor-pointer hover:bg-blue-50 transition">
+                  <span class="i-ph-user text-xl text-indigo-600"></span>
+                  <div class="text-sm">
+                    <p class="font-medium leading-none">{{ prov.clienteNombre }}</p>
+                    <p class="text-xs text-gray-500">{{ prov.clienteNumerodocumento }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- tarjeta del proveedor elegido -->
+            <div *ngIf="selectedProvider()" class="flex items-center justify-between gap-4 px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg">
+              <div class="flex-1">
+                <p class="font-semibold text-sm text-blue-900">{{ selectedProvider()!.clienteNumerodocumento }}</p>
+                <p class="text-sm text-blue-800">{{ selectedProvider()!.clienteNombre }}</p>
+                <p class="text-xs text-gray-500">{{ selectedProvider()!.clienteEmail }}</p>
+              </div>
+              <button (click)="clearProvider()" class="text-red-600 i-ph-trash-simple text-lg hover:text-red-800 transition"></button>
+            </div>
+          </div>
+          <!-- BUSCAR TERCERO -->
+          <div class="space-y-4">
+            <div class="relative">
+              <input
+                type="text"
+                formControlName="clienteTerceroId"
+                placeholder="Cliente tercero"
+                [(ngModel)]="searchTercero"
+                (ngModelChange)="updateSearchTercero($event)"
+                class="w-full placeholder-gray-400 pl-12 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 transition disabled:bg-gray-100" />
+              <span class="absolute left-4 top-2.5 text-blue-800 cursor-pointer" (click)="agregarTercero()">
+                <mat-icon>search</mat-icon>
+              </span>
+              <!-- lista desplegable -->
+              <div *ngIf="suggestionsTercero().length > 0" class="absolute z-20 left-0 w-full max-h-56 overflow-y-auto bg-white border rounded-lg shadow-lg mt-1">
+                <div *ngFor="let prov of suggestionsTercero()" (click)="selectTercero(prov)" class="flex items-center gap-3 px-4 py-2 cursor-pointer hover:bg-blue-50 transition">
+                  <span class="i-ph-user text-xl text-indigo-600"></span>
+                  <div class="text-sm">
+                    <p class="font-medium leading-none">{{ prov.clienteNombre }}</p>
+                    <p class="text-xs text-gray-500">{{ prov.clienteNumerodocumento }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- tarjeta del proveedor elegido -->
+            <div *ngIf="selectedTercero()" class="flex items-center justify-between gap-4 px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg">
+              <div class="flex-1">
+                <p class="font-semibold text-sm text-blue-900">{{ selectedTercero()!.clienteNumerodocumento }}</p>
+                <p class="text-sm text-blue-800">{{ selectedTercero()!.clienteNombre }}</p>
+                <p class="text-xs text-gray-500">{{ selectedTercero()!.clienteEmail }}</p>
+              </div>
+              <button (click)="clearTercero()" class="text-red-600 i-ph-trash-simple text-lg hover:text-red-800 transition"></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- observación -->
+        <label class="flex flex-col">
+          <span class="mb-2 font-medium text-gray-700">Observación</span>
+          <textarea formControlName="observacion" rows="2" class="input"></textarea>
+        </label>
+
+        <div class="flex justify-end pt-4">
+          <button mat-flat-button color="primary" matStepperNext [disabled]="step1.invalid" class="px-8">Siguiente</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <!-- =============== PASO 2 – Envío =============== -->
+    <mat-step [stepControl]="step2" label="Envío">
+      <form [formGroup]="step2" class="space-y-6 py-4">
+        <div class="grid gap-6 md:grid-cols-6">
+          <label class="flex flex-col">
+            <span class="mb-2 font-medium text-gray-700">Cód. Traslado</span>
+            <input formControlName="envioCodTraslado" class="input" />
+          </label>
+          <label class="flex flex-col md:col-span-2">
+            <span class="mb-2 font-medium text-gray-700">Descripción</span>
+            <input formControlName="envioDesTraslado" class="input" />
+          </label>
+          <label class="flex flex-col">
+            <span class="mb-2 font-medium text-gray-700">Modalidad</span>
+            <input formControlName="envioModTraslado" class="input" />
+          </label>
+          <label class="flex flex-col">
+            <span class="mb-2 font-medium text-gray-700">Fec. Traslado</span>
+            <input type="date" formControlName="envioFecTraslado" class="input" />
+          </label>
+          <label class="flex flex-col">
+            <span class="mb-2 font-medium text-gray-700">Cód. Puerto</span>
+            <input formControlName="envioCodPuerto" class="input" />
+          </label>
+        </div>
+
+        <div class="grid gap-6 md:grid-cols-6">
+          <label class="flex flex-col">
+            <span class="mb-2 font-medium text-gray-700">Transbordo</span>
+            <div class="flex items-center gap-4 mt-1">
+              <label class="flex items-center gap-2">
+                <input type="radio" formControlName="envioIndTransbordo" [value]="true" />
+                <span>Sí</span>
+              </label>
+              <label class="flex items-center gap-2">
+                <input type="radio" formControlName="envioIndTransbordo" [value]="false" />
+                <span>No</span>
+              </label>
+            </div>
+          </label>
+          <label class="flex flex-col">
+            <span class="mb-2 font-medium text-gray-700">Peso Total</span>
+            <input type="number" formControlName="envioPesoTotal" class="input" />
+          </label>
+          <label class="flex flex-col">
+            <span class="mb-2 font-medium text-gray-700">Und. Peso</span>
+            <input formControlName="envioUndPesoTotal" class="input" />
+          </label>
+          <label class="flex flex-col md:col-span-3">
+            <span class="mb-2 font-medium text-gray-700">Nº Contenedor</span>
+            <input formControlName="envioNumContenedor" class="input" />
+          </label>
+        </div>
+        <div class="border-t border-gray-200">
+          <div class="font-medium text-gray-700">Llegada</div>
+        </div>
+
+        <div class="grid gap-6 md:grid-cols-2">
+          <div class="grid grid-cols-3 gap-4 w-full">
+            <label class="flex flex-col">
+              <span class="mb-2 font-medium text-gray-700">Dpto</span>
+              <select formControlName="clienteDepartamento" class="input">
+                <option value="" disabled selected>Departamento</option>
+                <option *ngFor="let d of departamentos()" [value]="d.id">{{ d.name }}</option>
+              </select>
+            </label>
+            <label class="flex flex-col">
+              <span class="mb-2 font-medium text-gray-700">Prov</span>
+              <select formControlName="clienteProvincia" class="input">
+                <option value="" disabled selected>Provincia</option>
+                <option *ngFor="let p of provincias()" [value]="p.id">{{ p.name }}</option>
+              </select>
+            </label>
+            <label class="flex flex-col">
+              <span class="mb-2 font-medium text-gray-700">Dist</span>
+              <select formControlName="clienteDistrito" class="input">
+                <option value="" disabled selected>Distrito</option>
+                <option *ngFor="let d of distritos()" [value]="d.id">{{ d.name }}</option>
+              </select>
+            </label>
+          </div>
+          <label class="flex flex-col">
+            <span class="mb-2 font-medium text-gray-700">Dirección llegada</span>
+            <input formControlName="envioLlegadaDireccion" class="input" />
+          </label>
+        </div>
+        <div class="border-t border-gray-200">
+          <div class="font-medium text-gray-700">Partida</div>
+        </div>
+        <div class="grid gap-6 md:grid-cols-2">
+          <div class="grid grid-cols-3 gap-4 w-full">
+            <label class="flex flex-col">
+              <span class="mb-2 font-medium text-gray-700">Dpto</span>
+              <select formControlName="terceroDepartamento" class="input">
+                <option value="" disabled selected>Departamento</option>
+                <option *ngFor="let d of departamentosTercero()" [value]="d.id">{{ d.name }}</option>
+              </select>
+            </label>
+            <label class="flex flex-col">
+              <span class="mb-2 font-medium text-gray-700">Prov</span>
+              <select formControlName="terceroProvincia" class="input">
+                <option value="" disabled selected>Provincia</option>
+                <option *ngFor="let p of provinciasTercero()" [value]="p.id">{{ p.name }}</option>
+              </select>
+            </label>
+            <label class="flex flex-col">
+              <span class="mb-2 font-medium text-gray-700">Dist</span>
+              <select formControlName="terceroDistrito" class="input">
+                <option value="" disabled selected>Distrito</option>
+                <option *ngFor="let d of distritosTercero()" [value]="d.id">{{ d.name }}</option>
+              </select>
+            </label>
+          </div>
+          <label class="flex flex-col">
+            <span class="mb-2 font-medium text-gray-700">Dirección partida</span>
+            <input formControlName="envioPartidaDireccion" class="input" />
+          </label>
+        </div>
+
+        <div class="flex justify-between pt-4">
+          <button mat-stroked-button color="primary" matStepperPrevious>Volver</button>
+          <button mat-flat-button color="primary" matStepperNext [disabled]="step2.invalid" class="px-8">Siguiente</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <!-- =============== PASO 3 – Transportista =============== -->
+    <mat-step [stepControl]="step3" label="Transportista">
+      <form [formGroup]="step3" class="space-y-6 py-4">
+        <div class="grid gap-6 md:grid-cols-6">
+          <label class="flex flex-col">
+            <span class="mb-2 font-medium text-gray-700">Tipo documento</span>
+            <select formControlName="envioTransportistaTipoDoc" class="input">
+              <option *ngFor="let t of tiposDocumento()" [value]="t.id">{{ t.desc }}</option>
+            </select>
+          </label>
+          <label class="flex flex-col">
+            <span class="mb-2 font-medium text-gray-700">Nº Doc</span>
+            <input formControlName="envioTransportistaNumDoc" class="input" />
+          </label>
+          <label class="flex flex-col md:col-span-2">
+            <span class="mb-2 font-medium text-gray-700">Razón Social</span>
+            <input formControlName="envioTransportistaRznSocial" class="input" />
+          </label>
+          <label class="flex flex-col">
+            <span class="mb-2 font-medium text-gray-700">Placa</span>
+            <input formControlName="envioTransportistaPlaca" class="input" />
+          </label>
+        </div>
+
+        <div class="grid gap-6 md:grid-cols-4">
+          <label class="flex flex-col">
+            <span class="mb-2 font-medium text-gray-700">Tipo documento</span>
+            <select formControlName="envioTransportistaChoferTipoDoc" class="input">
+              <option *ngFor="let t of tiposDocumento()" [value]="t.id">{{ t.desc }}</option>
+            </select>
+          </label>
+          <label class="flex flex-col md:col-span-3">
+            <span class="mb-2 font-medium text-gray-700">Chofer Nº Doc</span>
+            <input formControlName="envioTransportistaChoferDoc" class="input" />
+          </label>
+        </div>
+
+        <div class="flex justify-between pt-4">
+          <button mat-stroked-button color="primary" matStepperPrevious>Volver</button>
+          <button mat-flat-button color="primary" matStepperNext class="px-8">Detalle</button>
+        </div>
+      </form>
+    </mat-step>
+  </mat-horizontal-stepper>
+</section>
+
+<!-- =============== Detalle =============== -->
+<section class="bg-white rounded-2xl shadow p-8 mt-8 space-y-6">
+  <div class="flex justify-between items-center mb-4">
+    <h3 class="text-xl font-semibold text-gray-800">Detalle de Ítems</h3>
+    <button mat-mini-fab color="primary" (click)="addDetalle()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+
+  <div *ngIf="!detalles.length" class="text-sm text-gray-500 text-center py-8">Sin ítems añadidos.</div>
+
+  <div class="space-y-3"></div>
+
+  <!-- BOTÓN FINAL -->
+  <div class="text-right pt-4">
+    <button mat-flat-button color="primary" (click)="guardar()" [disabled]="step1.invalid || step2.invalid || step3.invalid || !detalles.length" class="px-10 py-2 text-base font-semibold">
+      Guardar guía
+    </button>
+  </div>
+</section>

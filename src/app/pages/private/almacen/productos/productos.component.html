@@ -1,0 +1,60 @@
+<app-form-crud titulo="Productos Base">
+  <!-- FILTROS ------------------------------------------------------------ -->
+  <div filtros>
+    <app-form-filter [formGroup]="filtroForm" [(filtros)]="filtros" [mostrarEstado]="false">
+      <div class="grid gap-4">
+        <!-- Buscador -->
+        <div class="sm:col-span-2 md:col-span-1 flex flex-col">
+          <label for="buscador" class="text-md font-medium mt-4 mb-1">Buscador</label>
+          <div class="relative">
+            <input
+              id="buscador"
+              type="text"
+              placeholder="Buscar por código o nombre"
+              formControlName="buscador"
+              class="w-full rounded-md border border-gray-300 px-10 py-2 focus:ring focus:ring-blue-600/50 focus:border-blue-600"
+              (keydown.enter)="aplicarFiltros()" />
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+              <!--   HeroIcon: magnifying-glass   -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7 7 0 1010 17.65l4.35 4.35z" />
+              </svg>
+            </span>
+          </div>
+        </div>
+      </div>
+    </app-form-filter>
+  </div>
+  <div class="p-1 rounded-lg bg-neutral-100">
+    <app-form-list class="flex flex-col flex-auto p-4" etiquetaAgregar="Crear" (agregarClick)="crearMarca()" nombreExcel="Clientes API Keys" [configuracionExcel]="configuracionExcel">
+      <app-data-table [urlApi]="urlApi()" [parametrosApi]="filtros()">
+        <app-columna-tabla titulo="Codigo" propiedad="idCodigo" />
+        <app-columna-tabla titulo="Imagen" propiedad="imagen" tipo="imagen">
+          <ng-template let-imagen="valor"
+            ><button (click)="verImagen(imagen)" class="p-0 border-0 bg-transparent focus:outline-none">
+              <img *ngIf="imagen" [src]="imagen" alt="Imagen del producto" class="w-10 h-10 object-cover rounded-lg hover:opacity-80" />
+            </button>
+          </ng-template>
+        </app-columna-tabla>
+        <app-columna-tabla titulo="Nombre" propiedad="descripcion" />
+        <app-columna-tabla titulo="Marca" propiedad="marca">
+          <ng-template let-marca="valor">
+            <span *ngIf="marca">{{ marca.name }}</span>
+          </ng-template>
+        </app-columna-tabla>
+        <app-columna-tabla titulo="categoria" propiedad="categoria">
+          <ng-template let-categoria="valor">
+            <span *ngIf="categoria">{{ categoria.nombre }}</span>
+          </ng-template>
+        </app-columna-tabla>
+        <app-columna-tabla titulo="Estado" propiedad="status">
+          <ng-template let-status="valor"> <mat-slide-toggle [checked]="status"></mat-slide-toggle> </ng-template>x
+        </app-columna-tabla>
+
+        <app-accion-tabla etiqueta="Ver" icono="visibility" />
+        <app-accion-tabla etiqueta="Editar" icono="edit" (accion)="editarMarca($event.datos)" />
+        <app-accion-tabla etiqueta="Eliminar" icono="delete" (accion)="eliminarMarca($event.datos)" />
+      </app-data-table>
+    </app-form-list>
+  </div>
+</app-form-crud>

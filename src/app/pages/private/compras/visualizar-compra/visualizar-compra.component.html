@@ -1,0 +1,73 @@
+<div class="bg-blue-800 text-white flex items-center justify-between p-4">
+  <h2 class="text-lg font-semibold">Visualización de Compra</h2>
+
+  <!-- Botón cerrar -->
+  <button mat-icon-button [mat-dialog-close]="true">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<mat-dialog-content class="px-6 py-2">
+  <div class="flex flex-col gap-2 p-1 max-w-[1600px] mx-auto">
+    <div class="grid lg:grid-cols-[1fr_360px] gap-2">
+      <!-- IZQUIERDA -->
+      <div class="space-y-6">
+        <!-- Proveedor -->
+        <div>
+          <label class="font-semibold">Proveedor</label>
+          <p class="text-gray-800">{{ compra().provedor.nombre }} (DNI: {{ compra().provedor.numerodocumento }})</p>
+        </div>
+
+        <!-- Carrito -->
+        <div class="overflow-x-auto bg-white rounded-xl shadow">
+          <table class="min-w-full text-sm">
+            <thead class="bg-gray-50 text-gray-600">
+              <tr>
+                <th class="px-4 py-3 text-left">Imagen</th>
+                <th class="px-4 py-3 text-left">Nombre</th>
+                <th class="px-4 py-3 text-left">Precio</th>
+                <th class="px-4 py-3 text-left">Cantidad</th>
+                <th class="px-4 py-3 text-left">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of compra().comprasDetalle" class="border-t even:bg-gray-50">
+                <td class="p-3">
+                  <img [src]="item.productoDetalle.imagen" class="w-10 h-10 object-contain bg-gray-100 rounded" />
+                </td>
+                <td class="p-3">{{ item.productoDetalle.nombreProducto }}</td>
+                <td class="p-3">S/ {{ item.precio | number : "1.2-2" }}</td>
+                <td class="p-3">{{ item.cantidad }}</td>
+                <td class="p-3">S/ {{ item.precio * item.cantidad | number : "1.2-2" }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- DERECHA -->
+      <aside class="bg-white rounded-xl shadow p-6 space-y-6 h-max">
+        <div>
+          <label class="text-lg font-semibold">Total</label>
+          <p class="text-3xl font-bold text-green-700">S/ {{ compra().total | number : "1.2-2" }}</p>
+        </div>
+
+        <!-- Fecha de compra -->
+        <div>
+          <label class="font-semibold">Fecha de Compra</label>
+          <p>{{ compra().fecha | date : "yyyy-MM-dd" }}</p>
+        </div>
+
+        <!-- Observación -->
+        <div>
+          <label class="font-semibold">Observación</label>
+          <p class="whitespace-pre-line">{{ compra().observacion || "(Sin observación)" }}</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions class="flex justify-center gap-2">
+  <button type="reset" [mat-dialog-close]="true" class="rounded bg-red-600 text-white px-4 py-2 hover:bg-red-400">Cerrar</button></mat-dialog-actions
+>

@@ -1,0 +1,101 @@
+<!-- CABECERA -->
+<div class="bg-blue-800 text-white flex items-center justify-between p-4 rounded-t-2xl">
+  <h2 class="text-lg font-semibold">
+    {{ data?.id ? "Editar Producto" : "Crear Producto" }}
+  </h2>
+  <button mat-icon-button (click)="cerrar()" class="hover:bg-blue-900/40 rounded-full p-1">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<!-- CUERPO -->
+<mat-dialog-content class="bg-gray-100 px-6 py-4 max-h-[85vh] overflow-y-auto">
+  <mat-horizontal-stepper linear>
+    <!-- PASO 1 – Datos básicos -->
+    <mat-step [stepControl]="basicosForm" label="Datos básicos">
+      <form [formGroup]="basicosForm" class="space-y-4 py-4">
+        <div>
+          <label class="label">Nombre *</label>
+          <input formControlName="descripcion" class="input" />
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label class="label">SKU</label>
+            <input formControlName="sku" class="input" />
+          </div>
+          <div>
+            <label class="label">Medida</label>
+            <input formControlName="medida" class="input" />
+          </div>
+          <div>
+            <label class="label">Categoría *</label>
+            <mat-select formControlName="categoria" class="input">
+              <mat-option *ngFor="let c of categorias" [value]="c.id">{{ c.nombre }}</mat-option>
+            </mat-select>
+          </div>
+          <div>
+            <label class="label">Marca *</label>
+            <mat-select formControlName="marca" class="input">
+              <mat-option *ngFor="let m of marcas" [value]="m.id">{{ m.name }}</mat-option>
+            </mat-select>
+          </div>
+        </div>
+
+        <div class="flex justify-end pt-4">
+          <button mat-button class="btn-primary" matStepperNext [disabled]="basicosForm.invalid">Siguiente</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <!-- PASO 2 – Imágenes -->
+    <mat-step [stepControl]="imagenesForm" label="Imágenes">
+      <form [formGroup]="imagenesForm" class="space-y-6 py-4">
+        <!-- Tarjetas -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+          <ng-container *ngFor="let campo of ['imagen', 'img1', 'img2', 'img3', 'img4']">
+            <div class="flex flex-col items-center gap-2 bg-white border rounded-lg p-3 shadow-sm">
+              <!-- título -->
+              <span class="text-xs font-semibold">
+                {{ campo === "imagen" ? "Principal *" : campo }}
+              </span>
+
+              <!-- zona drag / botón -->
+              <label class="flex flex-col items-center justify-center w-24 h-24 border-2 border-dashed rounded-lg cursor-pointer hover:border-blue-500 transition">
+                <mat-icon *ngIf="!preview[campo]" class="text-gray-400">cloud_upload</mat-icon>
+                <img *ngIf="preview[campo]" [src]="preview[campo]" class="w-full h-full object-cover rounded-md" />
+                <input type="file" accept="image/*" (change)="onFileChange($event, campo)" class="hidden" />
+              </label>
+            </div>
+          </ng-container>
+        </div>
+
+        <!-- Botones -->
+        <div class="flex justify-between pt-4">
+          <button mat-button class="btn-secondary" matStepperPrevious>Volver</button>
+          <button mat-button matStepperNext class="transition hover:bg-blue-700 hover:text-white" [disabled]="imagenesForm.invalid">Siguiente</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <!-- PASO 3 – Precios & estado -->
+    <mat-step [stepControl]="preciosForm" label="Precios">
+      <form [formGroup]="preciosForm" class="space-y-4 py-4">
+        <div class="flex items-center gap-2">
+          <mat-slide-toggle formControlName="status">Activo</mat-slide-toggle>
+        </div>
+
+        <!-- Descripción larga -->
+        <div class="h-40 bg-white border rounded overflow-y-auto">
+          <ngx-editor-menu [editor]="editor"></ngx-editor-menu>
+          <ngx-editor formControlName="descc" [editor]="editor" class="h-full p-2"></ngx-editor>
+        </div>
+
+        <div class="flex justify-between pt-4">
+          <button mat-button class="btn-secondary" matStepperPrevious>Volver</button>
+          <button mat-flat-button class="btn-primary" (click)="guardar()" [disabled]="preciosForm.invalid">Guardar</button>
+        </div>
+      </form>
+    </mat-step>
+  </mat-horizontal-stepper>
+</mat-dialog-content>

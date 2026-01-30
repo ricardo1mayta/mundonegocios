@@ -1,0 +1,263 @@
+<div class="flex flex-col gap-2 p-1 max-w-[1600px] mx-auto">
+  <!-- CONTENIDO PRINCIPAL -->
+  <div class="grid lg:grid-cols-[1fr_360px] gap-2">
+    <!-- IZQUIERDA -->
+
+    <div class="space-y-6">
+      <!-- TÍTULO -->
+      <h1 class="text-2xl font-semibold">Nuevo Pedido</h1>
+      <!-- BÚSQUEDA -->
+      <div class="relative">
+        <input
+          type="text"
+          [(ngModel)]="search"
+          (ngModelChange)="updateSearch($event)"
+          placeholder="Buscar Producto"
+          class="w-full placeholder-gray-400 rounded-lg px-14 py-3 focus:outline-none shadow-sm" />
+        <span class="absolute left-4 top-3.5 text-gray-400 i-ph-magnifying-glass"></span>
+        <!-- LISTA DESPLEGABLE DE BÚSQUEDA -->
+        <div *ngIf="showSuggestions()" class="w-full sm:w-96 absolute z-20 left-0 h-64 overflow-y-auto bg-white border rounded-lg shadow">
+          <table class="min-w-full text-sm">
+            <thead class="sticky top-0 bg-gray-100 text-gray-600">
+              <tr>
+                <th class="px-3 py-2 text-left">Imagen</th>
+                <th class="px-3 py-2 text-left">Código</th>
+                <th class="px-3 py-2 text-left">Nombre</th>
+                <th class="px-3 py-2 text-left">Stock</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let s of suggestions()" (click)="selectSuggestion(s)" class="cursor-pointer hover:bg-gray-50">
+                <td class="px-3 py-2">
+                  <img [src]="s.imagen || ''" alt="" class="w-8 h-8 object-contain rounded bg-gray-100" />
+                </td>
+                <td class="px-3 py-2">{{ s.codigo || s.id }}</td>
+                <td class="px-3 py-2">{{ s.nombreProducto }}</td>
+                <td class="px-3 py-2">
+                  <span class="px-2 py-0.5 rounded-full text-xs font-medium" [class.bg-green-200]="s.cantidad > 0" [class.bg-red-200]="s.cantidad === 0">
+                    {{ s.cantidad }}
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- FILTROS -->
+      <div class="flex flex-wrap gap-3 select-none hidden sm:flex">
+        <ng-container *ngFor="let cat of categories()">
+          <button
+            (click)="selectCat(cat)"
+            class="px-4 py-1 rounded-full text-sm transition border"
+            [class.bg-blue-600]="selCat() === cat"
+            [class.text-white]="selCat() === cat"
+            [class.text-gray-600]="selCat() !== cat"
+            [class.border-blue-600]="selCat() === cat"
+            [class.border-gray-300]="selCat() !== cat">
+            {{ cat }}
+            <span class="ml-1 opacity-70">({{ categoryCount(cat) }})</span>
+          </button>
+        </ng-container>
+      </div>
+      <!-- TABLA CARRITO -->
+
+      <div class="relative overflow-x-auto rounded-lg shadow-md bg-white">
+        <table class="min-w-[280px] w-full text-sm">
+          <thead class="bg-gray-50 text-gray-600">
+            <tr>
+              <!-- OCULTAR EN MÓVIL -->
+              <th class="px-2 py-2 text-left hidden sm:table-cell">Imagen</th>
+
+              <th class="px-2 py-2 text-left">Nombre</th>
+              <th class="px-2 py-2 text-left">Stock</th>
+              <th class="px-2 py-2 text-left">Precio</th>
+              <th class="px-2 py-2 text-left">Cantidad</th>
+              <th class="px-2 py-2 text-left">Total</th>
+              <th class="px-2 py-2"></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let c of cart()" class="border-t even:bg-gray-50">
+              <!-- OCULTAR EN MÓVIL -->
+              <td class="p-2 hidden sm:table-cell">
+                <img [src]="c.productoDetalle.imagen || ''" alt="" class="w-8 h-8 object-contain rounded bg-gray-100" />
+              </td>
+
+              <td class="p-2">{{ c.productoDetalle.nombreProducto }}</td>
+              <td class="p-2">{{ c.productoDetalle.cantidad }}</td>
+
+              <td class="p-2">
+                <input type="number" [(ngModel)]="c.precio" (ngModelChange)="touchCart()" class="w-16 border rounded text-center" />
+              </td>
+
+              <td class="p-2 sm:flex items-center gap-1">
+                <button (click)="dec(c)" class="hidden sm:inline-flex px-2">−</button>
+                <input type="number" [(ngModel)]="c.cantidad" (ngModelChange)="touchCart()" class="w-12 border rounded text-center" />
+                <button (click)="inc(c)" class="hidden sm:inline-flex px-2">+</button>
+              </td>
+
+              <td class="p-2">{{ c.precio * c.cantidad | number : "1.0-2" }}</td>
+
+              <td class="p-2">
+                <button (click)="remove(c)" class="text-red-600">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3m5 0H6" />
+                  </svg>
+                </button>
+              </td>
+            </tr>
+
+            <tr *ngIf="cart().length === 0">
+              <td colspan="7" class="p-4 text-center text-gray-500">No hay productos en el carrito</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- PRODUCTOS -->
+      <div class="hidden sm:grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-6">
+        <div *ngFor="let p of paged()" class="rounded-xl shadow-sm overflow-hidden flex flex-col relative">
+          <!-- Etiqueta Oferta -->
+          <div *ngIf="p.statusoff" class="absolute left-0 top-0 m-3">
+            <span class="bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">Oferta</span>
+          </div>
+          <div class="flex-1 p-4 flex flex-col items-center text-center gap-2">
+            <img [src]="p.imagen || ''" alt="" class="h-28 object-contain" />
+            <h3 class="font-medium leading-tight">{{ p.nombreProducto }}</h3>
+            <p class="text-sm text-gray-500">
+              <span *ngIf="p.statusoff">
+                <span class="line-through mr-2">{{ p.precioventa | number : "1.0-2" }}</span>
+                <span class="text-gray-500 font-semibold">{{ p.preciooferta | number : "1.0-2" }}</span>
+              </span>
+              <span *ngIf="!p.statusoff">
+                {{ p.precioventa | number : "1.0-2" }}
+              </span>
+            </p>
+            <p class="text-xs" [class.text-red-600]="p.cantidad === 0" [class.text-green-600]="p.cantidad > 0">Stock: {{ p.cantidad }}</p>
+          </div>
+          <button
+            (click)="addToCart(p)"
+            [disabled]="p.cantidad === 0"
+            class="mx-4 mb-4 py-2 rounded-lg text-white transition disabled:bg-gray-300 disabled:cursor-not-allowed bg-blue-600 hover:bg-blue-700">
+            Agregar
+          </button>
+        </div>
+      </div>
+      <!-- PAGINADOR -->
+      <div class="hidden sm:flex flex-wrap items-center justify-between gap-4 mt-6 text-sm select-none">
+        <!-- productos por página -->
+        <div class="flex items-center gap-2">
+          <span>Productos por página:</span>
+          <select [(ngModel)]="pageSize" (ngModelChange)="changePageSize($event)" class="border rounded px-2 py-1">
+            <option *ngFor="let s of pageSizes" [ngValue]="s">{{ s }}</option>
+          </select>
+        </div>
+
+        <!-- indicador y flechas -->
+        <div class="flex items-center gap-4">
+          <span>Página {{ page() }} de {{ pageCount() }}</span>
+
+          <button (click)="prev()" [disabled]="page() === 1" class="w-8 h-8 grid place-content-center rounded border">‹</button>
+
+          <button (click)="next()" [disabled]="page() === pageCount()" class="w-8 h-8 grid place-content-center rounded border">›</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- DERECHA -->
+    <aside class="bg-white rounded-xl shadow p-6 space-y-6 h-max">
+      <div class="bg-blue-200 rounded-lg text-center py-6">
+        <p class="text-lg font-semibold">Total</p>
+        <p class="text-3xl font-bold text-green-700">{{ total() | number : "1.0-2" }}</p>
+      </div>
+
+      <!-- Estado -->
+      <div class="space-y-3">
+        <label class="block text-sm font-medium">Estado</label>
+        <select [(ngModel)]="selectEstado" class="w-full border border-gray-300 rounded-lg px-4 py-2">
+          <option *ngFor="let e of estadosList()" [value]="e.id">{{ e.name }}</option>
+        </select>
+      </div>
+      <!-- MÉTODOS DE PAGO -->
+      <div class="space-y-3">
+        <div *ngFor="let pago of pagos(); let i = index" class="flex flex-wrap items-center gap-2 w-full">
+          <!-- Select que se estira y se contrae -->
+          <select [(ngModel)]="pago.tipo" [compareWith]="compareTipo" class="border border-gray-300 rounded-lg px-3 py-2 flex-1 min-w-0 placeholder-gray-400">
+            <option *ngFor="let t of tiposPagoDisponibles()" [ngValue]="t">
+              {{ t.nombre }}
+            </option>
+          </select>
+
+          <!-- Input de monto, ancho fijo y sin encogerse -->
+          <input type="number" [(ngModel)]="pago.monto" class="border border-gray-300 rounded-lg px-2 py-2 w-24 sm:w-28 text-right placeholder-gray-400 flex-shrink-0" placeholder="S/ 0.00" />
+
+          <!-- Botón, ancho fijo y sin encogerse -->
+          <button (click)="removePago(i)" class="text-red-500 i-ph-trash-simple text-lg flex-shrink-0">
+            <span>X</span>
+          </button>
+        </div>
+
+        <button (click)="addPago()" class="text-blue-600 text-sm hover:underline mt-1">+ Agregar otro método</button>
+
+        <!-- Validación de suma -->
+        <div [class.text-red-600]="sumaPagos !== total()" class="text-sm font-medium">Total ingresado: {{ sumaPagos | number : "1.2-2" }} / Total venta: {{ total() | number : "1.2-2" }}</div>
+      </div>
+
+      <div class="space-y-3">
+        <label class="block text-sm font-medium">Fecha De Entrega</label>
+        <input type="datetime-local" [(ngModel)]="saleDate" class="w-full border border-gray-300 rounded-lg px-4 py-2 placeholder-gray-400" />
+      </div>
+
+      <!-- BUSCAR CLIENTE -->
+      <div class="space-y-3">
+        <!-- caja de búsqueda -->
+        <div class="relative">
+          <input
+            type="text"
+            placeholder="Cliente"
+            [(ngModel)]="searchProvedor"
+            (ngModelChange)="updateSearchProvedor($event)"
+            class="w-full placeholder-gray-400 pl-10 pr-4 py-2 border border-gray-300 rounded-lg disabled:bg-gray-100" />
+          <span class="absolute left-3 top-2.5 text-blue-800 i-ph-magnifying-glass" (click)="agregarCliente()"> <mat-icon>search</mat-icon></span>
+          <!-- lista desplegable -->
+          <div *ngIf="suggestionsProvedor().length > 0" class="absolute z-20 left-0 w-full max-h-56 overflow-y-auto bg-white border rounded-lg shadow">
+            <div *ngFor="let prov of suggestionsProvedor()" (click)="selectProvider(prov)" class="flex items-center gap-3 px-4 py-2 cursor-pointer hover:bg-gray-50">
+              <span class="i-ph-user text-xl text-indigo-600"></span>
+              <div class="text-sm">
+                <p class="font-medium leading-none">{{ prov.clienteNombre }}</p>
+                <p class="text-xs text-gray-500">{{ prov.clienteNumerodocumento }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- tarjeta del proveedor elegido -->
+        <div *ngIf="selectedProvider()" class="flex items-center justify-between gap-4 px-4 py-3 bg-gray-50 border rounded-lg">
+          <div class="flex-1">
+            <p class="font-semibold text-sm">{{ selectedProvider()!.clienteNumerodocumento }}</p>
+            <p class="text-sm">{{ selectedProvider()!.clienteNombre }}</p>
+            <p class="text-xs text-gray-500">{{ selectedProvider()!.clienteEmail }}</p>
+          </div>
+          <button (click)="clearProvider()" class="text-red-600 i-ph-trash-simple text-lg"></button>
+        </div>
+      </div>
+
+      <div class="space-y-3">
+        <textarea rows="4" [(ngModel)]="note" class="w-full border border-gray-300 rounded-lg px-4 py-2 resize-none placeholder-gray-400" placeholder="Nota adicional"></textarea>
+      </div>
+
+      <button *ngIf="!isEdit()" (click)="pay()" class="w-full py-3 rounded-lg text-white font-medium bg-indigo-600 hover:bg-indigo-700 disabled:opacity-60" [disabled]="cart().length === 0">
+        Pagar
+      </button>
+      <button *ngIf="isEdit()" (click)="pay()" class="w-full py-3 rounded-lg text-white font-medium bg-indigo-600 hover:bg-indigo-700 disabled:opacity-60" [disabled]="cart().length === 0">
+        Actualizar
+      </button>
+    </aside>
+  </div>
+</div>

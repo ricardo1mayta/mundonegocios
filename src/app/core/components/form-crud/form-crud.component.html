@@ -1,0 +1,30 @@
+<div class="flex flex-col gap-4">
+  <div class="text-2xl font-medium text-blue-900">{{ titulo() }}</div>
+  <div class="flex flex-col rounded-lg px-8 py-4">
+    <div class="flex justify-between items-center">
+      <div class="flex items-center">
+        <mat-icon class="text-sm">filter_list</mat-icon>
+        <div class="text-xl font-medium">{{ tituloFiltros() }}</div>
+      </div>
+      <button mat-icon-button (click)="mostrarFiltros.set(!mostrarFiltros())">
+        <mat-icon>
+          {{ mostrarFiltros() ? "keyboard_double_arrow_up" : "keyboard_double_arrow_down" }}
+        </mat-icon>
+      </button>
+    </div>
+    <div [ngClass]="{ hidden: !mostrarFiltros() }">
+      <ng-content select="[filtros]" />
+    </div>
+  </div>
+
+  <div class="flex flex-col flex-grow">
+    <div class="flex flex-col">
+      @if (mensajeAdvertencia()) {
+      <div class="text-sm text-red-600">
+        {{ mensajeAdvertencia() }}
+      </div>
+      }
+    </div>
+    <ng-content />
+  </div>
+</div>

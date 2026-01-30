@@ -1,0 +1,47 @@
+<app-form-crud titulo="Usuarios">
+  <!-- FILTROS -->
+  <div filtros>
+    <app-form-filter [formGroup]="filtroForm" [(filtros)]="filtros" [mostrarEstado]="false">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        <!-- Buscador -->
+        <div class="flex flex-col sm:col-span-2 md:col-span-1">
+          <label class="font-medium mt-4 mb-1">Buscador</label>
+          <input
+            formControlName="buscador"
+            type="text"
+            placeholder="Usuario / correo / nombre"
+            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring focus:ring-blue-600/50 focus:border-blue-600" />
+        </div>
+
+        <!-- Activo -->
+        <div class="flex items-center gap-2 mt-8">
+          <input type="checkbox" formControlName="activo" id="activo" class="h-5 w-5 accent-blue-600" />
+          <label for="activo" class="select-none">Solo activos</label>
+        </div>
+      </div>
+    </app-form-filter>
+  </div>
+
+  <!-- LISTA -->
+  <div class="p-1 rounded-lg bg-neutral-100">
+    <app-form-list class="flex flex-col flex-auto p-4" etiquetaAgregar="Crear" (agregarClick)="crearUsuario()" nombreExcel="Usuarios" [configuracionExcel]="configuracionExcel">
+      <app-data-table [urlApi]="urlApi()" [parametrosApi]="filtros()">
+        <app-columna-tabla titulo="ID" propiedad="idUser" ancho="70px" />
+        <app-columna-tabla titulo="Username" propiedad="username" />
+        <app-columna-tabla titulo="Correo" propiedad="emailUser" />
+        <app-columna-tabla titulo="Nombre" propiedad="nombres" />
+        <app-columna-tabla titulo="Apellidos" propiedad="apellidos" />
+        <app-columna-tabla titulo="Tipo" propiedad="tipoUser" ancho="80px" />
+        <app-columna-tabla titulo="Activo" propiedad="activo" ancho="90px">
+          <ng-template let-estado="valor">
+            <mat-slide-toggle [checked]="estado"></mat-slide-toggle>
+          </ng-template>
+        </app-columna-tabla>
+
+        <app-accion-tabla etiqueta="Ver" icono="visibility" />
+        <app-accion-tabla etiqueta="Editar" icono="edit" (accion)="editarUsuario($event.datos)" />
+        <app-accion-tabla etiqueta="Eliminar" icono="delete" (accion)="eliminarUsuario($event.datos)" />
+      </app-data-table>
+    </app-form-list>
+  </div>
+</app-form-crud>

@@ -1,0 +1,30 @@
+<!-- Contenedor responsive (1 columna móvil, 2 columnas ≥ md) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+  <!-- Card 1 -->
+  <div class="bg-white h-120 dark:bg-gray-800 rounded-xl shadow-md p-4">
+    <h2 class="text-lg font-semibold mb-3 text-gray-700 dark:text-gray-200">Pedidos por sede</h2>
+    <div class="w-full">
+      <app-pedidos-grafico></app-pedidos-grafico>
+    </div>
+  </div>
+
+  <!-- Card 2 -->
+  <div class="bg-white h-120 dark:bg-gray-800 rounded-xl shadow-md p-4">
+    <h2 class="text-lg font-semibold mb-3 text-gray-700 dark:text-gray-200">Pedidos por todas las sedes</h2>
+    <div class="w-full">
+      <app-pedidos-general-grafico></app-pedidos-general-grafico>
+    </div>
+  </div>
+  <div class="bg-white h-120 dark:bg-gray-800 rounded-xl shadow-md p-4">
+    <h2 class="text-lg font-semibold mb-3 text-gray-700 dark:text-gray-200">Pedidos dia mes por sede</h2>
+    <div class="w-full">
+      <app-pedidos-dia-grafico [pedidosDia]="pedDia()" [pedidosMes]="pedMes()"></app-pedidos-dia-grafico>
+    </div>
+  </div>
+  <div class="bg-white h-120 dark:bg-gray-800 rounded-xl shadow-md p-4">
+    <h2 class="text-lg font-semibold mb-3 text-gray-700 dark:text-gray-200">Pedidos dia mes todas las sedes</h2>
+    <div class="w-full">
+      <app-pedidos-dia-general-grafico [pedidosDia]="pedDia()" [pedidosMes]="pedMes()"></app-pedidos-dia-general-grafico>
+    </div>
+  </div>
+</div>

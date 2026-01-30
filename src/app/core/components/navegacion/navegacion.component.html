@@ -1,0 +1,11 @@
+<div class="gob-container flex justify-start pt-2">
+    <a routerLink="/">
+        <mat-icon class="text-slate-500">home</mat-icon>
+    </a>
+    @for (r of routes(); track $index) {
+        <mat-icon class="text-slate-500">chevron_right</mat-icon>
+        <div [ngClass]="{ 'text-blue-700': $index === routes().length - 1 }">
+            {{ r }}
+        </div>
+    }
+</div>

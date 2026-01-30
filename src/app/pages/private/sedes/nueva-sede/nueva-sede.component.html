@@ -1,0 +1,147 @@
+<!-- CABECERA -->
+<div class="bg-blue-800 text-white flex items-center justify-between p-4 rounded-t-2xl">
+  <h2 class="text-lg font-semibold">Sede</h2>
+  <button mat-icon-button mat-dialog-close class="hover:bg-blue-900/40 rounded-full p-1">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<!-- CUERPO -->
+<mat-dialog-content class="bg-gray-100 px-6 py-4 max-h-[80vh] overflow-y-auto">
+  <mat-horizontal-stepper #stepper linear>
+    <!-- PASO 1 -->
+    <mat-step [stepControl]="datosGeneralesForm" label="Datos generales">
+      <form [formGroup]="datosGeneralesForm" class="grid grid-cols-1 md:grid-cols-2 gap-4 py-4">
+        <!-- RUC -->
+        <div>
+          <label class="label">RUC</label>
+          <input formControlName="ruc" maxlength="11" class="input md:max-w-[240px]" />
+          <p *ngIf="datosGeneralesForm.get('ruc')?.invalid && datosGeneralesForm.get('ruc')?.touched" class="err">RUC válido requerido</p>
+        </div>
+
+        <!-- Tipo Doc -->
+        <div>
+          <label class="label">Tipo doc.</label>
+          <select formControlName="tipoDoc" class="input md:max-w-[240px]">
+            <option value="1">RUC</option>
+            <option value="6">DNI</option>
+          </select>
+        </div>
+        <div class="md:col-span-2">
+          <label class="label">Nombre Sede</label>
+          <input formControlName="nombresede" class="input" />
+        </div>
+
+        <div class="md:col-span-2">
+          <label class="label">Nombre comercial</label>
+          <input formControlName="nomComercial" class="input" />
+        </div>
+
+        <div class="md:col-span-2">
+          <label class="label">Razón social</label>
+          <input formControlName="razonSocial" class="input" />
+        </div>
+
+        <div class="col-span-full flex justify-end gap-3 pt-4">
+          <button mat-button matStepperNext [disabled]="datosGeneralesForm.invalid">Siguiente</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <!-- PASO 2 -->
+    <mat-step [stepControl]="direccionForm" label="Dirección">
+      <form [formGroup]="direccionForm" class="grid grid-cols-1 md:grid-cols-2 gap-4 py-4">
+        <!-- Dirección principal -->
+        <div class="md:col-span-2">
+          <label class="label">Dirección principal</label>
+          <input formControlName="direccion" class="input" />
+        </div>
+
+        <div class="md:col-span-2">
+          <label class="label">Dirección secundaria</label>
+          <input formControlName="direccion2" class="input" />
+        </div>
+
+        <div>
+          <label class="label">Departamento</label>
+          <input formControlName="direccionDepartamento" class="input" />
+        </div>
+
+        <div>
+          <label class="label">Provincia</label>
+          <input formControlName="direccionProvincia" class="input" />
+        </div>
+
+        <div>
+          <label class="label">Distrito</label>
+          <input formControlName="direccionDistrito" class="input" />
+        </div>
+
+        <div>
+          <label class="label">Ubigeo</label>
+          <input formControlName="codigoUbigeo" class="input" />
+        </div>
+
+        <div class="col-span-full flex justify-between pt-4">
+          <button mat-button matStepperPrevious>Volver</button>
+          <button mat-button matStepperNext [disabled]="direccionForm.invalid">Siguiente</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <!-- PASO 3 -->
+    <mat-step [stepControl]="contactoForm" label="Contacto & Web">
+      <form [formGroup]="contactoForm" class="grid grid-cols-1 md:grid-cols-2 gap-4 py-4">
+        <div>
+          <label class="label">Teléfono</label>
+          <input formControlName="telefono" class="input md:max-w-[240px]" />
+        </div>
+
+        <div class="flex items-center gap-2">
+          <input id="web" type="checkbox" formControlName="publicaenweb" class="h-5 w-5 accent-blue-600" />
+          <label for="web" class="label select-none cursor-pointer">Publicar en web</label>
+        </div>
+
+        <div class="md:col-span-2">
+          <label class="label">URL logo (impresión)</label>
+          <input formControlName="logoImpresion" class="input" />
+        </div>
+
+        <div class="md:col-span-2">
+          <label class="label">URL imagen (web)</label>
+          <input formControlName="imagen" class="input" />
+        </div>
+
+        <div class="col-span-full flex justify-between pt-4">
+          <button mat-button matStepperPrevious>Volver</button>
+          <button mat-button matStepperNext>Siguiente</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <!-- PASO 4 -->
+    <mat-step [stepControl]="textosForm" label="Textos">
+      <form [formGroup]="textosForm" class="space-y-4 py-4">
+        <div>
+          <label class="label">Texto garantía</label>
+          <textarea formControlName="textogarantia" rows="3" class="input"></textarea>
+        </div>
+
+        <div>
+          <label class="label">Información adicional (info)</label>
+          <textarea formControlName="info" rows="2" class="input"></textarea>
+        </div>
+
+        <div>
+          <label class="label">Información adicional (info2)</label>
+          <textarea formControlName="info2" rows="2" class="input"></textarea>
+        </div>
+
+        <div class="flex justify-between pt-4">
+          <button mat-button matStepperPrevious>Volver</button>
+          <button mat-flat-button color="primary" (click)="guardar()" [disabled]="textosForm.invalid">Guardar</button>
+        </div>
+      </form>
+    </mat-step>
+  </mat-horizontal-stepper>
+</mat-dialog-content>

@@ -1,0 +1,83 @@
+/* utilitarios */
+.no-print {}
+
+/* POR DEFECTO: solo para impresión */
+@media print {
+    @page {
+        size: A4;
+        margin: 12mm;
+    }
+
+    /* ocultar botones/acciones */
+    .no-print {
+        display: none !important;
+    }
+
+    /* que no imprima fondos grises feos */
+    * {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        box-shadow: none !important;
+    }
+
+    /* eliminar padding general del body */
+    html,
+    body {
+        background: #fff !important;
+        height: auto !important;
+    }
+
+    /* el contenedor se expande y no limita ancho */
+    #printArea {
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    /* quita bordes redondeados excesivos si quieres (opcional) */
+    .rounded-2xl {
+        border-radius: 10px !important;
+    }
+
+    /* Tablas: sin cortes y con header repetible */
+    table {
+        width: 100% !important;
+        border-collapse: collapse !important;
+    }
+
+    thead {
+        display: table-header-group;
+    }
+
+    tr,
+    td,
+    th {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+    }
+
+    /* evitar que el overflow corte contenido */
+    .overflow-x-auto {
+        overflow: visible !important;
+    }
+
+    /* reduce un poco el texto para que entre bonito en A4 */
+    .text-sm {
+        font-size: 11px !important;
+    }
+
+    .text-xs {
+        font-size: 10px !important;
+    }
+
+    /* evita que títulos queden al final de página */
+    h3,
+    h2 {
+        page-break-after: avoid !important;
+    }
+
+    /* por si Tailwind mete sticky */
+    .sticky {
+        position: static !important;
+    }
+}

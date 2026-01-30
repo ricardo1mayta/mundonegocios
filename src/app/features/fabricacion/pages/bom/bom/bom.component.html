@@ -1,0 +1,195 @@
+<div class="mx-auto p-6 space-y-6">
+  <!-- Header -->
+  <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+    <div>
+      <h1 class="text-2xl font-semibold tracking-tight">Lista de Materiales</h1>
+      <p class="text-sm text-gray-500">Lista de materiales por modelo (insumos, merma y obligatoriedad).</p>
+    </div>
+  </div>
+
+  <!-- Form Card -->
+  <form id="bomForm" [formGroup]="form" (ngSubmit)="guardar()" class="rounded-2xl bg-white shadow-sm">
+    <!-- Top fields -->
+    <div class="p-4 sm:p-6">
+      <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+        <div class="space-y-1">
+          <label class="text-xs font-medium text-gray-600">Código de Ficha</label>
+
+          <div class="relative" (click)="$event.stopPropagation()">
+            <input
+              type="text"
+              formControlName="fichaTxt"
+              placeholder="Buscar por código o nombre…"
+              (focus)="openFicha = true"
+              autocomplete="off"
+              class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60" />
+
+            <!-- dropdown -->
+            <div *ngIf="openFicha && (fichaOptions?.length || 0) > 0" class="absolute left-0 top-full z-[2000] mt-2 w-full overflow-hidden rounded-xl border bg-white shadow-lg">
+              <button type="button" *ngFor="let opt of fichaOptions" (click)="selectFicha(opt)" class="flex w-full items-start gap-2 px-3 py-2 text-left hover:bg-gray-50">
+                <span class="text-xs text-gray-500 w-20 shrink-0">{{ opt.codigo }}</span>
+                <span class="text-sm font-medium">{{ opt.nombre }}</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- opcional: mostrar el id seleccionado -->
+          <p *ngIf="form.get('codigo')?.value" class="text-[11px] text-gray-500">Seleccionado ID: {{ form.get("codigo")?.value }}</p>
+        </div>
+
+        <div class="space-y-1 md:col-span-2">
+          <label class="text-xs font-medium text-gray-600">Nombre Plantilla</label>
+          <input
+            formControlName="nombre"
+            placeholder="Ej. Uniforme Escolar 2026 - Azul"
+            class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60" />
+        </div>
+      </div>
+    </div>
+
+    <div class="border-t text-gray-300"></div>
+
+    <!-- Table -->
+    <div class="p-4 sm:p-6 space-y-3">
+      <div class="flex items-center justify-between">
+        <div class="text-sm font-semibold">Detalle de insumos</div>
+        <div class="text-xs text-gray-500">
+          <div *ngIf="bomId()" class="text-sm font-medium text-green-700">
+            Platilla creada ID: <span class="font-semibold">{{ bomId() }}</span>
+          </div>
+          Total: {{ detalles.length || 0 }}
+        </div>
+      </div>
+
+      <div class="">
+        <div class="">
+          <table class="min-w-full text-sm">
+            <thead class="sticky top-0 z-10 border text-left text-xs font-semibold text-white-600">
+              <tr>
+                <th class="px-3 py-3 w-120">Insumo</th>
+                <th class="px-3 py-3 w-48">Cant. x unidad</th>
+                <th class="px-3 py-3 w-40">Merma %</th>
+                <th class="px-3 py-3 w-28 text-center">C. Compra</th>
+                <th class="text-center">Total S/.</th>
+                <th class="text-center">Acción</th>
+              </tr>
+            </thead>
+
+            <tbody formArrayName="detalles" class="divide-y">
+              <tr *ngFor="let g of detalles.controls; let i = index" [formGroupName]="i" class="hover:bg-gray-50/60" [class.relative]="openRow === i" [class.z-[1000]]="openRow === i">
+                <td class="px-3 py-2" [class.relative]="openRow === i" [class.z-[1000]]="openRow === i">
+                  <div class="relative" (click)="$event.stopPropagation()">
+                    <input
+                      type="text"
+                      formControlName="insumoTxt"
+                      placeholder="Buscar insumo…"
+                      (focus)="openRow = i"
+                      class="w-full rounded-xl border px-3 py-2 text-sm outline-none focus:border-black focus:ring-2 focus:ring-black/30"
+                      autocomplete="off" />
+
+                    <div *ngIf="openRow === i && (optionsByRow[i]?.length || 0) > 0" class="absolute left-0 top-full z-[2000] mt-2 w-full overflow-hidden rounded-xl border bg-white shadow-lg">
+                      <button type="button" *ngFor="let opt of optionsByRow[i]" (click)="selectInsumo(i, opt)" class="flex w-full items-start gap-2 px-3 py-2 text-left hover:bg-gray-50">
+                        <span class="text-xs text-gray-500 w-16 shrink-0">#{{ opt.id }}</span>
+                        <span class="text-sm font-medium">{{ opt.nombre }}</span>
+                        <span *ngIf="opt.unidad" class="ml-auto text-xs text-gray-500">{{ opt.unidad }}</span>
+                      </button>
+                    </div>
+                  </div>
+                </td>
+
+                <td class="px-3 py-2">
+                  <input
+                    type="number"
+                    formControlName="cantidadPorUnidad"
+                    placeholder="Ej. 2.5"
+                    class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60" />
+                </td>
+
+                <td class="px-3 py-2">
+                  <div class="flex items-center gap-2">
+                    <input
+                      type="number"
+                      formControlName="mermaPct"
+                      placeholder="0"
+                      class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60" />
+                    <span class="text-xs text-gray-500">%</span>
+                  </div>
+                </td>
+
+                <td class="px-3 py-2 text-center">
+                  <input
+                    type="number"
+                    formControlName="costoUnitCompra"
+                    class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60" />
+                </td>
+                <td class="px-3 py-2 text-center">
+                  <input formControlName="total" readonly />
+                </td>
+
+                <td class="text-center">
+                  <button type="button" class="text-red-500" aria-label="Eliminar">
+                    <mat-icon (click)="removeItem(i)" fontIcon="delete"></mat-icon>
+                  </button>
+                </td>
+              </tr>
+
+              <!-- Empty state -->
+              <tr *ngIf="(detalles?.length || 0) === 0">
+                <td colspan="5" class="px-4 py-10 text-center">
+                  <div class="text-sm font-medium">Aún no agregaste insumos</div>
+                  <div class="mt-1 text-xs text-gray-500">Haz clic en “Agregar insumo” para empezar.</div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Footer info -->
+
+      <div class="flex gap-2 items-center justify-between">
+        <button type="button" (click)="addItem()" class="inline-flex items-center justify-center rounded-xl border px-4 py-2 text-sm font-medium hover:bg-gray-50 active:scale-[0.99]">
+          + Agregar insumo
+        </button>
+
+        <div class="flex justify-end">
+          <div class="rounded-2xl bg-emerald-50 px-4 py-2 ring-1 ring-emerald-200">
+            <span class="text-xs font-semibold text-emerald-700">TOTAL</span>
+            <div class="text-3xl font-extrabold text-emerald-700">S/ {{ bomTotal() | number: "1.2-2" }}</div>
+          </div>
+        </div>
+        <div class="flex gap-2">
+          <!-- COPIAR (solo si hay bomId) -->
+          <button
+            *ngIf="bomId()"
+            type="button"
+            (click)="copiar()"
+            [disabled]="loading()"
+            class="inline-flex items-center justify-center rounded-xl border px-4 py-2 text-sm font-medium hover:bg-gray-50 disabled:opacity-50">
+            Copiar
+          </button>
+
+          <!-- CREAR -->
+          <button
+            *ngIf="!bomId()"
+            type="submit"
+            form="bomForm"
+            [disabled]="form.invalid || loading()"
+            class="inline-flex items-center justify-center rounded-xl bg-green-800 px-4 py-2 text-sm font-medium text-white disabled:opacity-50">
+            {{ loading() ? "Guardando..." : "Guardar BOM" }}
+          </button>
+
+          <!-- ACTUALIZAR -->
+          <button
+            *ngIf="bomId()"
+            type="button"
+            (click)="actualizar()"
+            [disabled]="form.invalid || loading()"
+            class="inline-flex items-center justify-center rounded-xl bg-blue-800 px-4 py-2 text-sm font-medium text-white disabled:opacity-50">
+            {{ loading() ? "Actualizando..." : "Actualizar BOM" }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

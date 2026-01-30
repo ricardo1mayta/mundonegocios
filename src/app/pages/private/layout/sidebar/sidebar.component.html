@@ -1,0 +1,87 @@
+<!-- CONTENEDOR -->
+<div
+  class="h-full bg-white shadow-md transition-all duration-200 flex flex-col"
+  [ngClass]="{
+    'w-64 p-4 overflow-y-auto': !colapsado,
+
+    'w-20 p-2 overflow-visible': colapsado
+  }">
+  <!-- ENCABEZADO -->
+  <div class="flex items-center justify-between gap-2">
+    <div class="flex items-center gap-2 overflow-hidden">
+      <a [routerLink]="['/admin']" class="flex items-center gap-2">
+        <img [src]="datatosuario?.logo" alt="Logo" class="h-8 w-8" />
+        <span *ngIf="!colapsado" class="text-xl font-bold text-gray-800 whitespace-nowrap">
+          {{ datatosuario?.nombreComercial }}
+        </span>
+      </a>
+    </div>
+
+    <!-- BOTÓN COLAPSAR -->
+    <button class="p-1 rounded hover:bg-gray-100" (click)="toggleColapso()">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- SEDE -->
+  <div *ngIf="!colapsado" class="flex justify-center mt-6">
+    <span class="text-xl font-bold text-gray-800 text-center">
+      {{ datatosuario?.nombresede }}
+    </span>
+  </div>
+
+  <!-- MENÚ -->
+  <ul class="space-y-1 mt-4">
+    <ng-container *ngFor="let item of menu">
+      <ng-template [ngTemplateOutlet]="renderItem" [ngTemplateOutletContext]="{ item: item, level: 0 }"> </ng-template>
+    </ng-container>
+  </ul>
+</div>
+
+<!-- =========== PLANTILLA RECURSIVA =========== -->
+<ng-template #renderItem let-item="item" let-level="level">
+  <!-- NODOS CON HIJOS -->
+  <li *ngIf="item.children?.length" class="relative select-none" [style.margin-left.px]="colapsado ? 0 : level * 12" (mouseenter)="onHover(item)" (mouseleave)="onLeave(item)">
+    <!-- BOTÓN PADRE -->
+    <button class="flex items-center gap-3 w-full p-2 rounded-md text-gray-700 hover:bg-blue-100 hover:text-blue-700" title="{{ item.name }}" (click)="toggle(item)">
+      <i class="{{ item.icon || 'pi pi-folder' }}"></i>
+
+      <!-- texto completo o inicial -->
+      <span *ngIf="!colapsado" class="flex-1 text-left">{{ item.name }}</span>
+      <span *ngIf="colapsado" class="text-xs font-semibold w-5 h-5 flex items-center justify-center rounded bg-gray-200">
+        {{ item.name.slice(0, 3) }}
+      </span>
+
+      <!-- flecha solo en modo ancho -->
+      <svg *ngIf="!colapsado" [ngClass]="{ 'rotate-90': isExpanded(item) }" class="w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
+
+    <!-- SUBMENÚ -->
+    <ul
+      *ngIf="isExpanded(item)"
+      [ngClass]="{
+        'mt-1 pl-2 border-l border-gray-200 space-y-1': !colapsado,
+        'absolute left-full top-0 w-56 bg-white shadow-lg rounded z-50 p-2 space-y-1': colapsado
+      }">
+      <ng-container *ngFor="let child of item.children">
+        <ng-template [ngTemplateOutlet]="renderItem" [ngTemplateOutletContext]="{ item: child, level: level + 1 }"> </ng-template>
+      </ng-container>
+    </ul>
+  </li>
+
+  <!-- NODOS FINALES (sin hijos) -->
+  <li *ngIf="!item.children?.length" [style.margin-left.px]="colapsado ? 0 : level * 12">
+    <a [routerLink]="item.routeOrFunction" class="flex items-center gap-3 p-2 rounded-md text-gray-700 hover:bg-blue-100 hover:text-blue-700" title="{{ item.name }}">
+      <i class="{{ item.icon || 'pi pi-circle' }}"></i>
+
+      <span *ngIf="!colapsado">{{ item.name }}</span>
+      <span *ngIf="colapsado" class="text-xs font-semibold w-5 h-5 flex items-center justify-center rounded bg-gray-200">
+        {{ item.name }}
+      </span>
+    </a>
+  </li>
+</ng-template>

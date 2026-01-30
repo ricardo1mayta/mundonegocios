@@ -1,0 +1,21 @@
+<div class="min-h-screen flex flex-col md:flex-row bg-gray-100">
+  <!-- Sidebar fijo en desktop -->
+  <app-sidebar class="hidden md:block w-64 shrink-0 shadow-md"></app-sidebar>
+
+  <!-- Zona derecha: Navbar + página -->
+  <div class="flex-1 flex flex-col">
+    <!-- NAVBAR (alto fijo, ej. h-16) -->
+    <app-navbar class="h-16 shadow" (toggleSidebar)="sidebarAbierto = !sidebarAbierto"> </app-navbar>
+
+    <!-- Contenido scrollable -->
+    <main class="flex-1 overflow-y-auto p-4">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+
+  <!-- Drawer móvil -->
+  <app-sidebar *ngIf="sidebarAbierto" class="fixed inset-y-0 left-0 w-64 bg-white shadow-lg z-40 md:hidden transition-transform duration-200"> </app-sidebar>
+
+  <!-- Backdrop -->
+  <div *ngIf="sidebarAbierto" class="fixed inset-0 bg-black/40 z-30 md:hidden" (click)="sidebarAbierto = false"></div>
+</div>

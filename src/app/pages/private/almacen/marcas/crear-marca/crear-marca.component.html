@@ -1,0 +1,56 @@
+<div class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden animate-fadeIn">
+    <!-- Cabecera -->
+    <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+      <h2 class="text-xl font-bold text-gray-800">
+        {{ marcaForm.get("id")?.value ? "Editar Marca" : "Crear Marca" }}
+      </h2>
+      <button type="button" (click)="onCerrar()" aria-label="Cerrar" class="text-gray-400 hover:text-gray-600 transition">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Formulario -->
+    <form [formGroup]="marcaForm" (ngSubmit)="guardarMarca()" class="px-6 py-6 space-y-6">
+      <!-- Campo Nombre -->
+      <div>
+        <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Nombre de la Marca</label>
+        <input
+          id="name"
+          type="text"
+          formControlName="name"
+          placeholder="Ej. Samsung, Apple"
+          class="w-full border rounded-lg px-4 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          [class.border-red-500]="marcaForm.get('name')?.invalid && marcaForm.get('name')?.touched" />
+        <div *ngIf="marcaForm.get('name')?.invalid && marcaForm.get('name')?.touched" class="text-sm text-red-500 mt-1">El nombre es obligatorio.</div>
+      </div>
+
+      <!-- Switches -->
+      <div class="flex flex-col sm:flex-row gap-4">
+        <!-- Estado -->
+        <label class="flex items-center gap-3 cursor-pointer">
+          <input type="checkbox" formControlName="estado" class="sr-only peer" />
+          <div
+            class="w-11 h-6 bg-gray-300 rounded-full peer peer-checked:bg-green-500 relative after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:rounded-full after:h-5 after:w-5 after:transition-transform peer-checked:after:translate-x-full peer-checked:after:border-white"></div>
+          <span class="text-sm text-gray-700">Activo</span>
+        </label>
+
+        <!-- Mostrar en Web -->
+        <label class="flex items-center gap-3 cursor-pointer">
+          <input type="checkbox" formControlName="stadoweb" class="sr-only peer" />
+          <div
+            class="w-11 h-6 bg-gray-300 rounded-full peer peer-checked:bg-blue-500 relative after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:rounded-full after:h-5 after:w-5 after:transition-transform peer-checked:after:translate-x-full peer-checked:after:border-white"></div>
+          <span class="text-sm text-gray-700">Mostrar en Web</span>
+        </label>
+      </div>
+    </form>
+
+    <!-- Pie -->
+    <div class="flex justify-end items-center gap-2 px-6 py-4 border-t bg-gray-50">
+      <button type="button" (click)="onCerrar()" class="px-4 py-2 text-sm text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-100 transition">Cancelar</button>
+      <button type="submit" (click)="guardarMarca()" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition shadow">Guardar Marca</button>
+    </div>
+  </div>
+</div>

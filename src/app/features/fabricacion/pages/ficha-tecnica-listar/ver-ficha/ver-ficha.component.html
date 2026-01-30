@@ -1,0 +1,122 @@
+<div #printArea id="printArea" class="mx-auto max-w-6xl p-6 space-y-6">
+  <div class="mx-auto max-w-6xl p-6 space-y-6">
+    <!-- CABECERA -->
+    <div class="rounded-2xl border bg-white p-5">
+      <div class="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+        <div class="min-w-0">
+          <div class="text-sm text-gray-500">Ficha de Modelo</div>
+
+          <div class="mt-1 text-2xl font-bold text-gray-900 break-words">
+            {{ form.get("nombre")?.value || "Sin nombre" }}
+          </div>
+
+          <div class="mt-2 flex flex-wrap gap-2 text-xs">
+            <span class="inline-flex items-center rounded-full border px-2.5 py-1 bg-white"> <span class="text-gray-500 mr-1">Código:</span> {{ form.get("codigo")?.value || "—" }} </span>
+
+            <span class="inline-flex items-center rounded-full border px-2.5 py-1 bg-white"> <span class="text-gray-500 mr-1">Versión:</span> {{ form.get("version")?.value || "—" }} </span>
+
+            <span class="inline-flex items-center rounded-full border px-2.5 py-1 bg-white"> <span class="text-gray-500 mr-1">ID:</span> {{ fichaId() || "—" }} </span>
+          </div>
+
+          <div class="mt-3 text-sm text-gray-700 whitespace-pre-line">
+            {{ form.get("descripcion")?.value || "" }}
+          </div>
+        </div>
+
+        <!-- ACCIONES (solo ver) -->
+        <div class="flex gap-2 no-print">
+          <button type="button" class="btn btn-gray-500" (click)="volver()">Volver</button>
+          <button type="button" class="btn btn-primary" (click)="imprimir()">Imprimir</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- DATOS GENERALES (solo lectura en cards) -->
+    <div class="rounded-2xl border bg-white p-5">
+      <h3 class="font-semibold text-gray-900 mb-3">Datos generales</h3>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
+        <div class="rounded-xl border p-3">
+          <div class="text-xs text-gray-500">Código</div>
+          <div class="font-semibold text-gray-900">{{ form.get("codigo")?.value || "—" }}</div>
+        </div>
+
+        <div class="rounded-xl border p-3 md:col-span-2">
+          <div class="text-xs text-gray-500">Nombre</div>
+          <div class="font-semibold text-gray-900">{{ form.get("nombre")?.value || "—" }}</div>
+        </div>
+
+        <div class="rounded-xl border p-3">
+          <div class="text-xs text-gray-500">Versión</div>
+          <div class="font-semibold text-gray-900">{{ form.get("version")?.value || "—" }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MEDIDAS -->
+    <div class="rounded-2xl border bg-white p-5">
+      <div class="flex items-center justify-between">
+        <h3 class="font-semibold text-gray-900">Tabla de medidas</h3>
+        <span class="text-xs text-gray-500">Registros: {{ medidas.length }}</span>
+      </div>
+
+      <div class="mt-4 overflow-x-auto border rounded-2xl">
+        <table class="min-w-full text-sm">
+          <thead class="bg-gray-50 text-gray-700">
+            <tr>
+              <th class="text-left p-3 w-28">Talla</th>
+              <th class="text-left p-3">Parte</th>
+              <th class="text-right p-3 w-44">Valor (cm)</th>
+              <th class="text-right p-3 w-44">Tolerancia (± cm)</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let m of medidas.value; let i = index" class="border-t">
+              <td class="p-3">{{ m.talla || "—" }}</td>
+              <td class="p-3">{{ m.parte || "—" }}</td>
+              <td class="p-3 text-right">{{ m.valor ?? 0 }}</td>
+              <td class="p-3 text-right">{{ m.tolerancia ?? 0 }}</td>
+            </tr>
+
+            <tr *ngIf="medidas.length === 0">
+              <td class="p-4 text-gray-600" colspan="4">No hay medidas registradas.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PIEZAS -->
+    <div class="rounded-2xl border bg-white p-5">
+      <div class="flex items-center justify-between">
+        <h3 class="font-semibold text-gray-900">Piezas / Moldes</h3>
+        <span class="text-xs text-gray-500">Registros: {{ piezas.length }}</span>
+      </div>
+
+      <div class="mt-4 overflow-x-auto border rounded-2xl">
+        <table class="min-w-full text-sm">
+          <thead class="bg-gray-50 text-gray-700">
+            <tr>
+              <th class="text-left p-3 w-80">Pieza</th>
+              <th class="text-right p-3 w-32">Cantidad</th>
+              <th class="text-left p-3">Observación</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let p of piezas.value; let i = index" class="border-t">
+              <td class="p-3">{{ p.nombre || "—" }}</td>
+              <td class="p-3 text-right">{{ p.cantidad ?? 0 }}</td>
+              <td class="p-3">{{ p.observacion || "" }}</td>
+            </tr>
+
+            <tr *ngIf="piezas.length === 0">
+              <td class="p-4 text-gray-600" colspan="3">No hay piezas registradas.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

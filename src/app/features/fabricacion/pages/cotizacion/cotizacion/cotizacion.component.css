@@ -1,0 +1,19 @@
+/* Default (pantalla) */
+.only-print {
+    display: none !important;
+}
+
+.no-print {
+    display: block;
+}
+
+/* Impresión */
+@media print {
+    .no-print {
+        display: none !important;
+    }
+
+    .only-print {
+        display: block !important;
+    }
+}

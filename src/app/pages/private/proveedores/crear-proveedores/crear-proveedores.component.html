@@ -1,0 +1,109 @@
+<!-- CABECERA -->
+<div class="bg-blue-800 text-white flex items-center justify-between p-4 rounded-t-2xl">
+  <h2 class="text-lg font-semibold">Proveedor</h2>
+  <button mat-icon-button mat-dialog-close class="hover:bg-blue-900/40 rounded-full p-1">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<!-- STEPPER -->
+<mat-dialog-content class="bg-gray-100 px-6 py-4 max-h-[85vh] overflow-y-auto">
+  <mat-horizontal-stepper linear>
+    <!-- 1. Documento -->
+    <mat-step [stepControl]="docForm" label="Documento">
+      <form [formGroup]="docForm" class="space-y-4 py-4">
+        <div class="grid grid-cols-1 md:grid-cols-6 gap-4">
+          <label class="flex flex-col md:col-span-2">
+            <span class="mb-1">Tipo doc.</span>
+            <select formControlName="tipodocumento" class="input">
+              <option *ngFor="let t of tiposDocumento()" [value]="t.id">{{ t.desc }}</option>
+            </select>
+          </label>
+
+          <label class="flex flex-col md:col-span-2 relative">
+            <span class="mb-1">Nº doc.</span>
+            <input formControlName="numerodocumento" class="input pr-10" (keydown.enter)="buscarEnSunat()" />
+            <button type="button" (click)="buscarEnSunat()" class="absolute right-2 top-7 text-blue-600 hover:text-blue-800">
+              <mat-icon>search</mat-icon>
+            </button>
+          </label>
+
+          <label class="flex flex-col md:col-span-2">
+            <span class="mb-1">Razón social *</span>
+            <input formControlName="nombre" class="input" />
+          </label>
+        </div>
+
+        <div class="flex justify-end pt-4">
+          <button mat-button matStepperNext [disabled]="docForm.invalid">Siguiente</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <!-- 2. Dirección -->
+    <mat-step [stepControl]="dirForm" label="Dirección">
+      <form [formGroup]="dirForm" class="space-y-4 py-4">
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+          <label class="flex flex-col md:col-span-2">
+            <span class="mb-1">Ciudad</span>
+            <input formControlName="ciudad" class="input" />
+          </label>
+          <label class="flex flex-col md:col-span-3">
+            <span class="mb-1">Dirección *</span>
+            <input formControlName="direccion" class="input" />
+          </label>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <label class="flex flex-col">
+            <span class="mb-1">Dpto</span>
+            <select formControlName="departamento" class="input">
+              <option value="" disabled selected>Departamento</option>
+              <option *ngFor="let d of departamentos()" [value]="d.id">{{ d.name }}</option>
+            </select>
+          </label>
+          <label class="flex flex-col">
+            <span class="mb-1">Prov</span>
+            <select formControlName="provincia" class="input">
+              <option value="" disabled selected>Provincia</option>
+              <option *ngFor="let p of provincias()" [value]="p.id">{{ p.name }}</option>
+            </select>
+          </label>
+          <label class="flex flex-col">
+            <span class="mb-1">Dist</span>
+            <select formControlName="distrito" class="input">
+              <option value="" disabled selected>Distrito</option>
+              <option *ngFor="let d of distritos()" [value]="d.id">{{ d.name }}</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="flex justify-between pt-4">
+          <button mat-button matStepperPrevious>Volver</button>
+          <button mat-button matStepperNext [disabled]="dirForm.invalid">Siguiente</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <!-- 3. Contacto -->
+    <mat-step [stepControl]="contactoForm" label="Contacto">
+      <form [formGroup]="contactoForm" class="space-y-4 py-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <label class="flex flex-col">
+            <span class="mb-1">Email</span>
+            <input formControlName="email" class="input" />
+          </label>
+          <label class="flex flex-col">
+            <span class="mb-1">Teléfono</span>
+            <input formControlName="telefono" class="input" />
+          </label>
+        </div>
+
+        <div class="flex justify-between pt-4">
+          <button mat-button class="btn-secondary" matStepperPrevious>Volver</button>
+          <button mat-flat-button class="btn-primary" (click)="guardar()" [disabled]="contactoForm.invalid">Guardar</button>
+        </div>
+      </form>
+    </mat-step>
+  </mat-horizontal-stepper>
+</mat-dialog-content>
