@@ -4,7 +4,9 @@ import { Directive, Input, NgModule, TemplateRef, ViewContainerRef } from '@angu
   selector: '[mat-table]',
   standalone: true,
 })
-export class MatTable {}
+export class MatTable {
+  @Input() dataSource: unknown;
+}
 
 @Directive({
   selector: '[mat-header-cell]',

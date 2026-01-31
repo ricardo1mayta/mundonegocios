@@ -35,7 +35,10 @@ export class MenuComponent {
   /* árbol reactivo */
   dataSource = signal<MenuNode[]>([]);
   childrenAccessor = (n: MenuNode) => n.children ?? [];
-  hasChild = (_: number, n: MenuNode) => !!n.children?.length;
+  hasChild = (_: number, n: unknown) => {
+    const node = n as MenuNode | null;
+    return !!node?.children?.length;
+  };
 
   /** sólo hojas con checkbox */
   checklist = new SelectionModel<MenuNode>(true);

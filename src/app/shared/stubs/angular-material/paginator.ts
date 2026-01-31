@@ -26,6 +26,8 @@ export class MatPaginatorIntl {
 })
 export class MatPaginator {
   @Input() pageSizeOptions: number[] = [];
+  @Input() pageIndex = 0;
+  @Input() pageSize = 0;
   @Input() length = 0;
   @Output() page = new EventEmitter<PageEvent>();
 }

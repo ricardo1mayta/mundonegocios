@@ -49,7 +49,7 @@ export class CrearProveedoresComponent {
   distritos = signal<any[]>([]);
 
   private fb = inject(NonNullableFormBuilder);
-  private dialogRef = inject(MatDialogRef<CrearProveedoresComponent>);
+  private dialogRef = inject(MatDialogRef<CrearProveedoresComponent, unknown>);
   private provSrv = inject(ProvedoresService);
   private sunat = inject(SunatService);
   private codigos = inject(CodigosService);

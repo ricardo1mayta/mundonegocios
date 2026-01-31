@@ -1,4 +1,4 @@
-import { Component, NgModule } from '@angular/core';
+import { Component, Input, NgModule } from '@angular/core';
 
 @Component({
   selector: 'mat-select',
@@ -12,7 +12,9 @@ export class MatSelect {}
   standalone: true,
   template: '<ng-content></ng-content>',
 })
-export class MatOption {}
+export class MatOption {
+  @Input() value: unknown;
+}
 
 @NgModule({
   imports: [MatSelect, MatOption],

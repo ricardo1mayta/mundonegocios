@@ -16,7 +16,9 @@
     "baseUrl": ".",
     "paths": {
       "@angular/material/*": ["src/app/shared/stubs/angular-material/*"],
-      "ngx-editor": ["src/app/shared/stubs/ngx-editor"]
+      "ngx-editor": ["src/app/shared/stubs/ngx-editor"],
+      "ng2-charts": ["src/app/shared/stubs/ng2-charts"],
+      "chart.js": ["src/app/shared/stubs/chart.js"]
     },
     "moduleResolution": "bundler",
     "importHelpers": true,

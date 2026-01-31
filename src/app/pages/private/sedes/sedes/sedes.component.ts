@@ -78,7 +78,7 @@ export class SedesComponent {
       maxWidth: '60rem',
       data: { title: 'Crear Sede', boton: 'Guardar' },
     });
-    dialogRef.afterClosed().subscribe((res: boolean | undefined) => res && this.buscar());
+    dialogRef.afterClosed().subscribe((res: unknown) => res && this.buscar());
   }
 
   editarSede(sede: Sede): void {
@@ -87,7 +87,7 @@ export class SedesComponent {
       maxWidth: '60rem',
       data: sede,
     });
-    dialogRef.afterClosed().subscribe((res: boolean | undefined) => res && this.buscar());
+    dialogRef.afterClosed().subscribe((res: unknown) => res && this.buscar());
   }
 
   eliminarSede(sede: Sede): void {
@@ -102,6 +102,6 @@ export class SedesComponent {
       maxWidth: '60rem',
       data: { ...sede, tipo: 'duplicate' },
     });
-    dialogRef.afterClosed().subscribe((res: boolean | undefined) => res && this.buscar());
+    dialogRef.afterClosed().subscribe((res: unknown) => res && this.buscar());
   }
 }

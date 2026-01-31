@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PedidosService } from '../../../../core/services/pedidos/pedidos.service';
 import { MatIconModule } from '@angular/material/icon';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogActions, MatDialogClose, MatDialogContent } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent } from '@angular/material/dialog';
 import { CotizacionesService } from '../../../../core/services/cotizaciones/cotizaciones.service';
 import { ComprasService } from '../../../../core/services/compras/compras.service';
 
@@ -27,13 +27,14 @@ export class VisualizarCompraComponent {
   pageSize = signal(10);
   pageSizes = [10, 20, 30];
 
-  private readonly data = inject(MAT_DIALOG_DATA);
+  private readonly data = inject(MAT_DIALOG_DATA) as { pedido?: { id?: number } };
   compra = signal<any>(null);
 
-  constructor(private dialog: MatDialog) {
+  constructor() {
     effect(() => {
-      if (this.data.pedido) {
-        this.cargarPedido(this.data.pedido.id);
+      const pedidoId = this.data?.pedido?.id;
+      if (pedidoId) {
+        this.cargarPedido(pedidoId);
       }
     });
   }

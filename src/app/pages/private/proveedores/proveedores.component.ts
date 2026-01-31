@@ -90,7 +90,7 @@ export class ProveedoresComponent {
       },
     });
 
-    dialogRef.afterClosed().subscribe((resultado: boolean | undefined) => {
+    dialogRef.afterClosed().subscribe((resultado: unknown) => {
       if (resultado) {
         this.buscar();
       }
@@ -108,7 +108,7 @@ export class ProveedoresComponent {
       },
     });
 
-    dialogRef.afterClosed().subscribe((resultado: boolean | undefined) => {
+    dialogRef.afterClosed().subscribe((resultado: unknown) => {
       if (resultado) {
         this.buscar();
       }

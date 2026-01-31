@@ -163,7 +163,7 @@ export class VentasComponent implements OnInit {
       },
     });
 
-    dialogRef.afterClosed().subscribe((resultado: boolean | undefined) => {
+    dialogRef.afterClosed().subscribe((resultado: unknown) => {
       if (resultado) {
       }
     });
