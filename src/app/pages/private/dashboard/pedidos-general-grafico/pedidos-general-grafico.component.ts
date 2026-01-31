@@ -29,12 +29,12 @@ export class PedidosGeneralGraficoComponent {
   };
 
   ngOnInit(): void {
-    this.reporteSrv.getPedidosMensualesGeneral().subscribe(resp => {
+    this.reporteSrv.getPedidosMensualesGeneral().subscribe((resp: PedidosMensualesDto[]) => {
       // Rellena etiquetas con MES/AÑO
-      this.data.labels = resp.map(r => `${r.mes.toString().padStart(2, '0')}/${r.anio}`);
+      this.data.labels = resp.map((r) => `${r.mes.toString().padStart(2, '0')}/${r.anio}`);
       const palette = ['#4F46E5', '#22C55E', '#F97316', '#E11D48', '#0EA5E9', '#A855F7', '#FACC15', '#14B8A6', '#EF4444', '#6366F1', '#10B981', '#FB923C'];
       // Cambia el dataset (cantidad de pedidos)
-      this.data.datasets[0].data = resp.map(r => r.total);
+      this.data.datasets[0].data = resp.map((r) => r.total);
       this.data.datasets[0].backgroundColor = resp.map((_, i) => palette[i % palette.length]);
       // Refresca el lienzo
       this.chart?.update();

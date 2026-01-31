@@ -306,7 +306,7 @@ export class NuevaCotizacionComponent {
       },
     });
 
-    dialogRef.afterClosed().subscribe(resultado => {
+    dialogRef.afterClosed().subscribe((resultado: any) => {
       if (resultado) {
         this.clienteService.optenerClientePorId(resultado.data.id).subscribe({
           next: (response: any) => {

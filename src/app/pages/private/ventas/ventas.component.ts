@@ -1,7 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { Component, inject, model, OnInit, signal, viewChild } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
 import { MaterialModule } from "../../../core/modules/material/material.module";
-i;
 import { FormCrudComponent } from "../../../core/components/form-crud/form-crud.component";
 import { FormFilterComponent } from "../../../core/components/form-crud/form-filter/form-filter.component";
 import { FormListComponent } from "../../../core/components/form-crud/form-list/form-list.component";
@@ -163,7 +163,7 @@ export class VentasComponent implements OnInit {
       },
     });
 
-    dialogRef.afterClosed().subscribe((resultado) => {
+    dialogRef.afterClosed().subscribe((resultado: unknown) => {
       if (resultado) {
       }
     });

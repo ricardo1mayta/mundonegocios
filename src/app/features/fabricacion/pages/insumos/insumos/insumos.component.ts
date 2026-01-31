@@ -84,7 +84,7 @@ export class InsumosComponent {
       //data: { fichaId, bomId },
     });
 
-    ref.afterClosed().subscribe(res => {
+    ref.afterClosed().subscribe((res: { refresh?: boolean } | undefined) => {
       if (res?.refresh) {
         // recargar tabla
         // this.dataTable()?.recargarTabla();
@@ -99,7 +99,7 @@ export class InsumosComponent {
       data: { insumoId: row.id }, // row.id es tu API
     });
 
-    ref.afterClosed().subscribe(r => {
+    ref.afterClosed().subscribe((r: { refresh?: boolean } | undefined) => {
       if (r?.refresh) this.dataTable()?.recargarTabla();
     });
   }

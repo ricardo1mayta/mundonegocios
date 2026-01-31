@@ -1,8 +1,7 @@
-import { Component, effect, EventEmitter, inject, Input, Output, signal } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { ModalComponent } from '../../../../core/components/modal/modal.component';
-import { FormBuilder, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import { Clientes } from '../../../../core/models/ventas/clientes';
 import { ClientesService } from '../../../../core/services/clientes/clientes.service';
 import { CommonModule } from '@angular/common';
 import { MatDialogContent, MatDialogActions, MatDialogClose, MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
@@ -15,6 +14,24 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatStepperModule } from '@angular/material/stepper';
 import { NgxEditorModule } from 'ngx-editor';
 import { MaterialModule } from '../../../../core/modules/material/material.module';
+
+type EditarClienteData = {
+  cliente?: {
+    id?: number;
+    clienteTipodocumento?: string;
+    clienteNumerodocumento?: string;
+    clienteNombre?: string;
+    clienteDireccion?: string;
+    clientePais?: string;
+    clienteCiudad?: string;
+    clienteDepartamento?: string;
+    clienteProvincia?: string;
+    clienteDistrito?: string;
+    clienteCodigoubigeo?: string;
+    clienteEmail?: string;
+    clienteTelefono?: string;
+  };
+};
 @Component({
   selector: 'app-editar-cliente',
   standalone: true,
@@ -24,12 +41,12 @@ import { MaterialModule } from '../../../../core/modules/material/material.modul
 })
 export class EditarClienteComponent {
   private fb = inject(NonNullableFormBuilder);
-  private dialogRef = inject(MatDialogRef<EditarClienteComponent>);
+  private dialogRef = inject(MatDialogRef<EditarClienteComponent, unknown>);
   private clienteService = inject(ClientesService);
   private codigos = inject(CodigosService);
   private sunat = inject(SunatService);
   private ubigeoService = inject(UbigeoService);
-  private data = inject(MAT_DIALOG_DATA);
+  private data = inject(MAT_DIALOG_DATA) as EditarClienteData;
 
   /* Catálogos signals */
   tiposDocumento = signal<any[]>([]);
@@ -202,7 +219,7 @@ export class EditarClienteComponent {
       : this.clienteService.registrarCliente({ ...body, clienteCodigoubigeo: body.clienteDistrito });
 
     req$.subscribe({
-      next: r => this.dialogRef.close(r),
+      next: (r: any) => this.dialogRef.close(r),
       error: e => console.error(e),
     });
   }
