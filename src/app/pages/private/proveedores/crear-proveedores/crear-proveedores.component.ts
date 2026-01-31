@@ -1,4 +1,4 @@
-import { Component, effect, EventEmitter, inject, Input, Output, signal } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { ModalComponent } from '../../../../core/components/modal/modal.component';
 import { FormBuilder, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
@@ -16,6 +16,24 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatStepperModule } from '@angular/material/stepper';
 import { NgxEditorModule } from 'ngx-editor';
 import { MaterialModule } from '../../../../core/modules/material/material.module';
+
+type CrearProveedorData = {
+  provedor?: {
+    id?: number;
+    tipodocumento?: string;
+    numerodocumento?: string;
+    nombre?: string;
+    direccion?: string;
+    pais?: string;
+    ciudad?: string;
+    departamento?: string;
+    provincia?: string;
+    distrito?: string;
+    codigoubigeo?: string;
+    email?: string;
+    telefono?: string;
+  };
+};
 @Component({
   selector: 'app-crear-proveedores',
   standalone: true,
@@ -36,7 +54,7 @@ export class CrearProveedoresComponent {
   private sunat = inject(SunatService);
   private codigos = inject(CodigosService);
   private ubigeoSrv = inject(UbigeoService);
-  private data = inject(MAT_DIALOG_DATA);
+  private data = inject(MAT_DIALOG_DATA) as CrearProveedorData;
 
   /* PASO 1 – Documento */
   docForm = this.fb.group({
@@ -199,11 +217,11 @@ export class CrearProveedoresComponent {
   guardar() {
     if (this.docForm.invalid || this.dirForm.invalid) return;
     const payload = this.body();
-    const id = this.data?.cliente?.id;
+    const id = this.data?.provedor?.id;
     const req$ = id ? this.provSrv.actualizarProvedor(id, { ...payload, codigoubigeo: payload.distrito }) : this.provSrv.registrarProvedor({ ...payload, codigoubigeo: payload.distrito });
 
     req$.subscribe({
-      next: r => this.dialogRef.close(r),
+      next: (r: any) => this.dialogRef.close(r),
       error: e => console.error(e),
     });
   }

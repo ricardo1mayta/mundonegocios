@@ -62,7 +62,7 @@ export class UsuariosComponent {
     const dialogRef = this.dialog.open(NuevoUsuarioComponent, {
       width: '80%',
     });
-    dialogRef.afterClosed().subscribe(res => res && this.buscar());
+    dialogRef.afterClosed().subscribe((res: boolean | undefined) => res && this.buscar());
   }
 
   editarUsuario(usuario: Usuario): void {
@@ -70,7 +70,7 @@ export class UsuariosComponent {
       width: '80%',
       data: usuario,
     });
-    dialogRef.afterClosed().subscribe(res => res && this.buscar());
+    dialogRef.afterClosed().subscribe((res: boolean | undefined) => res && this.buscar());
   }
 
   eliminarUsuario(usuario: Usuario): void {

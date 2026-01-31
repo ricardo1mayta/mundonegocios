@@ -74,7 +74,7 @@ export class RolesComponent {
       width: '70%',
       data: { title: 'Crear Rol', boton: 'Guardar' },
     });
-    dialogRef.afterClosed().subscribe(res => res && this.buscar());
+    dialogRef.afterClosed().subscribe((res: boolean | undefined) => res && this.buscar());
   }
 
   editarRol(rol: Rol): void {
@@ -82,7 +82,7 @@ export class RolesComponent {
       width: '70%',
       data: rol,
     });
-    dialogRef.afterClosed().subscribe(res => res && this.buscar());
+    dialogRef.afterClosed().subscribe((res: boolean | undefined) => res && this.buscar());
   }
 
   eliminarRol(rol: Rol): void {
