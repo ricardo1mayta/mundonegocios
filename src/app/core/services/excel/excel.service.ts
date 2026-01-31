@@ -1,9 +1,9 @@
-import XLSX from 'xlsx-js-style';
+import XLSX, { type CellStyle, type WorkBook, type WorkSheet } from 'xlsx-js-style';
 import saveAs from 'file-saver';
 import { IContenido, IFormato } from '../../models/excel/excel.model';
 
 export class ExcelService {
-  private static crearEstilo(formato?: IFormato): XLSX.CellStyle {
+  private static crearEstilo(formato?: IFormato): CellStyle {
     if (!formato) return {};
     return {
       font: {
@@ -49,8 +49,8 @@ export class ExcelService {
   }
 
   static exportar(nombreArchivo: string, contenido: IContenido) {
-    const workbook: XLSX.WorkBook = XLSX.utils.book_new();
-    const worksheet: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet([]);
+    const workbook: WorkBook = XLSX.utils.book_new();
+    const worksheet: WorkSheet = XLSX.utils.aoa_to_sheet([]);
 
     // Agregar celdas individuales
     contenido.celdas?.forEach((celda) => {
