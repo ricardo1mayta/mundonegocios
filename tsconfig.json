@@ -18,7 +18,9 @@
       "@angular/material/*": ["src/app/shared/stubs/angular-material/*"],
       "ngx-editor": ["src/app/shared/stubs/ngx-editor"],
       "ng2-charts": ["src/app/shared/stubs/ng2-charts"],
-      "chart.js": ["src/app/shared/stubs/chart.js"]
+      "chart.js": ["src/app/shared/stubs/chart.js"],
+      "xlsx-js-style": ["src/app/shared/stubs/xlsx-js-style"],
+      "file-saver": ["src/app/shared/stubs/file-saver"]
     },
     "moduleResolution": "bundler",
     "importHelpers": true,

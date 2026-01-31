@@ -7,6 +7,13 @@ export interface MatDialogConfig<T = unknown> {
   data?: T;
   width?: string;
   maxWidth?: string;
+  maxHeight?: string;
+  minWidth?: string;
+  minHeight?: string;
+  height?: string;
+  hasBackdrop?: boolean;
+  disableClose?: boolean;
+  panelClass?: string | string[];
 }
 
 export class MatDialogRef<T = unknown, R = unknown> {
@@ -26,6 +33,10 @@ export class MatDialogRef<T = unknown, R = unknown> {
 export class MatDialog {
   open<T>(_: unknown, __?: MatDialogConfig<T>): MatDialogRef<T> {
     return new MatDialogRef<T>();
+  }
+
+  closeAll() {
+    return;
   }
 }
 
