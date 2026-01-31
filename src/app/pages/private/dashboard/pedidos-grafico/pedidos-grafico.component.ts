@@ -29,7 +29,7 @@ export class PedidosGraficoComponent {
   };
 
   ngOnInit(): void {
-    this.reporteSrv.getPedidosMensuales().subscribe(resp => {
+    this.reporteSrv.getPedidosMensuales().subscribe((resp: any) => {
       // Rellena etiquetas con MES/AÑO
       this.data.labels = resp.map(r => `${r.mes.toString().padStart(2, '0')}/${r.anio}`);
 

@@ -219,7 +219,7 @@ export class EditarClienteComponent {
       : this.clienteService.registrarCliente({ ...body, clienteCodigoubigeo: body.clienteDistrito });
 
     req$.subscribe({
-      next: (r: unknown) => this.dialogRef.close(r),
+      next: (r: any) => this.dialogRef.close(r),
       error: e => console.error(e),
     });
   }

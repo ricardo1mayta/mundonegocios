@@ -29,7 +29,7 @@ export class PedidosGeneralGraficoComponent {
   };
 
   ngOnInit(): void {
-    this.reporteSrv.getPedidosMensualesGeneral().subscribe(resp => {
+    this.reporteSrv.getPedidosMensualesGeneral().subscribe((resp: any) => {
       // Rellena etiquetas con MES/AÑO
       this.data.labels = resp.map(r => `${r.mes.toString().padStart(2, '0')}/${r.anio}`);
       const palette = ['#4F46E5', '#22C55E', '#F97316', '#E11D48', '#0EA5E9', '#A855F7', '#FACC15', '#14B8A6', '#EF4444', '#6366F1', '#10B981', '#FB923C'];
