@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogClose } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 
 type ImagePreviewData = {
@@ -11,7 +11,7 @@ type ImagePreviewData = {
 @Component({
   selector: 'app-image-preview-dialog',
   standalone: true,
-  imports: [CommonModule, MatDialogContent, MatDialogActions, MatDialogClose, MatButtonModule],
+  imports: [CommonModule, MatDialogClose, MatButtonModule],
   templateUrl: './image-preview-dialog.component.html',
 })
 export class ImagePreviewDialogComponent {
