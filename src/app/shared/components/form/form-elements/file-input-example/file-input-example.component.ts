@@ -11,14 +11,7 @@ import { FileInputComponent } from '../../input/file-input.component';
     LabelComponent,
     FileInputComponent
 ],
-  template: `
-   <app-component-card title="File Input">
-    <div>
-      <app-label>Upload file</app-label>
-      <app-file-input (change)="handleFileChange($event)" className="custom-class"></app-file-input>
-    </div>
-  </app-component-card>
-  `,
+  templateUrl: './file-input-example.component.html',
 })
 export class FileInputExampleComponent {
   handleFileChange(event: Event) {
