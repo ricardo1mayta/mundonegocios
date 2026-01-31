@@ -9,6 +9,14 @@ export class MatTable {
 }
 
 @Directive({
+  selector: '[matColumnDef]',
+  standalone: true,
+})
+export class MatColumnDef {
+  @Input('matColumnDef') name?: string;
+}
+
+@Directive({
   selector: '[mat-header-cell]',
   standalone: true,
 })
@@ -74,7 +82,7 @@ export class MatTableDataSource<T = unknown> {
 }
 
 @NgModule({
-  imports: [MatTable, MatHeaderCell, MatCell, MatHeaderRow, MatRow, MatHeaderCellDef, MatCellDef, MatHeaderRowDef, MatRowDef],
-  exports: [MatTable, MatHeaderCell, MatCell, MatHeaderRow, MatRow, MatHeaderCellDef, MatCellDef, MatHeaderRowDef, MatRowDef],
+  imports: [MatTable, MatHeaderCell, MatCell, MatHeaderRow, MatRow, MatHeaderCellDef, MatCellDef, MatHeaderRowDef, MatRowDef, MatColumnDef],
+  exports: [MatTable, MatHeaderCell, MatCell, MatHeaderRow, MatRow, MatHeaderCellDef, MatCellDef, MatHeaderRowDef, MatRowDef, MatColumnDef],
 })
 export class MatTableModule {}

@@ -13,7 +13,7 @@ export class MatStepper {}
   template: '<ng-content></ng-content>',
 })
 export class MatHorizontalStepper {
-  @Input() linear = false;
+  @Input() linear: boolean | '' = false;
 }
 
 @Component({
