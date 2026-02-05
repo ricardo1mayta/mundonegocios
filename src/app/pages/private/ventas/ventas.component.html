@@ -56,7 +56,7 @@
         <app-columna-tabla titulo="Tikect" propiedad="id">
           <ng-template let-id="valor"
             ><button class="text-red-600" (click)="viewPdf(id)"><mat-icon aria-label="Archivo PDF">picture_as_pdf</mat-icon></button>
-            <button (click)="downloadPdf(id)"><mat-icon>cloud_download</mat-icon></button></ng-template
+            <button (click)="downloadPdf(id)" class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600 disabled:bg-brand-300"><mat-icon>cloud_download</mat-icon></button></ng-template
           >
         </app-columna-tabla>
         <app-columna-tabla titulo="Origen" propiedad="origen" />
@@ -93,3 +93,4 @@
     </app-form-list>
   </div>
 </app-form-crud>
+

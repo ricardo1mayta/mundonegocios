@@ -75,11 +75,12 @@
 
     <!-- footer botones -->
     <div class="p-4 sm:p-6 flex items-center justify-end gap-2">
-      <button type="button" class="rounded-xl border px-4 py-2 text-sm font-medium hover:bg-gray-50" (click)="cancelar()">Cancelar</button>
+      <button type="button" class="rounded-xl border px-5 py-3.5 text-sm font-medium hover:bg-gray-50" (click)="cancelar()">Cancelar</button>
 
-      <button type="submit" [disabled]="form.invalid || loading()" class="rounded-xl bg-black px-4 py-2 text-sm font-medium text-white disabled:opacity-50">
+      <button type="submit" [disabled]="form.invalid || loading()" class="rounded-xl bg-black px-5 py-3.5 text-sm font-medium text-white disabled:opacity-50">
         {{ loading() ? "Guardando..." : insumoId() ? "Actualizar" : "Guardar" }}
       </button>
     </div>
   </form>
 </div>
+

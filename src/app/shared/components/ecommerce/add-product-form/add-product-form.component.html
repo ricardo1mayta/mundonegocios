@@ -129,7 +129,7 @@
                 class="flex h-11 divide-x divide-gray-300 overflow-hidden rounded-lg border border-gray-300 dark:divide-gray-800 dark:border-gray-700"
               >
                 <button
-                  class="inline-flex h-11 w-11 items-center justify-center bg-white text-gray-700 hover:bg-gray-100 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
+                  class="inline-flex h-11 w-11 items-center justify-center gap-2 rounded-lg transition bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600 disabled:bg-brand-300"
                   (click)="decrementQuantity()"
                 >
                   <svg
@@ -157,7 +157,7 @@
                   ></app-input-field>
                 </div>
                 <button
-                  class="inline-flex h-11 w-11 items-center justify-center bg-white text-gray-700 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
+                  class="inline-flex h-11 w-11 items-center justify-center gap-2 rounded-lg transition bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600 disabled:bg-brand-300"
                   (click)="incrementQuantity()"
                 >
                   <svg
@@ -243,3 +243,4 @@
         <app-button variant="primary" (btnClick)="onPublish()">Publish Product</app-button>
       </div>
     </div>
+

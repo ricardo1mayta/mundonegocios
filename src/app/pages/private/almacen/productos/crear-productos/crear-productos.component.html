@@ -43,7 +43,7 @@
         </div>
 
         <div class="flex justify-end pt-4">
-          <button mat-button class="btn-primary" matStepperNext [disabled]="basicosForm.invalid">Siguiente</button>
+          <button mat-button class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600 disabled:bg-brand-300" matStepperNext [disabled]="basicosForm.invalid">Siguiente</button>
         </div>
       </form>
     </mat-step>
@@ -72,7 +72,7 @@
 
         <!-- Botones -->
         <div class="flex justify-between pt-4">
-          <button mat-button class="btn-secondary" matStepperPrevious>Volver</button>
+          <button mat-button class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm bg-white text-gray-700 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:bg-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white/[0.03] dark:hover:text-gray-300" matStepperPrevious>Volver</button>
           <button mat-button matStepperNext class="transition hover:bg-blue-700 hover:text-white" [disabled]="imagenesForm.invalid">Siguiente</button>
         </div>
       </form>
@@ -92,10 +92,12 @@
         </div>
 
         <div class="flex justify-between pt-4">
-          <button mat-button class="btn-secondary" matStepperPrevious>Volver</button>
-          <button mat-flat-button class="btn-primary" (click)="guardar()" [disabled]="preciosForm.invalid">Guardar</button>
+          <button mat-button class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm bg-white text-gray-700 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:bg-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white/[0.03] dark:hover:text-gray-300" matStepperPrevious>Volver</button>
+          <button mat-flat-button class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600 disabled:bg-brand-300" (click)="guardar()" [disabled]="preciosForm.invalid">Guardar</button>
         </div>
       </form>
     </mat-step>
   </mat-horizontal-stepper>
 </mat-dialog-content>
+
+

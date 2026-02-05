@@ -1,12 +1,20 @@
 <div class="flex flex-col gap-4" [ngClass]="class()">
-  <div class="flex justify-end gap-2">
-    <button mat-stroked-button color="primary" (click)="exportarExcel()">
-      <mat-icon>file_download</mat-icon>
+  <div class="flex flex-col sm:flex-row sm:justify-end gap-2">
+    <button
+      mat-stroked-button
+      (click)="exportarExcel()"
+      class="w-full sm:w-auto !h-10 !px-4 !rounded-xl !normal-case !border-gray-300 !text-gray-700 hover:!bg-gray-50"
+    >
+      <mat-icon class="!text-[20px] !mr-2 !text-gray-700">file_download</mat-icon>
       Exportar XLS
     </button>
 
-    <button mat-flat-button color="primary" (click)="agregarClick.emit()">
-      <mat-icon>add</mat-icon>
+    <button
+      mat-flat-button
+      (click)="agregarClick.emit()"
+      class="w-full sm:w-auto !h-10 !px-5 !rounded-xl !normal-case !bg-brand-500 hover:!bg-brand-600 !text-white !shadow-theme-xs"
+    >
+      <mat-icon class="!text-[20px] !mr-2 !text-white">add</mat-icon>
       {{ etiquetaAgregar() }}
     </button>
   </div>

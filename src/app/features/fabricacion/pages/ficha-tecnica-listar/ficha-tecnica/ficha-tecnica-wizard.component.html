@@ -21,7 +21,7 @@
         <div class="flex gap-2">
           <button
             type="button"
-            class="inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm bg-gray-800 text-white hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none"
+            class="inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none transition bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:bg-gray-50"
             (click)="toggleGeneral()">
             {{ showGeneral ? "Ocultar" : "Editar datos generales" }}
           </button>
@@ -77,7 +77,7 @@
         <button
           type="button"
           (click)="tab = 'medidas'"
-          class="relative -mb-px inline-flex items-center gap-2 rounded-t-xl px-4 py-2 text-sm font-semibold transition"
+          class="relative -mb-px inline-flex items-center gap-2 rounded-t-xl px-5 py-3.5 text-sm font-semibold transition"
           [ngClass]="tab === 'medidas' ? 'text-gray-600' : 'text-slate-600 hover:text-blue-900'">
           <span>Medidas</span>
 
@@ -94,7 +94,7 @@
         <button
           type="button"
           (click)="tab = 'piezas'"
-          class="relative -mb-px inline-flex items-center gap-2 rounded-t-xl px-4 py-2 text-sm font-semibold transition"
+          class="relative -mb-px inline-flex items-center gap-2 rounded-t-xl px-5 py-3.5 text-sm font-semibold transition"
           [ngClass]="tab === 'piezas' ? 'text-gray-600' : 'text-slate-600 hover:text-slate-900'">
           <span>Piezas</span>
 
@@ -121,7 +121,7 @@
 
           <button
             type="button"
-            class="inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm bg-blue-800 text-white hover:bg-green-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none"
+            class="inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none transition bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600 disabled:bg-brand-300"
             (click)="addMedida()">
             + Agregar
           </button>
@@ -200,7 +200,7 @@
 
           <button
             type="button"
-            class="inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm bg-blue-800 text-white hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none"
+            class="inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none transition bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600 disabled:bg-brand-300"
             (click)="addPieza()">
             + Agregar
           </button>
@@ -264,7 +264,7 @@
             <p class="text-xs text-gray-500">Secuencia del proceso (corte, costura, planchado, etc.).</p>
           </div>
 
-          <button type="button" class="btn-primary" (click)="addOperacion()">+ Agregar operación</button>
+          <button type="button" class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600 disabled:bg-brand-300" (click)="addOperacion()">+ Agregar operación</button>
         </div>
 
         <div class="flex items-center gap-6 text-xs text-gray-600">
@@ -316,13 +316,13 @@
 
                 <td class="p-3">
                   <div class="flex gap-2">
-                    <button type="button" class="btn" (click)="moveOperacionUp(i)" [disabled]="i === 0">↑</button>
-                    <button type="button" class="btn" (click)="moveOperacionDown(i)" [disabled]="i === operaciones.length - 1">↓</button>
+                    <button type="button" class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm border disabled:opacity-50 bg-white text-gray-700 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:bg-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white/[0.03] dark:hover:text-gray-300" (click)="moveOperacionUp(i)" [disabled]="i === 0">↑</button>
+                    <button type="button" class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm border disabled:opacity-50 bg-white text-gray-700 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:bg-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white/[0.03] dark:hover:text-gray-300" (click)="moveOperacionDown(i)" [disabled]="i === operaciones.length - 1">↓</button>
                   </div>
                 </td>
 
                 <td class="p-3 text-right">
-                  <button type="button" class="btn-danger" (click)="removeOperacion(i)">X</button>
+                  <button type="button" class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm bg-error-500 text-white hover:bg-error-600 disabled:bg-error-300" (click)="removeOperacion(i)">X</button>
                 </td>
               </tr>
             </tbody>
@@ -340,7 +340,7 @@
             <p class="text-xs text-gray-500">Sube una imagen o PDF. Se guarda el <b>nombre de archivo</b> en el modelo.</p>
           </div>
 
-          <button type="button" class="btn-primary" (click)="addAdjunto()">+ Agregar adjunto</button>
+          <button type="button" class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600 disabled:bg-brand-300" (click)="addAdjunto()">+ Agregar adjunto</button>
         </div>
 
         <div class="text-xs text-gray-600">
@@ -381,7 +381,7 @@
                     [accept]="a.get('tipo')?.value === 'PDF' ? 'application/pdf' : 'image/*'"
                     (change)="onFileSelected($event, i)" />
 
-                  <button type="button" class="btn btn-gray-500" (click)="uploadAdjunto(i)" [disabled]="!selectedFiles[i] || uploading[i]">
+                  <button type="button" class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:bg-gray-50" (click)="uploadAdjunto(i)" [disabled]="!selectedFiles[i] || uploading[i]">
                     {{ uploading[i] ? "Subiendo..." : "Subir" }}
                   </button>
                 </div>
@@ -412,7 +412,7 @@
               </div>
 
               <div class="flex md:justify-end">
-                <button type="button" class="btn btn-danger" (click)="removeAdjunto(i)">Eliminar</button>
+                <button type="button" class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm bg-error-500 text-white hover:bg-error-600 disabled:bg-error-300" (click)="removeAdjunto(i)">Eliminar</button>
               </div>
             </div>
           </div>
@@ -428,7 +428,7 @@
         *ngIf="!fichaId(); else btnActualizar"
         type="button"
         [disabled]="form.invalid || loading()"
-        class="inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm bg-blue-800 text-white hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none"
+        class="inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none transition bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600 disabled:bg-brand-300"
         (click)="guardar()">
         Guardar
       </button>
@@ -437,7 +437,7 @@
         <button
           type="button"
           [disabled]="form.invalid || loading()"
-          class="inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm bg-blue-800 text-white hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none"
+          class="inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none transition bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600 disabled:bg-brand-300"
           (click)="actualizar()">
           Actualizar
         </button>
@@ -445,7 +445,7 @@
         <button
           type="button"
           [disabled]="form.invalid || loading()"
-          class="inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm bg-blue-800 text-white hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none"
+          class="inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none transition bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600 disabled:bg-brand-300"
           (click)="duplicar()">
           Duplicar
         </button>
@@ -454,10 +454,14 @@
       <button
         type="button"
         [disabled]="form.invalid || loading()"
-        class="inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm bg-green-800 text-white hover:bg-green-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none"
+        class="inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none transition bg-success-500 text-white hover:bg-success-600 disabled:bg-success-300"
         (click)="aprobar()">
         Aprobar
       </button>
     </div>
   </form>
 </div>
+
+
+
+

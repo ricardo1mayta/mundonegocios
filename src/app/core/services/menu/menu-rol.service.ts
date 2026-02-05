@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { MenuNode } from '../../models/menu/menu-node';
-import { environment } from '../../../../environments/environment';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { MenuNode } from "../../models/menu/menu-node";
+import { environment } from "../../../../environments/environment";
 export interface MenuItem {
   idItem: number;
   name: string;
@@ -13,7 +13,7 @@ export interface MenuItem {
   children: MenuItem[];
 }
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class MenuRolService {
   private readonly API_URL = `${environment.apiUrlBase}/pegasus/sidenav`; // ajusta la URL si es distinta
@@ -23,7 +23,9 @@ export class MenuRolService {
   getMenu(idRol: number, idSede: number) {
     return this.http.get<MenuNode[]>(`${this.API_URL}/menurolsede`);
   }
-
+  getMenuNew(idRol: number, idSede: number) {
+    return this.http.get<MenuNode[]>(`${this.API_URL}/menurolsede2`);
+  }
   getItemsByRol(rolId: number) {
     return this.http.get<number[]>(`${this.API_URL}/menurol/${rolId}`);
   }

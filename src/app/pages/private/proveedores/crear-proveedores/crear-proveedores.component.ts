@@ -1,21 +1,29 @@
-import { Component, effect, inject, signal } from '@angular/core';
-import { ModalComponent } from '../../../../core/components/modal/modal.component';
-import { FormBuilder, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, effect, inject, signal } from "@angular/core";
+import { ModalComponent } from "../../../../core/components/modal/modal.component";
+import { FormBuilder, NonNullableFormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
 
-import { Clientes } from '../../../../core/models/ventas/clientes';
-import { ClientesService } from '../../../../core/services/clientes/clientes.service';
-import { CommonModule } from '@angular/common';
-import { MatDialogContent, MatDialogActions, MatDialogClose, MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
-import { MatIcon, MatIconModule } from '@angular/material/icon';
-import { UbigeoService } from '../../../../core/services/ubigeo/ubigeo.service';
-import { CodigosService } from '../../../../core/services/codigos/codigos.service';
-import { SunatService } from '../../../../core/services/codigos/sunat.service';
-import { ProvedoresService } from '../../../../core/services/provedores/provedores.service';
-import { MatSelectModule } from '@angular/material/select';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatStepperModule } from '@angular/material/stepper';
-import { NgxEditorModule } from 'ngx-editor';
-import { MaterialModule } from '../../../../core/modules/material/material.module';
+import { Clientes } from "../../../../core/models/ventas/clientes";
+import { ClientesService } from "../../../../core/services/clientes/clientes.service";
+import { CommonModule } from "@angular/common";
+import {
+  MatDialogContent,
+  MatDialogActions,
+  MatDialogClose,
+  MAT_DIALOG_DATA,
+  MatDialogRef,
+  MatDialogModule,
+} from "@angular/material/dialog";
+import { MatIcon, MatIconModule } from "@angular/material/icon";
+import { UbigeoService } from "../../../../core/services/ubigeo/ubigeo.service";
+import { CodigosService } from "../../../../core/services/codigos/codigos.service";
+import { SunatService } from "../../../../core/services/codigos/sunat.service";
+import { ProvedoresService } from "../../../../core/services/provedores/provedores.service";
+import { MatSelectModule } from "@angular/material/select";
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+import { MatStepperModule } from "@angular/material/stepper";
+
+import { MaterialModule } from "../../../../core/modules/material/material.module";
+import { NgxEditorModule } from "ngx-editor";
 
 type CrearProveedorData = {
   provedor?: {
@@ -35,11 +43,23 @@ type CrearProveedorData = {
   };
 };
 @Component({
-  selector: 'app-crear-proveedores',
+  selector: "app-crear-proveedores",
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatStepperModule, MatSelectModule, MatSlideToggleModule, MatDialogModule, NgxEditorModule, MatIcon, MaterialModule, MatIconModule, MatDialogContent],
-  templateUrl: './crear-proveedores.component.html',
-  styleUrl: './crear-proveedores.component.css',
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatStepperModule,
+    MatSelectModule,
+    MatSlideToggleModule,
+    MatDialogModule,
+    NgxEditorModule,
+    MatIcon,
+    MaterialModule,
+    MatIconModule,
+    MatDialogContent,
+  ],
+  templateUrl: "./crear-proveedores.component.html",
+  styleUrl: "./crear-proveedores.component.css",
 })
 export class CrearProveedoresComponent {
   /* -------- catálogos -------- */
@@ -58,26 +78,26 @@ export class CrearProveedoresComponent {
 
   /* PASO 1 – Documento */
   docForm = this.fb.group({
-    tipodocumento: ['1', Validators.required],
-    numerodocumento: ['', [Validators.required, Validators.minLength(6)]],
-    nombre: ['', Validators.required],
+    tipodocumento: ["1", Validators.required],
+    numerodocumento: ["", [Validators.required, Validators.minLength(6)]],
+    nombre: ["", Validators.required],
   });
 
   /* PASO 2 – Dirección */
   dirForm = this.fb.group({
-    direccion: ['', Validators.required],
-    pais: ['PE'],
-    ciudad: [''],
-    departamento: [''],
-    provincia: [''],
-    distrito: [''],
-    codigoubigeo: [''],
+    direccion: ["", Validators.required],
+    pais: ["PE"],
+    ciudad: [""],
+    departamento: [""],
+    provincia: [""],
+    distrito: [""],
+    codigoubigeo: [""],
   });
 
   /* PASO 3 – Contacto */
   contactoForm = this.fb.group({
-    email: [''],
-    telefono: [''],
+    email: [""],
+    telefono: [""],
   });
 
   constructor() {
@@ -86,7 +106,7 @@ export class CrearProveedoresComponent {
     this.ubigeoSrv.listarDepartamentos().subscribe((r: any) => this.departamentos.set(r.data ?? r));
 
     /* cascada ubigeo */
-    this.dirForm.get('departamento')!.valueChanges.subscribe(dep => {
+    this.dirForm.get("departamento")!.valueChanges.subscribe((dep) => {
       if (!dep) {
         this.provincias.set([]);
         this.distritos.set([]);
@@ -98,8 +118,8 @@ export class CrearProveedoresComponent {
       });
     });
 
-    this.dirForm.get('provincia')!.valueChanges.subscribe(prov => {
-      const dep = this.dirForm.get('departamento')!.value;
+    this.dirForm.get("provincia")!.valueChanges.subscribe((prov) => {
+      const dep = this.dirForm.get("departamento")!.value;
       if (!dep || !prov) {
         this.distritos.set([]);
         return;
@@ -132,12 +152,12 @@ export class CrearProveedoresComponent {
   /* ------------ búsqueda SUNAT/RENIEC (igual que antes) ------------- */
   buscarEnSunat(): void {
     // validar por el tipo de documento dni 1 y ruc 6 si es otro mayor a 6 caracteres
-    const tipoDocumento = this.docForm.get('tipodocumento')?.value ?? '';
-    const numeroDocumento = this.docForm.get('numerodocumento')?.value ?? '';
+    const tipoDocumento = this.docForm.get("tipodocumento")?.value ?? "";
+    const numeroDocumento = this.docForm.get("numerodocumento")?.value ?? "";
 
-    if (tipoDocumento === '1' && numeroDocumento && numeroDocumento.length === 8) {
+    if (tipoDocumento === "1" && numeroDocumento && numeroDocumento.length === 8) {
       // Buscar persona en RENIEC
-      this.sunat.getPersonaReniec('' + numeroDocumento).subscribe({
+      this.sunat.getPersonaReniec("" + numeroDocumento).subscribe({
         next: (response: any) => {
           if (response.data) {
             this.docForm.patchValue({
@@ -147,14 +167,14 @@ export class CrearProveedoresComponent {
               direccion: response.data.direccion,
             });
           } else {
-            console.warn('No se encontró información para el DNI proporcionado');
+            console.warn("No se encontró información para el DNI proporcionado");
           }
         },
-        error: err => console.error('Error al buscar en RENIEC', err),
+        error: (err) => console.error("Error al buscar en RENIEC", err),
       });
-    } else if (tipoDocumento === '2' && numeroDocumento && numeroDocumento.length >= 11) {
+    } else if (tipoDocumento === "2" && numeroDocumento && numeroDocumento.length >= 11) {
       // Buscar persona en SUNAT
-      this.sunat.getEmpresaSunat('' + numeroDocumento).subscribe({
+      this.sunat.getEmpresaSunat("" + numeroDocumento).subscribe({
         next: (response: any) => {
           if (response.data) {
             this.docForm.patchValue({
@@ -166,25 +186,25 @@ export class CrearProveedoresComponent {
             });
             this.seteaUbigeo(response.data.ubigeo_sunat);
           } else {
-            console.warn('No se encontró información para el RUC proporcionado');
+            console.warn("No se encontró información para el RUC proporcionado");
           }
         },
-        error: err => console.error('Error al buscar en SUNAT', err),
+        error: (err) => console.error("Error al buscar en SUNAT", err),
       });
     } else {
-      console.warn('Tipo de documento no soportado o número de documento inválido');
+      console.warn("Tipo de documento no soportado o número de documento inválido");
     }
   }
 
   seteaUbigeo(codigo: string): void {
     if (!/^\d{6}$/.test(codigo)) {
-      console.warn('Código de ubigeo inválido →', codigo);
+      console.warn("Código de ubigeo inválido →", codigo);
       return;
     }
 
     // Códigos en el formato que espera tu API
-    const dep = codigo.slice(0, 2) + '0000';
-    const prov = codigo.slice(0, 4) + '00';
+    const dep = codigo.slice(0, 2) + "0000";
+    const prov = codigo.slice(0, 4) + "00";
     const dist = codigo.slice(0, 6);
 
     this.dirForm.patchValue(
@@ -194,7 +214,7 @@ export class CrearProveedoresComponent {
         distrito: dist,
         codigoubigeo: codigo,
       },
-      { emitEvent: false }
+      { emitEvent: false },
     );
     this.ubigeoSrv.listarProvincias(dep).subscribe((p: any) => {
       this.provincias.set(p.data ?? p);
@@ -218,11 +238,13 @@ export class CrearProveedoresComponent {
     if (this.docForm.invalid || this.dirForm.invalid) return;
     const payload = this.body();
     const id = this.data?.provedor?.id;
-    const req$ = id ? this.provSrv.actualizarProvedor(id, { ...payload, codigoubigeo: payload.distrito }) : this.provSrv.registrarProvedor({ ...payload, codigoubigeo: payload.distrito });
+    const req$ = id
+      ? this.provSrv.actualizarProvedor(id, { ...payload, codigoubigeo: payload.distrito })
+      : this.provSrv.registrarProvedor({ ...payload, codigoubigeo: payload.distrito });
 
     req$.subscribe({
       next: (r: any) => this.dialogRef.close(r),
-      error: e => console.error(e),
+      error: (e) => console.error(e),
     });
   }
 }

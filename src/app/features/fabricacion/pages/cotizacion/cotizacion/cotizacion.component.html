@@ -73,7 +73,7 @@
 
           <!-- Derecha: Botones -->
           <div class="flex flex-wrap items-center justify-end gap-2">
-            <button type="button" (click)="volver()" class="inline-flex items-center justify-center rounded-xl border px-4 py-2 text-sm font-medium hover:bg-gray-50 active:scale-[0.99]">
+            <button type="button" (click)="volver()" class="inline-flex items-center justify-center rounded-xl border px-5 py-3.5 text-sm font-medium active:scale-[0.99] gap-2 rounded-lg transition bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600 disabled:bg-brand-300">
               Volver
             </button>
 
@@ -82,7 +82,7 @@
               type="button"
               (click)="cargarBom()"
               [disabled]="loading() || !form.get('bomId')?.value"
-              class="inline-flex items-center justify-center rounded-xl border px-4 py-2 text-sm font-medium hover:bg-gray-50 disabled:opacity-50 active:scale-[0.99]">
+              class="inline-flex items-center justify-center rounded-xl border px-5 py-3.5 text-sm font-medium disabled:opacity-50 active:scale-[0.99] gap-2 rounded-lg transition bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600 disabled:bg-brand-300">
               Cargar Modelo
             </button>
 
@@ -90,7 +90,7 @@
               *ngIf="cotizacionId()"
               type="button"
               (click)="copiar()"
-              class="inline-flex items-center justify-center rounded-xl border px-4 py-2 text-sm font-medium hover:bg-gray-50 active:scale-[0.99]">
+              class="inline-flex items-center justify-center rounded-xl border px-5 py-3.5 text-sm font-medium active:scale-[0.99] gap-2 rounded-lg transition bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600 disabled:bg-brand-300">
               Copiar
             </button>
 
@@ -98,7 +98,7 @@
               type="button"
               (click)="guardar()"
               [disabled]="form.invalid || loading()"
-              class="inline-flex items-center justify-center rounded-xl bg-black px-4 py-2 text-sm font-medium text-white disabled:opacity-50 active:scale-[0.99]">
+              class="inline-flex items-center justify-center rounded-xl px-5 py-3.5 text-sm font-medium disabled:opacity-50 active:scale-[0.99] gap-2 rounded-lg transition bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600 disabled:bg-brand-300">
               {{ cotizacionId() ? "Actualizar" : "Generar" }}
             </button>
           </div>
@@ -168,5 +168,8 @@
       <div class="p-6 text-sm text-gray-600 total-print">TOTAL COTIZACIÓN: S/ {{ total() | number: "1.2-2" }}</div>
     </div>
   </div>
-  <button type="button" (click)="imprimir()" class="inline-flex items-center justify-center rounded-xl border px-4 py-2 text-sm font-medium hover:bg-gray-50 active:scale-[0.99]">Imprimir</button>
+  <button type="button" (click)="imprimir()" class="inline-flex items-center justify-center rounded-xl border px-5 py-3.5 text-sm font-medium active:scale-[0.99] gap-2 rounded-lg transition bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600 disabled:bg-brand-300">Imprimir</button>
 </div>
+
+
+

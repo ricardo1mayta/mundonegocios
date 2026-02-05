@@ -1,5 +1,5 @@
 <div class="flex flex-col gap-4">
-  <div class="text-2xl font-medium text-blue-900">{{ titulo() }}</div>
+  <div class="text-2xl font-medium text-blue-900">dd{{ titulo() }}</div>
   <div class="flex flex-col rounded-lg px-8 py-4">
     <div class="flex justify-between items-center">
       <div class="flex items-center">
@@ -20,9 +20,9 @@
   <div class="flex flex-col flex-grow">
     <div class="flex flex-col">
       @if (mensajeAdvertencia()) {
-      <div class="text-sm text-red-600">
-        {{ mensajeAdvertencia() }}
-      </div>
+        <div class="text-sm text-red-600">
+          {{ mensajeAdvertencia() }}
+        </div>
       }
     </div>
     <ng-content />

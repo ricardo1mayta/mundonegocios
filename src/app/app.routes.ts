@@ -30,12 +30,8 @@ export const routes: Routes = [
   },
 
   {
-    path: "**",
-    redirectTo: "",
-  },
-  {
     path: "demo",
-    component: AppLayoutComponent,
+    //component: AppLayoutComponent,
     children: [
       {
         path: "",
@@ -132,5 +128,9 @@ export const routes: Routes = [
     path: "**",
     component: NotFoundComponent,
     title: "Angular NotFound Dashboard | TailAdmin - Angular Admin Dashboard Template",
+  },
+  {
+    path: "**",
+    redirectTo: "",
   },
 ];

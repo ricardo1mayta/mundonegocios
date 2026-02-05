@@ -34,12 +34,12 @@
       <div class="md:col-span-4 flex gap-2 justify-end pt-2">
         <button
           type="button"
-          class="rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm hover:bg-slate-50 active:scale-[0.99] transition"
+          class="rounded-lg border border-slate-200 bg-white px-5 py-3.5 text-sm font-semibold text-slate-700 shadow-sm hover:bg-slate-50 active:scale-[0.99] transition"
           (click)="limpiar()">
           Limpiar
         </button>
 
-        <button type="button" class="rounded-lg bg-slate-900 text-white px-4 py-2 text-sm font-semibold shadow-sm hover:bg-slate-800 active:scale-[0.99] transition" (click)="aplicarFiltros()">
+        <button type="button" class="rounded-lg bg-slate-900 text-white px-5 py-3.5 text-sm font-semibold shadow-sm hover:bg-slate-800 active:scale-[0.99] transition" (click)="aplicarFiltros()">
           Consultar
         </button>
       </div>
@@ -120,3 +120,4 @@
 
   <mat-paginator [length]="page().totalElements" [pageIndex]="page().number" [pageSize]="page().size" [pageSizeOptions]="[5, 10, 20, 50, 100, 1000]" (page)="onPage($event)"> </mat-paginator>
 </div>
+

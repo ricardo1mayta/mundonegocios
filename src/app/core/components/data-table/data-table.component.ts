@@ -1,27 +1,41 @@
-import { Component, computed, contentChild, contentChildren, effect, inject, input, model, output, signal, TemplateRef, ViewChild, viewChild } from '@angular/core';
-import { IEventoBoton, IEventoCheck, IReporteExcel, IListaPaginada, IListaPaginadaPeticion } from './data-table.model';
-import { HttpClient } from '@angular/common/http';
-import { MatPaginator, MatPaginatorIntl, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { SelectionModel } from '@angular/cdk/collections';
-import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox';
-import { PaginatorIntl } from './paginator-intl';
-import { CommonModule, DatePipe } from '@angular/common';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { RutaService } from '../../services/general/ruta.service';
-
-import { IRespuestaApi } from '../../models/generic/general.model';
-import { IColumna, IContenido } from '../../models/excel/excel.model';
-import { ExcelService } from '../../services/excel/excel.service';
+import {
+  Component,
+  computed,
+  contentChild,
+  contentChildren,
+  effect,
+  inject,
+  input,
+  model,
+  output,
+  signal,
+  TemplateRef,
+  ViewChild,
+  viewChild,
+} from "@angular/core";
+import { IEventoBoton, IEventoCheck, IReporteExcel, IListaPaginada, IListaPaginadaPeticion } from "./data-table.model";
+import { HttpClient } from "@angular/common/http";
+import { MatPaginator, MatPaginatorIntl, MatPaginatorModule, PageEvent } from "@angular/material/paginator";
+import { MatButtonModule } from "@angular/material/button";
+import { MatIconModule } from "@angular/material/icon";
+import { MatTableDataSource, MatTableModule } from "@angular/material/table";
+import { SelectionModel } from "@angular/cdk/collections";
+import { MatCheckboxChange, MatCheckboxModule } from "@angular/material/checkbox";
+import { PaginatorIntl } from "./paginator-intl";
+import { CommonModule, DatePipe } from "@angular/common";
+import { MatMenuModule } from "@angular/material/menu";
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+import { RutaService } from "../../services/general/ruta.service";
+import { IRespuestaApi } from "../../models/generic/general.model";
+import { IColumna, IContenido } from "../../models/excel/excel.model";
+import { ExcelService } from "../../services/excel/excel.service";
+import { MaterialModule } from "../../modules/material/material.module";
 
 @Component({
-  selector: 'app-columna-tabla',
+  selector: "app-columna-tabla",
   standalone: true,
   imports: [],
-  template: '',
+  template: "",
 })
 export class ColumnaTablaComponent {
   titulo = input.required<string>();
@@ -32,10 +46,10 @@ export class ColumnaTablaComponent {
 }
 
 @Component({
-  selector: 'app-accion-tabla',
+  selector: "app-accion-tabla",
   standalone: true,
   imports: [],
-  template: '',
+  template: "",
 })
 export class AccionTablaComponent {
   private readonly rutaService = inject(RutaService);
@@ -48,9 +62,19 @@ export class AccionTablaComponent {
 }
 
 @Component({
-  selector: 'app-data-table',
+  selector: "app-data-table",
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatPaginatorModule, MatButtonModule, MatIconModule, MatMenuModule, MatCheckboxModule, MatSlideToggleModule],
+  imports: [
+    CommonModule,
+    MaterialModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatButtonModule,
+    MatIconModule,
+    MatMenuModule,
+    MatCheckboxModule,
+    MatSlideToggleModule,
+  ],
   providers: [
     {
       provide: MatPaginatorIntl,
@@ -58,43 +82,43 @@ export class AccionTablaComponent {
     },
     DatePipe,
   ],
-  templateUrl: './data-table.component.html',
-  styleUrl: './data-table.component.scss',
+  templateUrl: "./data-table.component.html",
+  styleUrl: "./data-table.component.scss",
 })
 export class DataTableComponent {
   columnas = contentChildren(ColumnaTablaComponent);
   botones = contentChildren(AccionTablaComponent);
-  tituloColumnas = computed(() => this.columnas().map(column => column.titulo()));
+  tituloColumnas = computed(() => this.columnas().map((column) => column.titulo()));
   columnasAMostrar = computed(() => {
-    const titulos = this.columnas().map(columna => columna.propiedad());
+    const titulos = this.columnas().map((columna) => columna.propiedad());
     if (this.mostrarColumnaSeleccion()) {
-      titulos.unshift('seleccion');
+      titulos.unshift("seleccion");
     }
     if (this.botones().length > 0) {
-      titulos.push('acciones');
+      titulos.push("acciones");
     }
     return titulos;
   });
 
   mostrarMensajeTablaVacia = signal<boolean>(true);
-  mensajeTablaVacia = input<string>('No se hallaron coincidencias para tu búsqueda, intenta cambiar tu búsqueda');
+  mensajeTablaVacia = input<string>("No se hallaron coincidencias para tu búsqueda, intenta cambiar tu búsqueda");
   paginable = input<boolean>(true);
   tamanioPagina = model<number>(5);
   paginaActual = 0;
   totalRegistros = signal<number>(0);
-  urlApi = input<string>('');
-  metodoApi = input<'get' | 'post'>('post');
-  urlExcel = input<string>('');
-  metodoExcel = input<'get' | 'post' | ''>('');
+  urlApi = input<string>("");
+  metodoApi = input<"get" | "post">("post");
+  urlExcel = input<string>("");
+  metodoExcel = input<"get" | "post" | "">("");
   parametrosApi = input<any>({});
   datos = model<any[]>([]);
   origenDatos = new MatTableDataSource<any>([]);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  height = input<string>('auto');
+  height = input<string>("auto");
   ngHeight = computed(() => {
-    if (this.paginable() || this.height() === 'auto' || !this.height()) {
+    if (this.paginable() || this.height() === "auto" || !this.height()) {
       return {};
     }
     return { maxHeight: this.height(), height: this.height() };
@@ -108,14 +132,17 @@ export class DataTableComponent {
   cambioSeleccionados = output<IEventoCheck>();
   aplicarPermisos = input<boolean>(false);
 
-  constructor(private httpClient: HttpClient, private datePipe: DatePipe) {
+  constructor(
+    private httpClient: HttpClient,
+    private datePipe: DatePipe,
+  ) {
     effect(
       () => {
         this.origenDatos.data = this.datos();
         this.mostrarMensajeTablaVacia.set(!this.datos()?.length);
         this.actualizarEstadoCheckCabecera();
       },
-      { allowSignalWrites: true }
+      { allowSignalWrites: true },
     );
 
     effect(() => {
@@ -144,33 +171,35 @@ export class DataTableComponent {
       tamanio: this.tamanioPagina(),
     };
     if (this.urlApi()) {
-      this.obtenerDatos<IRespuestaApi<IListaPaginada<any>>>(this.metodoApi(), this.urlApi(), parametros).subscribe(respuesta => {
-        this.origenDatos = new MatTableDataSource<any>(respuesta!.data?.lista || []);
-        this.totalRegistros.set(respuesta!.data?.totalRegistros || 0);
-        this.mostrarMensajeTablaVacia.set(!this.origenDatos.data?.length);
-        this.actualizarEstadoCheckCabecera();
-      });
+      this.obtenerDatos<IRespuestaApi<IListaPaginada<any>>>(this.metodoApi(), this.urlApi(), parametros).subscribe(
+        (respuesta) => {
+          this.origenDatos = new MatTableDataSource<any>(respuesta!.data?.lista || []);
+          this.totalRegistros.set(respuesta!.data?.totalRegistros || 0);
+          this.mostrarMensajeTablaVacia.set(!this.origenDatos.data?.length);
+          this.actualizarEstadoCheckCabecera();
+        },
+      );
     }
   }
 
   obtenerDatos<T>(metodoApi: string, urlApi: string, parametros: any) {
-    if (metodoApi === 'get') {
+    if (metodoApi === "get") {
       const queryString = Object.keys(parametros)
-        .map(key => `${key}=${parametros[key]}`)
-        .join('&');
-      urlApi += urlApi.indexOf('?') >= 0 ? '&' : '?';
+        .map((key) => `${key}=${parametros[key]}`)
+        .join("&");
+      urlApi += urlApi.indexOf("?") >= 0 ? "&" : "?";
       return this.httpClient.get<T>(urlApi + queryString);
     }
     return this.httpClient.post<T>(urlApi, parametros);
   }
   exportarXLS(nombreArchivo: string, configuracion?: IReporteExcel) {
     if (!this.urlExcel()) {
-      console.error('No se ha definido la url para exportar a excel');
+      console.error("No se ha definido la url para exportar a excel");
       return;
     }
 
-    const fechaHora = new Date().toISOString().replace(/:/g, '-');
-    const filename = nombreArchivo + '_' + fechaHora;
+    const fechaHora = new Date().toISOString().replace(/:/g, "-");
+    const filename = nombreArchivo + "_" + fechaHora;
 
     const parametros: IListaPaginadaPeticion<any> = {
       datos: this.parametrosApi(),
@@ -178,7 +207,11 @@ export class DataTableComponent {
       tamanio: this.tamanioPagina(),
     };
 
-    this.obtenerDatos<IRespuestaApi<any>>(this.metodoExcel() || this.metodoApi(), this.urlExcel(), this.parametrosApi()).subscribe(respuesta => {
+    this.obtenerDatos<IRespuestaApi<any>>(
+      this.metodoExcel() || this.metodoApi(),
+      this.urlExcel(),
+      this.parametrosApi(),
+    ).subscribe((respuesta) => {
       const datos = respuesta!.data || [];
       const datosExcel = this.crearContenidoReporte(datos, configuracion);
       ExcelService.exportar(filename, datosExcel);
@@ -188,32 +221,32 @@ export class DataTableComponent {
     const contenidoExcel: IContenido = {
       celdas: [
         {
-          ubicacion: 'A1',
-          contenido: cfg?.titulo ?? '',
+          ubicacion: "A1",
+          contenido: cfg?.titulo ?? "",
           formato: {
             negrita: true,
             tamanioLetra: 14,
           },
         },
-        { ubicacion: 'A2', contenido: 'Fuente:' },
-        { ubicacion: 'B2', contenido: cfg?.fuente ?? '' },
-        { ubicacion: 'A3', contenido: 'Fecha y Hora:' },
+        { ubicacion: "A2", contenido: "Fuente:" },
+        { ubicacion: "B2", contenido: cfg?.fuente ?? "" },
+        { ubicacion: "A3", contenido: "Fecha y Hora:" },
         {
-          ubicacion: 'B3',
-          contenido: this.datePipe.transform(new Date(), 'dd/MM/yyyy HH:mm'),
+          ubicacion: "B3",
+          contenido: this.datePipe.transform(new Date(), "dd/MM/yyyy HH:mm"),
         },
       ],
       filas: [
         {
           indiceFila: 4,
           columnaInicial: 0,
-          contenido: cfg && cfg.columnas ? cfg.columnas.map(columna => columna.titulo) : [],
+          contenido: cfg && cfg.columnas ? cfg.columnas.map((columna) => columna.titulo) : [],
           formato: {
-            color: 'ffffff',
-            fondo: '000080',
+            color: "ffffff",
+            fondo: "000080",
             negrita: true,
-            estiloBorde: 'thin',
-            alineacionHorizontal: 'center',
+            estiloBorde: "thin",
+            alineacionHorizontal: "center",
           },
         },
       ],
@@ -236,13 +269,17 @@ export class DataTableComponent {
         if (cfg.columnas[i].propiedad) {
           if (cfg.columnas[i].esFecha) {
             const propiedad = cfg.columnas[i].propiedad;
-            col.contenido = propiedad ? datos.map(dato => (dato[propiedad] ? this.datePipe.transform(dato[propiedad], 'dd/MM/yyyy HH:mm') : '')) : [];
+            col.contenido = propiedad
+              ? datos.map((dato) =>
+                  dato[propiedad] ? this.datePipe.transform(dato[propiedad], "dd/MM/yyyy HH:mm") : "",
+                )
+              : [];
           } else {
             const propiedad = cfg.columnas[i].propiedad;
-            col.contenido = propiedad ? datos.map(dato => (dato[propiedad] ? dato[propiedad] : '')) : [];
+            col.contenido = propiedad ? datos.map((dato) => (dato[propiedad] ? dato[propiedad] : "")) : [];
           }
         } else if (cfg.columnas[i].fn) {
-          col.contenido = datos.map(dato => cfg.columnas[i].fn!(dato));
+          col.contenido = datos.map((dato) => cfg.columnas[i].fn!(dato));
         }
 
         contenidoExcel.columnas.push(col);
