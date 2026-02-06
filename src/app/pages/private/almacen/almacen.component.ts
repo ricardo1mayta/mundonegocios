@@ -1,25 +1,26 @@
-import { CommonModule } from '@angular/common';
-import { Component, model, signal, ViewChild, viewChild } from '@angular/core';
-import { ReactiveFormsModule, FormGroup, FormControl, FormsModule } from '@angular/forms';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatDialog } from '@angular/material/dialog';
+import { CommonModule } from "@angular/common";
+import { Component, model, signal, ViewChild, viewChild } from "@angular/core";
+import { ReactiveFormsModule, FormGroup, FormControl, FormsModule } from "@angular/forms";
+import { MatNativeDateModule } from "@angular/material/core";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatDialog } from "@angular/material/dialog";
 
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { DataTableComponent } from '../../../core/components/data-table/data-table.component';
-import { IReporteExcel } from '../../../core/components/data-table/data-table.model';
-import { DataTableModule } from '../../../core/components/data-table/data-table.module';
-import { FormCrudComponent } from '../../../core/components/form-crud/form-crud.component';
-import { FormFilterComponent } from '../../../core/components/form-crud/form-filter/form-filter.component';
-import { FormListComponent } from '../../../core/components/form-crud/form-list/form-list.component';
-import { MaterialModule } from '../../../core/modules/material/material.module';
-import { InventarioService } from '../../../core/services/inventario/inventario.service';
-import { EditarStockModalComponent } from './invertario/editar-stock-modal/editar-stock-modal.component';
-import { ImagePreviewDialogComponent } from '../../../shared/components/image-preview-dialog/image-preview-dialog.component';
+import { MatSlideToggleChange } from "@angular/material/slide-toggle";
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+import { DataTableComponent } from "../../../core/components/data-table/data-table.component";
+import { IReporteExcel } from "../../../core/components/data-table/data-table.model";
+import { DataTableModule } from "../../../core/components/data-table/data-table.module";
+import { FormCrudComponent } from "../../../core/components/form-crud/form-crud.component";
+import { FormFilterComponent } from "../../../core/components/form-crud/form-filter/form-filter.component";
+import { FormListComponent } from "../../../core/components/form-crud/form-list/form-list.component";
+import { MaterialModule } from "../../../core/modules/material/material.module";
+import { InventarioService } from "../../../core/services/inventario/inventario.service";
+import { EditarStockModalComponent } from "./invertario/editar-stock-modal/editar-stock-modal.component";
+import { ImagePreviewDialogComponent } from "../../../shared/components/image-preview-dialog/image-preview-dialog.component";
+import { SwitchComponent } from "src/app/shared/components/form/input/switch.component";
 
 @Component({
-  selector: 'app-almacen',
+  selector: "app-almacen",
   imports: [
     CommonModule,
     MatSlideToggleModule,
@@ -32,9 +33,10 @@ import { ImagePreviewDialogComponent } from '../../../shared/components/image-pr
     DataTableModule,
     ReactiveFormsModule,
     FormsModule,
+    SwitchComponent,
   ],
-  templateUrl: './almacen.component.html',
-  styleUrl: './almacen.component.css',
+  templateUrl: "./almacen.component.html",
+  styleUrl: "./almacen.component.css",
 })
 export class AlmacenComponent {
   filtros = model<any>();
@@ -45,19 +47,22 @@ export class AlmacenComponent {
     fechaHasta: new FormControl(),
   });
 
-  urlApi = signal('');
+  urlApi = signal("");
 
   @ViewChild(DataTableComponent)
   dataTable!: DataTableComponent;
 
   configuracionExcel: IReporteExcel = {
-    titulo: 'Lista de pedidos',
-    fuente: 'Order de pedidos',
+    titulo: "Lista de pedidos",
+    fuente: "Order de pedidos",
 
-    columnas: [{ titulo: 'Codigo', propiedad: 'codigo' }],
+    columnas: [{ titulo: "Codigo", propiedad: "codigo" }],
   };
 
-  constructor(private dialog: MatDialog, private inventarioService: InventarioService) {}
+  constructor(
+    private dialog: MatDialog,
+    private inventarioService: InventarioService,
+  ) {}
 
   ngOnInit(): void {
     this.urlApi = signal(this.inventarioService.urlListaProductosDisponibles);
@@ -65,7 +70,7 @@ export class AlmacenComponent {
   }
 
   buscar(): void {
-    console.log('buscar');
+    console.log("buscar");
     this.dataTable?.recargarTabla();
   }
   aplicarFiltros(): void {
@@ -81,39 +86,39 @@ export class AlmacenComponent {
       campo: campo,
       valor: valorActualizado,
     };
-    console.log('Editar campo:', campo, 'con valor:', valorActualizado);
+    console.log("Editar campo:", campo, "con valor:", valorActualizado);
 
-    if (campo != '' && valorActualizado > 0) {
+    if (campo != "" && valorActualizado > 0) {
       this.inventarioService.actualizarInventario(idDetalle, data).subscribe({
         next: () => {
           //this.dataTable?.recargarTabla();
         },
-        error: error => {
-          console.error('Error al actualizar el inventario:', error);
-          alert('Error al actualizar el inventario. Por favor, inténtelo de nuevo.');
+        error: (error) => {
+          console.error("Error al actualizar el inventario:", error);
+          alert("Error al actualizar el inventario. Por favor, inténtelo de nuevo.");
         },
       });
     }
   }
-  editarEstado(idDetalle: number, campo: string, evento: MatSlideToggleChange): void {
+  editarEstado(idDetalle: number, campo: string, checked: boolean): void {
     // Convierte el boolean a 1/0
-    const valorActualizado = evento.checked ? 1 : 0;
+    const valorActualizado = checked ? 1 : 0;
 
     const data = {
       campo,
       valor: valorActualizado, // ahora es 1 ó 0
     };
 
-    console.log('Editar campo:', campo, 'con valor:', valorActualizado);
+    console.log("Editar campo:", campo, "con valor:", valorActualizado);
 
     if (campo) {
       this.inventarioService.actualizarInventario(idDetalle, data).subscribe({
         next: () => {
           // this.dataTable?.recargarTabla(); // si necesitas refrescar
         },
-        error: err => {
-          console.error('Error al actualizar el inventario:', err);
-          alert('Error al actualizar el inventario. Por favor, inténtelo de nuevo.');
+        error: (err) => {
+          console.error("Error al actualizar el inventario:", err);
+          alert("Error al actualizar el inventario. Por favor, inténtelo de nuevo.");
         },
       });
     }
@@ -126,20 +131,20 @@ export class AlmacenComponent {
       disableClose: true, // permite cerrar con clic fuera o con ESC
     });
 
-    ref.afterClosed().subscribe(nuevoStock => {
+    ref.afterClosed().subscribe((nuevoStock) => {
       //cargar la lista
       this.buscar();
     });
   }
   verImagen(url: string | null): void {
-    console.log('Ver imagen:', url);
+    console.log("Ver imagen:", url);
     if (!url) {
       return;
     }
     this.dialog.open(ImagePreviewDialogComponent, {
       data: { imgUrl: url },
-      maxWidth: '95vw',
-      panelClass: 'p-0', // sin padding del contenedor
+      maxWidth: "95vw",
+      panelClass: "p-0", // sin padding del contenedor
     });
   }
 }

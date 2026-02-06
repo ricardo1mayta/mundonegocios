@@ -14,11 +14,11 @@
           (ngModelChange)="updateSearch($event)"
           placeholder="Buscar Producto"
           class="w-full placeholder-gray-400 rounded-lg px-14 py-3 focus:outline-none shadow-sm" />
-        <span class="absolute left-4 top-3.5 text-gray-400 i-ph-magnifying-glass"></span>
+        <span class="absolute left-4 top-3.5 text-gray-400 i-ph-magnifying-glass dark:text-gray-500"></span>
         <!-- LISTA DESPLEGABLE DE BÚSQUEDA -->
-        <div *ngIf="showSuggestions()" class="absolute z-20 left-0 w-96 h-64 overflow-y-auto bg-white border rounded-lg shadow">
+        <div *ngIf="showSuggestions()" class="absolute z-20 left-0 w-96 h-64 overflow-y-auto bg-white border rounded-lg shadow dark:bg-gray-900">
           <table class="min-w-full text-sm">
-            <thead class="sticky top-0 bg-gray-100 text-gray-600">
+            <thead class="sticky top-0 bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400">
               <tr>
                 <th class="px-3 py-2 text-left">Imagen</th>
                 <th class="px-3 py-2 text-left">Código</th>
@@ -30,7 +30,7 @@
             <tbody>
               <tr *ngFor="let s of suggestions()" (click)="selectSuggestion(s)" class="cursor-pointer hover:bg-gray-50">
                 <td class="px-3 py-2">
-                  <img [src]="s.imagen || ''" alt="" class="w-8 h-8 object-contain rounded bg-gray-100" />
+                  <img [src]="s.imagen || ''" alt="" class="w-8 h-8 object-contain rounded bg-gray-100 dark:bg-gray-800" />
                 </td>
                 <td class="px-3 py-2">{{ s.codigo || s.id }}</td>
                 <td class="px-3 py-2">{{ s.nombreProducto }}</td>
@@ -62,9 +62,9 @@
         </ng-container>
       </div>
       <!-- TABLA CARRITO -->
-      <div class="relative overflow-x-auto rounded-lg shadow-md bg-white">
+      <div class="relative overflow-x-auto rounded-lg shadow-md bg-white dark:bg-gray-900">
         <table class="min-w-[280px] w-full text-sm">
-          <thead class="bg-gray-50 text-gray-600">
+          <thead class="bg-gray-50 text-gray-600 dark:bg-gray-900 dark:text-gray-400">
             <tr>
               <th class="px-2 py-2 text-left hidden sm:table-cell">Imagen</th>
               <th class="px-2 py-2 text-left">Nombre</th>
@@ -78,7 +78,7 @@
           <tbody>
             <tr *ngFor="let c of cart()" class="border-t even:bg-gray-50">
               <td class="p-2 hidden sm:table-cell">
-                <img [src]="c.productoDetalle.imagen || ''" alt="" class="w-10 h-10 object-contain rounded bg-gray-100" />
+                <img [src]="c.productoDetalle.imagen || ''" alt="" class="w-10 h-10 object-contain rounded bg-gray-100 dark:bg-gray-800" />
               </td>
               <td class="p-2">{{ c.productoDetalle.nombreProducto }}</td>
               <td class="p-2">{{ c.productoDetalle.cantidad }}</td>
@@ -104,7 +104,7 @@
               </td>
             </tr>
             <tr *ngIf="cart().length === 0">
-              <td colspan="7" class="p-4 text-center text-gray-500">No hay productos en el carrito</td>
+              <td colspan="7" class="p-4 text-center text-gray-500 dark:text-gray-400">No hay productos en el carrito</td>
             </tr>
           </tbody>
         </table>
@@ -116,7 +116,7 @@
           <div class="flex-1 p-4 flex flex-col items-center text-center gap-2">
             <img [src]="p.imagen || ''" alt="" class="h-28 object-contain" />
             <h3 class="font-medium leading-tight">{{ p.nombreProducto }}</h3>
-            <p class="text-sm text-gray-500">{{ p.preciocompra | number : "1.0-2" }}</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400">{{ p.preciocompra | number : "1.0-2" }}</p>
             <p class="text-xs" [class.text-red-600]="p.cantidad === 0" [class.text-green-600]="p.cantidad > 0">Stock: {{ p.cantidad }}</p>
           </div>
           <button (click)="addToCart(p)" class="mx-4 mb-4 py-2 rounded-lg text-white transition disabled:bg-gray-300 disabled:cursor-not-allowed bg-blue-600 hover:bg-blue-700">Agregar</button>
@@ -144,23 +144,23 @@
     </div>
 
     <!-- DERECHA -->
-    <aside class="bg-white rounded-xl shadow p-6 space-y-6 h-max">
+    <aside class="bg-white rounded-xl shadow p-6 space-y-6 h-max dark:bg-gray-900">
       <div class="bg-blue-200 rounded-lg text-center py-6">
         <p class="text-lg font-semibold">Total</p>
         <p class="text-3xl font-bold text-green-700">{{ total() | number : "1.0-2" }}</p>
       </div>
       <div class="space-y-3">
-        <label class="block text-sm font-medium">Serie</label>
-        <input type="text" [(ngModel)]="serie" placeholder="F001 o B001 / 000034" class="w-full border border-gray-300 rounded-lg px-4 py-2 placeholder-gray-400" />
+        <label class="block text-sm font-medium dark:text-white/90">Serie</label>
+        <input type="text" [(ngModel)]="serie" placeholder="F001 o B001 / 000034" class="w-full border border-gray-300 rounded-lg px-4 py-2 placeholder-gray-400 dark:border-gray-700" />
       </div>
       <div class="space-y-3">
-        <label class="block text-sm font-medium">Fecha De Compra</label>
-        <input type="datetime-local" [(ngModel)]="saleDate" class="w-full border border-gray-300 rounded-lg px-4 py-2 placeholder-gray-400" />
+        <label class="block text-sm font-medium dark:text-white/90">Fecha De Compra</label>
+        <input type="datetime-local" [(ngModel)]="saleDate" class="w-full border border-gray-300 rounded-lg px-4 py-2 placeholder-gray-400 dark:border-gray-700" />
       </div>
 
       <!-- BUSCAR PROVEEDOR -->
       <div class="space-y-3">
-        <label class="block text-sm font-medium">Buscar Proveedor</label>
+        <label class="block text-sm font-medium dark:text-white/90">Buscar Proveedor</label>
 
         <!-- caja de búsqueda -->
         <div class="relative">
@@ -169,37 +169,39 @@
             placeholder="Núm. de Documento o Correo"
             [(ngModel)]="searchProvedor"
             (ngModelChange)="updateSearchProvedor($event)"
-            class="w-full pl-4 pr-4 py-2 border border-gray-300 rounded-lg disabled:bg-gray-100 placeholder-gray-400" />
-          <span class="absolute left-4 top-2.5 text-gray-400 i-ph-magnifying-glass"></span>
+            class="w-full pl-4 pr-4 py-2 border border-gray-300 rounded-lg disabled:bg-gray-100 placeholder-gray-400 dark:border-gray-700" />
+          <span class="absolute left-4 top-2.5 text-gray-400 i-ph-magnifying-glass dark:text-gray-500"></span>
           <!-- lista desplegable -->
-          <div *ngIf="suggestionsProvedor().length > 0" class="absolute z-20 left-0 w-full max-h-56 overflow-y-auto bg-white border rounded-lg shadow">
+          <div *ngIf="suggestionsProvedor().length > 0" class="absolute z-20 left-0 w-full max-h-56 overflow-y-auto bg-white border rounded-lg shadow dark:bg-gray-900">
             <div *ngFor="let prov of suggestionsProvedor()" (click)="selectProvider(prov)" class="flex items-center gap-3 px-4 py-2 cursor-pointer hover:bg-gray-50">
               <span class="i-ph-user text-xl text-indigo-600"></span>
               <div class="text-sm">
                 <p class="font-medium leading-none">{{ prov.nombre }}</p>
-                <p class="text-xs text-gray-500">{{ prov.numerodocumento }}</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">{{ prov.numerodocumento }}</p>
               </div>
             </div>
           </div>
         </div>
 
         <!-- tarjeta del proveedor elegido -->
-        <div *ngIf="selectedProvider()" class="flex items-center justify-between gap-4 px-4 py-3 bg-gray-50 border rounded-lg">
+        <div *ngIf="selectedProvider()" class="flex items-center justify-between gap-4 px-4 py-3 bg-gray-50 border rounded-lg dark:bg-gray-900">
           <div class="flex-1">
             <p class="font-semibold text-sm">{{ selectedProvider()!.numerodocumento }}</p>
             <p class="text-sm">{{ selectedProvider()!.nombre }}</p>
-            <p class="text-xs text-gray-500">{{ selectedProvider()!.email }}</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">{{ selectedProvider()!.email }}</p>
           </div>
           <button (click)="clearProvider()" class="text-red-600 i-ph-trash-simple text-lg"></button>
         </div>
       </div>
 
       <div class="space-y-3">
-        <label class="block text-sm font-medium">Nota adicional</label>
-        <textarea rows="4" [(ngModel)]="note" class="w-full border border-gray-300 rounded-lg px-4 py-2 resize-none placeholder-gray-400" placeholder="Nota adicional"></textarea>
+        <label class="block text-sm font-medium dark:text-white/90">Nota adicional</label>
+        <textarea rows="4" [(ngModel)]="note" class="w-full border border-gray-300 rounded-lg px-4 py-2 resize-none placeholder-gray-400 dark:border-gray-700" placeholder="Nota adicional"></textarea>
       </div>
 
       <button (click)="pay()" class="w-full py-3 rounded-lg text-white font-medium bg-indigo-600 hover:bg-indigo-700 disabled:opacity-60" [disabled]="cart().length === 0">Registrar</button>
     </aside>
   </div>
 </div>
+
+

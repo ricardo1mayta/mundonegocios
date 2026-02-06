@@ -1,26 +1,28 @@
-import { CommonModule } from '@angular/common';
-import { Component, model, signal, ViewChild, viewChild } from '@angular/core';
-import { ReactiveFormsModule, FormGroup, FormControl, FormsModule } from '@angular/forms';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatDialog } from '@angular/material/dialog';
-import { DataTableComponent } from '../../../../core/components/data-table/data-table.component';
-import { IReporteExcel } from '../../../../core/components/data-table/data-table.model';
-import { DataTableModule } from '../../../../core/components/data-table/data-table.module';
-import { FormCrudComponent } from '../../../../core/components/form-crud/form-crud.component';
-import { FormFilterComponent } from '../../../../core/components/form-crud/form-filter/form-filter.component';
-import { FormListComponent } from '../../../../core/components/form-crud/form-list/form-list.component';
-import { MaterialModule } from '../../../../core/modules/material/material.module';
+import { CommonModule } from "@angular/common";
+import { Component, model, signal, ViewChild, viewChild } from "@angular/core";
+import { ReactiveFormsModule, FormGroup, FormControl, FormsModule } from "@angular/forms";
+import { MatNativeDateModule } from "@angular/material/core";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatDialog } from "@angular/material/dialog";
+import { DataTableComponent } from "../../../../core/components/data-table/data-table.component";
+import { IReporteExcel } from "../../../../core/components/data-table/data-table.model";
+import { DataTableModule } from "../../../../core/components/data-table/data-table.module";
+import { FormCrudComponent } from "../../../../core/components/form-crud/form-crud.component";
+import { FormFilterComponent } from "../../../../core/components/form-crud/form-filter/form-filter.component";
+import { FormListComponent } from "../../../../core/components/form-crud/form-list/form-list.component";
+import { MaterialModule } from "../../../../core/modules/material/material.module";
 
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 
-import { CrearProductosComponent } from './crear-productos/crear-productos.component';
-import { ProductosService } from '../../../../core/services/productos/productos.service';
-import { Producto } from '../../../../core/models/almacen/producto';
-import { ImagePreviewDialogComponent } from '../../../../shared/components/image-preview-dialog/image-preview-dialog.component';
+import { CrearProductosComponent } from "./crear-productos/crear-productos.component";
+import { ProductosService } from "../../../../core/services/productos/productos.service";
+import { Producto } from "../../../../core/models/almacen/producto";
+import { ImagePreviewDialogComponent } from "../../../../shared/components/image-preview-dialog/image-preview-dialog.component";
+import { SwitchComponent } from "src/app/shared/components/form/input/switch.component";
+import { BadgeComponent } from "src/app/shared/components/ui/badge/badge.component";
 
 @Component({
-  selector: 'app-productos',
+  selector: "app-productos",
   imports: [
     CommonModule,
     MatSlideToggleModule,
@@ -33,9 +35,10 @@ import { ImagePreviewDialogComponent } from '../../../../shared/components/image
     DataTableModule,
     ReactiveFormsModule,
     FormsModule,
+    BadgeComponent,
   ],
-  templateUrl: './productos.component.html',
-  styleUrl: './productos.component.css',
+  templateUrl: "./productos.component.html",
+  styleUrl: "./productos.component.css",
 })
 export class ProductosComponent {
   filtros = model<any>();
@@ -46,19 +49,26 @@ export class ProductosComponent {
     fechaHasta: new FormControl(),
   });
 
-  urlApi = signal('');
-
+  urlApi = signal("");
+  getBadgeColor(status: string): "success" | "warning" | "error" {
+    if (status) return "success";
+    if (!status) return "warning";
+    return "error";
+  }
   @ViewChild(DataTableComponent)
   dataTable!: DataTableComponent;
 
   configuracionExcel: IReporteExcel = {
-    titulo: 'Lista de pedidos',
-    fuente: 'Order de pedidos',
+    titulo: "Lista de pedidos",
+    fuente: "Order de pedidos",
 
-    columnas: [{ titulo: 'Codigo', propiedad: 'codigo' }],
+    columnas: [{ titulo: "Codigo", propiedad: "codigo" }],
   };
 
-  constructor(private dialog: MatDialog, private productosService: ProductosService) {}
+  constructor(
+    private dialog: MatDialog,
+    private productosService: ProductosService,
+  ) {}
 
   ngOnInit(): void {
     this.urlApi = signal(this.productosService.urlListaProductos);
@@ -66,7 +76,7 @@ export class ProductosComponent {
   }
 
   buscar(): void {
-    console.log('buscar');
+    console.log("buscar");
     this.dataTable?.recargarTabla();
   }
   aplicarFiltros(): void {
@@ -78,15 +88,15 @@ export class ProductosComponent {
   }
   crearMarca(): void {
     const dialogRef = this.dialog.open(CrearProductosComponent, {
-      width: '80rem', // coincide con max-w-3xl
-      maxWidth: '90rem',
+      width: "80rem", // coincide con max-w-3xl
+      maxWidth: "90rem",
       data: {
-        title: 'Crear Cliente Api Key',
-        boton: 'Guardar',
+        title: "Crear Cliente Api Key",
+        boton: "Guardar",
       },
     });
 
-    dialogRef.afterClosed().subscribe(resultado => {
+    dialogRef.afterClosed().subscribe((resultado) => {
       if (resultado) {
         this.buscar();
       }
@@ -98,20 +108,20 @@ export class ProductosComponent {
       next: () => {
         this.buscar();
       },
-      error: error => {
-        console.error('Error al eliminar la marca:', error);
+      error: (error) => {
+        console.error("Error al eliminar la marca:", error);
       },
     });
   }
   // editar
   editarMarca(producto: Producto): void {
     const dialogRef = this.dialog.open(CrearProductosComponent, {
-      width: '80rem', // coincide con max-w-3xl
-      maxWidth: '90rem',
+      width: "80rem", // coincide con max-w-3xl
+      maxWidth: "90rem",
       data: { ...producto, categoria: producto.categoria?.id, marca: producto.marca?.id },
     });
 
-    dialogRef.afterClosed().subscribe(resultado => {
+    dialogRef.afterClosed().subscribe((resultado) => {
       if (resultado) {
         this.buscar();
       }
@@ -119,14 +129,14 @@ export class ProductosComponent {
   }
 
   verImagen(url: string | null): void {
-    console.log('Ver imagen:', url);
+    console.log("Ver imagen:", url);
     if (!url) {
       return;
     }
     this.dialog.open(ImagePreviewDialogComponent, {
       data: { imgUrl: url },
-      maxWidth: '95vw',
-      panelClass: 'p-0', // sin padding del contenedor
+      maxWidth: "95vw",
+      panelClass: "p-0", // sin padding del contenedor
     });
   }
 }

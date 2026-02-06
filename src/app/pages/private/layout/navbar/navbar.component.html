@@ -7,7 +7,7 @@
         placeholder="Buscar o escribir comando..."
         class="w-full pl-10 pr-10 py-2 border border-blue-200 rounded-md shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
-      <div class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+      <div class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400 dark:text-gray-500">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
             stroke-linecap="round"
@@ -18,7 +18,7 @@
         </svg>
       </div>
       <div class="absolute inset-y-0 right-0 flex items-center pr-3">
-        <kbd class="text-xs text-gray-500 border px-1 py-0.5 rounded">⌘K</kbd>
+        <kbd class="text-xs text-gray-500 border px-1 py-0.5 rounded dark:text-gray-400">⌘K</kbd>
       </div>
     </div>
   </div>
@@ -35,7 +35,7 @@
       <button type="button" class="flex items-center gap-2 focus:outline-none" (click)="toggleMenu()">
         <img [src]="" alt="Usuario" class="w-8 h-8 rounded-full border" />
         <span class="text-sm font-medium hidden sm:inline"></span>
-        <svg class="w-4 h-4 ml-1 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="w-4 h-4 ml-1 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
         </svg>
       </button>
@@ -43,10 +43,10 @@
       <!-- Menú -->
       <div
         *ngIf="menuAbierto"
-        class="absolute right-0 top-full mt-2 w-48 bg-white text-gray-900 rounded shadow-lg z-50"
+        class="absolute right-0 top-full mt-2 w-48 bg-white text-gray-900 rounded shadow-lg z-50 dark:bg-gray-900 dark:text-white/90"
       >
         <button (click)="cerrarSesion()" class="w-full text-left px-4 py-2 hover:bg-gray-100 flex items-center gap-2">
-          <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
               stroke-linecap="round"
               stroke-linejoin="round"
@@ -62,3 +62,4 @@
     </div>
   </div>
 </nav>
+

@@ -1,4 +1,4 @@
-<div class="rounded-2xl border border-gray-200 bg-white pt-4 dark:border-white/[0.05] dark:bg-white/[0.03]">
+<div class="rounded-2xl border border-gray-200 bg-white pt-4 dark:border-white/[0.05] dark:bg-white/[0.03] dark:bg-gray-900 dark:border-gray-800">
   <div class="flex flex-col gap-2 px-5 mb-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
     <div>
       <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90">
@@ -24,7 +24,7 @@
   <div class="overflow-hidden">
     <div class="max-w-full px-5 overflow-x-auto sm:px-6">
       <table class="min-w-full">
-        <thead class="border-gray-100 border-y dark:border-white/[0.05]">
+        <thead class="border-gray-100 border-y dark:border-white/[0.05] dark:border-gray-800">
           <tr>
             <th class="py-3 font-normal text-gray-500 text-start text-theme-sm dark:text-gray-400">Name</th>
             <th class="px-4 py-3 font-normal text-gray-500 text-start text-theme-sm dark:text-gray-400">Date</th>
@@ -36,7 +36,7 @@
             </th>
           </tr>
         </thead>
-        <tbody class="divide-y divide-gray-100 dark:divide-white/[0.05]">
+        <tbody class="divide-y divide-gray-100 dark:divide-white/[0.05] dark:divide-gray-800">
           @for (item of currentItems; track $index) {
           <tr>
             <td class="px-4 py-4">
@@ -45,22 +45,22 @@
                   <img width="32" height="32" [src]="item.image" class="size-8" alt="brand" />
                 </div>
                 <div>
-                  <span class="block font-medium text-gray-700 text-theme-sm dark:text-gray-400">
+                  <span class="block font-medium text-gray-700 text-theme-sm dark:text-gray-400 dark:text-gray-300">
                     {{ item.action }}
                   </span>
                 </div>
               </div>
             </td>
-            <td class="px-4 py-4 text-gray-700 whitespace-nowrap text-theme-sm dark:text-gray-400">
+            <td class="px-4 py-4 text-gray-700 whitespace-nowrap text-theme-sm dark:text-gray-400 dark:text-gray-300">
               {{ item.date }}
             </td>
-            <td class="px-4 py-4 text-gray-700 text-theme-sm dark:text-gray-400">
+            <td class="px-4 py-4 text-gray-700 text-theme-sm dark:text-gray-400 dark:text-gray-300">
               {{ item.amount }}
             </td>
-            <td class="px-4 py-4 text-gray-700 text-theme-sm dark:text-gray-400">
+            <td class="px-4 py-4 text-gray-700 text-theme-sm dark:text-gray-400 dark:text-gray-300">
               {{ item.category }}
             </td>
-            <td class="px-4 py-4 text-gray-700 text-theme-sm dark:text-gray-400">
+            <td class="px-4 py-4 text-gray-700 text-theme-sm dark:text-gray-400 dark:text-gray-300">
               <app-badge
                 size="sm"
                 [color]="getBadgeColor(item.status)"
@@ -68,7 +68,7 @@
                 {{ item.status }}
               </app-badge>
             </td>
-            <td class="px-4 py-4 text-gray-700 text-theme-sm dark:text-gray-400">
+            <td class="px-4 py-4 text-gray-700 text-theme-sm dark:text-gray-400 dark:text-gray-300">
               <div class="relative inline-block">
                 <app-table-dropdown>
                   <div dropdown-button>
@@ -113,7 +113,7 @@
   </div>
 
   <!-- Pagination Controls -->
-  <div class="px-6 py-4 border-t border-gray-200 dark:border-white/[0.05]">
+  <div class="px-6 py-4 border-t border-gray-200 dark:border-white/[0.05] dark:border-gray-800">
     <div class="flex items-center justify-between">
       <!-- Previous Button -->
       <app-button
@@ -126,7 +126,7 @@
         <span class="hidden sm:inline">Previous</span>
       </app-button>
       <!-- Page Info -->
-      <span class="block text-sm font-medium text-gray-700 dark:text-gray-400 sm:hidden">
+      <span class="block text-sm font-medium text-gray-700 dark:text-gray-400 sm:hidden dark:text-gray-300">
         Page {{ currentPage }} of {{ totalPages }}
       </span>
       <!-- Page Numbers -->

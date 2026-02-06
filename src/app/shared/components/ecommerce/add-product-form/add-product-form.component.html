@@ -1,8 +1,8 @@
 <div class="space-y-6">
       <!-- Product Description Section -->
-      <div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]">
+      <div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03] dark:bg-gray-900">
         <div class="border-b border-gray-200 px-6 py-4 dark:border-gray-800">
-          <h2 class="text-lg font-medium text-gray-800 dark:text-white">
+          <h2 class="text-lg font-medium text-gray-800 dark:text-white dark:text-white/90">
             Products Description
           </h2>
         </div>
@@ -85,9 +85,9 @@
       </div>
 
       <!-- Pricing & Availability Section -->
-      <div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]">
+      <div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03] dark:bg-gray-900">
         <div class="border-b border-gray-200 px-6 py-4 dark:border-gray-800">
-          <h2 class="text-lg font-medium text-gray-800 dark:text-white">
+          <h2 class="text-lg font-medium text-gray-800 dark:text-white dark:text-white/90">
             Pricing & Availability
           </h2>
         </div>
@@ -121,7 +121,7 @@
           <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
             <div>
               <label
-                class="mb-1 inline-block text-sm font-semibold text-gray-700 dark:text-gray-400"
+                class="mb-1 inline-block text-sm font-semibold text-gray-700 dark:text-gray-400 dark:text-gray-300"
               >
                 Stock Quantity
               </label>
@@ -152,7 +152,7 @@
                   <app-input-field
                     type="text"
                     [value]="stockQuantity"
-                    className="h-full border-0 text-center text-sm text-gray-700 outline-none focus:ring-0 dark:text-gray-400"
+                    className="h-full border-0 text-center text-sm text-gray-700 outline-none focus:ring-0 dark:text-gray-400 dark:text-gray-300"
                     (valueChange)="updateQuantity($event)"
                   ></app-input-field>
                 </div>
@@ -192,21 +192,21 @@
       </div>
 
       <!-- Product Images Section -->
-      <div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]">
+      <div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03] dark:bg-gray-900">
         <div class="border-b border-gray-200 px-6 py-4 dark:border-gray-800">
-          <h2 class="text-lg font-medium text-gray-800 dark:text-white">
+          <h2 class="text-lg font-medium text-gray-800 dark:text-white dark:text-white/90">
             Products Images
           </h2>
         </div>
         <div class="p-4 sm:p-6">
           <label
             for="product-image"
-            class="shadow-theme-xs group hover:border-brand-500 block cursor-pointer rounded-lg border-2 border-dashed border-gray-300 transition dark:hover:border-brand-400 dark:border-gray-800"
+            class="shadow-theme-xs group hover:border-brand-500 block cursor-pointer rounded-lg border-2 border-dashed border-gray-300 transition dark:hover:border-brand-400 dark:border-gray-800 dark:border-gray-700"
           >
             <div class="flex justify-center p-10">
               <div class="flex max-w-[260px] flex-col items-center gap-4">
                 <div
-                  class="inline-flex h-13 w-13 items-center justify-center rounded-full border border-gray-200 text-gray-700 transition dark:border-gray-800 dark:text-gray-400"
+                  class="inline-flex h-13 w-13 items-center justify-center rounded-full border border-gray-200 text-gray-700 transition dark:border-gray-800 dark:text-gray-400 dark:text-gray-300"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -243,5 +243,6 @@
         <app-button variant="primary" (btnClick)="onPublish()">Publish Product</app-button>
       </div>
     </div>
+
 
 

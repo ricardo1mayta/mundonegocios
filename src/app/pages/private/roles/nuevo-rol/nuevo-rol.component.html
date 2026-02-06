@@ -1,5 +1,5 @@
 <div class="modal-surface">
-  <button mat-icon-button [mat-dialog-close]="true" class="modal-close"><mat-icon>close</mat-icon></button>
+  <button mat-icon-button [mat-dialog-close]="true" class="hover:bg-blue-900/40 rounded-full p-1"><mat-icon>close</mat-icon></button>
   <div class="px-2 pr-14 mb-6">
     <h2 class="text-2xl font-semibold text-gray-800 dark:text-white/90">Cliente</h2>
   </div>
@@ -8,15 +8,15 @@
     <form [formGroup]="form" (ngSubmit)="guardar()" class="space-y-6">
     <!-- Nombre del rol -->
     <div class="flex flex-col gap-1">
-      <label class="font-medium">Nombre del rol</label>
-      <input type="text" formControlName="nombreRol" class="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring focus:ring-blue-600/50 focus:border-blue-600" />
+      <label class="font-medium dark:text-white/90">Nombre del rol</label>
+      <input type="text" formControlName="nombreRol" class="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring focus:ring-blue-600/50 focus:border-blue-600 dark:border-gray-700" />
       <p *ngIf="form.get('nombreRol')?.hasError('required') && form.get('nombreRol')?.touched" class="text-red-600 text-sm">Campo obligatorio</p>
     </div>
 
     <!-- Descripción -->
     <div class="flex flex-col gap-1">
-      <label class="font-medium">Descripción</label>
-      <input type="text" formControlName="descripcionRol" class="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring focus:ring-blue-600/50 focus:border-blue-600" />
+      <label class="font-medium dark:text-white/90">Descripción</label>
+      <input type="text" formControlName="descripcionRol" class="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring focus:ring-blue-600/50 focus:border-blue-600 dark:border-gray-700" />
       <p *ngIf="form.get('descripcionRol')?.hasError('required') && form.get('descripcionRol')?.touched" class="text-red-600 text-sm">Campo obligatorio</p>
     </div>
     </form>
@@ -25,8 +25,11 @@
   <!-- BOTONES -->
   <mat-dialog-actions class="mt-6 flex justify-end gap-2 px-2">
     <button type="submit" [disabled]="form.invalid" (click)="guardar()" class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600 disabled:bg-brand-300">Guardar</button>
-    <button type="reset" [mat-dialog-close]="true" class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:bg-gray-50">Cerrar</button>
+    <button type="reset" [mat-dialog-close]="true" class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:bg-gray-50 dark:bg-gray-800 dark:text-gray-300">Cerrar</button>
   </mat-dialog-actions>
 </div>
+
+
+
 
 

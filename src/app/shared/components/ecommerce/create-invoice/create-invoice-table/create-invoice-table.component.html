@@ -2,19 +2,19 @@
   <!-- Products Table -->
   <div class="overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-800">
     <div class="custom-scrollbar overflow-x-auto">
-      <table class="min-w-full text-left text-sm text-gray-700 dark:border-gray-800">
+      <table class="min-w-full text-left text-sm text-gray-700 dark:border-gray-800 dark:text-gray-300">
         <thead class="bg-gray-50 dark:bg-gray-900">
           <tr class="border-b border-gray-100 whitespace-nowrap dark:border-gray-800">
-            <th class="px-5 py-4 text-sm font-medium whitespace-nowrap text-gray-700 dark:text-gray-400">S. No.</th>
+            <th class="px-5 py-4 text-sm font-medium whitespace-nowrap text-gray-700 dark:text-gray-400 dark:text-gray-300">S. No.</th>
             <th class="px-5 py-4 text-sm font-medium whitespace-nowrap text-gray-500 dark:text-gray-400">Products</th>
-            <th class="px-5 py-4 text-sm font-medium whitespace-nowrap text-gray-700 dark:text-gray-400">Quantity</th>
-            <th class="px-5 py-4 text-sm font-medium whitespace-nowrap text-gray-700 dark:text-gray-400">Unit Cost</th>
-            <th class="px-5 py-4 text-sm font-medium whitespace-nowrap text-gray-700 dark:text-gray-400">Discount</th>
-            <th class="px-5 py-4 text-sm font-medium whitespace-nowrap text-gray-700 dark:text-gray-400">Total</th>
-            <th class="px-5 py-4 text-sm font-medium whitespace-nowrap text-gray-700 dark:text-gray-400"><span class="sr-only">Actions</span></th>
+            <th class="px-5 py-4 text-sm font-medium whitespace-nowrap text-gray-700 dark:text-gray-400 dark:text-gray-300">Quantity</th>
+            <th class="px-5 py-4 text-sm font-medium whitespace-nowrap text-gray-700 dark:text-gray-400 dark:text-gray-300">Unit Cost</th>
+            <th class="px-5 py-4 text-sm font-medium whitespace-nowrap text-gray-700 dark:text-gray-400 dark:text-gray-300">Discount</th>
+            <th class="px-5 py-4 text-sm font-medium whitespace-nowrap text-gray-700 dark:text-gray-400 dark:text-gray-300">Total</th>
+            <th class="px-5 py-4 text-sm font-medium whitespace-nowrap text-gray-700 dark:text-gray-400 dark:text-gray-300"><span class="sr-only">Actions</span></th>
           </tr>
         </thead>
-        <tbody class="divide-y divide-gray-100 bg-white dark:divide-gray-800 dark:bg-white/[0.03]">
+        <tbody class="divide-y divide-gray-100 bg-white dark:divide-gray-800 dark:bg-white/[0.03] dark:bg-gray-900">
           @for (product of products; track $index; let idx = $index) {
             <tr>
               <td class="px-5 py-4 text-sm whitespace-nowrap text-gray-500 dark:text-gray-400">{{ idx + 1 }}</td>
@@ -33,7 +33,7 @@
         </tbody>
       </table>
       @if (products.length === 0) {
-        <div class="px-5 py-4 text-center text-gray-400">
+        <div class="px-5 py-4 text-center text-gray-400 dark:text-gray-500">
           No products added.
         </div>
       }
@@ -92,7 +92,7 @@
                 [(ngModel)]="form.quantity"
                 name="quantity"
                 min="1"
-                class="h-full w-full border-0 bg-white text-center text-sm text-gray-700 outline-none focus:ring-0 dark:bg-gray-900 dark:text-gray-400"
+                class="h-full w-full border-0 bg-white text-center text-sm text-gray-700 outline-none focus:ring-0 dark:bg-gray-900 dark:text-gray-400 dark:text-gray-300"
               />
             </div>
             <button
@@ -133,7 +133,7 @@
               <option [value]="50">50%</option>
             </select>
             <svg
-              class="absolute text-gray-700 dark:text-gray-400 right-3 top-1/2 -translate-y-1/2 pointer-events-none"
+              class="absolute text-gray-700 dark:text-gray-400 right-3 top-1/2 -translate-y-1/2 pointer-events-none dark:text-gray-300"
               width="20"
               height="20"
               viewBox="0 0 20 20"
@@ -174,7 +174,7 @@
           <span class="text-sm text-gray-500 dark:text-gray-400">
             Sub Total
           </span>
-          <span class="text-sm font-medium text-gray-700 dark:text-gray-400">
+          <span class="text-sm font-medium text-gray-700 dark:text-gray-400 dark:text-gray-300">
             ${{subtotal.toFixed(2)}}
           </span>
         </li>
@@ -182,12 +182,12 @@
           <span class="text-sm text-gray-500 dark:text-gray-400">
             Vat (10%):
           </span>
-          <span class="text-sm font-medium text-gray-700 dark:text-gray-400">
+          <span class="text-sm font-medium text-gray-700 dark:text-gray-400 dark:text-gray-300">
             ${{vat.toFixed(2)}}
           </span>
         </li>
         <li class="flex items-center justify-between">
-          <span class="font-medium text-gray-700 dark:text-gray-400">
+          <span class="font-medium text-gray-700 dark:text-gray-400 dark:text-gray-300">
             Total
           </span>
           <span class="text-lg font-semibold text-gray-800 dark:text-white/90">
@@ -198,5 +198,6 @@
     </div>
   </div>
 </div>
+
 
 

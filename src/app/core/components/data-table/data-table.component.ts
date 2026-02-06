@@ -30,12 +30,14 @@ import { IRespuestaApi } from "../../models/generic/general.model";
 import { IColumna, IContenido } from "../../models/excel/excel.model";
 import { ExcelService } from "../../services/excel/excel.service";
 import { MaterialModule } from "../../modules/material/material.module";
-
+import { ViewEncapsulation } from "@angular/core";
+import { GpPaginatorComponent } from "../paginator/gp-paginator.component";
 @Component({
   selector: "app-columna-tabla",
   standalone: true,
   imports: [],
   template: "",
+  encapsulation: ViewEncapsulation.None,
 })
 export class ColumnaTablaComponent {
   titulo = input.required<string>();
@@ -74,6 +76,7 @@ export class AccionTablaComponent {
     MatMenuModule,
     MatCheckboxModule,
     MatSlideToggleModule,
+    GpPaginatorComponent,
   ],
   providers: [
     {
@@ -100,11 +103,20 @@ export class DataTableComponent {
     return titulos;
   });
 
+  pageIndex = signal(0);
+  pageSize = signal(10);
+
+  /*cambioPagina(e: { pageIndex: number; pageSize: number }) {
+    this.pageIndex.set(e.pageIndex);
+    this.pageSize.set(e.pageSize);
+    // aquí tu lógica: pedir data al backend, etc.
+  }*/
+
   mostrarMensajeTablaVacia = signal<boolean>(true);
   mensajeTablaVacia = input<string>("No se hallaron coincidencias para tu búsqueda, intenta cambiar tu búsqueda");
   paginable = input<boolean>(true);
   tamanioPagina = model<number>(5);
-  paginaActual = 0;
+  paginaActual = signal<number>(0);
   totalRegistros = signal<number>(0);
   urlApi = input<string>("");
   metodoApi = input<"get" | "post">("post");
@@ -159,27 +171,26 @@ export class DataTableComponent {
     this.origenDatos.paginator = this.paginator;
   }*/
   recargarTabla(indice?: number) {
-    if (indice === undefined) {
-      indice = this.paginaActual;
-    } else {
-      this.paginaActual = indice;
-    }
+    const pageIndex0 = indice ?? this.paginaActual(); // 0-based (UI)
+    const pageBackend = pageIndex0 + 1; // 1-based (API)
 
-    const parametros: IListaPaginadaPeticion<any> = {
+    const parametros = {
       datos: this.parametrosApi(),
-      pagina: indice,
+      pagina: pageBackend,
       tamanio: this.tamanioPagina(),
     };
-    if (this.urlApi()) {
-      this.obtenerDatos<IRespuestaApi<IListaPaginada<any>>>(this.metodoApi(), this.urlApi(), parametros).subscribe(
-        (respuesta) => {
-          this.origenDatos = new MatTableDataSource<any>(respuesta!.data?.lista || []);
-          this.totalRegistros.set(respuesta!.data?.totalRegistros || 0);
-          this.mostrarMensajeTablaVacia.set(!this.origenDatos.data?.length);
-          this.actualizarEstadoCheckCabecera();
-        },
-      );
-    }
+
+    this.obtenerDatos<any>(this.metodoApi(), this.urlApi(), parametros).subscribe((resp) => {
+      const data = resp?.data;
+
+      // backend devuelve 1-based -> convertir a 0-based
+      const backendPage = Number(data?.paginaActual ?? pageBackend);
+      this.paginaActual.set(Math.max(0, backendPage - 1));
+
+      this.origenDatos = new MatTableDataSource<any>(data?.lista || []);
+      this.totalRegistros.set(Number(data?.totalRegistros ?? 0));
+      this.mostrarMensajeTablaVacia.set(false);
+    });
   }
 
   obtenerDatos<T>(metodoApi: string, urlApi: string, parametros: any) {
@@ -287,9 +298,12 @@ export class DataTableComponent {
     }
     return contenidoExcel;
   }
-
   cambioPagina(e: PageEvent) {
-    if (e.pageIndex != this.paginaActual || e.pageSize != this.tamanioPagina()) {
+    const indexActual = this.paginaActual();
+    const sizeActual = this.tamanioPagina();
+
+    if (e.pageIndex !== indexActual || e.pageSize !== sizeActual) {
+      this.paginaActual.set(e.pageIndex);
       this.tamanioPagina.set(e.pageSize);
       this.recargarTabla(e.pageIndex);
     }

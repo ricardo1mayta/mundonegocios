@@ -1,6 +1,6 @@
 <!-- CONTENEDOR -->
 <div
-  class="h-full bg-white shadow-md transition-all duration-200 flex flex-col"
+  class="h-full bg-white shadow-md transition-all duration-200 flex flex-col dark:bg-gray-900"
   [ngClass]="{
     'w-64 p-4 overflow-y-auto': !colapsado,
 
@@ -11,7 +11,7 @@
     <div class="flex items-center gap-2 overflow-hidden">
       <a [routerLink]="['/admin']" class="flex items-center gap-2">
         <img [src]="datatosuario?.logo" alt="Logo" class="h-8 w-8" />
-        <span *ngIf="!colapsado" class="text-xl font-bold text-gray-800 whitespace-nowrap">
+        <span *ngIf="!colapsado" class="text-xl font-bold text-gray-800 whitespace-nowrap dark:text-white/90">
           {{ datatosuario?.nombreComercial }}
         </span>
       </a>
@@ -27,7 +27,7 @@
 
   <!-- SEDE -->
   <div *ngIf="!colapsado" class="flex justify-center mt-6">
-    <span class="text-xl font-bold text-gray-800 text-center">
+    <span class="text-xl font-bold text-gray-800 text-center dark:text-white/90">
       {{ datatosuario?.nombresede }}
     </span>
   </div>
@@ -45,12 +45,12 @@
   <!-- NODOS CON HIJOS -->
   <li *ngIf="item.children?.length" class="relative select-none" [style.margin-left.px]="colapsado ? 0 : level * 12" (mouseenter)="onHover(item)" (mouseleave)="onLeave(item)">
     <!-- BOTÓN PADRE -->
-    <button class="flex items-center gap-3 w-full p-2 rounded-md text-gray-700 hover:bg-blue-100 hover:text-blue-700" title="{{ item.name }}" (click)="toggle(item)">
+    <button class="flex items-center gap-3 w-full p-2 rounded-md text-gray-700 hover:bg-blue-100 hover:text-blue-700 dark:text-gray-300" title="{{ item.name }}" (click)="toggle(item)">
       <i class="{{ item.icon || 'pi pi-folder' }}"></i>
 
       <!-- texto completo o inicial -->
       <span *ngIf="!colapsado" class="flex-1 text-left">{{ item.name }}</span>
-      <span *ngIf="colapsado" class="text-xs font-semibold w-5 h-5 flex items-center justify-center rounded bg-gray-200">
+      <span *ngIf="colapsado" class="text-xs font-semibold w-5 h-5 flex items-center justify-center rounded bg-gray-200 dark:bg-gray-800">
         {{ item.name.slice(0, 3) }}
       </span>
 
@@ -75,13 +75,14 @@
 
   <!-- NODOS FINALES (sin hijos) -->
   <li *ngIf="!item.children?.length" [style.margin-left.px]="colapsado ? 0 : level * 12">
-    <a [routerLink]="item.routeOrFunction" class="flex items-center gap-3 p-2 rounded-md text-gray-700 hover:bg-blue-100 hover:text-blue-700" title="{{ item.name }}">
+    <a [routerLink]="item.routeOrFunction" class="flex items-center gap-3 p-2 rounded-md text-gray-700 hover:bg-blue-100 hover:text-blue-700 dark:text-gray-300" title="{{ item.name }}">
       <i class="{{ item.icon || 'pi pi-circle' }}"></i>
 
       <span *ngIf="!colapsado">{{ item.name }}</span>
-      <span *ngIf="colapsado" class="text-xs font-semibold w-5 h-5 flex items-center justify-center rounded bg-gray-200">
+      <span *ngIf="colapsado" class="text-xs font-semibold w-5 h-5 flex items-center justify-center rounded bg-gray-200 dark:bg-gray-800">
         {{ item.name }}
       </span>
     </a>
   </li>
 </ng-template>
+

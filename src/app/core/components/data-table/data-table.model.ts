@@ -1,4 +1,4 @@
-import { IFormato } from '../../models/excel/excel.model';
+import { IFormato } from "../../models/excel/excel.model";
 
 export interface IEventoBoton {
   datos: any;
@@ -21,6 +21,7 @@ export interface IListaPaginada<T> {
   totalRegistrosPagina: number;
   totalRegistros: number;
   totalPaginas: number;
+  paginaActual: number;
 }
 
 export interface IEventoCheck {

@@ -5,16 +5,16 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         <!-- Buscador -->
         <div class="sm:col-span-2 md:col-span-1 flex flex-col">
-          <label for="buscador" class="text-md font-medium mt-4 mb-1">Buscador</label>
+          <label for="buscador" class="text-md font-medium mt-4 mb-1 dark:text-white/90">Buscador</label>
           <div class="relative">
             <input
               id="buscador"
               type="text"
               placeholder="Buscar por RUC o nombre"
               formControlName="buscador"
-              class="w-full rounded-md border border-gray-300 px-10 py-2 focus:ring focus:ring-blue-600/50 focus:border-blue-600" />
+              class="w-full rounded-md border border-gray-300 px-10 py-2 focus:ring focus:ring-blue-600/50 focus:border-blue-600 dark:border-gray-700" />
             <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7 7 0 1010 17.65l4.35 4.35z" />
               </svg>
             </span>
@@ -23,12 +23,12 @@
 
         <!-- Fecha desde -->
         <div class="flex flex-col">
-          <label class="text-md font-medium mt-4 mb-1">Vigencia (Desde)</label>
+          <label class="text-md font-medium mt-4 mb-1 dark:text-white/90">Vigencia (Desde)</label>
           <input
             type="date"
             formControlName="fechaDesde"
             [max]="filtroForm.get('fechaHasta')?.value"
-            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring focus:ring-blue-600/50 focus:border-blue-600" />
+            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring focus:ring-blue-600/50 focus:border-blue-600 dark:border-gray-700" />
         </div>
 
         <!-- Fecha hasta -->
@@ -38,7 +38,7 @@
             type="date"
             formControlName="fechaHasta"
             [min]="filtroForm.get('fechaDesde')?.value"
-            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring focus:ring-blue-600/50 focus:border-blue-600" />
+            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring focus:ring-blue-600/50 focus:border-blue-600 dark:border-gray-700" />
         </div>
       </div>
     </app-form-filter>
@@ -72,3 +72,5 @@
     </app-form-list>
   </div>
 </app-form-crud>
+
+

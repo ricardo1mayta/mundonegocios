@@ -11,6 +11,7 @@ import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatSelectModule } from "@angular/material/select";
+import { ButtonComponent } from "src/app/shared/components/ui/button/button.component";
 
 @NgModule({
   declarations: [],
@@ -26,6 +27,7 @@ import { MatSelectModule } from "@angular/material/select";
     MatCheckboxModule,
     MatTooltipModule,
     MatSnackBarModule,
+    ButtonComponent,
   ],
   exports: [
     MatFormFieldModule,
@@ -39,6 +41,7 @@ import { MatSelectModule } from "@angular/material/select";
     MatCheckboxModule,
     MatTooltipModule,
     MatSnackBarModule,
+    ButtonComponent,
   ],
 })
 export class MaterialModule {}

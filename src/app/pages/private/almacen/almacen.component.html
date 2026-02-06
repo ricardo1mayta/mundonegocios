@@ -4,19 +4,31 @@
       <div class="grid gap-4">
         <!-- Buscador -->
         <div class="sm:col-span-2 md:col-span-1 flex flex-col">
-          <label for="buscador" class="text-md font-medium mt-4 mb-1">Buscador</label>
+          <label for="buscador" class="text-md font-medium mt-4 mb-1 dark:text-white/90">Buscador</label>
           <div class="relative">
             <input
               id="buscador"
               type="text"
               placeholder="Buscar por código o nombre"
               formControlName="buscador"
-              class="w-full rounded-md border border-gray-300 px-10 py-2 focus:ring focus:ring-blue-600/50 focus:border-blue-600"
-              (keydown.enter)="aplicarFiltros()" />
+              class="w-full rounded-md border border-gray-300 px-10 py-2 focus:ring focus:ring-blue-600/50 focus:border-blue-600 dark:border-gray-700"
+              (keydown.enter)="aplicarFiltros()"
+            />
             <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
               <!--   HeroIcon: magnifying-glass   -->
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7 7 0 1010 17.65l4.35 4.35z" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 text-gray-400 dark:text-gray-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M21 21l-4.35-4.35m0 0A7 7 0 1010 17.65l4.35 4.35z"
+                />
               </svg>
             </span>
           </div>
@@ -25,13 +37,23 @@
     </app-form-filter>
   </div>
   <div class="rounded-lg bg-neutral-100">
-    <app-form-list class="flex flex-col flex-auto p-4" etiquetaAgregar="Crear" nombreExcel="Clientes API Keys" [configuracionExcel]="configuracionExcel">
+    <app-form-list
+      class="flex flex-col flex-auto p-4"
+      etiquetaAgregar="Crear"
+      nombreExcel="Clientes API Keys"
+      [configuracionExcel]="configuracionExcel"
+    >
       <app-data-table [urlApi]="urlApi()" [parametrosApi]="filtros()">
         <app-columna-tabla titulo="Codigo" propiedad="codigo" />
         <app-columna-tabla titulo="Imagen" propiedad="imagen" tipo="imagen">
           <ng-template let-imagen="valor">
             <button (click)="verImagen(imagen)" class="p-0 border-0 bg-transparent focus:outline-none">
-              <img *ngIf="imagen" [src]="imagen" alt="Imagen del producto" class="w-10 h-10 object-cover rounded-lg hover:opacity-80" />
+              <img
+                *ngIf="imagen"
+                [src]="imagen"
+                alt="Imagen del producto"
+                class="w-10 h-10 object-cover rounded-lg hover:opacity-80"
+              />
             </button>
           </ng-template>
         </app-columna-tabla>
@@ -40,43 +62,73 @@
         <app-columna-tabla titulo="categoria" propiedad="categoria" />
         <app-columna-tabla titulo="Precio Venta" propiedad="precioventa" tipo="moneda">
           <ng-template let-precioventa="valor" let-elemento="elemento">
-            <input type="number" [value]="precioventa" class="w-[70px] p-1 border rounded" (blur)="editar(elemento.id, 'precioventa', $event)" />
+            <input
+              type="number"
+              [value]="precioventa"
+              class="w-[70px] p-1 border rounded"
+              (blur)="editar(elemento.id, 'precioventa', $event)"
+            />
           </ng-template>
         </app-columna-tabla>
 
         <app-columna-tabla titulo="Precio Oferta" propiedad="preciooferta" tipo="moneda">
           <ng-template let-preciooferta="valor" let-elemento="elemento">
-            <input type="number" [value]="preciooferta" class="w-[70px] p-1 border rounded" (blur)="editar(elemento.id, 'preciooferta', $event)" />
+            <input
+              type="number"
+              [value]="preciooferta"
+              class="w-[70px] p-1 border rounded"
+              (blur)="editar(elemento.id, 'preciooferta', $event)"
+            />
           </ng-template>
         </app-columna-tabla>
 
         <app-columna-tabla titulo="Precio Cliente" propiedad="preciocliente" tipo="moneda">
           <ng-template let-preciocliente="valor" let-elemento="elemento">
-            <input type="number" [value]="preciocliente" class="w-[70px] p-1 border rounded" (blur)="editar(elemento.id, 'preciocliente', $event)" />
+            <input
+              type="number"
+              [value]="preciocliente"
+              class="w-[70px] p-1 border rounded"
+              (blur)="editar(elemento.id, 'preciocliente', $event)"
+            />
           </ng-template>
         </app-columna-tabla>
         <app-columna-tabla titulo="Precio Mayorista" propiedad="preciomayor" tipo="moneda">
           <ng-template let-preciomayor="valor" let-elemento="elemento">
-            <input type="number" [value]="preciomayor" class="w-[70px] p-1 border rounded" (blur)="editar(elemento.id, 'preciomayor', $event)" />
+            <input
+              type="number"
+              [value]="preciomayor"
+              class="w-[70px] p-1 border rounded"
+              (blur)="editar(elemento.id, 'preciomayor', $event)"
+            />
           </ng-template>
         </app-columna-tabla>
         <app-columna-tabla titulo="Stock" propiedad="cantidad">
           <ng-template let-cantidad="valor" let-elemento="elemento">
             <!-- Botón que abre el modal -->
-            <button mat-icon-button color="primary" aria-label="Editar stock" (click)="abrirModalStock(elemento)">{{ cantidad }}</button>
+            <button mat-icon-button color="primary" aria-label="Editar stock" (click)="abrirModalStock(elemento)">
+              {{ cantidad }}
+            </button>
           </ng-template>
         </app-columna-tabla>
 
         <app-columna-tabla titulo="Precio Compra" propiedad="preciocompra" tipo="moneda" />
 
-        <app-columna-tabla titulo="Estado" propiedad="statusweb">
+        <app-columna-tabla titulo="Web Venta" propiedad="statusweb">
           <ng-template let-statusweb="valor" let-elemento="elemento">
-            <mat-slide-toggle [checked]="statusweb" (change)="editarEstado(elemento.id, 'statusweb', $event)"></mat-slide-toggle>
+            <app-switch
+              label=""
+              [defaultChecked]="!!elemento.statusweb"
+              (valueChange)="editarEstado(elemento.id, 'statusweb', $event)"
+            ></app-switch>
           </ng-template>
         </app-columna-tabla>
-        <app-columna-tabla titulo="Estado" propiedad="statusoff">
+        <app-columna-tabla titulo="Web Oferta" propiedad="statusoff">
           <ng-template let-statusoff="valor" let-elemento="elemento">
-            <mat-slide-toggle [checked]="statusoff" (change)="editarEstado(elemento.id, 'statusoff', $event)"> </mat-slide-toggle>
+            <app-switch
+              label=""
+              [defaultChecked]="!!elemento.statusoff"
+              (valueChange)="editarEstado(elemento.id, 'statusoff', $event)"
+            ></app-switch>
           </ng-template>
         </app-columna-tabla>
         <app-accion-tabla etiqueta="Ver" icono="visibility" />
@@ -86,3 +138,5 @@
     </app-form-list>
   </div>
 </app-form-crud>
+
+

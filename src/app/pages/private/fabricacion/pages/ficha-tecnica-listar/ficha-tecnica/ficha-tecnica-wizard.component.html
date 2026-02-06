@@ -1,17 +1,17 @@
 <div class="mx-auto p-6 space-y-6">
   <form [formGroup]="form" class="space-y-4">
     <!-- Sticky resumen + acciones -->
-    <div class="rounded-xl bg-white p-3 border border-slate-200 shadow-sm hover:shadow-md transition">
+    <div class="rounded-xl bg-white p-3 border border-slate-200 shadow-sm hover:shadow-md transition dark:bg-gray-900">
       <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
         <div class="min-w-0">
-          <div class="text-sm text-gray-500">Ficha de Modelo</div>
+          <div class="text-sm text-gray-500 dark:text-gray-400">Ficha de Modelo</div>
 
-          <div class="font-semibold text-gray-900 truncate">
+          <div class="font-semibold text-gray-900 truncate dark:text-white/90">
             {{ form.get("codigo")?.value || "Sin código" }} —
             {{ form.get("nombre")?.value || "Sin nombre" }}
           </div>
 
-          <div class="text-xs text-gray-500">
+          <div class="text-xs text-gray-500 dark:text-gray-400">
             Versión: <b>{{ form.get("version")?.value || "-" }}</b>
             <span class="text-gray-300 mx-2">|</span>
             ID: <b>{{ fichaId() || "-" }}</b>
@@ -21,7 +21,7 @@
         <div class="flex gap-2">
           <button
             type="button"
-            class="inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none transition bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:bg-gray-50"
+            class="inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none transition bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:bg-gray-50 dark:bg-gray-800 dark:text-gray-300"
             (click)="toggleGeneral()">
             {{ showGeneral ? "Ocultar" : "Editar datos generales" }}
           </button>
@@ -34,7 +34,7 @@
           <!-- Código -->
           <div class="col-span-12 md:col-span-2">
             <input
-              class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60"
+              class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60 dark:bg-gray-900"
               placeholder="Código"
               formControlName="codigo" />
             <div *ngIf="isInvalid('codigo')" class="text-xs text-red-600 mt-1">Requerido</div>
@@ -43,7 +43,7 @@
           <!-- Nombre -->
           <div class="col-span-12 md:col-span-7">
             <input
-              class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60"
+              class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60 dark:bg-gray-900"
               placeholder="Nombre"
               formControlName="nombre" />
             <div *ngIf="isInvalid('nombre')" class="text-xs text-red-600 mt-1">Requerido</div>
@@ -52,7 +52,7 @@
           <!-- Versión -->
           <div class="col-span-12 md:col-span-3">
             <input
-              class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60"
+              class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60 dark:bg-gray-900"
               placeholder="Versión"
               formControlName="version" />
             <div *ngIf="isInvalid('version')" class="text-xs text-red-600 mt-1">Requerido</div>
@@ -61,7 +61,7 @@
           <!-- Descripción -->
           <div class="col-span-12">
             <textarea
-              class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60"
+              class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60 dark:bg-gray-900"
               placeholder="Descripción"
               formControlName="descripcion"></textarea>
           </div>
@@ -112,11 +112,11 @@
     <!-- CONTENIDO -->
     <div class="space-y-6">
       <!-- TAB: MEDIDAS -->
-      <section *ngIf="tab === 'medidas'" class="bg-white rounded-2xl shadow p-6 space-y-4">
+      <section *ngIf="tab === 'medidas'" class="bg-white rounded-2xl shadow p-6 space-y-4 dark:bg-gray-900">
         <div class="flex items-start justify-between gap-3">
           <div>
-            <h2 class="font-semibold text-gray-900">Tabla de Medidas (por talla)</h2>
-            <p class="text-xs text-gray-500">Registra la <b>talla</b>, la <b>parte</b>, el <b>valor en cm</b> y la <b>tolerancia (± cm)</b>.</p>
+            <h2 class="font-semibold text-gray-900 dark:text-white/90">Tabla de Medidas (por talla)</h2>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Registra la <b>talla</b>, la <b>parte</b>, el <b>valor en cm</b> y la <b>tolerancia (± cm)</b>.</p>
           </div>
 
           <button
@@ -127,17 +127,17 @@
           </button>
         </div>
 
-        <div class="flex items-center gap-3 text-xs text-gray-600">
+        <div class="flex items-center gap-3 text-xs text-gray-600 dark:text-gray-400">
           <span
             >Total: <b>{{ medidas.length }}</b></span
           >
-          <span class="text-gray-400">|</span>
+          <span class="text-gray-400 dark:text-gray-500">|</span>
           <span>Ej: M / Pecho / 52 / ±1</span>
         </div>
 
         <div class="overflow-x-auto border rounded-2xl">
           <table class="min-w-full text-sm">
-            <thead class="bg-gray-50 text-gray-700">
+            <thead class="bg-gray-50 text-gray-700 dark:bg-gray-900 dark:text-gray-300">
               <tr>
                 <th class="text-left p-3 w-28">Talla</th>
                 <th class="text-left p-3">Parte (medida)</th>
@@ -151,14 +151,14 @@
               <tr *ngFor="let m of medidas.controls; let i = index" [formGroupName]="i" class="border-t">
                 <td class="p-3">
                   <input
-                    class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60"
+                    class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60 dark:bg-gray-900"
                     placeholder="Ej: M"
                     formControlName="talla" />
                 </td>
 
                 <td class="p-3">
                   <input
-                    class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60"
+                    class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60 dark:bg-gray-900"
                     placeholder="Ej: Pecho / Largo / Manga"
                     formControlName="parte" />
                 </td>
@@ -166,14 +166,14 @@
                 <td class="p-3">
                   <div class="relative">
                     <input class="input pr-10" type="number" min="0" step="0.1" placeholder="Ej: 52" formControlName="valor" />
-                    <span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400">cm</span>
+                    <span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 dark:text-gray-500">cm</span>
                   </div>
                 </td>
 
                 <td class="p-3">
                   <div class="relative">
                     <input class="input pr-10" type="number" min="0" step="0.1" placeholder="Ej: 1" formControlName="tolerancia" />
-                    <span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400">± cm</span>
+                    <span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 dark:text-gray-500">± cm</span>
                   </div>
                 </td>
 
@@ -187,15 +187,15 @@
           </table>
         </div>
 
-        <div *ngIf="medidas.length === 0" class="text-sm text-gray-600">No hay medidas registradas. Haz clic en <b>“Agregar medida”</b>.</div>
+        <div *ngIf="medidas.length === 0" class="text-sm text-gray-600 dark:text-gray-400">No hay medidas registradas. Haz clic en <b>“Agregar medida”</b>.</div>
       </section>
 
       <!-- TAB: PIEZAS -->
-      <section *ngIf="tab === 'piezas'" class="bg-white rounded-2xl shadow p-6 space-y-4">
+      <section *ngIf="tab === 'piezas'" class="bg-white rounded-2xl shadow p-6 space-y-4 dark:bg-gray-900">
         <div class="flex items-start justify-between gap-3">
           <div>
-            <h2 class="font-semibold text-gray-900">Piezas / Moldes</h2>
-            <p class="text-xs text-gray-500">Partes de la prenda y cuántas lleva cada unidad.</p>
+            <h2 class="font-semibold text-gray-900 dark:text-white/90">Piezas / Moldes</h2>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Partes de la prenda y cuántas lleva cada unidad.</p>
           </div>
 
           <button
@@ -206,13 +206,13 @@
           </button>
         </div>
 
-        <div class="text-xs text-gray-600">
+        <div class="text-xs text-gray-600 dark:text-gray-400">
           Total: <b>{{ piezas.length }}</b>
         </div>
 
         <div class="overflow-x-auto border rounded-2xl">
           <table class="min-w-full text-sm">
-            <thead class="bg-gray-50 text-gray-700">
+            <thead class="bg-gray-50 text-gray-700 dark:bg-gray-900 dark:text-gray-300">
               <tr>
                 <th class="text-left p-3 w-80">Nombre de pieza</th>
                 <th class="text-left p-3 w-32">Cantidad</th>
@@ -225,14 +225,14 @@
               <tr *ngFor="let p of piezas.controls; let i = index" [formGroupName]="i" class="border-t">
                 <td class="p-3">
                   <input
-                    class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60"
+                    class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60 dark:bg-gray-900"
                     placeholder="Ej: Manga"
                     formControlName="nombre" />
                 </td>
 
                 <td class="p-3">
                   <input
-                    class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60"
+                    class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60 dark:bg-gray-900"
                     type="number"
                     min="1"
                     formControlName="cantidad" />
@@ -240,7 +240,7 @@
 
                 <td class="p-3">
                   <input
-                    class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60"
+                    class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60 dark:bg-gray-900"
                     placeholder="Opcional"
                     formControlName="observacion" />
                 </td>
@@ -253,21 +253,21 @@
           </table>
         </div>
 
-        <div *ngIf="piezas.length === 0" class="text-sm text-gray-600">No hay piezas registradas. Haz clic en <b>“Agregar pieza”</b>.</div>
+        <div *ngIf="piezas.length === 0" class="text-sm text-gray-600 dark:text-gray-400">No hay piezas registradas. Haz clic en <b>“Agregar pieza”</b>.</div>
       </section>
 
       <!-- TAB: OPERACIONES -->
-      <section *ngIf="tab === 'operaciones'" class="bg-white rounded-2xl shadow p-6 space-y-4">
+      <section *ngIf="tab === 'operaciones'" class="bg-white rounded-2xl shadow p-6 space-y-4 dark:bg-gray-900">
         <div class="flex items-start justify-between gap-3">
           <div>
-            <h2 class="font-semibold text-gray-900">Operaciones</h2>
-            <p class="text-xs text-gray-500">Secuencia del proceso (corte, costura, planchado, etc.).</p>
+            <h2 class="font-semibold text-gray-900 dark:text-white/90">Operaciones</h2>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Secuencia del proceso (corte, costura, planchado, etc.).</p>
           </div>
 
           <button type="button" class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600 disabled:bg-brand-300" (click)="addOperacion()">+ Agregar operación</button>
         </div>
 
-        <div class="flex items-center gap-6 text-xs text-gray-600">
+        <div class="flex items-center gap-6 text-xs text-gray-600 dark:text-gray-400">
           <span
             >Total: <b>{{ operaciones.length }}</b></span
           >
@@ -278,7 +278,7 @@
 
         <div class="overflow-x-auto border rounded-2xl">
           <table class="min-w-full text-sm">
-            <thead class="bg-gray-50 text-gray-700">
+            <thead class="bg-gray-50 text-gray-700 dark:bg-gray-900 dark:text-gray-300">
               <tr>
                 <th class="p-3 w-24 text-left">Orden</th>
                 <th class="p-3 text-left">Descripción</th>
@@ -292,7 +292,7 @@
               <tr *ngFor="let o of operaciones.controls; let i = index" [formGroupName]="i" class="border-t">
                 <td class="p-3">
                   <input
-                    class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60"
+                    class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60 dark:bg-gray-900"
                     type="number"
                     formControlName="orden"
                     readonly />
@@ -300,14 +300,14 @@
 
                 <td class="p-3">
                   <input
-                    class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60"
+                    class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60 dark:bg-gray-900"
                     placeholder="Ej: Corte de piezas"
                     formControlName="descripcion" />
                 </td>
 
                 <td class="p-3">
                   <input
-                    class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60"
+                    class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60 dark:bg-gray-900"
                     type="number"
                     min="0"
                     step="0.5"
@@ -316,8 +316,8 @@
 
                 <td class="p-3">
                   <div class="flex gap-2">
-                    <button type="button" class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm border disabled:opacity-50 bg-white text-gray-700 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:bg-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white/[0.03] dark:hover:text-gray-300" (click)="moveOperacionUp(i)" [disabled]="i === 0">↑</button>
-                    <button type="button" class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm border disabled:opacity-50 bg-white text-gray-700 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:bg-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white/[0.03] dark:hover:text-gray-300" (click)="moveOperacionDown(i)" [disabled]="i === operaciones.length - 1">↓</button>
+                    <button type="button" class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm border disabled:opacity-50 bg-white text-gray-700 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:bg-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white/[0.03] dark:hover:text-gray-300 dark:bg-gray-900 dark:text-gray-300" (click)="moveOperacionUp(i)" [disabled]="i === 0">↑</button>
+                    <button type="button" class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm border disabled:opacity-50 bg-white text-gray-700 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:bg-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white/[0.03] dark:hover:text-gray-300 dark:bg-gray-900 dark:text-gray-300" (click)="moveOperacionDown(i)" [disabled]="i === operaciones.length - 1">↓</button>
                   </div>
                 </td>
 
@@ -329,21 +329,21 @@
           </table>
         </div>
 
-        <div *ngIf="operaciones.length === 0" class="text-sm text-gray-600">No hay operaciones registradas. Haz clic en <b>“Agregar operación”</b>.</div>
+        <div *ngIf="operaciones.length === 0" class="text-sm text-gray-600 dark:text-gray-400">No hay operaciones registradas. Haz clic en <b>“Agregar operación”</b>.</div>
       </section>
 
       <!-- TAB: ADJUNTOS -->
-      <section *ngIf="tab === 'adjuntos'" class="bg-white rounded-2xl shadow p-6 space-y-4">
+      <section *ngIf="tab === 'adjuntos'" class="bg-white rounded-2xl shadow p-6 space-y-4 dark:bg-gray-900">
         <div class="flex items-start justify-between gap-3">
           <div>
-            <h2 class="font-semibold text-gray-900">Adjuntos</h2>
-            <p class="text-xs text-gray-500">Sube una imagen o PDF. Se guarda el <b>nombre de archivo</b> en el modelo.</p>
+            <h2 class="font-semibold text-gray-900 dark:text-white/90">Adjuntos</h2>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Sube una imagen o PDF. Se guarda el <b>nombre de archivo</b> en el modelo.</p>
           </div>
 
           <button type="button" class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600 disabled:bg-brand-300" (click)="addAdjunto()">+ Agregar adjunto</button>
         </div>
 
-        <div class="text-xs text-gray-600">
+        <div class="text-xs text-gray-600 dark:text-gray-400">
           Total: <b>{{ adjuntos.length }}</b>
         </div>
 
@@ -352,9 +352,9 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
               <!-- Tipo (solo IMAGEN/PDF) -->
               <div>
-                <label class="text-xs text-gray-500">Tipo</label>
+                <label class="text-xs text-gray-500 dark:text-white/90">Tipo</label>
                 <select
-                  class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60"
+                  class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60 dark:bg-gray-900"
                   formControlName="tipo">
                   <option value="IMAGEN">IMAGEN</option>
                   <option value="PDF">PDF</option>
@@ -363,30 +363,30 @@
 
               <!-- Nombre lógico -->
               <div>
-                <label class="text-xs text-gray-500">Nombre</label>
+                <label class="text-xs text-gray-500 dark:text-white/90">Nombre</label>
                 <input
-                  class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60"
+                  class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60 dark:bg-gray-900"
                   placeholder=""
                   formControlName="nombre" />
               </div>
 
               <!-- Subir archivo -->
               <div class="md:col-span-2">
-                <label class="text-xs text-gray-500">Archivo</label>
+                <label class="text-xs text-gray-500 dark:text-white/90">Archivo</label>
 
                 <div class="flex flex-col md:flex-row gap-2 md:items-center">
                   <input
                     type="file"
-                    class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60"
+                    class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60 dark:bg-gray-900"
                     [accept]="a.get('tipo')?.value === 'PDF' ? 'application/pdf' : 'image/*'"
                     (change)="onFileSelected($event, i)" />
 
-                  <button type="button" class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:bg-gray-50" (click)="uploadAdjunto(i)" [disabled]="!selectedFiles[i] || uploading[i]">
+                  <button type="button" class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:bg-gray-50 dark:bg-gray-800 dark:text-gray-300" (click)="uploadAdjunto(i)" [disabled]="!selectedFiles[i] || uploading[i]">
                     {{ uploading[i] ? "Subiendo..." : "Subir" }}
                   </button>
                 </div>
 
-                <div *ngIf="a.get('fileName')?.value" class="text-xs text-gray-600 mt-2">
+                <div *ngIf="a.get('fileName')?.value" class="text-xs text-gray-600 mt-2 dark:text-gray-400">
                   Archivo cargado: <b>{{ a.get("fileName")?.value }}</b>
                 </div>
 
@@ -397,18 +397,18 @@
             <!-- Preview (si tienes baseUrl de tu storage) -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-3 items-start">
               <div class="md:col-span-2">
-                <div class="text-xs font-semibold text-gray-700 mb-2">Vista previa</div>
+                <div class="text-xs font-semibold text-gray-700 mb-2 dark:text-gray-300">Vista previa</div>
 
                 <!-- Imagen -->
-                <img *ngIf="a.get('tipo')?.value === 'IMAGEN' && a.get('url')?.value" [src]="a.get('url')?.value" class="w-full max-h-72 object-contain border rounded-xl bg-white" alt="preview" />
+                <img *ngIf="a.get('tipo')?.value === 'IMAGEN' && a.get('url')?.value" [src]="a.get('url')?.value" class="w-full max-h-72 object-contain border rounded-xl bg-white dark:bg-gray-900" alt="preview" />
 
                 <!-- PDF -->
-                <div *ngIf="a.get('tipo')?.value === 'PDF' && a.get('url')?.value" class="border rounded-xl p-3 bg-gray-50">
+                <div *ngIf="a.get('tipo')?.value === 'PDF' && a.get('url')?.value" class="border rounded-xl p-3 bg-gray-50 dark:bg-gray-900">
                   <a class="underline" [href]="a.get('url')?.value" target="_blank">Abrir PDF</a>
                 </div>
 
                 <!-- Sin preview -->
-                <div *ngIf="!a.get('url')?.value" class="border rounded-xl p-3 bg-gray-50 text-gray-600 text-sm">Sube el archivo para ver vista previa.</div>
+                <div *ngIf="!a.get('url')?.value" class="border rounded-xl p-3 bg-gray-50 text-gray-600 text-sm dark:bg-gray-900 dark:text-gray-400">Sube el archivo para ver vista previa.</div>
               </div>
 
               <div class="flex md:justify-end">
@@ -418,12 +418,12 @@
           </div>
         </div>
 
-        <div *ngIf="adjuntos.length === 0" class="text-sm text-gray-600">No hay adjuntos registrados. Haz clic en <b>“Agregar adjunto”</b>.</div>
+        <div *ngIf="adjuntos.length === 0" class="text-sm text-gray-600 dark:text-gray-400">No hay adjuntos registrados. Haz clic en <b>“Agregar adjunto”</b>.</div>
       </section>
     </div>
 
     <!-- Footer sticky -->
-    <div class="rounded-xl bg-white p-3 border border-slate-200 shadow-sm hover:shadow-md transition sticky bottom-0 z-10 bg-white/80 backdrop-blur rounded-2xl p-3 flex justify-end gap-2">
+    <div class="rounded-xl bg-white p-3 border border-slate-200 shadow-sm hover:shadow-md transition sticky bottom-0 z-10 bg-white/80 backdrop-blur rounded-2xl p-3 flex justify-end gap-2 dark:bg-gray-900">
       <button
         *ngIf="!fichaId(); else btnActualizar"
         type="button"
@@ -461,6 +461,8 @@
     </div>
   </form>
 </div>
+
+
 
 
 

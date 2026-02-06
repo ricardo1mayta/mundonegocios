@@ -272,6 +272,10 @@ layer(base);
   @apply w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-gray-800 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60 dark:border-gray-700 dark:bg-gray-800 dark:text-white/90 dark:focus:border-gray-600 dark:focus:ring-white/10;
 }
 
+@utility label {
+  @apply text-sm font-medium text-gray-700 dark:text-white/90;
+}
+
 @utility modal-backdrop {
   @apply fixed inset-0 h-full w-full bg-gray-400/50 backdrop-blur-[32px];
 }
@@ -880,4 +884,260 @@ pre[class*="language-"] {
 }
 pre[class*="language-"].line-numbers {
   padding-left: 2.8em !important;
+}
+
+
+/*lo nuevo*/
+
+/* MatMenu (MDC) - Panel */
+.cdk-overlay-container .mat-mdc-menu-panel {
+  background: #ffffff !important;
+  color: #111827 !important;
+  border: 1px solid rgba(229, 231, 235, 0.9) !important;
+  /* gray-200 */
+}
+
+/* Items */
+.cdk-overlay-container .mat-mdc-menu-item {
+  color: #111827 !important;
+}
+
+/* Hover */
+.cdk-overlay-container .mat-mdc-menu-item:hover {
+  background: rgba(0, 0, 0, 0.04) !important;
+}
+
+/* Dark */
+.dark .cdk-overlay-container .mat-mdc-menu-panel {
+  background: #111827 !important;
+  /* gray-900 */
+  color: #e5e7eb !important;
+  /* gray-200 */
+  border: 1px solid rgba(55, 65, 81, 0.8) !important;
+  /* gray-700 */
+}
+
+.dark .cdk-overlay-container .mat-mdc-menu-item {
+  color: #e5e7eb !important;
+}
+
+.dark .cdk-overlay-container .mat-mdc-menu-item:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+}
+
+:host ::ng-deep .mat-select-input .mat-mdc-select-trigger {
+  border: 1px solid var(--color-gray-200);
+  border-radius: 0.5rem;
+  /* rounded-lg */
+  background: #fff;
+  padding: 0.5rem 0.75rem;
+  /* py-2 px-3 */
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  box-shadow: var(--shadow-theme-xs);
+}
+
+:host ::ng-deep .mat-select-input .mat-mdc-select-value {
+  color: #1f2937;
+  /* gray-800 */
+  font-size: 0.875rem;
+  /* text-sm */
+}
+
+/* Focus */
+:host ::ng-deep .mat-select-input.mat-mdc-select-focused .mat-mdc-select-trigger {
+  border-color: #94a3b8;
+  /* slate-400 */
+  box-shadow: 0 0 0 4px rgba(226, 232, 240, 0.6);
+  /* ring */
+}
+
+/* Dark */
+:host-context(.dark) ::ng-deep .mat-select-input .mat-mdc-select-trigger {
+  background: #1f2937;
+  /* gray-800 */
+  border-color: #374151;
+  /* gray-700 */
+}
+
+:host-context(.dark) ::ng-deep .mat-select-input .mat-mdc-select-value {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+:host-context(.dark) ::ng-deep .mat-select-input.mat-mdc-select-focused .mat-mdc-select-trigger {
+  border-color: #4b5563;
+  /* gray-600 */
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.1);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ===== MAT-SELECT PANEL (LIGHT) ===== */
+.cdk-overlay-container .mat-mdc-select-panel {
+  background: #ffffff !important;
+  /* white */
+  color: #111827 !important;
+  /* gray-900 */
+  border: 1px solid rgba(229, 231, 235, 0.9) !important;
+  /* gray-200 */
+}
+
+/* Opciones (light) */
+.cdk-overlay-container .mat-mdc-option,
+.cdk-overlay-container .mat-mdc-option .mdc-list-item__primary-text {
+  color: #111827 !important;
+}
+
+/* Hover (light) */
+.cdk-overlay-container .mat-mdc-option:hover {
+  background: rgba(17, 24, 39, 0.04) !important;
+}
+
+/* Seleccionado (light) */
+.cdk-overlay-container .mat-mdc-option.mdc-list-item--selected {
+  background: rgba(70, 95, 255, 0.10) !important;
+  /* brand-500/10 */
+}
+
+/* ===== MAT-SELECT PANEL (DARK) ===== */
+.dark .cdk-overlay-container .mat-mdc-select-panel {
+  background: #111827 !important;
+  /* gray-900 */
+  color: #e5e7eb !important;
+  /* gray-200 */
+  border: 1px solid rgba(55, 65, 81, 0.8) !important;
+  /* gray-700 */
+}
+
+/* Opciones (dark) */
+.dark .cdk-overlay-container .mat-mdc-option,
+.dark .cdk-overlay-container .mat-mdc-option .mdc-list-item__primary-text {
+  color: #e5e7eb !important;
+}
+
+/* Hover (dark) */
+.dark .cdk-overlay-container .mat-mdc-option:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* Seleccionado (dark) */
+.dark .cdk-overlay-container .mat-mdc-option.mdc-list-item--selected {
+  background: rgba(70, 95, 255, 0.18) !important;
+  /* brand-500/18 */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ===== Select cerrado (trigger) para que no sea transparente ===== */
+.mat-mdc-select.custom-select .mat-mdc-select-trigger,
+.mat-mdc-select.input .mat-mdc-select-trigger {
+  background: #ffffff !important;
+  border: 1px solid #e4e7ec !important;
+  /* gray-200 */
+  border-radius: 0.5rem !important;
+  /* rounded-lg */
+  padding: 0.5rem 0.75rem !important;
+  /* py-2 px-3 */
+  min-height: 40px;
+  box-shadow: var(--shadow-theme-xs);
+  align-items: center;
+}
+
+.dark .mat-mdc-select.custom-select .mat-mdc-select-trigger,
+.dark .mat-mdc-select.input .mat-mdc-select-trigger {
+  background: #1f2937 !important;
+  /* gray-800 */
+  border-color: #374151 !important;
+  /* gray-700 */
+}
+
+/* texto del valor */
+.mat-mdc-select .mat-mdc-select-value,
+.mat-mdc-select .mat-mdc-select-placeholder {
+  color: #101828 !important;
+}
+
+.dark .mat-mdc-select .mat-mdc-select-value,
+.dark .mat-mdc-select .mat-mdc-select-placeholder {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Focus ring */
+.mat-mdc-select.mat-mdc-select-focused .mat-mdc-select-trigger {
+  border-color: #94a3b8 !important;
+  /* slate-400 */
+  box-shadow: 0 0 0 4px rgba(226, 232, 240, 0.6) !important;
+}
+
+.dark .mat-mdc-select.mat-mdc-select-focused .mat-mdc-select-trigger {
+  border-color: #4b5563 !important;
+  /* gray-600 */
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.1) !important;
+}
+
+/* ===== Panel del select (lista desplegable) LIGHT/DARK ===== */
+.cdk-overlay-container .mat-mdc-select-panel {
+  background: #ffffff !important;
+  color: #111827 !important;
+  border: 1px solid rgba(229, 231, 235, 0.9) !important;
+}
+
+.cdk-overlay-container .mat-mdc-option,
+.cdk-overlay-container .mat-mdc-option .mdc-list-item__primary-text {
+  color: #111827 !important;
+}
+
+.cdk-overlay-container .mat-mdc-option:hover {
+  background: rgba(17, 24, 39, 0.04) !important;
+}
+
+.cdk-overlay-container .mat-mdc-option.mdc-list-item--selected {
+  background: rgba(70, 95, 255, 0.10) !important;
+}
+
+.dark .cdk-overlay-container .mat-mdc-select-panel {
+  background: #111827 !important;
+  color: #e5e7eb !important;
+  border: 1px solid rgba(55, 65, 81, 0.8) !important;
+}
+
+.dark .cdk-overlay-container .mat-mdc-option,
+.dark .cdk-overlay-container .mat-mdc-option .mdc-list-item__primary-text {
+  color: #e5e7eb !important;
+}
+
+.dark .cdk-overlay-container .mat-mdc-option:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+}
+
+.dark .cdk-overlay-container .mat-mdc-option.mdc-list-item--selected {
+  background: rgba(70, 95, 255, 0.18) !important;
 }

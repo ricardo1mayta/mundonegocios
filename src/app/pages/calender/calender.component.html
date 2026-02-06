@@ -1,4 +1,4 @@
-<div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]">
+<div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03] dark:bg-gray-900">
   <div class="custom-calendar">
     <full-calendar #calendar [options]="calendarOptions"></full-calendar>
   </div>
@@ -19,7 +19,7 @@
       </div>
       <div class="mt-8">
         <div>
-          <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+          <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400 dark:text-gray-300">
             Event Title
           </label>
           <input
@@ -32,7 +32,7 @@
       </div>
 
       <div class="mt-6">
-        <label class="block mb-4 text-sm font-medium text-gray-700 dark:text-gray-400">
+        <label class="block mb-4 text-sm font-medium text-gray-700 dark:text-gray-400 dark:text-gray-300">
           Event Color
         </label>
         <div class="flex flex-wrap items-center gap-4 sm:gap-5">
@@ -42,7 +42,7 @@
             >
               <div class="form-check form-check-inline" [class]="'form-check-' + entry.value">
                 <label
-                  class="flex items-center text-sm text-gray-700 form-check-label dark:text-gray-400"
+                  class="flex items-center text-sm text-gray-700 form-check-label dark:text-gray-400 dark:text-gray-300"
                   [for]="'modal' + entry.key"
                 >
                   <span class="relative">
@@ -58,7 +58,7 @@
                       class="rounded-full flex items-center justify-center w-5 h-5 mr-2 border border-gray-300 box dark:border-gray-700"
                     >
                       <span
-                        class="h-2 w-2 rounded-full bg-white"
+                        class="h-2 w-2 rounded-full bg-white dark:bg-gray-900"
                         [class.block]="eventLevel === entry.key"
                         [class.hidden]="eventLevel !== entry.key"
                       ></span>
@@ -73,7 +73,7 @@
       </div>
 
       <div class="mt-6">
-        <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+        <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400 dark:text-gray-300">
           Enter Start Date
         </label>
         <input
@@ -85,7 +85,7 @@
       </div>
 
       <div class="mt-6">
-        <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+        <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400 dark:text-gray-300">
           Enter End Date
         </label>
         <input
@@ -100,7 +100,7 @@
         <button
           (click)="closeModal()"
           type="button"
-          class="flex w-full justify-center rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 sm:w-auto"
+          class="flex w-full justify-center rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 sm:w-auto dark:bg-gray-900 dark:text-gray-300"
         >
           Close
         </button>
@@ -115,6 +115,7 @@
     </div>
   </app-modal>
 </div>
+
 
 
 

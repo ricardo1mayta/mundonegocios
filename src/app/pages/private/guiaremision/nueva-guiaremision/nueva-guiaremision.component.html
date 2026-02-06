@@ -1,8 +1,8 @@
 <!-- CABECERA -->
-<section class="bg-white rounded-2xl shadow p-8 mb-8">
+<section class="bg-white rounded-2xl shadow p-8 mb-8 dark:bg-gray-900">
   <div class="flex items-center justify-between mb-6">
-    <h2 class="text-2xl font-bold text-gray-800">Guía de Remisión</h2>
-    <span class="text-gray-400 text-sm">Nueva Guía</span>
+    <h2 class="text-2xl font-bold text-gray-800 dark:text-white/90">Guía de Remisión</h2>
+    <span class="text-gray-400 text-sm dark:text-gray-500">Nueva Guía</span>
   </div>
 
   <mat-horizontal-stepper linear class="w-full">
@@ -11,8 +11,8 @@
       <form [formGroup]="step1" class="space-y-6 py-4">
         <!-- serie/correlativo/fecha -->
         <div class="grid gap-6 md:grid-cols-6">
-          <label class="flex flex-col md:col-span-2">
-            <span class="mb-2 font-medium text-gray-700">Fecha emisión</span>
+          <label class="flex flex-col md:col-span-2 dark:text-white/90">
+            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Fecha emisión</span>
             <input type="date" formControlName="fechaEmision" class="input" />
           </label>
         </div>
@@ -28,17 +28,17 @@
                 placeholder="Cliente Destino"
                 [(ngModel)]="searchProvedor"
                 (ngModelChange)="updateSearchProvedor($event)"
-                class="w-full placeholder-gray-400 pl-12 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 transition disabled:bg-gray-100" />
+                class="w-full placeholder-gray-400 pl-12 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 transition disabled:bg-gray-100 dark:border-gray-700" />
               <span class="absolute left-4 top-2.5 text-blue-800 cursor-pointer" (click)="agregarCliente()">
                 <mat-icon>search</mat-icon>
               </span>
               <!-- lista desplegable -->
-              <div *ngIf="suggestionsProvedor().length > 0" class="absolute z-20 left-0 w-full max-h-56 overflow-y-auto bg-white border rounded-lg shadow-lg mt-1">
+              <div *ngIf="suggestionsProvedor().length > 0" class="absolute z-20 left-0 w-full max-h-56 overflow-y-auto bg-white border rounded-lg shadow-lg mt-1 dark:bg-gray-900">
                 <div *ngFor="let prov of suggestionsProvedor()" (click)="selectProvider(prov)" class="flex items-center gap-3 px-4 py-2 cursor-pointer hover:bg-blue-50 transition">
                   <span class="i-ph-user text-xl text-indigo-600"></span>
                   <div class="text-sm">
                     <p class="font-medium leading-none">{{ prov.clienteNombre }}</p>
-                    <p class="text-xs text-gray-500">{{ prov.clienteNumerodocumento }}</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">{{ prov.clienteNumerodocumento }}</p>
                   </div>
                 </div>
               </div>
@@ -48,7 +48,7 @@
               <div class="flex-1">
                 <p class="font-semibold text-sm text-blue-900">{{ selectedProvider()!.clienteNumerodocumento }}</p>
                 <p class="text-sm text-blue-800">{{ selectedProvider()!.clienteNombre }}</p>
-                <p class="text-xs text-gray-500">{{ selectedProvider()!.clienteEmail }}</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">{{ selectedProvider()!.clienteEmail }}</p>
               </div>
               <button (click)="clearProvider()" class="text-red-600 i-ph-trash-simple text-lg hover:text-red-800 transition"></button>
             </div>
@@ -62,17 +62,17 @@
                 placeholder="Cliente tercero"
                 [(ngModel)]="searchTercero"
                 (ngModelChange)="updateSearchTercero($event)"
-                class="w-full placeholder-gray-400 pl-12 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 transition disabled:bg-gray-100" />
+                class="w-full placeholder-gray-400 pl-12 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 transition disabled:bg-gray-100 dark:border-gray-700" />
               <span class="absolute left-4 top-2.5 text-blue-800 cursor-pointer" (click)="agregarTercero()">
                 <mat-icon>search</mat-icon>
               </span>
               <!-- lista desplegable -->
-              <div *ngIf="suggestionsTercero().length > 0" class="absolute z-20 left-0 w-full max-h-56 overflow-y-auto bg-white border rounded-lg shadow-lg mt-1">
+              <div *ngIf="suggestionsTercero().length > 0" class="absolute z-20 left-0 w-full max-h-56 overflow-y-auto bg-white border rounded-lg shadow-lg mt-1 dark:bg-gray-900">
                 <div *ngFor="let prov of suggestionsTercero()" (click)="selectTercero(prov)" class="flex items-center gap-3 px-4 py-2 cursor-pointer hover:bg-blue-50 transition">
                   <span class="i-ph-user text-xl text-indigo-600"></span>
                   <div class="text-sm">
                     <p class="font-medium leading-none">{{ prov.clienteNombre }}</p>
-                    <p class="text-xs text-gray-500">{{ prov.clienteNumerodocumento }}</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">{{ prov.clienteNumerodocumento }}</p>
                   </div>
                 </div>
               </div>
@@ -82,7 +82,7 @@
               <div class="flex-1">
                 <p class="font-semibold text-sm text-blue-900">{{ selectedTercero()!.clienteNumerodocumento }}</p>
                 <p class="text-sm text-blue-800">{{ selectedTercero()!.clienteNombre }}</p>
-                <p class="text-xs text-gray-500">{{ selectedTercero()!.clienteEmail }}</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">{{ selectedTercero()!.clienteEmail }}</p>
               </div>
               <button (click)="clearTercero()" class="text-red-600 i-ph-trash-simple text-lg hover:text-red-800 transition"></button>
             </div>
@@ -90,8 +90,8 @@
         </div>
 
         <!-- observación -->
-        <label class="flex flex-col">
-          <span class="mb-2 font-medium text-gray-700">Observación</span>
+        <label class="flex flex-col dark:text-white/90">
+          <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Observación</span>
           <textarea formControlName="observacion" rows="2" class="input"></textarea>
         </label>
 
@@ -105,117 +105,117 @@
     <mat-step [stepControl]="step2" label="Envío">
       <form [formGroup]="step2" class="space-y-6 py-4">
         <div class="grid gap-6 md:grid-cols-6">
-          <label class="flex flex-col">
-            <span class="mb-2 font-medium text-gray-700">Cód. Traslado</span>
+          <label class="flex flex-col dark:text-white/90">
+            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Cód. Traslado</span>
             <input formControlName="envioCodTraslado" class="input" />
           </label>
-          <label class="flex flex-col md:col-span-2">
-            <span class="mb-2 font-medium text-gray-700">Descripción</span>
+          <label class="flex flex-col md:col-span-2 dark:text-white/90">
+            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Descripción</span>
             <input formControlName="envioDesTraslado" class="input" />
           </label>
-          <label class="flex flex-col">
-            <span class="mb-2 font-medium text-gray-700">Modalidad</span>
+          <label class="flex flex-col dark:text-white/90">
+            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Modalidad</span>
             <input formControlName="envioModTraslado" class="input" />
           </label>
-          <label class="flex flex-col">
-            <span class="mb-2 font-medium text-gray-700">Fec. Traslado</span>
+          <label class="flex flex-col dark:text-white/90">
+            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Fec. Traslado</span>
             <input type="date" formControlName="envioFecTraslado" class="input" />
           </label>
-          <label class="flex flex-col">
-            <span class="mb-2 font-medium text-gray-700">Cód. Puerto</span>
+          <label class="flex flex-col dark:text-white/90">
+            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Cód. Puerto</span>
             <input formControlName="envioCodPuerto" class="input" />
           </label>
         </div>
 
         <div class="grid gap-6 md:grid-cols-6">
-          <label class="flex flex-col">
-            <span class="mb-2 font-medium text-gray-700">Transbordo</span>
+          <label class="flex flex-col dark:text-white/90">
+            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Transbordo</span>
             <div class="flex items-center gap-4 mt-1">
-              <label class="flex items-center gap-2">
+              <label class="flex items-center gap-2 dark:text-white/90">
                 <input type="radio" formControlName="envioIndTransbordo" [value]="true" />
                 <span>Sí</span>
               </label>
-              <label class="flex items-center gap-2">
+              <label class="flex items-center gap-2 dark:text-white/90">
                 <input type="radio" formControlName="envioIndTransbordo" [value]="false" />
                 <span>No</span>
               </label>
             </div>
           </label>
-          <label class="flex flex-col">
-            <span class="mb-2 font-medium text-gray-700">Peso Total</span>
+          <label class="flex flex-col dark:text-white/90">
+            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Peso Total</span>
             <input type="number" formControlName="envioPesoTotal" class="input" />
           </label>
-          <label class="flex flex-col">
-            <span class="mb-2 font-medium text-gray-700">Und. Peso</span>
+          <label class="flex flex-col dark:text-white/90">
+            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Und. Peso</span>
             <input formControlName="envioUndPesoTotal" class="input" />
           </label>
-          <label class="flex flex-col md:col-span-3">
-            <span class="mb-2 font-medium text-gray-700">Nº Contenedor</span>
+          <label class="flex flex-col md:col-span-3 dark:text-white/90">
+            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Nº Contenedor</span>
             <input formControlName="envioNumContenedor" class="input" />
           </label>
         </div>
-        <div class="border-t border-gray-200">
-          <div class="font-medium text-gray-700">Llegada</div>
+        <div class="border-t border-gray-200 dark:border-gray-800">
+          <div class="font-medium text-gray-700 dark:text-gray-300">Llegada</div>
         </div>
 
         <div class="grid gap-6 md:grid-cols-2">
           <div class="grid grid-cols-3 gap-4 w-full">
-            <label class="flex flex-col">
-              <span class="mb-2 font-medium text-gray-700">Dpto</span>
+            <label class="flex flex-col dark:text-white/90">
+              <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Dpto</span>
               <select formControlName="clienteDepartamento" class="input">
                 <option value="" disabled selected>Departamento</option>
                 <option *ngFor="let d of departamentos()" [value]="d.id">{{ d.name }}</option>
               </select>
             </label>
-            <label class="flex flex-col">
-              <span class="mb-2 font-medium text-gray-700">Prov</span>
+            <label class="flex flex-col dark:text-white/90">
+              <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Prov</span>
               <select formControlName="clienteProvincia" class="input">
                 <option value="" disabled selected>Provincia</option>
                 <option *ngFor="let p of provincias()" [value]="p.id">{{ p.name }}</option>
               </select>
             </label>
-            <label class="flex flex-col">
-              <span class="mb-2 font-medium text-gray-700">Dist</span>
+            <label class="flex flex-col dark:text-white/90">
+              <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Dist</span>
               <select formControlName="clienteDistrito" class="input">
                 <option value="" disabled selected>Distrito</option>
                 <option *ngFor="let d of distritos()" [value]="d.id">{{ d.name }}</option>
               </select>
             </label>
           </div>
-          <label class="flex flex-col">
-            <span class="mb-2 font-medium text-gray-700">Dirección llegada</span>
+          <label class="flex flex-col dark:text-white/90">
+            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Dirección llegada</span>
             <input formControlName="envioLlegadaDireccion" class="input" />
           </label>
         </div>
-        <div class="border-t border-gray-200">
-          <div class="font-medium text-gray-700">Partida</div>
+        <div class="border-t border-gray-200 dark:border-gray-800">
+          <div class="font-medium text-gray-700 dark:text-gray-300">Partida</div>
         </div>
         <div class="grid gap-6 md:grid-cols-2">
           <div class="grid grid-cols-3 gap-4 w-full">
-            <label class="flex flex-col">
-              <span class="mb-2 font-medium text-gray-700">Dpto</span>
+            <label class="flex flex-col dark:text-white/90">
+              <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Dpto</span>
               <select formControlName="terceroDepartamento" class="input">
                 <option value="" disabled selected>Departamento</option>
                 <option *ngFor="let d of departamentosTercero()" [value]="d.id">{{ d.name }}</option>
               </select>
             </label>
-            <label class="flex flex-col">
-              <span class="mb-2 font-medium text-gray-700">Prov</span>
+            <label class="flex flex-col dark:text-white/90">
+              <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Prov</span>
               <select formControlName="terceroProvincia" class="input">
                 <option value="" disabled selected>Provincia</option>
                 <option *ngFor="let p of provinciasTercero()" [value]="p.id">{{ p.name }}</option>
               </select>
             </label>
-            <label class="flex flex-col">
-              <span class="mb-2 font-medium text-gray-700">Dist</span>
+            <label class="flex flex-col dark:text-white/90">
+              <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Dist</span>
               <select formControlName="terceroDistrito" class="input">
                 <option value="" disabled selected>Distrito</option>
                 <option *ngFor="let d of distritosTercero()" [value]="d.id">{{ d.name }}</option>
               </select>
             </label>
           </div>
-          <label class="flex flex-col">
-            <span class="mb-2 font-medium text-gray-700">Dirección partida</span>
+          <label class="flex flex-col dark:text-white/90">
+            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Dirección partida</span>
             <input formControlName="envioPartidaDireccion" class="input" />
           </label>
         </div>
@@ -231,35 +231,35 @@
     <mat-step [stepControl]="step3" label="Transportista">
       <form [formGroup]="step3" class="space-y-6 py-4">
         <div class="grid gap-6 md:grid-cols-6">
-          <label class="flex flex-col">
-            <span class="mb-2 font-medium text-gray-700">Tipo documento</span>
+          <label class="flex flex-col dark:text-white/90">
+            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Tipo documento</span>
             <select formControlName="envioTransportistaTipoDoc" class="input">
               <option *ngFor="let t of tiposDocumento()" [value]="t.id">{{ t.desc }}</option>
             </select>
           </label>
-          <label class="flex flex-col">
-            <span class="mb-2 font-medium text-gray-700">Nº Doc</span>
+          <label class="flex flex-col dark:text-white/90">
+            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Nº Doc</span>
             <input formControlName="envioTransportistaNumDoc" class="input" />
           </label>
-          <label class="flex flex-col md:col-span-2">
-            <span class="mb-2 font-medium text-gray-700">Razón Social</span>
+          <label class="flex flex-col md:col-span-2 dark:text-white/90">
+            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Razón Social</span>
             <input formControlName="envioTransportistaRznSocial" class="input" />
           </label>
-          <label class="flex flex-col">
-            <span class="mb-2 font-medium text-gray-700">Placa</span>
+          <label class="flex flex-col dark:text-white/90">
+            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Placa</span>
             <input formControlName="envioTransportistaPlaca" class="input" />
           </label>
         </div>
 
         <div class="grid gap-6 md:grid-cols-4">
-          <label class="flex flex-col">
-            <span class="mb-2 font-medium text-gray-700">Tipo documento</span>
+          <label class="flex flex-col dark:text-white/90">
+            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Tipo documento</span>
             <select formControlName="envioTransportistaChoferTipoDoc" class="input">
               <option *ngFor="let t of tiposDocumento()" [value]="t.id">{{ t.desc }}</option>
             </select>
           </label>
-          <label class="flex flex-col md:col-span-3">
-            <span class="mb-2 font-medium text-gray-700">Chofer Nº Doc</span>
+          <label class="flex flex-col md:col-span-3 dark:text-white/90">
+            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Chofer Nº Doc</span>
             <input formControlName="envioTransportistaChoferDoc" class="input" />
           </label>
         </div>
@@ -274,15 +274,15 @@
 </section>
 
 <!-- =============== Detalle =============== -->
-<section class="bg-white rounded-2xl shadow p-8 mt-8 space-y-6">
+<section class="bg-white rounded-2xl shadow p-8 mt-8 space-y-6 dark:bg-gray-900">
   <div class="flex justify-between items-center mb-4">
-    <h3 class="text-xl font-semibold text-gray-800">Detalle de Ítems</h3>
+    <h3 class="text-xl font-semibold text-gray-800 dark:text-white/90">Detalle de Ítems</h3>
     <button mat-mini-fab color="primary" (click)="addDetalle()">
       <mat-icon>add</mat-icon>
     </button>
   </div>
 
-  <div *ngIf="!detalles.length" class="text-sm text-gray-500 text-center py-8">Sin ítems añadidos.</div>
+  <div *ngIf="!detalles.length" class="text-sm text-gray-500 text-center py-8 dark:text-gray-400">Sin ítems añadidos.</div>
 
   <div class="space-y-3"></div>
 
@@ -293,3 +293,5 @@
     </button>
   </div>
 </section>
+
+

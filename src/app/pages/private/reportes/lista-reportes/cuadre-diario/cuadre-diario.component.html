@@ -2,39 +2,39 @@
   <app-form-filter [formGroup]="filtroForm">
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
       <div class="sm:col-span-2 md:col-span-2 flex flex-col">
-        <label for="buscador" class="text-md font-semibold mt-4 mb-1 text-slate-800">Buscador</label>
+        <label for="buscador" class="text-md font-semibold mt-4 mb-1 text-slate-800 dark:text-white/90">Buscador</label>
         <input
           id="buscador"
           type="text"
           placeholder="Código o Tipo pago (Efectivo, Transferencia...)"
           formControlName="buscador"
-          class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60"
+          class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60 dark:bg-gray-900"
           (keydown.enter)="aplicarFiltros()" />
         <div class="mt-1 text-[11px] text-slate-500">Tip: enter para consultar</div>
       </div>
 
       <div class="flex flex-col">
-        <label for="fechaDesde" class="text-md font-semibold mt-4 mb-1 text-slate-800">Fecha (Desde)</label>
+        <label for="fechaDesde" class="text-md font-semibold mt-4 mb-1 text-slate-800 dark:text-white/90">Fecha (Desde)</label>
         <input
           id="fechaDesde"
           type="date"
           formControlName="fechaDesde"
-          class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60" />
+          class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60 dark:bg-gray-900" />
       </div>
 
       <div class="flex flex-col">
-        <label for="fechaHasta" class="text-md font-semibold mt-4 mb-1 text-slate-800">Fecha (Hasta)</label>
+        <label for="fechaHasta" class="text-md font-semibold mt-4 mb-1 text-slate-800 dark:text-white/90">Fecha (Hasta)</label>
         <input
           id="fechaHasta"
           type="date"
           formControlName="fechaHasta"
-          class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60" />
+          class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60 dark:bg-gray-900" />
       </div>
 
       <div class="md:col-span-4 flex gap-2 justify-end pt-2">
         <button
           type="button"
-          class="rounded-lg border border-slate-200 bg-white px-5 py-3.5 text-sm font-semibold text-slate-700 shadow-sm hover:bg-slate-50 active:scale-[0.99] transition"
+          class="rounded-lg border border-slate-200 bg-white px-5 py-3.5 text-sm font-semibold text-slate-700 shadow-sm hover:bg-slate-50 active:scale-[0.99] transition dark:bg-gray-900"
           (click)="limpiar()">
           Limpiar
         </button>
@@ -51,7 +51,7 @@
 <div class="rounded-lg bg-neutral-100 p-4 mb-3">
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-3">
     <!-- Registros -->
-    <div class="rounded-xl bg-white p-3 border border-slate-200 shadow-sm hover:shadow-md transition">
+    <div class="rounded-xl bg-white p-3 border border-slate-200 shadow-sm hover:shadow-md transition dark:bg-gray-900">
       <div class="text-xs font-medium text-slate-500">N° Registros</div>
       <div class="mt-1 text-xl font-bold text-slate-900">
         {{ totalesView().registros | number: "1.0-0" }}
@@ -62,7 +62,7 @@
     </div>
 
     <!-- Total Ventas -->
-    <div class="rounded-xl bg-white p-3 border border-slate-200 shadow-sm hover:shadow-md transition">
+    <div class="rounded-xl bg-white p-3 border border-slate-200 shadow-sm hover:shadow-md transition dark:bg-gray-900">
       <div class="text-xs font-medium text-slate-500">Total Ventas</div>
       <div class="mt-1 text-xl font-bold text-slate-900">
         {{ totalesView().totalVentas | number: "1.2-2" }}
@@ -74,7 +74,7 @@
 
     <!-- Tarjetas dinámicas por tipo de pago -->
     <ng-container *ngFor="let t of totalesView().porTipo; trackBy: trackTipo">
-      <div class="rounded-xl bg-white p-3 border border-slate-200 shadow-sm hover:shadow-md transition">
+      <div class="rounded-xl bg-white p-3 border border-slate-200 shadow-sm hover:shadow-md transition dark:bg-gray-900">
         <div class="text-xs font-medium text-slate-500">{{ t.tipo }}</div>
 
         <div class="mt-1 text-xl font-bold text-slate-900">
@@ -92,7 +92,7 @@
 </div>
 
 <!-- TABLA -->
-<div class="rounded-lg bg-white border overflow-auto">
+<div class="rounded-lg bg-white border overflow-auto dark:bg-gray-900">
   <table mat-table [dataSource]="page().content" class="min-w-[900px] w-full">
     <ng-container matColumnDef="fecha">
       <th mat-header-cell *matHeaderCellDef>Fecha</th>
@@ -120,4 +120,6 @@
 
   <mat-paginator [length]="page().totalElements" [pageIndex]="page().number" [pageSize]="page().size" [pageSizeOptions]="[5, 10, 20, 50, 100, 1000]" (page)="onPage($event)"> </mat-paginator>
 </div>
+
+
 

@@ -3,17 +3,17 @@
   <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
     <div>
       <h1 class="text-2xl font-semibold tracking-tight">Lista de Materiales</h1>
-      <p class="text-sm text-gray-500">Lista de materiales por modelo (insumos, merma y obligatoriedad).</p>
+      <p class="text-sm text-gray-500 dark:text-gray-400">Lista de materiales por modelo (insumos, merma y obligatoriedad).</p>
     </div>
   </div>
 
   <!-- Form Card -->
-  <form id="bomForm" [formGroup]="form" (ngSubmit)="guardar()" class="rounded-2xl bg-white shadow-sm">
+  <form id="bomForm" [formGroup]="form" (ngSubmit)="guardar()" class="rounded-2xl bg-white shadow-sm dark:bg-gray-900">
     <!-- Top fields -->
     <div class="p-4 sm:p-6">
       <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
         <div class="space-y-1">
-          <label class="text-xs font-medium text-gray-600">Código de Ficha</label>
+          <label class="text-xs font-medium text-gray-600 dark:text-white/90">Código de Ficha</label>
 
           <div class="relative" (click)="$event.stopPropagation()">
             <input
@@ -22,13 +22,13 @@
               placeholder="Buscar por código o nombre…"
               (focus)="openFicha = true"
               autocomplete="off"
-              class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60"
+              class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60 dark:bg-gray-900"
             />
 
             <!-- dropdown -->
             <div
               *ngIf="openFicha && (fichaOptions.length || 0) > 0"
-              class="absolute left-0 top-full z-[2000] mt-2 w-full overflow-hidden rounded-xl border bg-white shadow-lg"
+              class="absolute left-0 top-full z-[2000] mt-2 w-full overflow-hidden rounded-xl border bg-white shadow-lg dark:bg-gray-900"
             >
               <button
                 type="button"
@@ -36,24 +36,24 @@
                 (click)="selectFicha(opt)"
                 class="flex w-full items-start gap-2 px-3 py-2 text-left hover:bg-gray-50"
               >
-                <span class="text-xs text-gray-500 w-20 shrink-0">{{ opt.codigo }}</span>
+                <span class="text-xs text-gray-500 w-20 shrink-0 dark:text-gray-400">{{ opt.codigo }}</span>
                 <span class="text-sm font-medium">{{ opt.nombre }}</span>
               </button>
             </div>
           </div>
 
           <!-- opcional: mostrar el id seleccionado -->
-          <p *ngIf="form.get('codigo')?.value" class="text-[11px] text-gray-500">
+          <p *ngIf="form.get('codigo')?.value" class="text-[11px] text-gray-500 dark:text-gray-400">
             Seleccionado ID: {{ form.get("codigo")?.value }}
           </p>
         </div>
 
         <div class="space-y-1 md:col-span-2">
-          <label class="text-xs font-medium text-gray-600">Nombre Plantilla</label>
+          <label class="text-xs font-medium text-gray-600 dark:text-white/90">Nombre Plantilla</label>
           <input
             formControlName="nombre"
             placeholder="Ej. Uniforme Escolar 2026 - Azul"
-            class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60"
+            class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60 dark:bg-gray-900"
           />
         </div>
       </div>
@@ -65,7 +65,7 @@
     <div class="p-4 sm:p-6 space-y-3">
       <div class="flex items-center justify-between">
         <div class="text-sm font-semibold">Detalle de insumos</div>
-        <div class="text-xs text-gray-500">
+        <div class="text-xs text-gray-500 dark:text-gray-400">
           <div *ngIf="bomId()" class="text-sm font-medium text-green-700">
             Platilla creada ID: <span class="font-semibold">{{ bomId() }}</span>
           </div>
@@ -108,7 +108,7 @@
 
                     <div
                       *ngIf="openRow === i && (optionsByRow[i]?.length || 0) > 0"
-                      class="absolute left-0 top-full z-[2000] mt-2 w-full overflow-hidden rounded-xl border bg-white shadow-lg"
+                      class="absolute left-0 top-full z-[2000] mt-2 w-full overflow-hidden rounded-xl border bg-white shadow-lg dark:bg-gray-900"
                     >
                       <button
                         type="button"
@@ -116,9 +116,9 @@
                         (click)="selectInsumo(i, opt)"
                         class="flex w-full items-start gap-2 px-3 py-2 text-left hover:bg-gray-50"
                       >
-                        <span class="text-xs text-gray-500 w-16 shrink-0">#{{ opt.id }}</span>
+                        <span class="text-xs text-gray-500 w-16 shrink-0 dark:text-gray-400">#{{ opt.id }}</span>
                         <span class="text-sm font-medium">{{ opt.nombre }}</span>
-                        <span *ngIf="opt.unidad" class="ml-auto text-xs text-gray-500">{{ opt.unidad }}</span>
+                        <span *ngIf="opt.unidad" class="ml-auto text-xs text-gray-500 dark:text-gray-400">{{ opt.unidad }}</span>
                       </button>
                     </div>
                   </div>
@@ -129,7 +129,7 @@
                     type="number"
                     formControlName="cantidadPorUnidad"
                     placeholder="Ej. 2.5"
-                    class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60"
+                    class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60 dark:bg-gray-900"
                   />
                 </td>
 
@@ -139,9 +139,9 @@
                       type="number"
                       formControlName="mermaPct"
                       placeholder="0"
-                      class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60"
+                      class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60 dark:bg-gray-900"
                     />
-                    <span class="text-xs text-gray-500">%</span>
+                    <span class="text-xs text-gray-500 dark:text-gray-400">%</span>
                   </div>
                 </td>
 
@@ -149,7 +149,7 @@
                   <input
                     type="number"
                     formControlName="costoUnitCompra"
-                    class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60"
+                    class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60 dark:bg-gray-900"
                   />
                 </td>
                 <td class="px-3 py-2 text-center">
@@ -167,7 +167,7 @@
               <tr *ngIf="(detalles.length || 0) === 0">
                 <td colspan="5" class="px-4 py-10 text-center">
                   <div class="text-sm font-medium">Aún no agregaste insumos</div>
-                  <div class="mt-1 text-xs text-gray-500">Haz clic en “Agregar insumo” para empezar.</div>
+                  <div class="mt-1 text-xs text-gray-500 dark:text-gray-400">Haz clic en “Agregar insumo” para empezar.</div>
                 </td>
               </tr>
             </tbody>
@@ -230,3 +230,5 @@
     </div>
   </form>
 </div>
+
+

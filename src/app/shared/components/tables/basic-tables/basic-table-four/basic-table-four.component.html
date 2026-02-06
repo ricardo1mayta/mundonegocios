@@ -1,4 +1,4 @@
-<div class="overflow-hidden rounded-2xl border border-gray-200 bg-white px-5 pb-3 pt-4 dark:border-white/[0.05] dark:bg-white/[0.03] sm:px-6">
+<div class="overflow-hidden rounded-2xl border border-gray-200 bg-white px-5 pb-3 pt-4 dark:border-white/[0.05] dark:bg-white/[0.03] sm:px-6 dark:bg-gray-900 dark:border-gray-800">
   <div class="flex justify-between gap-2 mb-4 sm:items-center">
     <div>
       <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90">
@@ -9,7 +9,7 @@
     <div class="relative inline-block">
       <app-table-dropdown>
         <div dropdown-button>
-          <button class="text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">
+          <button class="text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 dark:text-gray-500">
             <svg class="size-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path
                 fill-rule="evenodd"
@@ -39,7 +39,7 @@
 
   <div class="max-w-full overflow-x-auto">
     <table class="w-full">
-      <thead class="border-gray-100 border-y dark:border-white/[0.05]">
+      <thead class="border-gray-100 border-y dark:border-white/[0.05] dark:border-gray-800">
         <tr>
           <th scope="col" class="py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">
             Products
@@ -52,7 +52,7 @@
           </th>
         </tr>
       </thead>
-      <tbody class="divide-y divide-gray-100 dark:divide-white/[0.05]">
+      <tbody class="divide-y divide-gray-100 dark:divide-white/[0.05] dark:divide-gray-800">
         @for (item of campaigns; track $index) {
         <tr>
           <td class="py-3">
@@ -67,7 +67,7 @@
                 />
               </div>
               <div>
-                <p class="text-gray-700 text-theme-sm dark:text-gray-400">
+                <p class="text-gray-700 text-theme-sm dark:text-gray-400 dark:text-gray-300">
                   {{item.creator.name}}
                 </p>
               </div>
@@ -85,7 +85,7 @@
                 />
               </div>
               <div class="truncate">
-                <p class="mb-0.5 truncate text-theme-sm font-medium text-gray-700 dark:text-gray-400">
+                <p class="mb-0.5 truncate text-theme-sm font-medium text-gray-700 dark:text-gray-400 dark:text-gray-300">
                   {{item.campaign.name}}
                 </p>
                 <span class="text-gray-500 text-theme-xs dark:text-gray-400">
