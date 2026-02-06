@@ -4,7 +4,7 @@ import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { finalize } from 'rxjs';
 import { forkJoin } from 'rxjs';
-import { InsumoService } from '../../../../../core/services/insumo/insumo.service';
+import { InsumoService } from '../../../../../../core/services/insumo/insumo.service';
 import { Router } from '@angular/router';
 
 type TipoDTO = { id: number; nombre: string; codigo?: string };
@@ -157,3 +157,6 @@ export class CrearInsumosComponent implements OnInit {
       });
   }
 }
+
+
+

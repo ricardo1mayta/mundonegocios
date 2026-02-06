@@ -1,8 +1,8 @@
 import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormArray, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { MrpDTO } from '../../../../../core/models/fabricacion/fabricacion.models';
-import { FabricacionApi } from '../../../../../core/services/fabricacion/fabricacion.api';
+import { MrpDTO } from '../../../../../../core/models/fabricacion/fabricacion.models';
+import { FabricacionApi } from '../../../../../../core/services/fabricacion/fabricacion.api';
 
 @Component({
   selector: 'app-op-flow',
@@ -116,3 +116,6 @@ export class OpFlowComponent {
     this.api.cerrarOp(this.closeId, this.lecciones || undefined).subscribe(() => alert('OP cerrada'));
   }
 }
+
+
+

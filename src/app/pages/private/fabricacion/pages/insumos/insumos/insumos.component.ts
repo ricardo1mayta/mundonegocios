@@ -1,16 +1,16 @@
 import { Component, inject, model, signal, viewChild } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormBuilder, Validators, ReactiveFormsModule, FormsModule, FormControl, FormGroup } from "@angular/forms";
-import { InsumoDTO } from "../../../../../core/models/fabricacion/fabricacion.models";
-import { InsumoService } from "../../../../../core/services/insumo/insumo.service";
+import { InsumoDTO } from "../../../../../../core/models/fabricacion/fabricacion.models";
+import { InsumoService } from "../../../../../../core/services/insumo/insumo.service";
 import { MatNativeDateModule } from "@angular/material/core";
 import { MatDatepickerModule } from "@angular/material/datepicker";
-import { DataTableModule } from "../../../../../core/components/data-table/data-table.module";
-import { FormCrudComponent } from "../../../../../core/components/form-crud/form-crud.component";
-import { FormFilterComponent } from "../../../../../core/components/form-crud/form-filter/form-filter.component";
-import { FormListComponent } from "../../../../../core/components/form-crud/form-list/form-list.component";
-import { MaterialModule } from "../../../../../core/modules/material/material.module";
-import { DataTableComponent } from "../../../../../core/components/data-table/data-table.component";
+import { DataTableModule } from "../../../../../../core/components/data-table/data-table.module";
+import { FormCrudComponent } from "../../../../../../core/components/form-crud/form-crud.component";
+import { FormFilterComponent } from "../../../../../../core/components/form-crud/form-filter/form-filter.component";
+import { FormListComponent } from "../../../../../../core/components/form-crud/form-list/form-list.component";
+import { MaterialModule } from "../../../../../../core/modules/material/material.module";
+import { DataTableComponent } from "../../../../../../core/components/data-table/data-table.component";
 import { CrearInsumosComponent } from "../crear-insumos/crear-insumos.component";
 import { MatDialog } from "@angular/material/dialog";
 @Component({
@@ -114,3 +114,6 @@ export class InsumosComponent {
   }
   insumo(e: any) {}
 }
+
+
+

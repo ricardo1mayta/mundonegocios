@@ -4,7 +4,7 @@ import { FormBuilder, FormArray, Validators, ReactiveFormsModule } from '@angula
 import { finalize } from 'rxjs/operators';
 
 import { MatIconModule } from '@angular/material/icon';
-import { FichaService } from '../../../../../core/services/ficha/ficha.service';
+import { FichaService } from '../../../../../../core/services/ficha/ficha.service';
 import { Router } from '@angular/router';
 type TabKey = 'medidas' | 'piezas' | 'operaciones' | 'adjuntos';
 @Component({
@@ -448,3 +448,6 @@ export class VerFichaComponent {
     this.router.navigate(['/admin/fabricacion/mf/ficha/listar']); // ajusta ruta
   }
 }
+
+
+

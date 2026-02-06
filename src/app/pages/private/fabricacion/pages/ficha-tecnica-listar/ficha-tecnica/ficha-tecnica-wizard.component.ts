@@ -4,7 +4,7 @@ import { FormBuilder, FormArray, Validators, ReactiveFormsModule } from '@angula
 import { finalize } from 'rxjs/operators';
 
 import { MatIconModule } from '@angular/material/icon';
-import { FichaService } from '../../../../../core/services/ficha/ficha.service';
+import { FichaService } from '../../../../../../core/services/ficha/ficha.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 type TabKey = 'medidas' | 'piezas' | 'operaciones' | 'adjuntos';
@@ -477,3 +477,6 @@ export class FichaTecnicaWizardComponent {
     // this.addAdjunto();
   }
 }
+
+
+

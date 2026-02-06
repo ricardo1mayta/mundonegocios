@@ -4,8 +4,8 @@ import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 
-import { CotizacionCompraService } from '../../../../../core/services/contizaciocompra/contizacioncompra.service';
-import { BomService } from '../../../../../core/services/bom/bom.service'; // ✅
+import { CotizacionCompraService } from '../../../../../../core/services/contizaciocompra/contizacioncompra.service';
+import { BomService } from '../../../../../../core/services/bom/bom.service'; // ✅
 
 @Component({
   selector: 'app-cotizacion',
@@ -254,3 +254,6 @@ export class CotizacionComponent {
     window.print();
   }
 }
+
+
+

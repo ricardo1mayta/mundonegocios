@@ -4,14 +4,14 @@ import { ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { DataTableComponent } from '../../../../../core/components/data-table/data-table.component';
-import { IReporteExcel } from '../../../../../core/components/data-table/data-table.model';
-import { DataTableModule } from '../../../../../core/components/data-table/data-table.module';
-import { FormCrudComponent } from '../../../../../core/components/form-crud/form-crud.component';
-import { FormFilterComponent } from '../../../../../core/components/form-crud/form-filter/form-filter.component';
-import { FormListComponent } from '../../../../../core/components/form-crud/form-list/form-list.component';
-import { MaterialModule } from '../../../../../core/modules/material/material.module';
-import { CotizacionCompraService } from '../../../../../core/services/contizaciocompra/contizacioncompra.service';
+import { DataTableComponent } from '../../../../../../core/components/data-table/data-table.component';
+import { IReporteExcel } from '../../../../../../core/components/data-table/data-table.model';
+import { DataTableModule } from '../../../../../../core/components/data-table/data-table.module';
+import { FormCrudComponent } from '../../../../../../core/components/form-crud/form-crud.component';
+import { FormFilterComponent } from '../../../../../../core/components/form-crud/form-filter/form-filter.component';
+import { FormListComponent } from '../../../../../../core/components/form-crud/form-list/form-list.component';
+import { MaterialModule } from '../../../../../../core/modules/material/material.module';
+import { CotizacionCompraService } from '../../../../../../core/services/contizaciocompra/contizacioncompra.service';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 
@@ -99,3 +99,6 @@ export class ListarContizacionComponent {
     });
   }
 }
+
+
+

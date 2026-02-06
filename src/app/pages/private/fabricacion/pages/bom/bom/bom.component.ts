@@ -1,13 +1,13 @@
 import { Component, effect, HostListener, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormArray, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { FabricacionApi } from '../../../../../core/services/fabricacion/fabricacion.api';
+import { FabricacionApi } from '../../../../../../core/services/fabricacion/fabricacion.api';
 import { Router } from '@angular/router';
 import { catchError, debounceTime, distinctUntilChanged, finalize, map, Observable, of, switchMap, tap } from 'rxjs';
-import { FichaService } from '../../../../../core/services/ficha/ficha.service';
-import { InsumoService } from '../../../../../core/services/insumo/insumo.service';
-import { FichaOption, InsumoOption } from '../../../../../core/models/fabricacion/fabricacion.models';
-import { BomService } from '../../../../../core/services/bom/bom.service';
+import { FichaService } from '../../../../../../core/services/ficha/ficha.service';
+import { InsumoService } from '../../../../../../core/services/insumo/insumo.service';
+import { FichaOption, InsumoOption } from '../../../../../../core/models/fabricacion/fabricacion.models';
+import { BomService } from '../../../../../../core/services/bom/bom.service';
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
@@ -352,3 +352,6 @@ export class BomComponent {
     this.openFicha = false;
   }
 }
+
+
+

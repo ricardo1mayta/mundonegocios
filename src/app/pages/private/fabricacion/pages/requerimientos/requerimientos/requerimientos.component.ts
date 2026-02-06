@@ -1,8 +1,8 @@
 import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { RequerimientoDTO } from '../../../../../core/models/fabricacion/fabricacion.models';
-import { FabricacionApi } from '../../../../../core/services/fabricacion/fabricacion.api';
+import { RequerimientoDTO } from '../../../../../../core/models/fabricacion/fabricacion.models';
+import { FabricacionApi } from '../../../../../../core/services/fabricacion/fabricacion.api';
 
 @Component({
   selector: 'app-requerimientos',
@@ -40,3 +40,6 @@ export class RequerimientosComponent {
     });
   }
 }
+
+
+
