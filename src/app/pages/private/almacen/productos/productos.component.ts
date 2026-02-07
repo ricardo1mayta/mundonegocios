@@ -12,7 +12,6 @@ import { FormFilterComponent } from "../../../../core/components/form-crud/form-
 import { FormListComponent } from "../../../../core/components/form-crud/form-list/form-list.component";
 import { MaterialModule } from "../../../../core/modules/material/material.module";
 
-import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 
 import { CrearProductosComponent } from "./crear-productos/crear-productos.component";
 import { ProductosService } from "../../../../core/services/productos/productos.service";
@@ -25,7 +24,6 @@ import { BadgeComponent } from "src/app/shared/components/ui/badge/badge.compone
   selector: "app-productos",
   imports: [
     CommonModule,
-    MatSlideToggleModule,
     MaterialModule,
     MatDatepickerModule,
     MatNativeDateModule,
@@ -89,7 +87,7 @@ export class ProductosComponent {
   crearMarca(): void {
     const dialogRef = this.dialog.open(CrearProductosComponent, {
       width: "80rem", // coincide con max-w-3xl
-      maxWidth: "90rem",
+      maxWidth: "95vw",
       data: {
         title: "Crear Cliente Api Key",
         boton: "Guardar",
@@ -117,7 +115,7 @@ export class ProductosComponent {
   editarMarca(producto: Producto): void {
     const dialogRef = this.dialog.open(CrearProductosComponent, {
       width: "80rem", // coincide con max-w-3xl
-      maxWidth: "90rem",
+      maxWidth: "95vw",
       data: { ...producto, categoria: producto.categoria?.id, marca: producto.marca?.id },
     });
 

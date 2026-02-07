@@ -3,18 +3,18 @@
     <button
       mat-stroked-button
       (click)="exportarExcel()"
-      class="w-full sm:w-auto !h-10 !px-4 !rounded-xl !normal-case !border-gray-300 !text-gray-700 hover:!bg-gray-50"
+      class="w-full sm:w-auto !h-10 !px-4 !rounded-xl !normal-case !border-slate-300 !text-slate-700 hover:!bg-slate-50 dark:!border-white/10 dark:!text-slate-200 dark:hover:!bg-white/5"
     >
-      <mat-icon class="!text-[20px] !mr-2 !text-gray-700">file_download</mat-icon>
+      <mat-icon class="!text-[20px] !mr-2 !text-slate-600 dark:!text-slate-200">file_download</mat-icon>
       Exportar XLS
     </button>
 
     <button
       mat-flat-button
       (click)="agregarClick.emit()"
-      class="w-full sm:w-auto !h-10 !px-5 !rounded-xl !normal-case !bg-brand-500 hover:!bg-brand-600 !text-white !shadow-theme-xs"
+      class="w-full sm:w-auto !h-10 !px-5 !rounded-xl !normal-case !bg-slate-900 hover:!bg-slate-800 !text-white !shadow-theme-xs dark:!bg-slate-200 dark:!text-slate-900 dark:hover:!bg-white"
     >
-      <mat-icon class="!text-[20px] !mr-2 !text-white">add</mat-icon>
+      <mat-icon class="!text-[20px] !mr-2 !text-white dark:!text-slate-900">add</mat-icon>
       {{ etiquetaAgregar() }}
     </button>
   </div>

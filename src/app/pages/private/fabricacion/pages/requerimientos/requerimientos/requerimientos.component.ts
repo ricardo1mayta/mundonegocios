@@ -1,13 +1,24 @@
 import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatNativeDateModule } from '@angular/material/core';
 import { RequerimientoDTO } from '../../../../../../core/models/fabricacion/fabricacion.models';
 import { FabricacionApi } from '../../../../../../core/services/fabricacion/fabricacion.api';
 
 @Component({
   selector: 'app-requerimientos',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatIconModule,
+    MatNativeDateModule,
+  ],
   templateUrl: './requerimientos.component.html',
   styleUrls: ['./requerimientos.component.css'],
 })

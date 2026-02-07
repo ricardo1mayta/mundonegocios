@@ -7,6 +7,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatNativeDateModule } from '@angular/material/core';
 import { ReportePedidosService, PageResponse, VwReporteGananciaDetalleDto } from '../../../../../core/services/reportes/reporte-pedidos.service';
 
 type PageLike<T> = {
@@ -19,7 +23,19 @@ type PageLike<T> = {
 @Component({
   selector: 'app-ventas-producto-detallado',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatCardModule, MatButtonModule, MatTableModule, MatPaginatorModule, DatePipe],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatCardModule,
+    MatButtonModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatIconModule,
+    MatNativeDateModule,
+    DatePipe,
+  ],
   templateUrl: './ventas-producto-detallado.component.html',
   styleUrl: './ventas-producto-detallado.component.css',
 })
@@ -42,8 +58,8 @@ export class VentasProductoDetalladoComponent {
   filtroForm = this.fb.group({
     buscador: [''],
     idSede: [null as number | null],
-    fechaDesde: [null as string | null],
-    fechaHasta: [null as string | null],
+    fechaDesde: [null as Date | null],
+    fechaHasta: [null as Date | null],
   });
 
   // ====== totales (sobre lo cargado / página actual)
@@ -76,8 +92,8 @@ export class VentasProductoDetalladoComponent {
   ngOnInit() {
     const { desde, hasta } = this.getCurrentMonthRange();
     this.filtroForm.patchValue({
-      fechaDesde: this.toYmd(desde),
-      fechaHasta: this.toYmd(hasta),
+      fechaDesde: desde,
+      fechaHasta: hasta,
     });
 
     this.buscar(0, this.page().size);
@@ -113,6 +129,8 @@ export class VentasProductoDetalladoComponent {
   }
   buscar(pagina = 0, tamanio = 10) {
     const f = this.filtroForm.getRawValue();
+    const fechaDesde = this.toYmdMaybe(f.fechaDesde);
+    const fechaHasta = this.toYmdMaybe(f.fechaHasta);
 
     const payload = {
       pagina,
@@ -120,8 +138,8 @@ export class VentasProductoDetalladoComponent {
       datos: {
         buscador: f.buscador?.trim() || null,
         idSede: f.idSede ?? null,
-        fechaDesde: f.fechaDesde ?? null,
-        fechaHasta: f.fechaHasta ?? null,
+        fechaDesde,
+        fechaHasta,
       },
     };
 
@@ -172,5 +190,13 @@ export class VentasProductoDetalladoComponent {
     const mm = String(d.getMonth() + 1).padStart(2, '0');
     const dd = String(d.getDate()).padStart(2, '0');
     return `${yyyy}-${mm}-${dd}`;
+  }
+
+  private toYmdMaybe(value: Date | string | null): string | null {
+    if (!value) return null;
+    if (value instanceof Date) return this.toYmd(value);
+    const parsed = new Date(value);
+    if (isNaN(parsed.getTime())) return null;
+    return this.toYmd(parsed);
   }
 }

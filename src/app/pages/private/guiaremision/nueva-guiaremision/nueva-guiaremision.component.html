@@ -1,6 +1,6 @@
 <!-- CABECERA -->
 <section class="bg-white rounded-2xl shadow p-8 mb-8 dark:bg-gray-900">
-  <div class="flex items-center justify-between mb-6">
+  <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between mb-6">
     <h2 class="text-2xl font-bold text-gray-800 dark:text-white/90">Guía de Remisión</h2>
     <span class="text-gray-400 text-sm dark:text-gray-500">Nueva Guía</span>
   </div>
@@ -12,8 +12,24 @@
         <!-- serie/correlativo/fecha -->
         <div class="grid gap-6 md:grid-cols-6">
           <label class="flex flex-col md:col-span-2 dark:text-white/90">
-            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Fecha emisión</span>
-            <input type="date" formControlName="fechaEmision" class="input" />
+            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">Fecha emisión</span>
+            <div class="relative">
+              <input
+                matInput
+                [matDatepicker]="fechaEmisionPicker"
+                formControlName="fechaEmision"
+                class="input pr-10"
+                (click)="fechaEmisionPicker.open()"
+              />
+              <button
+                type="button"
+                class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400"
+                (click)="fechaEmisionPicker.open()"
+              >
+                <mat-icon class="!text-[18px]">calendar_today</mat-icon>
+              </button>
+              <mat-datepicker #fechaEmisionPicker></mat-datepicker>
+            </div>
           </label>
         </div>
 
@@ -91,12 +107,19 @@
 
         <!-- observación -->
         <label class="flex flex-col dark:text-white/90">
-          <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Observación</span>
+          <span class="mb-2 font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">Observación</span>
           <textarea formControlName="observacion" rows="2" class="input"></textarea>
         </label>
 
-        <div class="flex justify-end pt-4">
-          <button mat-flat-button color="primary" matStepperNext [disabled]="step1.invalid" class="px-8">Siguiente</button>
+        <div class="flex justify-end gap-2 pt-2">
+          <button
+            mat-flat-button
+            matStepperNext
+            [disabled]="step1.invalid"
+            class="!h-10 !rounded-xl !px-5 !normal-case !bg-slate-900 hover:!bg-slate-800 !text-white disabled:!bg-slate-400 !shadow-theme-xs dark:!bg-slate-200 dark:!text-slate-900 dark:hover:!bg-white"
+          >
+            Siguiente
+          </button>
         </div>
       </form>
     </mat-step>
@@ -106,30 +129,46 @@
       <form [formGroup]="step2" class="space-y-6 py-4">
         <div class="grid gap-6 md:grid-cols-6">
           <label class="flex flex-col dark:text-white/90">
-            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Cód. Traslado</span>
+            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">Cód. Traslado</span>
             <input formControlName="envioCodTraslado" class="input" />
           </label>
           <label class="flex flex-col md:col-span-2 dark:text-white/90">
-            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Descripción</span>
+            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">Descripción</span>
             <input formControlName="envioDesTraslado" class="input" />
           </label>
           <label class="flex flex-col dark:text-white/90">
-            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Modalidad</span>
+            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">Modalidad</span>
             <input formControlName="envioModTraslado" class="input" />
           </label>
           <label class="flex flex-col dark:text-white/90">
-            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Fec. Traslado</span>
-            <input type="date" formControlName="envioFecTraslado" class="input" />
+            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">Fec. Traslado</span>
+            <div class="relative">
+              <input
+                matInput
+                [matDatepicker]="envioFecTrasladoPicker"
+                formControlName="envioFecTraslado"
+                class="input pr-10"
+                (click)="envioFecTrasladoPicker.open()"
+              />
+              <button
+                type="button"
+                class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400"
+                (click)="envioFecTrasladoPicker.open()"
+              >
+                <mat-icon class="!text-[18px]">calendar_today</mat-icon>
+              </button>
+              <mat-datepicker #envioFecTrasladoPicker></mat-datepicker>
+            </div>
           </label>
           <label class="flex flex-col dark:text-white/90">
-            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Cód. Puerto</span>
+            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">Cód. Puerto</span>
             <input formControlName="envioCodPuerto" class="input" />
           </label>
         </div>
 
         <div class="grid gap-6 md:grid-cols-6">
           <label class="flex flex-col dark:text-white/90">
-            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Transbordo</span>
+            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">Transbordo</span>
             <div class="flex items-center gap-4 mt-1">
               <label class="flex items-center gap-2 dark:text-white/90">
                 <input type="radio" formControlName="envioIndTransbordo" [value]="true" />
@@ -142,40 +181,40 @@
             </div>
           </label>
           <label class="flex flex-col dark:text-white/90">
-            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Peso Total</span>
+            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">Peso Total</span>
             <input type="number" formControlName="envioPesoTotal" class="input" />
           </label>
           <label class="flex flex-col dark:text-white/90">
-            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Und. Peso</span>
+            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">Und. Peso</span>
             <input formControlName="envioUndPesoTotal" class="input" />
           </label>
           <label class="flex flex-col md:col-span-3 dark:text-white/90">
-            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Nº Contenedor</span>
+            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">Nº Contenedor</span>
             <input formControlName="envioNumContenedor" class="input" />
           </label>
         </div>
         <div class="border-t border-gray-200 dark:border-gray-800">
-          <div class="font-medium text-gray-700 dark:text-gray-300">Llegada</div>
+          <div class="font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">Llegada</div>
         </div>
 
         <div class="grid gap-6 md:grid-cols-2">
-          <div class="grid grid-cols-3 gap-4 w-full">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full">
             <label class="flex flex-col dark:text-white/90">
-              <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Dpto</span>
+              <span class="mb-2 font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">Dpto</span>
               <select formControlName="clienteDepartamento" class="input">
                 <option value="" disabled selected>Departamento</option>
                 <option *ngFor="let d of departamentos()" [value]="d.id">{{ d.name }}</option>
               </select>
             </label>
             <label class="flex flex-col dark:text-white/90">
-              <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Prov</span>
+              <span class="mb-2 font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">Prov</span>
               <select formControlName="clienteProvincia" class="input">
                 <option value="" disabled selected>Provincia</option>
                 <option *ngFor="let p of provincias()" [value]="p.id">{{ p.name }}</option>
               </select>
             </label>
             <label class="flex flex-col dark:text-white/90">
-              <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Dist</span>
+              <span class="mb-2 font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">Dist</span>
               <select formControlName="clienteDistrito" class="input">
                 <option value="" disabled selected>Distrito</option>
                 <option *ngFor="let d of distritos()" [value]="d.id">{{ d.name }}</option>
@@ -183,31 +222,31 @@
             </label>
           </div>
           <label class="flex flex-col dark:text-white/90">
-            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Dirección llegada</span>
+            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">Dirección llegada</span>
             <input formControlName="envioLlegadaDireccion" class="input" />
           </label>
         </div>
         <div class="border-t border-gray-200 dark:border-gray-800">
-          <div class="font-medium text-gray-700 dark:text-gray-300">Partida</div>
+          <div class="font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">Partida</div>
         </div>
         <div class="grid gap-6 md:grid-cols-2">
-          <div class="grid grid-cols-3 gap-4 w-full">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full">
             <label class="flex flex-col dark:text-white/90">
-              <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Dpto</span>
+              <span class="mb-2 font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">Dpto</span>
               <select formControlName="terceroDepartamento" class="input">
                 <option value="" disabled selected>Departamento</option>
                 <option *ngFor="let d of departamentosTercero()" [value]="d.id">{{ d.name }}</option>
               </select>
             </label>
             <label class="flex flex-col dark:text-white/90">
-              <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Prov</span>
+              <span class="mb-2 font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">Prov</span>
               <select formControlName="terceroProvincia" class="input">
                 <option value="" disabled selected>Provincia</option>
                 <option *ngFor="let p of provinciasTercero()" [value]="p.id">{{ p.name }}</option>
               </select>
             </label>
             <label class="flex flex-col dark:text-white/90">
-              <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Dist</span>
+              <span class="mb-2 font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">Dist</span>
               <select formControlName="terceroDistrito" class="input">
                 <option value="" disabled selected>Distrito</option>
                 <option *ngFor="let d of distritosTercero()" [value]="d.id">{{ d.name }}</option>
@@ -215,14 +254,27 @@
             </label>
           </div>
           <label class="flex flex-col dark:text-white/90">
-            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Dirección partida</span>
+            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">Dirección partida</span>
             <input formControlName="envioPartidaDireccion" class="input" />
           </label>
         </div>
 
-        <div class="flex justify-between pt-4">
-          <button mat-stroked-button color="primary" matStepperPrevious>Volver</button>
-          <button mat-flat-button color="primary" matStepperNext [disabled]="step2.invalid" class="px-8">Siguiente</button>
+        <div class="flex justify-between gap-2 pt-2">
+          <button
+            mat-stroked-button
+            matStepperPrevious
+            class="!h-10 !rounded-xl !px-5 !normal-case !border-slate-300 !text-slate-700 hover:!bg-slate-50 dark:!border-white/10 dark:!text-slate-200 dark:hover:!bg-white/5"
+          >
+            Volver
+          </button>
+          <button
+            mat-flat-button
+            matStepperNext
+            [disabled]="step2.invalid"
+            class="!h-10 !rounded-xl !px-5 !normal-case !bg-slate-900 hover:!bg-slate-800 !text-white disabled:!bg-slate-400 !shadow-theme-xs dark:!bg-slate-200 dark:!text-slate-900 dark:hover:!bg-white"
+          >
+            Siguiente
+          </button>
         </div>
       </form>
     </mat-step>
@@ -232,41 +284,53 @@
       <form [formGroup]="step3" class="space-y-6 py-4">
         <div class="grid gap-6 md:grid-cols-6">
           <label class="flex flex-col dark:text-white/90">
-            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Tipo documento</span>
+            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">Tipo documento</span>
             <select formControlName="envioTransportistaTipoDoc" class="input">
               <option *ngFor="let t of tiposDocumento()" [value]="t.id">{{ t.desc }}</option>
             </select>
           </label>
           <label class="flex flex-col dark:text-white/90">
-            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Nº Doc</span>
+            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">Nº Doc</span>
             <input formControlName="envioTransportistaNumDoc" class="input" />
           </label>
           <label class="flex flex-col md:col-span-2 dark:text-white/90">
-            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Razón Social</span>
+            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">Razón Social</span>
             <input formControlName="envioTransportistaRznSocial" class="input" />
           </label>
           <label class="flex flex-col dark:text-white/90">
-            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Placa</span>
+            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">Placa</span>
             <input formControlName="envioTransportistaPlaca" class="input" />
           </label>
         </div>
 
         <div class="grid gap-6 md:grid-cols-4">
           <label class="flex flex-col dark:text-white/90">
-            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Tipo documento</span>
+            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">Tipo documento</span>
             <select formControlName="envioTransportistaChoferTipoDoc" class="input">
               <option *ngFor="let t of tiposDocumento()" [value]="t.id">{{ t.desc }}</option>
             </select>
           </label>
           <label class="flex flex-col md:col-span-3 dark:text-white/90">
-            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300">Chofer Nº Doc</span>
+            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">Chofer Nº Doc</span>
             <input formControlName="envioTransportistaChoferDoc" class="input" />
           </label>
         </div>
 
-        <div class="flex justify-between pt-4">
-          <button mat-stroked-button color="primary" matStepperPrevious>Volver</button>
-          <button mat-flat-button color="primary" matStepperNext class="px-8">Detalle</button>
+        <div class="flex justify-between gap-2 pt-2">
+          <button
+            mat-stroked-button
+            matStepperPrevious
+            class="!h-10 !rounded-xl !px-5 !normal-case !border-slate-300 !text-slate-700 hover:!bg-slate-50 dark:!border-white/10 dark:!text-slate-200 dark:hover:!bg-white/5"
+          >
+            Volver
+          </button>
+          <button
+            mat-flat-button
+            matStepperNext
+            class="!h-10 !rounded-xl !px-5 !normal-case !bg-slate-900 hover:!bg-slate-800 !text-white !shadow-theme-xs dark:!bg-slate-200 dark:!text-slate-900 dark:hover:!bg-white"
+          >
+            Detalle
+          </button>
         </div>
       </form>
     </mat-step>
@@ -288,10 +352,16 @@
 
   <!-- BOTÓN FINAL -->
   <div class="text-right pt-4">
-    <button mat-flat-button color="primary" (click)="guardar()" [disabled]="step1.invalid || step2.invalid || step3.invalid || !detalles.length" class="px-10 py-2 text-base font-semibold">
+    <button
+      mat-flat-button
+      (click)="guardar()"
+      [disabled]="step1.invalid || step2.invalid || step3.invalid || !detalles.length"
+      class="!h-10 !rounded-xl !px-6 !normal-case !bg-slate-900 hover:!bg-slate-800 !text-white disabled:!bg-slate-400 !shadow-theme-xs dark:!bg-slate-200 dark:!text-slate-900 dark:hover:!bg-white"
+    >
       Guardar guía
     </button>
   </div>
 </section>
+
 
 

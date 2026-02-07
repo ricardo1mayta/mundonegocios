@@ -5,6 +5,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatNativeDateModule } from '@angular/material/core';
 import { finalize } from 'rxjs';
 import { ReportePedidosService, PageResponse } from '../../../../../core/services/reportes/reporte-pedidos.service';
 
@@ -19,7 +23,19 @@ export type VwVentasCuadrePagoDto = {
 @Component({
   selector: 'app-cuadre-diario',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatCardModule, MatButtonModule, MatTableModule, MatPaginatorModule, DatePipe],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatCardModule,
+    MatButtonModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatIconModule,
+    MatNativeDateModule,
+    DatePipe,
+  ],
   templateUrl: './cuadre-diario.component.html',
   styleUrl: './cuadre-diario.component.css',
 })
@@ -42,8 +58,8 @@ export class CuadreDiarioComponent {
   filtroForm = this.fb.group({
     buscador: [''],
     idSede: [null as number | null],
-    fechaDesde: [null as string | null],
-    fechaHasta: [null as string | null],
+    fechaDesde: [null as Date | null],
+    fechaHasta: [null as Date | null],
   });
 
   // ===== totales dinámicos (sobre lo cargado / página actual)
@@ -59,8 +75,8 @@ export class CuadreDiarioComponent {
   ngOnInit() {
     const { desde, hasta } = this.getCurrentMonthRange();
     this.filtroForm.patchValue({
-      fechaDesde: this.toYmd(desde),
-      fechaHasta: this.toYmd(hasta),
+      fechaDesde: desde,
+      fechaHasta: hasta,
     });
 
     this.buscar(0, this.page().size);
@@ -125,6 +141,8 @@ export class CuadreDiarioComponent {
 
   buscar(pagina = 0, tamanio = 10) {
     const f = this.filtroForm.getRawValue();
+    const fechaDesde = this.toYmdMaybe(f.fechaDesde);
+    const fechaHasta = this.toYmdMaybe(f.fechaHasta);
 
     const payload = {
       pagina,
@@ -132,8 +150,8 @@ export class CuadreDiarioComponent {
       datos: {
         buscador: f.buscador?.trim() || null,
         idSede: f.idSede ?? null,
-        fechaDesde: f.fechaDesde ?? null,
-        fechaHasta: f.fechaHasta ?? null,
+        fechaDesde,
+        fechaHasta,
       },
     };
 
@@ -183,5 +201,13 @@ export class CuadreDiarioComponent {
     const mm = String(d.getMonth() + 1).padStart(2, '0');
     const dd = String(d.getDate()).padStart(2, '0');
     return `${yyyy}-${mm}-${dd}`;
+  }
+
+  private toYmdMaybe(value: Date | string | null): string | null {
+    if (!value) return null;
+    if (value instanceof Date) return this.toYmd(value);
+    const parsed = new Date(value);
+    if (isNaN(parsed.getTime())) return null;
+    return this.toYmd(parsed);
   }
 }

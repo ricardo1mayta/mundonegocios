@@ -3,7 +3,7 @@
     <div class="flex items-start justify-between px-4 sm:px-6 py-3 sm:py-4">
       <div>
         <h2 class="text-lg sm:text-xl font-semibold text-gray-800 dark:text-white/90">Editar Stock</h2>
-        <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">{{ data.nombreProducto }}</p>
+        <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 dark:text-gray-300">{{ data.nombreProducto }}</p>
       </div>
       <button class="text-gray-500 hover:text-gray-700 focus:outline-none dark:text-gray-400" (click)="cerrar()">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -11,7 +11,7 @@
         </svg>
       </button>
     </div>
-    <div class="px-2 sm:px-6 py-3 sm:py-4 overflow-x-auto">
+    <div class="px-2 sm:px-6 py-3 sm:py-4 overflow-x-auto text-gray-800 dark:text-white/90">
       <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-800">
         <thead>
           <tr>
@@ -27,14 +27,14 @@
               <input
                 type="number"
                 [value]="stock.cantDisponible"
-                class="w-20 sm:w-24 rounded border border-gray-300 px-2 py-1 text-right focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 dark:border-gray-700"
+                class="w-20 sm:w-24 rounded border border-gray-300 px-2 py-1 text-right text-gray-800 bg-white focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 dark:border-gray-700 dark:text-white/90 dark:bg-gray-900"
                 (blur)="editarStock(stock.id, $event)" />
             </td>
             <td class="px-2 sm:px-6 py-4 whitespace-nowrap">
               <input
                 type="number"
                 [value]="stock.costoUnitario"
-                class="w-20 sm:w-24 rounded border border-gray-300 px-2 py-1 text-right focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 dark:border-gray-700"
+                class="w-20 sm:w-24 rounded border border-gray-300 px-2 py-1 text-right text-gray-800 bg-white focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 dark:border-gray-700 dark:text-white/90 dark:bg-gray-900"
                 (blur)="editarPrecio(stock.id, $event)" />
             </td>
           </tr>
@@ -43,4 +43,5 @@
     </div>
   </div>
 </div>
+
 

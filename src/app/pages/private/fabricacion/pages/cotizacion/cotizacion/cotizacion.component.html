@@ -33,7 +33,7 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <!-- BOM ID -->
         <div class="flex flex-col">
-          <label class="text-sm font-medium text-gray-700 mb-1 dark:text-white/90">Modelo ID</label>
+          <label class="text-sm font-medium text-gray-700 mb-1 dark:text-white/90 dark:text-gray-200">Modelo ID</label>
           <input
             type="number"
             formControlName="bomId"
@@ -44,7 +44,7 @@
 
         <!-- Cantidad fabricación -->
         <div class="flex flex-col">
-          <label class="no-print text-sm font-medium text-gray-700 mb-1 dark:text-white/90">Cantidad de fabricación</label>
+          <label class="no-print text-sm font-medium text-gray-700 mb-1 dark:text-white/90 dark:text-gray-200">Cantidad de fabricación</label>
 
           <!-- pantalla -->
           <input
@@ -115,7 +115,7 @@
 
       <div class="overflow-auto">
         <table class="min-w-full text-sm">
-          <thead class="bg-neutral-50 text-gray-600 dark:text-gray-400">
+          <thead class="bg-neutral-50 text-gray-600 dark:text-gray-400 dark:text-gray-300">
             <tr>
               <th class="px-4 py-3 text-left font-medium">Insumo</th>
               <th class="px-4 py-3 text-right font-medium">Cant. Unit</th>
@@ -160,16 +160,17 @@
         </table>
 
         <ng-template #sinDetalle>
-          <div class="p-6 text-sm text-gray-600 dark:text-gray-400">Aún no hay detalle. Ingresa el modelo y cantidad de fabricación y presiona <b>Cargar Modelo</b>.</div>
+          <div class="p-6 text-sm text-gray-600 dark:text-gray-400 dark:text-gray-300">Aún no hay detalle. Ingresa el modelo y cantidad de fabricación y presiona <b>Cargar Modelo</b>.</div>
         </ng-template>
       </div>
 
       <!-- Footer total -->
-      <div class="p-6 text-sm text-gray-600 total-print dark:text-gray-400">TOTAL COTIZACIÓN: S/ {{ total() | number: "1.2-2" }}</div>
+      <div class="p-6 text-sm text-gray-600 total-print dark:text-gray-400 dark:text-gray-300">TOTAL COTIZACIÓN: S/ {{ total() | number: "1.2-2" }}</div>
     </div>
   </div>
   <button type="button" (click)="imprimir()" class="inline-flex items-center justify-center rounded-xl border px-5 py-3.5 text-sm font-medium active:scale-[0.99] gap-2 rounded-lg transition bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600 disabled:bg-brand-300">Imprimir</button>
 </div>
+
 
 
 

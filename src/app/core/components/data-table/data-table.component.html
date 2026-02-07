@@ -1,4 +1,4 @@
-<div class="rounded-lg shadow-md bg-white dark:bg-gray-dark dark:bg-gray-900" [ngStyle]="ngHeight()">
+<div class="rounded-lg shadow-md bg-white dark:bg-gray-dark dark:bg-gray-900 core-data-table" [ngStyle]="ngHeight()">
   <div class="overflow-auto">
     <table mat-table [dataSource]="origenDatos" class="min-w-full">
       <!-- Checkbox Column -->
@@ -74,9 +74,9 @@
           <button
             mat-icon-button
             [matMenuTriggerFor]="menuAcciones"
-            class="text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white dark:text-gray-400"
+            class="text-slate-500 hover:text-slate-700 dark:text-slate-300 dark:hover:text-white"
           >
-            <mat-icon>more_vert</mat-icon>
+            <mat-icon class="!text-slate-600 dark:!text-slate-200">more_vert</mat-icon>
           </button>
 
           <mat-menu
@@ -88,9 +88,9 @@
               <button
                 mat-menu-item
                 (click)="boton.accion.emit({ datos: element, indiceFila: i })"
-                class="!text-gray-800 dark:!text-gray-100"
+                class="!text-slate-700 dark:!text-slate-100"
               >
-                <mat-icon class="!text-gray-600 dark:!text-gray-300">{{ boton.icono() }}</mat-icon>
+                <mat-icon class="!text-slate-500 dark:!text-slate-300">{{ boton.icono() }}</mat-icon>
                 <span class="ml-2">{{ boton.etiqueta() }}</span>
               </button>
             }
@@ -132,4 +132,5 @@
     />
   </div>
 }
+
 

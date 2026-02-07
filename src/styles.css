@@ -1141,3 +1141,435 @@ pre[class*="language-"].line-numbers {
 .dark .cdk-overlay-container .mat-mdc-option.mdc-list-item--selected {
   background: rgba(70, 95, 255, 0.18) !important;
 }
+
+/* Angular Material Dialog: let custom modal surface define shape */
+.mat-mdc-dialog-container .mdc-dialog__surface {
+  @apply bg-transparent shadow-none rounded-3xl;
+}
+
+/* Angular Material Stepper (dark/light) */
+.mat-mdc-stepper-horizontal,
+.mat-mdc-stepper-vertical {
+  @apply bg-transparent text-gray-800 dark:text-white/90;
+}
+.mat-mdc-stepper-header,
+.mat-mdc-stepper-content {
+  @apply text-gray-800 dark:text-white/90;
+}
+
+/* Force stepper label text colors */
+.mat-mdc-stepper-header .mat-step-label,
+.mat-mdc-stepper-header .mat-step-text-label,
+.mat-mdc-stepper-header .mat-step-label-text,
+.mat-mdc-stepper-header .mat-step-label-content,
+.mat-mdc-stepper-header .mdc-tab__text-label {
+  color: #344054 !important;
+}
+.dark .mat-mdc-stepper-header .mat-step-label,
+.dark .mat-mdc-stepper-header .mat-step-text-label,
+.dark .mat-mdc-stepper-header .mat-step-label-text,
+.dark .mat-mdc-stepper-header .mat-step-label-content,
+.dark .mat-mdc-stepper-header .mdc-tab__text-label {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+.mat-mdc-stepper-header .mat-step-label {
+  @apply text-gray-700 dark:text-gray-300;
+}
+.mat-mdc-stepper-header .mat-step-text-label {
+  @apply text-gray-700 dark:text-gray-300;
+}
+.mat-mdc-stepper-header .mat-step-label-text,
+.mat-mdc-stepper-header .mat-step-label-content {
+  @apply text-gray-700 dark:text-gray-300;
+}
+.mat-mdc-stepper-header .mat-step-label.mat-step-label-active,
+.mat-mdc-stepper-header .mat-step-label.mat-step-label-selected {
+  @apply text-gray-800 dark:text-white/90;
+}
+.mat-mdc-stepper-header .mat-step-text-label.mat-step-label-active,
+.mat-mdc-stepper-header .mat-step-text-label.mat-step-label-selected {
+  @apply text-gray-800 dark:text-white/90;
+}
+.mat-mdc-stepper-header .mat-step-label-text.mat-step-label-active,
+.mat-mdc-stepper-header .mat-step-label-text.mat-step-label-selected,
+.mat-mdc-stepper-header .mat-step-label-content.mat-step-label-active,
+.mat-mdc-stepper-header .mat-step-label-content.mat-step-label-selected {
+  @apply text-gray-800 dark:text-white/90;
+}
+.mat-mdc-stepper-header .mat-step-icon {
+  @apply bg-gray-200 text-gray-700 dark:bg-gray-800 dark:text-gray-200;
+}
+.mat-mdc-stepper-header .mat-step-icon-selected,
+.mat-mdc-stepper-header .mat-step-icon-state-done,
+.mat-mdc-stepper-header .mat-step-icon-state-edit {
+  @apply bg-brand-500 text-white;
+}
+.mat-mdc-stepper-header .mat-step-icon.mat-step-icon-state-error {
+  @apply bg-error-500 text-white;
+}
+.mat-mdc-stepper-horizontal-line {
+  @apply border-gray-200 dark:border-gray-800;
+}
+
+/* Data table action (three dots) icon color in dark */
+.dark app-data-table .mat-mdc-icon-button .mat-icon,
+.dark app-data-table .mat-mdc-icon-button .material-icons {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+.dark app-data-table .mat-mdc-icon-button .mat-icon svg,
+.dark app-data-table .mat-mdc-icon-button .mat-icon svg path,
+.dark app-data-table .mat-mdc-icon-button .mat-icon svg g {
+  fill: rgba(255, 255, 255, 0.9) !important;
+  stroke: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Mat menu (dark) */
+.dark .mat-mdc-menu-panel {
+  background-color: #111827 !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid rgba(55, 65, 81, 0.7) !important;
+}
+.dark .mat-mdc-menu-content,
+.dark .mat-mdc-menu-item {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+.dark .mat-mdc-menu-item:hover {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+}
+.dark .mat-mdc-menu-item .mat-icon,
+.dark .mat-mdc-menu-item .material-icons {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Mat icon inherit in dark */
+.dark .mat-icon,
+.dark .material-icons {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Material buttons label in dark */
+.dark .mat-mdc-button .mdc-button__label {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Ngx editor (dark) */
+.dark .NgxEditor,
+.dark .ngx-editor {
+  background-color: #111827 !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+  border-color: #1f2937 !important;
+}
+.dark .NgxEditor__Content,
+.dark .ngx-editor .NgxEditor__Content {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+.dark .NgxEditor__MenuBar,
+.dark .ngx-editor .NgxEditor__MenuBar,
+.dark .ngx-editor-menu {
+  background-color: #0f172a !important;
+  border-color: #1f2937 !important;
+}
+.dark .NgxEditor__MenuItem,
+.dark .ngx-editor .NgxEditor__MenuItem,
+.dark .ngx-editor-menu button,
+.dark .ngx-editor-menu button svg,
+.dark .ngx-editor-menu button span {
+  color: rgba(255, 255, 255, 0.9) !important;
+  fill: rgba(255, 255, 255, 0.9) !important;
+}
+.dark .NgxEditor__MenuBar select,
+.dark .ngx-editor .NgxEditor__MenuBar select,
+.dark .ngx-editor-menu select,
+.dark .NgxEditor__Dropdown,
+.dark .ngx-editor .NgxEditor__Dropdown,
+.dark .ngx-editor-menu .NgxEditor__Dropdown,
+.dark .NgxEditor__MenuBar option,
+.dark .ngx-editor .NgxEditor__MenuBar option,
+.dark .ngx-editor-menu option {
+  background-color: #0f172a !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+.dark .NgxEditor__Dropdown--DropdownMenu,
+.dark .ngx-editor .NgxEditor__Dropdown--DropdownMenu {
+  background-color: #0f172a !important;
+  border-color: #1f2937 !important;
+}
+.dark .NgxEditor__Dropdown--Item,
+.dark .ngx-editor .NgxEditor__Dropdown--Item {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+.dark .NgxEditor__Dropdown--Item:hover,
+.dark .ngx-editor .NgxEditor__Dropdown--Item:hover,
+.dark .NgxEditor__Dropdown--Item[aria-selected="true"],
+.dark .ngx-editor .NgxEditor__Dropdown--Item[aria-selected="true"] {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+}
+.dark .NgxEditor__MenuBar select,
+.dark .ngx-editor .NgxEditor__MenuBar select,
+.dark .ngx-editor-menu select,
+.dark .NgxEditor__Dropdown,
+.dark .ngx-editor .NgxEditor__Dropdown,
+.dark .ngx-editor-menu .NgxEditor__Dropdown {
+  color-scheme: dark;
+}
+
+/* Reportes tables (dark) */
+.dark .reportes-table .mat-mdc-table,
+.dark .reportes-table .mat-mdc-table table {
+  background-color: #111827 !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+.dark .reportes-table .mat-mdc-header-row {
+  background-color: #1f2937 !important;
+}
+.dark .reportes-table .mat-mdc-header-cell,
+.dark .reportes-table .mat-mdc-cell {
+  color: rgba(255, 255, 255, 0.9) !important;
+  border-color: #1f2937 !important;
+}
+.dark .reportes-table .mat-mdc-row {
+  border-color: #1f2937 !important;
+}
+.dark .reportes-table .mat-mdc-paginator {
+  background-color: #111827 !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+.dark .reportes-table .mat-mdc-paginator .mat-mdc-select-value,
+.dark .reportes-table .mat-mdc-paginator .mat-mdc-select-value-text,
+.dark .reportes-table .mat-mdc-paginator .mat-mdc-paginator-page-size-label,
+.dark .reportes-table .mat-mdc-paginator .mat-mdc-icon-button {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Reportes tables (light) */
+.reportes-table .mat-mdc-header-row {
+  background-color: #f3f4f6 !important;
+}
+
+/* Datepicker (dark) */
+.dark .mat-datepicker-content,
+.dark .mat-calendar {
+  background-color: #111827 !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+.dark .mat-calendar-table-header,
+.dark .mat-calendar-body-label,
+.dark .mat-calendar-body-cell-content,
+.dark .mat-calendar-period-button,
+.dark .mat-calendar-arrow,
+.dark .mat-calendar-previous-button,
+.dark .mat-calendar-next-button {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+.dark .mat-calendar-body-selected,
+.dark .mat-calendar-body-active {
+  background-color: #2563eb !important;
+  color: #ffffff !important;
+}
+.dark .mat-calendar-body-today:not(.mat-calendar-body-selected) {
+  border-color: #93c5fd !important;
+}
+
+/* Datepicker (light) */
+.mat-datepicker-content,
+.mat-calendar {
+  background-color: #ffffff !important;
+  color: #111827 !important;
+}
+.mat-calendar-table-header,
+.mat-calendar-body-label,
+.mat-calendar-body-cell-content,
+.mat-calendar-period-button,
+.mat-calendar-arrow,
+.mat-calendar-previous-button,
+.mat-calendar-next-button {
+  color: #111827 !important;
+}
+
+/* Snackbars */
+.mat-mdc-snack-bar-container.snackbar-success {
+  background-color: #ecfdf3 !important;
+  color: #065f46 !important;
+}
+.mat-mdc-snack-bar-container.snackbar-error {
+  background-color: #fef2f2 !important;
+  color: #991b1b !important;
+}
+.mat-mdc-snack-bar-container.snackbar-warning {
+  background-color: #fffbeb !important;
+  color: #92400e !important;
+}
+.mat-mdc-snack-bar-container.snackbar-info {
+  background-color: #eff6ff !important;
+  color: #1e3a8a !important;
+}
+/* Custom snackbar content */
+.snackbar-root {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.snackbar-message {
+  font-weight: 600;
+}
+.snackbar-close {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  opacity: 0.7;
+}
+.snackbar-close mat-icon {
+  font-size: 18px;
+  line-height: 18px;
+}
+.snackbar-close:hover {
+  opacity: 1;
+}
+.dark .mat-mdc-snack-bar-container.snackbar-success {
+  background-color: #064e3b !important;
+  color: #ecfdf3 !important;
+}
+.dark .mat-mdc-snack-bar-container.snackbar-error {
+  background-color: #7f1d1d !important;
+  color: #fee2e2 !important;
+}
+.dark .mat-mdc-snack-bar-container.snackbar-warning {
+  background-color: #78350f !important;
+  color: #fef3c7 !important;
+}
+.dark .mat-mdc-snack-bar-container.snackbar-info {
+  background-color: #1e3a8a !important;
+  color: #dbeafe !important;
+}
+
+/* Mat-select (dark) */
+.dark .mat-mdc-select-trigger,
+.dark .mat-mdc-select-value,
+.dark .mat-mdc-select-value-text,
+.dark .mat-mdc-select-arrow {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+.dark .mat-mdc-select-panel {
+  background-color: #111827 !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+.mat-mdc-select-panel {
+  background-color: #ffffff !important;
+  color: #111827 !important;
+}
+.dark .mat-mdc-option,
+.dark .mat-mdc-option .mdc-list-item__primary-text {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Mat-form-field no outline */
+.no-outline .mdc-notched-outline,
+.no-outline .mdc-notched-outline__leading,
+.no-outline .mdc-notched-outline__trailing,
+.no-outline .mdc-notched-outline__notch {
+  border: none !important;
+}
+.no-outline .mat-mdc-text-field-wrapper,
+.no-outline .mat-mdc-form-field-flex,
+.no-outline .mdc-text-field {
+  background-color: #ffffff !important;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.08) !important;
+  border-radius: 0.75rem !important;
+}
+.dark .no-outline .mat-mdc-text-field-wrapper,
+.dark .no-outline .mat-mdc-form-field-flex,
+.dark .no-outline .mdc-text-field {
+  background-color: #111827 !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.35) !important;
+  border-radius: 0.75rem !important;
+}
+
+/* Combo style like cliente modal */
+.combo-like .mat-mdc-text-field-wrapper,
+.combo-like .mat-mdc-form-field-flex,
+.combo-like .mdc-text-field {
+  min-height: 44px !important;
+  padding-left: 0.75rem !important;
+  padding-right: 0.75rem !important;
+  background-color: #ffffff !important;
+  border: 1px solid #d1d5db !important;
+  border-radius: 0.75rem !important;
+}
+.dark .combo-like .mat-mdc-text-field-wrapper,
+.dark .combo-like .mat-mdc-form-field-flex,
+.dark .combo-like .mdc-text-field {
+  background-color: rgba(17, 24, 39, 0.4) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+.combo-like .mat-mdc-select-trigger {
+  min-height: 44px !important;
+  padding: 0 !important;
+}
+.combo-like .mat-mdc-select-value {
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+}
+
+/* Data table header z-index fix */
+.core-data-table .mat-mdc-header-row {
+  z-index: 1 !important;
+}
+.core-data-table .mat-mdc-header-cell,
+.core-data-table .mat-mdc-table-sticky {
+  z-index: 1 !important;
+}
+.core-data-table .mat-mdc-row,
+.core-data-table .mat-mdc-cell {
+  z-index: 0 !important;
+}
+
+/* Ensure menus/overlays sit above tables */
+.cdk-overlay-container,
+.cdk-overlay-pane {
+  z-index: 9999 !important;
+}
+
+/* Stepper CSS variables (force label colors) */
+:root {
+  --mat-stepper-header-label-text-color: #344054;
+  --mat-stepper-header-optional-label-text-color: #667085;
+  --mat-stepper-header-selected-state-label-text-color: #101828;
+}
+.dark {
+  --mat-stepper-header-label-text-color: rgba(255, 255, 255, 0.9);
+  --mat-stepper-header-optional-label-text-color: rgba(255, 255, 255, 0.7);
+  --mat-stepper-header-selected-state-label-text-color: #ffffff;
+  --mat-stepper-container-color: #111827;
+  --mat-stepper-line-color: rgba(255, 255, 255, 0.12);
+  --mat-stepper-header-icon-foreground-color: rgba(255, 255, 255, 0.9);
+  --mat-stepper-header-icon-background-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Force step number color in dark */
+.dark .mat-mdc-stepper-header .mat-step-icon {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+.dark .mat-mdc-stepper-header .mat-step-icon:not(.mat-step-icon-selected):not(.mat-step-icon-state-done):not(.mat-step-icon-state-edit) {
+  background-color: rgba(255, 255, 255, 0.12) !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+.dark .mat-mdc-stepper-header .mat-step-icon .mat-step-icon-content,
+.dark .mat-mdc-stepper-header .mat-step-icon .mat-step-icon-content span {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+.dark .mat-mdc-stepper-header .mat-step-icon-state-done .mat-step-icon-content,
+.dark .mat-mdc-stepper-header .mat-step-icon-state-edit .mat-step-icon-content,
+.dark .mat-mdc-stepper-header .mat-step-icon-selected .mat-step-icon-content {
+  color: #ffffff !important;
+}
+.dark .mat-mdc-stepper-header .mat-step-icon svg,
+.dark .mat-mdc-stepper-header .mat-step-icon path {
+  fill: #ffffff !important;
+  stroke: #ffffff !important;
+}

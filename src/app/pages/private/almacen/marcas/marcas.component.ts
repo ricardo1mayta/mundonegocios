@@ -14,15 +14,14 @@ import { MaterialModule } from '../../../../core/modules/material/material.modul
 import { ClientesService } from '../../../../core/services/clientes/clientes.service';
 import { EditarClienteComponent } from '../../clientes/editar-cliente/editar-cliente.component';
 import { MarcasService } from '../../../../core/services/marcas/marcas.service';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { CrearMarcaComponent } from './crear-marca/crear-marca.component';
 import { Marca } from '../../../../core/models/almacen/marca';
+import { SwitchComponent } from 'src/app/shared/components/form/input/switch.component';
 
 @Component({
   selector: 'app-marcas',
   imports: [
     CommonModule,
-    MatSlideToggleModule,
     MaterialModule,
     MatDatepickerModule,
     MatNativeDateModule,
@@ -32,6 +31,7 @@ import { Marca } from '../../../../core/models/almacen/marca';
     DataTableModule,
     ReactiveFormsModule,
     FormsModule,
+    SwitchComponent,
   ],
   templateUrl: './marcas.component.html',
   styleUrl: './marcas.component.css',

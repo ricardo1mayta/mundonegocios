@@ -16,7 +16,7 @@
     <form [formGroup]="marcaForm" (ngSubmit)="guardarMarca()" class="px-6 py-6 space-y-6">
       <!-- Campo Nombre -->
       <div>
-        <label for="name" class="block text-sm font-medium text-gray-700 mb-1 dark:text-white/90">Nombre de la Marca</label>
+        <label for="name" class="block text-sm font-medium text-gray-700 mb-1 dark:text-white/90 dark:text-gray-200">Nombre de la Marca</label>
         <input
           id="name"
           type="text"
@@ -34,7 +34,7 @@
           <input type="checkbox" formControlName="estado" class="sr-only peer" />
           <div
             class="w-11 h-6 bg-gray-300 rounded-full peer peer-checked:bg-green-500 relative after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:rounded-full after:h-5 after:w-5 after:transition-transform peer-checked:after:translate-x-full peer-checked:after:border-white dark:bg-gray-700"></div>
-          <span class="text-sm text-gray-700 dark:text-gray-300">Activo</span>
+          <span class="text-sm text-gray-700 dark:text-gray-300 dark:text-gray-200">Activo</span>
         </label>
 
         <!-- Mostrar en Web -->
@@ -42,18 +42,19 @@
           <input type="checkbox" formControlName="stadoweb" class="sr-only peer" />
           <div
             class="w-11 h-6 bg-gray-300 rounded-full peer peer-checked:bg-blue-500 relative after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:rounded-full after:h-5 after:w-5 after:transition-transform peer-checked:after:translate-x-full peer-checked:after:border-white dark:bg-gray-700"></div>
-          <span class="text-sm text-gray-700 dark:text-gray-300">Mostrar en Web</span>
+          <span class="text-sm text-gray-700 dark:text-gray-300 dark:text-gray-200">Mostrar en Web</span>
         </label>
       </div>
     </form>
 
     <!-- Pie -->
     <div class="flex justify-end items-center gap-2 px-6 py-4 border-t bg-gray-50 dark:bg-gray-900">
-      <button type="button" (click)="onCerrar()" class="px-5 py-3.5 text-sm text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-100 transition dark:text-gray-400 dark:border-gray-700">Cancelar</button>
+      <button type="button" (click)="onCerrar()" class="px-5 py-3.5 text-sm text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-100 transition dark:text-gray-400 dark:border-gray-700 dark:text-gray-300">Cancelar</button>
       <button type="submit" (click)="guardarMarca()" class="px-5 py-3.5 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition shadow">Guardar Marca</button>
     </div>
   </div>
 </div>
+
 
 
 

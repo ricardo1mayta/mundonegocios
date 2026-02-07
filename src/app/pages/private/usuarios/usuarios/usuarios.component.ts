@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, model, signal, ViewChild } from '@angular/core';
 import { ReactiveFormsModule, FormsModule, FormGroup, FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { DataTableComponent } from '../../../../core/components/data-table/data-table.component';
 import { IReporteExcel } from '../../../../core/components/data-table/data-table.model';
 import { DataTableModule } from '../../../../core/components/data-table/data-table.module';
@@ -13,10 +12,11 @@ import { Usuario } from '../../../../core/models/usuario';
 import { MaterialModule } from '../../../../core/modules/material/material.module';
 import { NuevoUsuarioComponent } from '../nuevo-usuario/nuevo-usuario.component';
 import { UsuarioService } from '../../../../core/services/usuario/usuario.service';
+import { SwitchComponent } from 'src/app/shared/components/form/input/switch.component';
 
 @Component({
   selector: 'app-usuarios',
-  imports: [CommonModule, MaterialModule, MatSlideToggleModule, FormCrudComponent, FormFilterComponent, FormListComponent, DataTableModule, ReactiveFormsModule, FormsModule],
+  imports: [CommonModule, MaterialModule, FormCrudComponent, FormFilterComponent, FormListComponent, DataTableModule, ReactiveFormsModule, FormsModule, SwitchComponent],
   templateUrl: './usuarios.component.html',
   styleUrl: './usuarios.component.css',
 })

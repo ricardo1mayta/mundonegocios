@@ -83,7 +83,7 @@ export class ProveedoresComponent {
   crearPedido(): void {
     const dialogRef = this.dialog.open(CrearProveedoresComponent, {
       width: '55rem', // coincide con max-w-3xl
-      maxWidth: '60rem',
+      maxWidth: '95vw',
       data: {
         title: 'Crear Cliente Api Key',
         boton: 'Guardar',
@@ -100,7 +100,7 @@ export class ProveedoresComponent {
   editarPedido(provedor: any): void {
     const dialogRef = this.dialog.open(CrearProveedoresComponent, {
       width: '55rem', // coincide con max-w-3xl
-      maxWidth: '60rem',
+      maxWidth: '95vw',
       data: {
         title: 'Crear Cliente Api Key',
         boton: 'Guardar',

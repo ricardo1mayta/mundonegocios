@@ -8,8 +8,11 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { ModalComponent } from '../../shared/components/ui/modal/modal.component';
+import { MaterialModule } from '../../core/modules/material/material.module';
 
 interface CalendarEvent extends EventInput {
+  start?: Date | string;
+  end?: Date | string;
   extendedProps: {
     calendar: string;
   };
@@ -21,7 +24,8 @@ interface CalendarEvent extends EventInput {
     FormsModule,
     KeyValuePipe,
     FullCalendarModule,
-    ModalComponent
+    ModalComponent,
+    MaterialModule
   ],
   templateUrl: './calender.component.html',
   styles: ``
@@ -33,8 +37,8 @@ export class CalenderComponent {
   events: CalendarEvent[] = [];
   selectedEvent: CalendarEvent | null = null;
   eventTitle = '';
-  eventStartDate = '';
-  eventEndDate = '';
+  eventStartDate: Date | null = null;
+  eventEndDate: Date | null = null;
   eventLevel = '';
   isOpen = false;
 
@@ -94,8 +98,8 @@ export class CalenderComponent {
 
   handleDateSelect(selectInfo: DateSelectArg) {
     this.resetModalFields();
-    this.eventStartDate = selectInfo.startStr;
-    this.eventEndDate = selectInfo.endStr || selectInfo.startStr;
+    this.eventStartDate = new Date(selectInfo.startStr);
+    this.eventEndDate = selectInfo.endStr ? new Date(selectInfo.endStr) : new Date(selectInfo.startStr);
     this.openModal();
   }
 
@@ -104,26 +108,28 @@ export class CalenderComponent {
     this.selectedEvent = {
       id: event.id,
       title: event.title,
-      start: event.startStr,
-      end: event.endStr,
+      start: event.start,
+      end: event.end,
       extendedProps: { calendar: event.extendedProps.calendar }
     };
     this.eventTitle = event.title;
-    this.eventStartDate = event.startStr;
-    this.eventEndDate = event.endStr || '';
+    this.eventStartDate = event.start ?? new Date(event.startStr);
+    this.eventEndDate = event.end ? event.end : (event.endStr ? new Date(event.endStr) : null);
     this.eventLevel = event.extendedProps.calendar;
     this.openModal();
   }
 
   handleAddOrUpdateEvent() {
+    const start = this.eventStartDate ?? undefined;
+    const end = this.eventEndDate ?? undefined;
     if (this.selectedEvent) {
       this.events = this.events.map(ev =>
         ev.id === this.selectedEvent!.id
           ? {
               ...ev,
               title: this.eventTitle,
-              start: this.eventStartDate,
-              end: this.eventEndDate,
+              start,
+              end,
               extendedProps: { calendar: this.eventLevel }
             }
           : ev
@@ -132,8 +138,8 @@ export class CalenderComponent {
       const newEvent: CalendarEvent = {
         id: Date.now().toString(),
         title: this.eventTitle,
-        start: this.eventStartDate,
-        end: this.eventEndDate,
+        start,
+        end,
         allDay: true,
         extendedProps: { calendar: this.eventLevel }
       };
@@ -146,8 +152,8 @@ export class CalenderComponent {
 
   resetModalFields() {
     this.eventTitle = '';
-    this.eventStartDate = '';
-    this.eventEndDate = '';
+    this.eventStartDate = null;
+    this.eventEndDate = null;
     this.eventLevel = '';
     this.selectedEvent = null;
   }

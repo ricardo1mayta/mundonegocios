@@ -1,16 +1,16 @@
 <app-form-crud titulo="Usuarios">
   <!-- FILTROS -->
-  <div filtros>
+  <div filtros class="text-gray-800 dark:text-white/90">
     <app-form-filter [formGroup]="filtroForm" [(filtros)]="filtros" [mostrarEstado]="false">
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         <!-- Buscador -->
         <div class="flex flex-col sm:col-span-2 md:col-span-1">
-          <label class="font-medium mt-4 mb-1 dark:text-white/90">Buscador</label>
+          <label class="font-medium mt-4 mb-1 text-gray-800 dark:text-white/90">Buscador</label>
           <input
             formControlName="buscador"
             type="text"
             placeholder="Usuario / correo / nombre"
-            class="w-full rounded-md border border-gray-300 px-3 py-2 focus:ring focus:ring-blue-600/50 focus:border-blue-600 dark:border-gray-700" />
+            class="input" />
         </div>
 
         <!-- Activo -->
@@ -23,7 +23,7 @@
   </div>
 
   <!-- LISTA -->
-  <div class="p-1 rounded-lg bg-neutral-100">
+  <div class="p-1 rounded-lg bg-neutral-100 dark:bg-gray-900">
     <app-form-list class="flex flex-col flex-auto p-4" etiquetaAgregar="Crear" (agregarClick)="crearUsuario()" nombreExcel="Usuarios" [configuracionExcel]="configuracionExcel">
       <app-data-table [urlApi]="urlApi()" [parametrosApi]="filtros()">
         <app-columna-tabla titulo="ID" propiedad="idUser" ancho="70px" />
@@ -34,7 +34,7 @@
         <app-columna-tabla titulo="Tipo" propiedad="tipoUser" ancho="80px" />
         <app-columna-tabla titulo="Activo" propiedad="activo" ancho="90px">
           <ng-template let-estado="valor">
-            <mat-slide-toggle [checked]="estado"></mat-slide-toggle>
+            <app-switch label="" [defaultChecked]="!!estado" [disabled]="true"></app-switch>
           </ng-template>
         </app-columna-tabla>
 

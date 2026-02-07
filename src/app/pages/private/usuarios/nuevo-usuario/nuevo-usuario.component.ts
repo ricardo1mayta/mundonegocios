@@ -5,7 +5,6 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/materia
 import { MatIconModule } from '@angular/material/icon';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatSelectModule } from '@angular/material/select';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { MaterialModule } from '../../../../core/modules/material/material.module';
 import { RolesService } from '../../../../core/services/roles/roles.service';
@@ -14,11 +13,12 @@ import { Rol } from '../../../../core/models/roles/rol';
 import { Sede } from '../../../../core/models/sedes/sedes';
 import { UsuarioService } from '../../../../core/services/usuario/usuario.service';
 import { Usuario } from '../../../../core/models/usuario';
+import { SwitchComponent } from 'src/app/shared/components/form/input/switch.component';
 
 @Component({
   selector: 'app-nuevo-usuario',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatStepperModule, MatSelectModule, MatSlideToggleModule, MatIconModule, MatDialogModule, MaterialModule],
+  imports: [CommonModule, ReactiveFormsModule, MatStepperModule, MatSelectModule, MatIconModule, MatDialogModule, MaterialModule, SwitchComponent],
   templateUrl: './nuevo-usuario.component.html',
   styleUrl: './nuevo-usuario.component.css',
 })

@@ -4,9 +4,9 @@
   <!-- Crear OP -->
   <form [formGroup]="opForm" (ngSubmit)="crearOp()" class="bg-white rounded-2xl shadow p-4 space-y-3 dark:bg-gray-900">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-      <div><label class="text-xs text-gray-500 dark:text-white/90">ID Cotización</label> <input type="number" formControlName="idCotizacion" class="w-full border rounded-xl px-3 py-2" /></div>
-      <div><label class="text-xs text-gray-500 dark:text-white/90">Código OP</label> <input formControlName="codigo" class="w-full border rounded-xl px-3 py-2" /></div>
-      <div><label class="text-xs text-gray-500 dark:text-white/90">Volumen</label> <input type="number" formControlName="volumen" class="w-full border rounded-xl px-3 py-2" /></div>
+      <div><label class="text-xs text-gray-500 dark:text-white/90 dark:text-gray-400">ID Cotización</label> <input type="number" formControlName="idCotizacion" class="w-full border rounded-xl px-3 py-2" /></div>
+      <div><label class="text-xs text-gray-500 dark:text-white/90 dark:text-gray-400">Código OP</label> <input formControlName="codigo" class="w-full border rounded-xl px-3 py-2" /></div>
+      <div><label class="text-xs text-gray-500 dark:text-white/90 dark:text-gray-400">Volumen</label> <input type="number" formControlName="volumen" class="w-full border rounded-xl px-3 py-2" /></div>
     </div>
     <button class="rounded-xl px-4 py-2 bg-black text-white">Crear OP</button>
     <div *ngIf="idOp()" class="text-sm text-green-700">OP creada: {{ idOp() }}</div>
@@ -15,8 +15,8 @@
   <!-- MRP -->
   <form [formGroup]="mrpForm" (ngSubmit)="calcularMrp()" class="bg-white rounded-2xl shadow p-4 space-y-3 dark:bg-gray-900">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-      <div><label class="text-xs text-gray-500 dark:text-white/90">ID OP</label> <input type="number" formControlName="idOp" class="w-full border rounded-xl px-3 py-2" /></div>
-      <div><label class="text-xs text-gray-500 dark:text-white/90">ID Almacén</label> <input type="number" formControlName="idAlmacen" class="w-full border rounded-xl px-3 py-2" /></div>
+      <div><label class="text-xs text-gray-500 dark:text-white/90 dark:text-gray-400">ID OP</label> <input type="number" formControlName="idOp" class="w-full border rounded-xl px-3 py-2" /></div>
+      <div><label class="text-xs text-gray-500 dark:text-white/90 dark:text-gray-400">ID Almacén</label> <input type="number" formControlName="idAlmacen" class="w-full border rounded-xl px-3 py-2" /></div>
       <div class="flex items-end">
         <button class="w-full rounded-xl px-4 py-2 border">Calcular MRP</button>
       </div>
@@ -53,9 +53,9 @@
   <form [formGroup]="recForm" (ngSubmit)="registrarRecepcion()" class="bg-white rounded-2xl shadow p-4 space-y-3 dark:bg-gray-900">
     <div class="text-sm font-semibold">Recepción (Ingreso almacén)</div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-      <div><label class="text-xs text-gray-500 dark:text-white/90">ID Almacén</label> <input type="number" formControlName="idAlmacen" class="w-full border rounded-xl px-3 py-2" /></div>
-      <div><label class="text-xs text-gray-500 dark:text-white/90">Referencia</label> <input formControlName="referencia" class="w-full border rounded-xl px-3 py-2" /></div>
-      <div><label class="text-xs text-gray-500 dark:text-white/90">Proveedor</label> <input formControlName="proveedor" class="w-full border rounded-xl px-3 py-2" /></div>
+      <div><label class="text-xs text-gray-500 dark:text-white/90 dark:text-gray-400">ID Almacén</label> <input type="number" formControlName="idAlmacen" class="w-full border rounded-xl px-3 py-2" /></div>
+      <div><label class="text-xs text-gray-500 dark:text-white/90 dark:text-gray-400">Referencia</label> <input formControlName="referencia" class="w-full border rounded-xl px-3 py-2" /></div>
+      <div><label class="text-xs text-gray-500 dark:text-white/90 dark:text-gray-400">Proveedor</label> <input formControlName="proveedor" class="w-full border rounded-xl px-3 py-2" /></div>
     </div>
 
     <button type="button" class="px-4 py-2 rounded-xl border" (click)="addRecItem()">+ Item</button>
@@ -93,8 +93,8 @@
   <form [formGroup]="consForm" (ngSubmit)="registrarConsumo()" class="bg-white rounded-2xl shadow p-4 space-y-3 dark:bg-gray-900">
     <div class="text-sm font-semibold">Consumo (Salida a producción)</div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-      <div><label class="text-xs text-gray-500 dark:text-white/90">ID OP</label> <input type="number" formControlName="idOp" class="w-full border rounded-xl px-3 py-2" /></div>
-      <div><label class="text-xs text-gray-500 dark:text-white/90">ID Almacén</label> <input type="number" formControlName="idAlmacen" class="w-full border rounded-xl px-3 py-2" /></div>
+      <div><label class="text-xs text-gray-500 dark:text-white/90 dark:text-gray-400">ID OP</label> <input type="number" formControlName="idOp" class="w-full border rounded-xl px-3 py-2" /></div>
+      <div><label class="text-xs text-gray-500 dark:text-white/90 dark:text-gray-400">ID Almacén</label> <input type="number" formControlName="idAlmacen" class="w-full border rounded-xl px-3 py-2" /></div>
       <div class="flex items-end">
         <button type="button" class="w-full rounded-xl px-4 py-2 border" (click)="addConsItem()">+ Item</button>
       </div>
@@ -128,12 +128,13 @@
   <!-- Cierre -->
   <div class="bg-white rounded-2xl shadow p-4 space-y-3 dark:bg-gray-900">
     <div class="text-sm font-semibold">Cierre OP</div>
-    <div class="flex gap-2">
-      <input type="number" formControlName="idOp" class="border rounded-xl px-3 py-2 w-48" placeholder="ID OP" />
-      <input formControlName="lecciones" class="border rounded-xl px-3 py-2 flex-1" placeholder="Lecciones aprendidas" />
-      <button class="rounded-xl px-4 py-2 bg-black text-white" (click)="cerrar()">Cerrar</button>
+    <div class="flex flex-col gap-2 sm:flex-row sm:items-center">
+      <input type="number" formControlName="idOp" class="border rounded-xl px-3 py-2 w-full sm:w-48" placeholder="ID OP" />
+      <input formControlName="lecciones" class="border rounded-xl px-3 py-2 w-full sm:flex-1" placeholder="Lecciones aprendidas" />
+      <button class="rounded-xl px-4 py-2 bg-black text-white w-full sm:w-auto" (click)="cerrar()">Cerrar</button>
     </div>
   </div>
 </div>
+
 
 

@@ -299,7 +299,7 @@ export class NuevaCotizacionComponent {
   agregarCliente(): void {
     const dialogRef = this.dialog.open(EditarClienteComponent, {
       width: '55rem', // coincide con max-w-3xl
-      maxWidth: '60rem',
+      maxWidth: '95vw',
       data: {
         title: 'Crear Cliente ',
         boton: 'Guardar',

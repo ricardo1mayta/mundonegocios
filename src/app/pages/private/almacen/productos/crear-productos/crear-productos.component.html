@@ -13,10 +13,13 @@
   </div>
 
   <!-- CUERPO -->
-  <mat-dialog-content class="overflow-y-auto p-0">
+  <mat-dialog-content class="overflow-y-auto p-0 text-gray-800 dark:text-white/90">
     <mat-horizontal-stepper linear>
       <!-- PASO 1 – Datos básicos -->
-      <mat-step [stepControl]="basicosForm" label="Datos básicos">
+      <mat-step [stepControl]="basicosForm">
+        <ng-template matStepLabel>
+          <span class="text-gray-800 dark:text-white/90">Datos básicos</span>
+        </ng-template>
         <form [formGroup]="basicosForm" class="space-y-4 py-4">
           <div>
             <label class="label dark:text-white/90">Nombre *</label>
@@ -51,7 +54,7 @@
               mat-flat-button
               matStepperNext
               [disabled]="basicosForm.invalid"
-              class="inline-flex items-center justify-center gap-2 !rounded-xl px-5 py-3 text-sm font-medium !bg-gray-700 !text-white hover:!bg-gray-800 active:scale-[0.98] disabled:!bg-gray-300 disabled:!text-gray-500 disabled:cursor-not-allowed"
+              class="!h-10 !rounded-xl !px-5 !normal-case !bg-slate-900 hover:!bg-slate-800 !text-white disabled:!bg-slate-400 !shadow-theme-xs dark:!bg-slate-200 dark:!text-slate-900 dark:hover:!bg-white"
             >
               Siguiente
             </button>
@@ -60,20 +63,23 @@
       </mat-step>
 
       <!-- PASO 2 – Imágenes -->
-      <mat-step [stepControl]="imagenesForm" label="Imágenes">
+      <mat-step [stepControl]="imagenesForm">
+        <ng-template matStepLabel>
+          <span class="text-gray-800 dark:text-white/90">Imágenes</span>
+        </ng-template>
         <form [formGroup]="imagenesForm" class="space-y-6 py-4">
           <!-- Tarjetas -->
           <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
             <ng-container *ngFor="let campo of ['imagen', 'img1', 'img2', 'img3', 'img4']">
-              <div class="flex flex-col items-center gap-2 bg-white border rounded-lg p-3 shadow-sm dark:bg-gray-900">
+              <div class="flex flex-col items-center gap-2 bg-white border border-gray-200 rounded-lg p-3 shadow-sm dark:border-gray-800 dark:bg-gray-900">
                 <!-- título -->
-                <span class="text-xs font-semibold">
+                <span class="text-xs font-semibold text-gray-700 dark:text-white/90">
                   {{ campo === "imagen" ? "Principal *" : campo }}
                 </span>
 
                 <!-- zona drag / botón -->
                 <label
-                  class="flex flex-col items-center justify-center w-24 h-24 border-2 border-dashed rounded-lg cursor-pointer hover:border-blue-500 transition dark:text-white/90"
+                  class="flex flex-col items-center justify-center w-24 h-24 border-2 border-dashed border-gray-200 rounded-lg cursor-pointer hover:border-blue-500 transition dark:border-gray-700 dark:text-white/90"
                 >
                   <mat-icon *ngIf="!preview[campo]" class="text-gray-400 dark:text-gray-500">cloud_upload</mat-icon>
                   <img *ngIf="preview[campo]" [src]="preview[campo]" class="w-full h-full object-cover rounded-md" />
@@ -84,13 +90,20 @@
           </div>
 
           <!-- Botones -->
-          <div class="flex justify-between pt-4">
-            <button mat-button matStepperPrevious><mat-icon class="!text-[18px]">arrow_back</mat-icon>Volver</button>
+          <div class="flex justify-between gap-2 pt-2">
+            <button
+              mat-stroked-button
+              matStepperPrevious
+              class="!h-10 !rounded-xl !px-5 !normal-case !border-slate-300 !text-slate-700 hover:!bg-slate-50 dark:!border-white/10 dark:!text-slate-200 dark:hover:!bg-white/5"
+            >
+              <mat-icon class="!text-[18px] !text-slate-600 dark:!text-slate-300">arrow_back</mat-icon>
+              Volver
+            </button>
             <button
               mat-flat-button
               matStepperNext
               [disabled]="basicosForm.invalid"
-              class="inline-flex items-center justify-center gap-2 !rounded-xl px-5 py-3 text-sm font-medium !bg-gray-700 !text-white hover:!bg-gray-800 active:scale-[0.98] disabled:!bg-gray-300 disabled:!text-gray-500 disabled:cursor-not-allowed"
+              class="!h-10 !rounded-xl !px-5 !normal-case !bg-slate-900 hover:!bg-slate-800 !text-white disabled:!bg-slate-400 !shadow-theme-xs dark:!bg-slate-200 dark:!text-slate-900 dark:hover:!bg-white"
             >
               Siguiente
             </button>
@@ -99,21 +112,32 @@
       </mat-step>
 
       <!-- PASO 3 – Precios & estado -->
-      <mat-step [stepControl]="preciosForm" label="Precios">
+      <mat-step [stepControl]="preciosForm">
+        <ng-template matStepLabel>
+          <span class="text-gray-800 dark:text-white/90">Precios</span>
+        </ng-template>
         <form [formGroup]="preciosForm" class="space-y-4 py-4">
           <div class="flex items-center gap-2">
-            <mat-slide-toggle formControlName="status">Activo</mat-slide-toggle>
+            <app-switch
+              label="Activo"
+              [defaultChecked]="!!preciosForm.get('status')?.value"
+              (valueChange)="preciosForm.get('status')?.setValue($event)"
+            ></app-switch>
           </div>
 
           <!-- Descripción larga -->
-          <div class="h-40 bg-white border rounded overflow-y-auto dark:bg-gray-900">
+          <div class="h-40 bg-white border border-gray-200 rounded overflow-y-auto dark:border-gray-800 dark:bg-gray-900">
             <ngx-editor-menu [editor]="editor"></ngx-editor-menu>
             <ngx-editor formControlName="descc" [editor]="editor" class="h-full p-2"></ngx-editor>
           </div>
 
-          <div class="flex justify-between pt-4">
-            <button mat-button matStepperPrevious>
-              <mat-icon class="!text-[18px]">arrow_back</mat-icon>
+          <div class="flex justify-between gap-2 pt-2">
+            <button
+              mat-stroked-button
+              matStepperPrevious
+              class="!h-10 !rounded-xl !px-5 !normal-case !border-slate-300 !text-slate-700 hover:!bg-slate-50 dark:!border-white/10 dark:!text-slate-200 dark:hover:!bg-white/5"
+            >
+              <mat-icon class="!text-[18px] !text-slate-600 dark:!text-slate-300">arrow_back</mat-icon>
               Volver
             </button>
 
@@ -122,9 +146,9 @@
               matStepperNext
               [disabled]="preciosForm.invalid"
               (click)="guardar()"
-              class="inline-flex items-center justify-center gap-2 !rounded-xl px-5 py-3 text-sm font-medium !bg-green-700 !text-white hover:!bg-green-800 active:scale-[0.98] disabled:!bg-gray-300 disabled:!text-gray-500 disabled:cursor-not-allowed"
+              class="!h-10 !rounded-xl !px-5 !normal-case !bg-slate-900 hover:!bg-slate-800 !text-white disabled:!bg-slate-400 !shadow-theme-xs dark:!bg-slate-200 dark:!text-slate-900 dark:hover:!bg-white"
             >
-              <mat-icon class="!text-[18px]">save</mat-icon> Guardar
+              <mat-icon class="!text-[18px] !text-white dark:!text-slate-900">save</mat-icon> Guardar
             </button>
           </div>
         </form>
@@ -132,5 +156,8 @@
     </mat-horizontal-stepper>
   </mat-dialog-content>
 </div>
+
+
+
 
 

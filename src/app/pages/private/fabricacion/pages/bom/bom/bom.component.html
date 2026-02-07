@@ -13,7 +13,7 @@
     <div class="p-4 sm:p-6">
       <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
         <div class="space-y-1">
-          <label class="text-xs font-medium text-gray-600 dark:text-white/90">Código de Ficha</label>
+          <label class="text-xs font-medium text-gray-600 dark:text-white/90 dark:text-gray-300">Código de Ficha</label>
 
           <div class="relative" (click)="$event.stopPropagation()">
             <input
@@ -49,7 +49,7 @@
         </div>
 
         <div class="space-y-1 md:col-span-2">
-          <label class="text-xs font-medium text-gray-600 dark:text-white/90">Nombre Plantilla</label>
+          <label class="text-xs font-medium text-gray-600 dark:text-white/90 dark:text-gray-300">Nombre Plantilla</label>
           <input
             formControlName="nombre"
             placeholder="Ej. Uniforme Escolar 2026 - Azul"
@@ -230,5 +230,6 @@
     </div>
   </form>
 </div>
+
 
 

@@ -10,7 +10,6 @@ import { UbigeoService } from '../../../../core/services/ubigeo/ubigeo.service';
 import { CodigosService } from '../../../../core/services/codigos/codigos.service';
 import { SunatService } from '../../../../core/services/codigos/sunat.service';
 import { MatSelectModule } from '@angular/material/select';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatStepperModule } from '@angular/material/stepper';
 import { NgxEditorModule } from 'ngx-editor';
 import { MaterialModule } from '../../../../core/modules/material/material.module';
@@ -35,7 +34,7 @@ type EditarClienteData = {
 @Component({
   selector: 'app-editar-cliente',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatStepperModule, MatSelectModule, MatSlideToggleModule, MatDialogModule, NgxEditorModule, MatIcon, MaterialModule, MatIconModule, MatDialogContent],
+  imports: [CommonModule, ReactiveFormsModule, MatStepperModule, MatSelectModule, MatDialogModule, NgxEditorModule, MatIcon, MaterialModule, MatIconModule, MatDialogContent],
   templateUrl: './editar-cliente.component.html',
   styleUrl: './editar-cliente.component.css',
 })

@@ -45,7 +45,7 @@
   <!-- NODOS CON HIJOS -->
   <li *ngIf="item.children?.length" class="relative select-none" [style.margin-left.px]="colapsado ? 0 : level * 12" (mouseenter)="onHover(item)" (mouseleave)="onLeave(item)">
     <!-- BOTÓN PADRE -->
-    <button class="flex items-center gap-3 w-full p-2 rounded-md text-gray-700 hover:bg-blue-100 hover:text-blue-700 dark:text-gray-300" title="{{ item.name }}" (click)="toggle(item)">
+    <button class="flex items-center gap-3 w-full p-2 rounded-md text-gray-700 hover:bg-blue-100 hover:text-blue-700 dark:text-gray-300 dark:text-gray-200" title="{{ item.name }}" (click)="toggle(item)">
       <i class="{{ item.icon || 'pi pi-folder' }}"></i>
 
       <!-- texto completo o inicial -->
@@ -75,7 +75,7 @@
 
   <!-- NODOS FINALES (sin hijos) -->
   <li *ngIf="!item.children?.length" [style.margin-left.px]="colapsado ? 0 : level * 12">
-    <a [routerLink]="item.routeOrFunction" class="flex items-center gap-3 p-2 rounded-md text-gray-700 hover:bg-blue-100 hover:text-blue-700 dark:text-gray-300" title="{{ item.name }}">
+    <a [routerLink]="item.routeOrFunction" class="flex items-center gap-3 p-2 rounded-md text-gray-700 hover:bg-blue-100 hover:text-blue-700 dark:text-gray-300 dark:text-gray-200" title="{{ item.name }}">
       <i class="{{ item.icon || 'pi pi-circle' }}"></i>
 
       <span *ngIf="!colapsado">{{ item.name }}</span>
@@ -85,4 +85,5 @@
     </a>
   </li>
 </ng-template>
+
 

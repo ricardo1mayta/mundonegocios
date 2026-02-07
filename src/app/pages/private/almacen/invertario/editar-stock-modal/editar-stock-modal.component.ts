@@ -5,8 +5,6 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { DataTableComponent } from '../../../../../core/components/data-table/data-table.component';
 import { IReporteExcel } from '../../../../../core/components/data-table/data-table.model';
 import { DataTableModule } from '../../../../../core/components/data-table/data-table.module';
@@ -18,7 +16,7 @@ import { InventarioService } from '../../../../../core/services/inventario/inven
 
 @Component({
   selector: 'app-editar-stock-modal',
-  imports: [CommonModule, MatSlideToggleModule, MaterialModule, MatDatepickerModule, MatNativeDateModule, DataTableModule, ReactiveFormsModule, FormsModule],
+  imports: [CommonModule, MaterialModule, MatDatepickerModule, MatNativeDateModule, DataTableModule, ReactiveFormsModule, FormsModule],
   templateUrl: './editar-stock-modal.component.html',
   styleUrl: './editar-stock-modal.component.css',
 })

@@ -120,7 +120,7 @@ export class GuiaremisionComponent implements OnInit {
     // abrir modal
     const dialogRef = this.dialog.open(VisualizarCotizacionComponent, {
       width: '70rem', // coincide con max-w-3xl
-      maxWidth: '80rem',
+      maxWidth: '95vw',
       data: {
         title: 'Crear Cliente ',
         boton: 'Guardar',

@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, Validators, FormArray, FormsModule, ReactiveFor
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { Clientes } from '../../../../core/models/ventas/clientes';
 import { MatSelectModule } from '@angular/material/select';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatStepperModule } from '@angular/material/stepper';
 import { NgxEditorModule } from 'ngx-editor';
 import { MaterialModule } from '../../../../core/modules/material/material.module';
@@ -19,7 +18,7 @@ import { CodigosService } from '../../../../core/services/codigos/codigos.servic
 
 @Component({
   selector: 'app-nueva-guiaremision',
-  imports: [CommonModule, FormsModule, MatIconModule, ReactiveFormsModule, MatStepperModule, MatSelectModule, MatSlideToggleModule, NgxEditorModule, MatIcon, MaterialModule],
+  imports: [CommonModule, FormsModule, MatIconModule, ReactiveFormsModule, MatStepperModule, MatSelectModule, NgxEditorModule, MatIcon, MaterialModule],
   templateUrl: './nueva-guiaremision.component.html',
   styleUrl: './nueva-guiaremision.component.css',
 })
@@ -169,7 +168,7 @@ export class NuevaGuiaremisionComponent {
   agregarCliente(): void {
     const dialogRef = this.dialog.open(EditarClienteComponent, {
       width: '55rem', // coincide con max-w-3xl
-      maxWidth: '60rem',
+      maxWidth: '95vw',
       data: {
         title: 'Crear Cliente ',
         boton: 'Guardar',
@@ -252,7 +251,7 @@ export class NuevaGuiaremisionComponent {
   agregarTercero(): void {
     const dialogRef = this.dialog.open(EditarClienteComponent, {
       width: '55rem', // coincide con max-w-3xl
-      maxWidth: '60rem',
+      maxWidth: '95vw',
       data: {
         title: 'Crear Cliente ',
         boton: 'Guardar',

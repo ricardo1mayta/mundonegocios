@@ -11,8 +11,6 @@ import { FormCrudComponent } from "../../../../core/components/form-crud/form-cr
 import { FormFilterComponent } from "../../../../core/components/form-crud/form-filter/form-filter.component";
 import { FormListComponent } from "../../../../core/components/form-crud/form-list/form-list.component";
 import { MaterialModule } from "../../../../core/modules/material/material.module";
-import { MatSlideToggleChange } from "@angular/material/slide-toggle";
-import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 
 import { ProductosService } from "../../../../core/services/productos/productos.service";
 import { Producto } from "../../../../core/models/almacen/producto";
@@ -27,7 +25,6 @@ import { SwitchComponent } from "src/app/shared/components/form/input/switch.com
   selector: "app-invertario",
   imports: [
     CommonModule,
-    MatSlideToggleModule,
     MaterialModule,
     MatDatepickerModule,
     MatNativeDateModule,

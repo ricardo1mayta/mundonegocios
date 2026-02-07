@@ -14,17 +14,16 @@ import { MaterialModule } from '../../../../core/modules/material/material.modul
 import { ClientesService } from '../../../../core/services/clientes/clientes.service';
 import { EditarClienteComponent } from '../../clientes/editar-cliente/editar-cliente.component';
 import { MarcasService } from '../../../../core/services/marcas/marcas.service';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { Marca } from '../../../../core/models/almacen/marca';
 import { CrearCategoriaComponent } from './crear-categoria/crear-categoria.component';
 import { CateboriasService } from '../../../../core/services/categorias/cateborias.service';
+import { SwitchComponent } from 'src/app/shared/components/form/input/switch.component';
 
 @Component({
   selector: 'app-categorias',
   imports: [
     CommonModule,
-    MatSlideToggleModule,
     MaterialModule,
     MatDatepickerModule,
     MatNativeDateModule,
@@ -34,6 +33,7 @@ import { CateboriasService } from '../../../../core/services/categorias/catebori
     DataTableModule,
     ReactiveFormsModule,
     FormsModule,
+    SwitchComponent,
   ],
   templateUrl: './categorias.component.html',
   styleUrl: './categorias.component.css',

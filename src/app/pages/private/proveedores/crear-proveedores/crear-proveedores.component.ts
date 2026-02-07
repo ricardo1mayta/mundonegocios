@@ -19,7 +19,6 @@ import { CodigosService } from "../../../../core/services/codigos/codigos.servic
 import { SunatService } from "../../../../core/services/codigos/sunat.service";
 import { ProvedoresService } from "../../../../core/services/provedores/provedores.service";
 import { MatSelectModule } from "@angular/material/select";
-import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatStepperModule } from "@angular/material/stepper";
 
 import { MaterialModule } from "../../../../core/modules/material/material.module";
@@ -50,7 +49,6 @@ type CrearProveedorData = {
     ReactiveFormsModule,
     MatStepperModule,
     MatSelectModule,
-    MatSlideToggleModule,
     MatDialogModule,
     NgxEditorModule,
     MatIcon,

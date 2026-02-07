@@ -1,4 +1,4 @@
-<div class="mx-auto p-6 space-y-6">
+<div class="mx-auto p-6 space-y-6 text-gray-800 dark:text-white/90">
   <form [formGroup]="form" class="space-y-4">
     <!-- Sticky resumen + acciones -->
     <div class="rounded-xl bg-white p-3 border border-slate-200 shadow-sm hover:shadow-md transition dark:bg-gray-900">
@@ -21,7 +21,7 @@
         <div class="flex gap-2">
           <button
             type="button"
-            class="inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none transition bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:bg-gray-50 dark:bg-gray-800 dark:text-gray-300"
+            class="inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none transition bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:bg-gray-50 dark:bg-gray-800 dark:text-gray-200"
             (click)="toggleGeneral()">
             {{ showGeneral ? "Ocultar" : "Editar datos generales" }}
           </button>
@@ -34,7 +34,7 @@
           <!-- Código -->
           <div class="col-span-12 md:col-span-2">
             <input
-              class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60 dark:bg-gray-900"
+              class="input"
               placeholder="Código"
               formControlName="codigo" />
             <div *ngIf="isInvalid('codigo')" class="text-xs text-red-600 mt-1">Requerido</div>
@@ -43,7 +43,7 @@
           <!-- Nombre -->
           <div class="col-span-12 md:col-span-7">
             <input
-              class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60 dark:bg-gray-900"
+              class="input"
               placeholder="Nombre"
               formControlName="nombre" />
             <div *ngIf="isInvalid('nombre')" class="text-xs text-red-600 mt-1">Requerido</div>
@@ -52,7 +52,7 @@
           <!-- Versión -->
           <div class="col-span-12 md:col-span-3">
             <input
-              class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60 dark:bg-gray-900"
+              class="input"
               placeholder="Versión"
               formControlName="version" />
             <div *ngIf="isInvalid('version')" class="text-xs text-red-600 mt-1">Requerido</div>
@@ -61,7 +61,7 @@
           <!-- Descripción -->
           <div class="col-span-12">
             <textarea
-              class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60 dark:bg-gray-900"
+              class="input"
               placeholder="Descripción"
               formControlName="descripcion"></textarea>
           </div>
@@ -72,22 +72,22 @@
     <!-- Tabs -->
     <!-- Tabs (mejorado) -->
     <div class="p-2">
-      <div class="flex flex-wrap gap-2 border-b border-slate-200">
+      <div class="flex flex-wrap gap-2 border-b border-slate-200 dark:border-gray-800">
         <!-- Medidas -->
         <button
           type="button"
           (click)="tab = 'medidas'"
           class="relative -mb-px inline-flex items-center gap-2 rounded-t-xl px-5 py-3.5 text-sm font-semibold transition"
-          [ngClass]="tab === 'medidas' ? 'text-gray-600' : 'text-slate-600 hover:text-blue-900'">
+          [ngClass]="tab === 'medidas' ? 'text-gray-800 dark:text-white/90' : 'text-slate-600 dark:text-slate-300 hover:text-blue-900 dark:hover:text-white'">
           <span>Medidas</span>
 
           <span
             class="inline-flex min-w-[1.5rem] items-center justify-center rounded-full px-2 py-0.5 text-xs font-bold"
-            [ngClass]="tab === 'medidas' ? 'bg-indigo-50 text-indigo-700 ring-1 ring-indigo-200' : 'bg-slate-100 text-slate-700 ring-1 ring-slate-200'">
+            [ngClass]="tab === 'medidas' ? 'bg-indigo-50 text-indigo-700 ring-1 ring-indigo-200 dark:bg-indigo-500/15 dark:text-indigo-200 dark:ring-indigo-500/30' : 'bg-slate-100 text-slate-700 ring-1 ring-slate-200 dark:bg-white/5 dark:text-slate-200 dark:ring-white/10'">
             {{ medidas.length }}
           </span>
 
-          <span *ngIf="tab === 'medidas'" class="absolute left-0 right-0 bottom-0 h-0.5 rounded-full bg-indigo-600"> </span>
+          <span *ngIf="tab === 'medidas'" class="absolute left-0 right-0 bottom-0 h-0.5 rounded-full bg-indigo-600 dark:bg-indigo-400"> </span>
         </button>
 
         <!-- Piezas -->
@@ -95,16 +95,16 @@
           type="button"
           (click)="tab = 'piezas'"
           class="relative -mb-px inline-flex items-center gap-2 rounded-t-xl px-5 py-3.5 text-sm font-semibold transition"
-          [ngClass]="tab === 'piezas' ? 'text-gray-600' : 'text-slate-600 hover:text-slate-900'">
+          [ngClass]="tab === 'piezas' ? 'text-gray-800 dark:text-white/90' : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'">
           <span>Piezas</span>
 
           <span
             class="inline-flex min-w-[1.5rem] items-center justify-center rounded-full px-2 py-0.5 text-xs font-bold"
-            [ngClass]="tab === 'piezas' ? 'bg-indigo-50 text-indigo-700 ring-1 ring-indigo-200' : 'bg-slate-100 text-slate-700 ring-1 ring-slate-200'">
+            [ngClass]="tab === 'piezas' ? 'bg-indigo-50 text-indigo-700 ring-1 ring-indigo-200 dark:bg-indigo-500/15 dark:text-indigo-200 dark:ring-indigo-500/30' : 'bg-slate-100 text-slate-700 ring-1 ring-slate-200 dark:bg-white/5 dark:text-slate-200 dark:ring-white/10'">
             {{ piezas.length }}
           </span>
 
-          <span *ngIf="tab === 'piezas'" class="absolute left-0 right-0 bottom-0 h-0.5 rounded-full bg-indigo-600"> </span>
+          <span *ngIf="tab === 'piezas'" class="absolute left-0 right-0 bottom-0 h-0.5 rounded-full bg-indigo-600 dark:bg-indigo-400"> </span>
         </button>
       </div>
     </div>
@@ -121,13 +121,13 @@
 
           <button
             type="button"
-            class="inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none transition bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600 disabled:bg-brand-300"
+            class="inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none transition bg-slate-900 text-white shadow-theme-xs hover:bg-slate-800 disabled:bg-slate-400 dark:bg-slate-200 dark:text-slate-900 dark:hover:bg-white"
             (click)="addMedida()">
             + Agregar
           </button>
         </div>
 
-        <div class="flex items-center gap-3 text-xs text-gray-600 dark:text-gray-400">
+        <div class="flex items-center gap-3 text-xs text-gray-600 dark:text-gray-300">
           <span
             >Total: <b>{{ medidas.length }}</b></span
           >
@@ -135,9 +135,9 @@
           <span>Ej: M / Pecho / 52 / ±1</span>
         </div>
 
-        <div class="overflow-x-auto border rounded-2xl">
+        <div class="overflow-x-auto border rounded-2xl dark:border-gray-800">
           <table class="min-w-full text-sm">
-            <thead class="bg-gray-50 text-gray-700 dark:bg-gray-900 dark:text-gray-300">
+            <thead class="bg-gray-50 text-gray-700 dark:bg-gray-900 dark:text-gray-200">
               <tr>
                 <th class="text-left p-3 w-28">Talla</th>
                 <th class="text-left p-3">Parte (medida)</th>
@@ -148,17 +148,17 @@
             </thead>
 
             <tbody formArrayName="medidas">
-              <tr *ngFor="let m of medidas.controls; let i = index" [formGroupName]="i" class="border-t">
+              <tr *ngFor="let m of medidas.controls; let i = index" [formGroupName]="i" class="border-t dark:border-gray-800">
                 <td class="p-3">
                   <input
-                    class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60 dark:bg-gray-900"
+                    class="input"
                     placeholder="Ej: M"
                     formControlName="talla" />
                 </td>
 
                 <td class="p-3">
                   <input
-                    class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60 dark:bg-gray-900"
+                    class="input"
                     placeholder="Ej: Pecho / Largo / Manga"
                     formControlName="parte" />
                 </td>
@@ -166,14 +166,14 @@
                 <td class="p-3">
                   <div class="relative">
                     <input class="input pr-10" type="number" min="0" step="0.1" placeholder="Ej: 52" formControlName="valor" />
-                    <span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 dark:text-gray-500">cm</span>
+                    <span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 dark:text-gray-400">cm</span>
                   </div>
                 </td>
 
                 <td class="p-3">
                   <div class="relative">
                     <input class="input pr-10" type="number" min="0" step="0.1" placeholder="Ej: 1" formControlName="tolerancia" />
-                    <span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 dark:text-gray-500">± cm</span>
+                    <span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 dark:text-gray-400">± cm</span>
                   </div>
                 </td>
 
@@ -187,7 +187,7 @@
           </table>
         </div>
 
-        <div *ngIf="medidas.length === 0" class="text-sm text-gray-600 dark:text-gray-400">No hay medidas registradas. Haz clic en <b>“Agregar medida”</b>.</div>
+        <div *ngIf="medidas.length === 0" class="text-sm text-gray-600 dark:text-gray-300">No hay medidas registradas. Haz clic en <b>“Agregar medida”</b>.</div>
       </section>
 
       <!-- TAB: PIEZAS -->
@@ -200,19 +200,19 @@
 
           <button
             type="button"
-            class="inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none transition bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600 disabled:bg-brand-300"
+            class="inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none transition bg-slate-900 text-white shadow-theme-xs hover:bg-slate-800 disabled:bg-slate-400 dark:bg-slate-200 dark:text-slate-900 dark:hover:bg-white"
             (click)="addPieza()">
             + Agregar
           </button>
         </div>
 
-        <div class="text-xs text-gray-600 dark:text-gray-400">
+        <div class="text-xs text-gray-600 dark:text-gray-400 dark:text-gray-300">
           Total: <b>{{ piezas.length }}</b>
         </div>
 
-        <div class="overflow-x-auto border rounded-2xl">
+        <div class="overflow-x-auto border rounded-2xl dark:border-gray-800">
           <table class="min-w-full text-sm">
-            <thead class="bg-gray-50 text-gray-700 dark:bg-gray-900 dark:text-gray-300">
+            <thead class="bg-gray-50 text-gray-700 dark:bg-gray-900 dark:text-gray-200">
               <tr>
                 <th class="text-left p-3 w-80">Nombre de pieza</th>
                 <th class="text-left p-3 w-32">Cantidad</th>
@@ -222,17 +222,17 @@
             </thead>
 
             <tbody formArrayName="piezas">
-              <tr *ngFor="let p of piezas.controls; let i = index" [formGroupName]="i" class="border-t">
+              <tr *ngFor="let p of piezas.controls; let i = index" [formGroupName]="i" class="border-t dark:border-gray-800">
                 <td class="p-3">
                   <input
-                    class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60 dark:bg-gray-900"
+                    class="input"
                     placeholder="Ej: Manga"
                     formControlName="nombre" />
                 </td>
 
                 <td class="p-3">
                   <input
-                    class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60 dark:bg-gray-900"
+                    class="input"
                     type="number"
                     min="1"
                     formControlName="cantidad" />
@@ -240,7 +240,7 @@
 
                 <td class="p-3">
                   <input
-                    class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60 dark:bg-gray-900"
+                    class="input"
                     placeholder="Opcional"
                     formControlName="observacion" />
                 </td>
@@ -253,7 +253,7 @@
           </table>
         </div>
 
-        <div *ngIf="piezas.length === 0" class="text-sm text-gray-600 dark:text-gray-400">No hay piezas registradas. Haz clic en <b>“Agregar pieza”</b>.</div>
+        <div *ngIf="piezas.length === 0" class="text-sm text-gray-600 dark:text-gray-300">No hay piezas registradas. Haz clic en <b>“Agregar pieza”</b>.</div>
       </section>
 
       <!-- TAB: OPERACIONES -->
@@ -264,10 +264,10 @@
             <p class="text-xs text-gray-500 dark:text-gray-400">Secuencia del proceso (corte, costura, planchado, etc.).</p>
           </div>
 
-          <button type="button" class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600 disabled:bg-brand-300" (click)="addOperacion()">+ Agregar operación</button>
+          <button type="button" class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm bg-slate-900 text-white shadow-theme-xs hover:bg-slate-800 disabled:bg-slate-400 dark:bg-slate-200 dark:text-slate-900 dark:hover:bg-white" (click)="addOperacion()">+ Agregar operación</button>
         </div>
 
-        <div class="flex items-center gap-6 text-xs text-gray-600 dark:text-gray-400">
+        <div class="flex items-center gap-6 text-xs text-gray-600 dark:text-gray-400 dark:text-gray-300">
           <span
             >Total: <b>{{ operaciones.length }}</b></span
           >
@@ -276,9 +276,9 @@
           >
         </div>
 
-        <div class="overflow-x-auto border rounded-2xl">
+        <div class="overflow-x-auto border rounded-2xl dark:border-gray-800">
           <table class="min-w-full text-sm">
-            <thead class="bg-gray-50 text-gray-700 dark:bg-gray-900 dark:text-gray-300">
+            <thead class="bg-gray-50 text-gray-700 dark:bg-gray-900 dark:text-gray-200">
               <tr>
                 <th class="p-3 w-24 text-left">Orden</th>
                 <th class="p-3 text-left">Descripción</th>
@@ -289,10 +289,10 @@
             </thead>
 
             <tbody formArrayName="operaciones">
-              <tr *ngFor="let o of operaciones.controls; let i = index" [formGroupName]="i" class="border-t">
+              <tr *ngFor="let o of operaciones.controls; let i = index" [formGroupName]="i" class="border-t dark:border-gray-800">
                 <td class="p-3">
                   <input
-                    class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60 dark:bg-gray-900"
+                    class="input"
                     type="number"
                     formControlName="orden"
                     readonly />
@@ -300,14 +300,14 @@
 
                 <td class="p-3">
                   <input
-                    class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60 dark:bg-gray-900"
+                    class="input"
                     placeholder="Ej: Corte de piezas"
                     formControlName="descripcion" />
                 </td>
 
                 <td class="p-3">
                   <input
-                    class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60 dark:bg-gray-900"
+                    class="input"
                     type="number"
                     min="0"
                     step="0.5"
@@ -316,20 +316,20 @@
 
                 <td class="p-3">
                   <div class="flex gap-2">
-                    <button type="button" class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm border disabled:opacity-50 bg-white text-gray-700 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:bg-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white/[0.03] dark:hover:text-gray-300 dark:bg-gray-900 dark:text-gray-300" (click)="moveOperacionUp(i)" [disabled]="i === 0">↑</button>
-                    <button type="button" class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm border disabled:opacity-50 bg-white text-gray-700 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:bg-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white/[0.03] dark:hover:text-gray-300 dark:bg-gray-900 dark:text-gray-300" (click)="moveOperacionDown(i)" [disabled]="i === operaciones.length - 1">↓</button>
+                    <button type="button" class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm border disabled:opacity-50 bg-white text-slate-700 ring-1 ring-inset ring-slate-300 hover:bg-slate-50 disabled:bg-slate-100 dark:bg-gray-900 dark:text-slate-200 dark:ring-white/10 dark:hover:bg-white/[0.03]" (click)="moveOperacionUp(i)" [disabled]="i === 0">↑</button>
+                    <button type="button" class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm border disabled:opacity-50 bg-white text-slate-700 ring-1 ring-inset ring-slate-300 hover:bg-slate-50 disabled:bg-slate-100 dark:bg-gray-900 dark:text-slate-200 dark:ring-white/10 dark:hover:bg-white/[0.03]" (click)="moveOperacionDown(i)" [disabled]="i === operaciones.length - 1">↓</button>
                   </div>
                 </td>
 
                 <td class="p-3 text-right">
-                  <button type="button" class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm bg-error-500 text-white hover:bg-error-600 disabled:bg-error-300" (click)="removeOperacion(i)">X</button>
+                  <button type="button" class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm bg-rose-600 text-white hover:bg-rose-700 disabled:bg-rose-300" (click)="removeOperacion(i)">X</button>
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
 
-        <div *ngIf="operaciones.length === 0" class="text-sm text-gray-600 dark:text-gray-400">No hay operaciones registradas. Haz clic en <b>“Agregar operación”</b>.</div>
+        <div *ngIf="operaciones.length === 0" class="text-sm text-gray-600 dark:text-gray-400 dark:text-gray-300">No hay operaciones registradas. Haz clic en <b>“Agregar operación”</b>.</div>
       </section>
 
       <!-- TAB: ADJUNTOS -->
@@ -340,10 +340,10 @@
             <p class="text-xs text-gray-500 dark:text-gray-400">Sube una imagen o PDF. Se guarda el <b>nombre de archivo</b> en el modelo.</p>
           </div>
 
-          <button type="button" class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600 disabled:bg-brand-300" (click)="addAdjunto()">+ Agregar adjunto</button>
+          <button type="button" class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm bg-slate-900 text-white shadow-theme-xs hover:bg-slate-800 disabled:bg-slate-400 dark:bg-slate-200 dark:text-slate-900 dark:hover:bg-white" (click)="addAdjunto()">+ Agregar adjunto</button>
         </div>
 
-        <div class="text-xs text-gray-600 dark:text-gray-400">
+        <div class="text-xs text-gray-600 dark:text-gray-400 dark:text-gray-300">
           Total: <b>{{ adjuntos.length }}</b>
         </div>
 
@@ -352,9 +352,9 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
               <!-- Tipo (solo IMAGEN/PDF) -->
               <div>
-                <label class="text-xs text-gray-500 dark:text-white/90">Tipo</label>
+                <label class="text-xs text-gray-500 dark:text-white/90 dark:text-gray-400">Tipo</label>
                 <select
-                  class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60 dark:bg-gray-900"
+                  class="input"
                   formControlName="tipo">
                   <option value="IMAGEN">IMAGEN</option>
                   <option value="PDF">PDF</option>
@@ -363,30 +363,30 @@
 
               <!-- Nombre lógico -->
               <div>
-                <label class="text-xs text-gray-500 dark:text-white/90">Nombre</label>
+                <label class="text-xs text-gray-500 dark:text-white/90 dark:text-gray-400">Nombre</label>
                 <input
-                  class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60 dark:bg-gray-900"
+                  class="input"
                   placeholder=""
                   formControlName="nombre" />
               </div>
 
               <!-- Subir archivo -->
               <div class="md:col-span-2">
-                <label class="text-xs text-gray-500 dark:text-white/90">Archivo</label>
+                <label class="text-xs text-gray-500 dark:text-white/90 dark:text-gray-400">Archivo</label>
 
                 <div class="flex flex-col md:flex-row gap-2 md:items-center">
                   <input
                     type="file"
-                    class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 shadow-sm outline-none transition focus:border-slate-400 focus:ring-4 focus:ring-slate-200/60 dark:bg-gray-900"
+                    class="input"
                     [accept]="a.get('tipo')?.value === 'PDF' ? 'application/pdf' : 'image/*'"
                     (change)="onFileSelected($event, i)" />
 
-                  <button type="button" class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:bg-gray-50 dark:bg-gray-800 dark:text-gray-300" (click)="uploadAdjunto(i)" [disabled]="!selectedFiles[i] || uploading[i]">
+                  <button type="button" class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:bg-gray-50 dark:bg-gray-800 dark:text-gray-200" (click)="uploadAdjunto(i)" [disabled]="!selectedFiles[i] || uploading[i]">
                     {{ uploading[i] ? "Subiendo..." : "Subir" }}
                   </button>
                 </div>
 
-                <div *ngIf="a.get('fileName')?.value" class="text-xs text-gray-600 mt-2 dark:text-gray-400">
+                <div *ngIf="a.get('fileName')?.value" class="text-xs text-gray-600 mt-2 dark:text-gray-300">
                   Archivo cargado: <b>{{ a.get("fileName")?.value }}</b>
                 </div>
 
@@ -397,7 +397,7 @@
             <!-- Preview (si tienes baseUrl de tu storage) -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-3 items-start">
               <div class="md:col-span-2">
-                <div class="text-xs font-semibold text-gray-700 mb-2 dark:text-gray-300">Vista previa</div>
+                <div class="text-xs font-semibold text-gray-700 mb-2 dark:text-gray-300 dark:text-gray-200">Vista previa</div>
 
                 <!-- Imagen -->
                 <img *ngIf="a.get('tipo')?.value === 'IMAGEN' && a.get('url')?.value" [src]="a.get('url')?.value" class="w-full max-h-72 object-contain border rounded-xl bg-white dark:bg-gray-900" alt="preview" />
@@ -408,27 +408,27 @@
                 </div>
 
                 <!-- Sin preview -->
-                <div *ngIf="!a.get('url')?.value" class="border rounded-xl p-3 bg-gray-50 text-gray-600 text-sm dark:bg-gray-900 dark:text-gray-400">Sube el archivo para ver vista previa.</div>
+                <div *ngIf="!a.get('url')?.value" class="border rounded-xl p-3 bg-gray-50 text-gray-600 text-sm dark:bg-gray-900 dark:text-gray-300">Sube el archivo para ver vista previa.</div>
               </div>
 
               <div class="flex md:justify-end">
-                <button type="button" class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm bg-error-500 text-white hover:bg-error-600 disabled:bg-error-300" (click)="removeAdjunto(i)">Eliminar</button>
+                <button type="button" class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm bg-rose-600 text-white hover:bg-rose-700 disabled:bg-rose-300" (click)="removeAdjunto(i)">Eliminar</button>
               </div>
             </div>
           </div>
         </div>
 
-        <div *ngIf="adjuntos.length === 0" class="text-sm text-gray-600 dark:text-gray-400">No hay adjuntos registrados. Haz clic en <b>“Agregar adjunto”</b>.</div>
+        <div *ngIf="adjuntos.length === 0" class="text-sm text-gray-600 dark:text-gray-300">No hay adjuntos registrados. Haz clic en <b>“Agregar adjunto”</b>.</div>
       </section>
     </div>
 
     <!-- Footer sticky -->
-    <div class="rounded-xl bg-white p-3 border border-slate-200 shadow-sm hover:shadow-md transition sticky bottom-0 z-10 bg-white/80 backdrop-blur rounded-2xl p-3 flex justify-end gap-2 dark:bg-gray-900">
+    <div class="rounded-xl bg-white p-3 border border-slate-200 shadow-sm hover:shadow-md transition sticky bottom-0 z-10 bg-white/80 backdrop-blur rounded-2xl p-3 flex justify-end gap-2 dark:bg-gray-900 dark:border-gray-800">
       <button
         *ngIf="!fichaId(); else btnActualizar"
         type="button"
         [disabled]="form.invalid || loading()"
-        class="inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none transition bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600 disabled:bg-brand-300"
+        class="inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none transition bg-slate-900 text-white shadow-theme-xs hover:bg-slate-800 disabled:bg-slate-400 dark:bg-slate-200 dark:text-slate-900 dark:hover:bg-white"
         (click)="guardar()">
         Guardar
       </button>
@@ -437,7 +437,7 @@
         <button
           type="button"
           [disabled]="form.invalid || loading()"
-          class="inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none transition bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600 disabled:bg-brand-300"
+          class="inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none transition bg-slate-900 text-white shadow-theme-xs hover:bg-slate-800 disabled:bg-slate-400 dark:bg-slate-200 dark:text-slate-900 dark:hover:bg-white"
           (click)="actualizar()">
           Actualizar
         </button>
@@ -445,7 +445,7 @@
         <button
           type="button"
           [disabled]="form.invalid || loading()"
-          class="inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none transition bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600 disabled:bg-brand-300"
+          class="inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none transition bg-slate-900 text-white shadow-theme-xs hover:bg-slate-800 disabled:bg-slate-400 dark:bg-slate-200 dark:text-slate-900 dark:hover:bg-white"
           (click)="duplicar()">
           Duplicar
         </button>
@@ -454,13 +454,14 @@
       <button
         type="button"
         [disabled]="form.invalid || loading()"
-        class="inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none transition bg-success-500 text-white hover:bg-success-600 disabled:bg-success-300"
+        class="inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none transition bg-emerald-600 text-white hover:bg-emerald-700 disabled:bg-emerald-300"
         (click)="aprobar()">
         Aprobar
       </button>
     </div>
   </form>
 </div>
+
 
 
 

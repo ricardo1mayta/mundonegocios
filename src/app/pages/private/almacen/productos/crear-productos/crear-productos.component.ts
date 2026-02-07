@@ -4,7 +4,6 @@ import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule, MatDialogClose, MatDialogContent } from '@angular/material/dialog';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatSelectModule } from '@angular/material/select';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { SubidaImagenService } from '../../../../../core/services/subida-imagen.service';
 import { ProductosService } from '../../../../../core/services/productos/productos.service';
@@ -18,11 +17,12 @@ import { environment } from '../../../../../../environments/environment';
 import { Producto } from '../../../../../core/models/almacen/producto';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MaterialModule } from '../../../../../core/modules/material/material.module';
+import { SwitchComponent } from 'src/app/shared/components/form/input/switch.component';
 
 @Component({
   selector: 'app-crear-productos',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatStepperModule, MatSelectModule, MatSlideToggleModule, MatDialogModule, NgxEditorModule, MatIcon, MaterialModule, MatIconModule, MatDialogContent],
+  imports: [CommonModule, ReactiveFormsModule, MatStepperModule, MatSelectModule, MatDialogModule, NgxEditorModule, MatIcon, MaterialModule, MatIconModule, MatDialogContent, SwitchComponent],
   templateUrl: './crear-productos.component.html',
   styleUrl: './crear-productos.component.css',
 })

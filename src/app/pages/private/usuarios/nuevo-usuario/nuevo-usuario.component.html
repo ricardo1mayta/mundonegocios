@@ -37,8 +37,15 @@
           <input formControlName="img" class="input" />
         </div>
 
-        <div class="col-span-full flex justify-end pt-4">
-          <button mat-button matStepperNext [disabled]="personalesForm.invalid">Siguiente</button>
+        <div class="col-span-full flex justify-end gap-2 pt-2">
+          <button
+            mat-flat-button
+            matStepperNext
+            [disabled]="personalesForm.invalid"
+            class="!h-10 !rounded-xl !px-5 !normal-case !bg-slate-900 hover:!bg-slate-800 !text-white disabled:!bg-slate-400 !shadow-theme-xs dark:!bg-slate-200 dark:!text-slate-900 dark:hover:!bg-white"
+          >
+            Siguiente
+          </button>
         </div>
       </form>
     </mat-step>
@@ -48,7 +55,11 @@
       <form [formGroup]="configForm" class="grid grid-cols-1 md:grid-cols-2 gap-4 py-4">
         <div>
           <label class="label dark:text-white/90">Activo</label>
-          <mat-slide-toggle formControlName="activo"></mat-slide-toggle>
+          <app-switch
+            label=""
+            [defaultChecked]="!!configForm.get('activo')?.value"
+            (valueChange)="configForm.get('activo')?.setValue($event)"
+          ></app-switch>
         </div>
 
         <div>
@@ -75,9 +86,22 @@
           </mat-select>
         </div>
 
-        <div class="col-span-full flex justify-between pt-4">
-          <button mat-button matStepperPrevious>Volver</button>
-          <button mat-flat-button color="primary" [disabled]="configForm.invalid" (click)="guardar()">Guardar</button>
+        <div class="col-span-full flex justify-between gap-2 pt-2">
+          <button
+            mat-stroked-button
+            matStepperPrevious
+            class="!h-10 !rounded-xl !px-5 !normal-case !border-slate-300 !text-slate-700 hover:!bg-slate-50 dark:!border-white/10 dark:!text-slate-200 dark:hover:!bg-white/5"
+          >
+            Volver
+          </button>
+          <button
+            mat-flat-button
+            [disabled]="configForm.invalid"
+            (click)="guardar()"
+            class="!h-10 !rounded-xl !px-5 !normal-case !bg-slate-900 hover:!bg-slate-800 !text-white disabled:!bg-slate-400 !shadow-theme-xs dark:!bg-slate-200 dark:!text-slate-900 dark:hover:!bg-white"
+          >
+            Guardar
+          </button>
         </div>
       </form>
     </mat-step>

@@ -42,8 +42,15 @@
           <input formControlName="razonSocial" class="input" />
         </div>
 
-        <div class="col-span-full flex justify-end gap-3 pt-4">
-          <button mat-button matStepperNext [disabled]="datosGeneralesForm.invalid">Siguiente</button>
+        <div class="col-span-full flex justify-end gap-2 pt-2">
+          <button
+            mat-flat-button
+            matStepperNext
+            [disabled]="datosGeneralesForm.invalid"
+            class="!h-10 !rounded-xl !px-5 !normal-case !bg-slate-900 hover:!bg-slate-800 !text-white disabled:!bg-slate-400 !shadow-theme-xs dark:!bg-slate-200 dark:!text-slate-900 dark:hover:!bg-white"
+          >
+            Siguiente
+          </button>
         </div>
       </form>
     </mat-step>
@@ -82,9 +89,22 @@
           <input formControlName="codigoUbigeo" class="input" />
         </div>
 
-        <div class="col-span-full flex justify-between pt-4">
-          <button mat-button matStepperPrevious>Volver</button>
-          <button mat-button matStepperNext [disabled]="direccionForm.invalid">Siguiente</button>
+        <div class="col-span-full flex justify-between gap-2 pt-2">
+          <button
+            mat-stroked-button
+            matStepperPrevious
+            class="!h-10 !rounded-xl !px-5 !normal-case !border-slate-300 !text-slate-700 hover:!bg-slate-50 dark:!border-white/10 dark:!text-slate-200 dark:hover:!bg-white/5"
+          >
+            Volver
+          </button>
+          <button
+            mat-flat-button
+            matStepperNext
+            [disabled]="direccionForm.invalid"
+            class="!h-10 !rounded-xl !px-5 !normal-case !bg-slate-900 hover:!bg-slate-800 !text-white disabled:!bg-slate-400 !shadow-theme-xs dark:!bg-slate-200 dark:!text-slate-900 dark:hover:!bg-white"
+          >
+            Siguiente
+          </button>
         </div>
       </form>
     </mat-step>
@@ -112,9 +132,21 @@
           <input formControlName="imagen" class="input" />
         </div>
 
-        <div class="col-span-full flex justify-between pt-4">
-          <button mat-button matStepperPrevious>Volver</button>
-          <button mat-button matStepperNext>Siguiente</button>
+        <div class="col-span-full flex justify-between gap-2 pt-2">
+          <button
+            mat-stroked-button
+            matStepperPrevious
+            class="!h-10 !rounded-xl !px-5 !normal-case !border-slate-300 !text-slate-700 hover:!bg-slate-50 dark:!border-white/10 dark:!text-slate-200 dark:hover:!bg-white/5"
+          >
+            Volver
+          </button>
+          <button
+            mat-flat-button
+            matStepperNext
+            class="!h-10 !rounded-xl !px-5 !normal-case !bg-slate-900 hover:!bg-slate-800 !text-white disabled:!bg-slate-400 !shadow-theme-xs dark:!bg-slate-200 dark:!text-slate-900 dark:hover:!bg-white"
+          >
+            Siguiente
+          </button>
         </div>
       </form>
     </mat-step>
@@ -137,9 +169,22 @@
           <textarea formControlName="info2" rows="2" class="input"></textarea>
         </div>
 
-        <div class="flex justify-between pt-4">
-          <button mat-button matStepperPrevious>Volver</button>
-          <button mat-flat-button color="primary" (click)="guardar()" [disabled]="textosForm.invalid">Guardar</button>
+        <div class="flex justify-between gap-2 pt-2">
+          <button
+            mat-stroked-button
+            matStepperPrevious
+            class="!h-10 !rounded-xl !px-5 !normal-case !border-slate-300 !text-slate-700 hover:!bg-slate-50 dark:!border-white/10 dark:!text-slate-200 dark:hover:!bg-white/5"
+          >
+            Volver
+          </button>
+          <button
+            mat-flat-button
+            (click)="guardar()"
+            [disabled]="textosForm.invalid"
+            class="!h-10 !rounded-xl !px-5 !normal-case !bg-slate-900 hover:!bg-slate-800 !text-white disabled:!bg-slate-400 !shadow-theme-xs dark:!bg-slate-200 dark:!text-slate-900 dark:hover:!bg-white"
+          >
+            Guardar
+          </button>
         </div>
       </form>
     </mat-step>

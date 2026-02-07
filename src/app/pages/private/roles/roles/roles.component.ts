@@ -4,7 +4,6 @@ import { ReactiveFormsModule, FormsModule, FormGroup, FormControl } from '@angul
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { DataTableComponent } from '../../../../core/components/data-table/data-table.component';
 import { IReporteExcel } from '../../../../core/components/data-table/data-table.model';
 import { DataTableModule } from '../../../../core/components/data-table/data-table.module';
@@ -24,7 +23,6 @@ import { Rol } from '../../../../core/models/roles/rol';
     MaterialModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSlideToggleModule,
     FormCrudComponent,
     FormFilterComponent,
     FormListComponent,

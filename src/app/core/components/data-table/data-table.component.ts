@@ -24,7 +24,6 @@ import { MatCheckboxChange, MatCheckboxModule } from "@angular/material/checkbox
 import { PaginatorIntl } from "./paginator-intl";
 import { CommonModule, DatePipe } from "@angular/common";
 import { MatMenuModule } from "@angular/material/menu";
-import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { RutaService } from "../../services/general/ruta.service";
 import { IRespuestaApi } from "../../models/generic/general.model";
 import { IColumna, IContenido } from "../../models/excel/excel.model";
@@ -75,7 +74,6 @@ export class AccionTablaComponent {
     MatIconModule,
     MatMenuModule,
     MatCheckboxModule,
-    MatSlideToggleModule,
     GpPaginatorComponent,
   ],
   providers: [
@@ -171,6 +169,10 @@ export class DataTableComponent {
     this.origenDatos.paginator = this.paginator;
   }*/
   recargarTabla(indice?: number) {
+    if (!this.urlApi()) {
+      // Evita requests a "/" cuando no hay endpoint configurado
+      return;
+    }
     const pageIndex0 = indice ?? this.paginaActual(); // 0-based (UI)
     const pageBackend = pageIndex0 + 1; // 1-based (API)
 

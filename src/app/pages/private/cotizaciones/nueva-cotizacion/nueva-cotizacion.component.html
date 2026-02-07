@@ -1,11 +1,11 @@
-<div class="flex flex-col gap-2 p-1 max-w-[1600px] mx-auto">
+<div class="flex flex-col gap-2 p-1 max-w-[1600px] mx-auto text-gray-800 dark:text-white/90">
   <!-- CONTENIDO PRINCIPAL -->
   <div class="grid lg:grid-cols-[1fr_360px] gap-2">
     <!-- IZQUIERDA -->
 
     <div class="space-y-6">
       <!-- TÍTULO -->
-      <h1 class="text-2xl font-semibold">Cotización</h1>
+      <h1 class="text-2xl font-semibold text-gray-800 dark:text-white/90">Cotización</h1>
       <!-- BÚSQUEDA -->
       <div class="relative">
         <input
@@ -13,12 +13,12 @@
           [(ngModel)]="search"
           (ngModelChange)="updateSearch($event)"
           placeholder="Buscar Producto"
-          class="w-full placeholder-gray-400 rounded-lg px-14 py-3 focus:outline-none shadow-sm" />
+          class="input pl-14" />
         <span class="absolute left-4 top-3.5 text-gray-400 i-ph-magnifying-glass dark:text-gray-500"></span>
         <!-- LISTA DESPLEGABLE DE BÚSQUEDA -->
-        <div *ngIf="showSuggestions()" class="absolute z-20 left-0 w-96 h-64 overflow-y-auto bg-white border rounded-lg shadow dark:bg-gray-900">
+        <div *ngIf="showSuggestions()" class="w-full sm:w-96 absolute z-20 left-0 h-64 overflow-y-auto bg-white border border-gray-200 rounded-lg shadow dark:border-gray-800 dark:bg-gray-900">
           <table class="min-w-full text-sm">
-            <thead class="sticky top-0 bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400">
+            <thead class="sticky top-0 bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:text-gray-300">
               <tr>
                 <th class="px-3 py-2 text-left">Imagen</th>
                 <th class="px-3 py-2 text-left">Código</th>
@@ -28,7 +28,7 @@
             </thead>
 
             <tbody>
-              <tr *ngFor="let s of suggestions()" (click)="selectSuggestion(s)" class="cursor-pointer hover:bg-gray-50">
+              <tr *ngFor="let s of suggestions()" (click)="selectSuggestion(s)" class="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800">
                 <td class="px-3 py-2">
                   <img [src]="s.imagen || ''" alt="" class="w-8 h-8 object-contain rounded bg-gray-100 dark:bg-gray-800" />
                 </td>
@@ -63,7 +63,7 @@
       <!-- TABLA CARRITO -->
       <div class="relative overflow-x-auto rounded-lg shadow-md bg-white dark:bg-gray-900">
         <table class="min-w-[280px] w-full text-sm">
-          <thead class="bg-gray-50 text-gray-600 dark:bg-gray-900 dark:text-gray-400">
+          <thead class="bg-gray-50 text-gray-600 dark:bg-gray-900 dark:text-gray-400 dark:text-gray-300">
             <tr>
               <th class="px-2 py-2 text-left hidden sm:table-cell">Imagen</th>
               <th class="px-2 py-2 text-left">Nombre</th>
@@ -75,18 +75,18 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let c of cart()" class="border-t even:bg-gray-50">
+            <tr *ngFor="let c of cart()" class="border-t border-gray-100 even:bg-gray-50 dark:border-gray-800 dark:even:bg-gray-800">
               <td class="p-2 hidden sm:table-cell">
                 <img [src]="c.productoDetalle.imagen || ''" alt="" class="w-10 h-10 object-contain rounded bg-gray-100 dark:bg-gray-800" />
               </td>
               <td class="p-2">{{ c.productoDetalle.nombreProducto }}</td>
               <td class="p-2">{{ c.productoDetalle.cantidad }}</td>
               <td class="p-2">
-                <input type="number" [(ngModel)]="c.precio" (ngModelChange)="touchCart()" class="w-20 border rounded text-center" />
+                <input type="number" [(ngModel)]="c.precio" (ngModelChange)="touchCart()" class="input w-16 text-center" />
               </td>
               <td class="p-2 sm:flex items-center gap-1">
                 <button (click)="dec(c)" class="hidden sm:inline-flex px-2">−</button>
-                <input type="number" [(ngModel)]="c.cantidad" (ngModelChange)="touchCart()" class="w-14 border rounded text-center" />
+                <input type="number" [(ngModel)]="c.cantidad" (ngModelChange)="touchCart()" class="input w-12 text-center" />
                 <button (click)="inc(c)" class="hidden sm:inline-flex px-2">+</button>
               </td>
               <td class="p-2">{{ c.precio * c.cantidad | number : "1.0-2" }}</td>
@@ -111,7 +111,7 @@
 
       <!-- PRODUCTOS -->
       <div class="hidden sm:grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-6">
-        <div *ngFor="let p of paged()" class="rounded-xl shadow-sm overflow-hidden flex flex-col relative">
+        <div *ngFor="let p of paged()" class="rounded-xl shadow-sm overflow-hidden flex flex-col relative bg-white dark:bg-gray-900">
           <!-- Etiqueta Oferta -->
           <div *ngIf="p.statusoff" class="absolute left-0 top-0 m-3">
             <span class="bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">Oferta</span>
@@ -128,7 +128,7 @@
                 {{ p.precioventa | number : "1.0-2" }}
               </span>
             </p>
-            <p class="text-xs" [class.text-red-600]="p.cantidad === 0" [class.text-green-600]="p.cantidad > 0">Stock: {{ p.cantidad }}</p>
+            <p class="text-xs" [class.text-red-600]="p.cantidad === 0" [class.text-green-600]="p.cantidad > 0" [class.dark:text-red-400]="p.cantidad === 0" [class.dark:text-green-400]="p.cantidad > 0">Stock: {{ p.cantidad }}</p>
           </div>
           <button (click)="addToCart(p)" class="mx-4 mb-4 py-2 rounded-lg text-white transition disabled:bg-gray-300 disabled:cursor-not-allowed bg-blue-600 hover:bg-blue-700">Agregar</button>
         </div>
@@ -138,7 +138,7 @@
         <!-- productos por página -->
         <div class="flex items-center gap-2">
           <span>Productos por página:</span>
-          <select [(ngModel)]="pageSize" (ngModelChange)="changePageSize($event)" class="border rounded px-2 py-1">
+          <select [(ngModel)]="pageSize" (ngModelChange)="changePageSize($event)" class="input w-auto px-2 py-1">
             <option *ngFor="let s of pageSizes" [ngValue]="s">{{ s }}</option>
           </select>
         </div>
@@ -147,23 +147,23 @@
         <div class="flex items-center gap-4">
           <span>Página {{ page() }} de {{ pageCount() }}</span>
 
-          <button (click)="prev()" [disabled]="page() === 1" class="w-8 h-8 grid place-content-center rounded border">‹</button>
+          <button (click)="prev()" [disabled]="page() === 1" class="w-8 h-8 grid place-content-center rounded border border-gray-300 dark:border-gray-700">‹</button>
 
-          <button (click)="next()" [disabled]="page() === pageCount()" class="w-8 h-8 grid place-content-center rounded border">›</button>
+          <button (click)="next()" [disabled]="page() === pageCount()" class="w-8 h-8 grid place-content-center rounded border border-gray-300 dark:border-gray-700">›</button>
         </div>
       </div>
     </div>
 
     <!-- DERECHA -->
     <aside class="bg-white rounded-xl shadow p-6 space-y-6 h-max dark:bg-gray-900">
-      <div class="bg-blue-100 rounded-lg text-center py-6">
+      <div class="bg-blue-100 rounded-lg text-center py-6 dark:bg-gray-800">
         <p class="text-lg font-semibold">Total</p>
         <p class="text-3xl font-bold text-green-700">{{ total() | number : "1.0-2" }}</p>
       </div>
 
       <div class="space-y-3">
         <label class="block text-sm font-medium dark:text-white/90">Fecha De Entrega</label>
-        <input type="datetime-local" [(ngModel)]="saleDate" class="w-full border border-gray-300 rounded-lg px-4 py-2 placeholder-gray-400 dark:border-gray-700" />
+        <input type="datetime-local" [(ngModel)]="saleDate" class="input" />
       </div>
 
       <!-- BUSCAR CLIENTE -->
@@ -175,11 +175,11 @@
             placeholder="Cliente"
             [(ngModel)]="searchProvedor"
             (ngModelChange)="updateSearchProvedor($event)"
-            class="w-full placeholder-gray-400 pl-10 pr-4 py-2 border border-gray-300 rounded-lg disabled:bg-gray-100 dark:border-gray-700" />
+            class="input pl-10" />
           <span class="absolute left-3 top-2.5 text-blue-800 i-ph-magnifying-glass" (click)="agregarCliente()"> <mat-icon>search</mat-icon></span>
           <!-- lista desplegable -->
-          <div *ngIf="suggestionsProvedor().length > 0" class="absolute z-20 left-0 w-full max-h-56 overflow-y-auto bg-white border rounded-lg shadow dark:bg-gray-900">
-            <div *ngFor="let prov of suggestionsProvedor()" (click)="selectProvider(prov)" class="flex items-center gap-3 px-4 py-2 cursor-pointer hover:bg-gray-50">
+          <div *ngIf="suggestionsProvedor().length > 0" class="absolute z-20 left-0 w-full max-h-56 overflow-y-auto bg-white border border-gray-200 rounded-lg shadow dark:border-gray-800 dark:bg-gray-900">
+            <div *ngFor="let prov of suggestionsProvedor()" (click)="selectProvider(prov)" class="flex items-center gap-3 px-4 py-2 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800">
               <span class="i-ph-user text-xl text-indigo-600"></span>
               <div class="text-sm">
                 <p class="font-medium leading-none">{{ prov.clienteNombre }}</p>
@@ -190,7 +190,7 @@
         </div>
 
         <!-- tarjeta del proveedor elegido -->
-        <div *ngIf="selectedProvider()" class="flex items-center justify-between gap-4 px-4 py-3 bg-gray-50 border rounded-lg dark:bg-gray-900">
+        <div *ngIf="selectedProvider()" class="flex items-center justify-between gap-4 px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg dark:border-gray-800 dark:bg-gray-900">
           <div class="flex-1">
             <p class="font-semibold text-sm">{{ selectedProvider()!.clienteNumerodocumento }}</p>
             <p class="text-sm">{{ selectedProvider()!.clienteNombre }}</p>
@@ -201,7 +201,7 @@
       </div>
 
       <div class="space-y-3">
-        <textarea rows="4" [(ngModel)]="note" class="w-full border border-gray-300 rounded-lg px-4 py-2 resize-none placeholder-gray-400 dark:border-gray-700" placeholder="Nota adicional"></textarea>
+        <textarea rows="4" [(ngModel)]="note" class="input resize-none" placeholder="Nota adicional"></textarea>
       </div>
 
       <button *ngIf="!isEdit()" (click)="pay()" class="w-full py-3 rounded-lg text-white font-medium bg-indigo-600 hover:bg-indigo-700 disabled:opacity-60" [disabled]="cart().length === 0">
@@ -213,5 +213,6 @@
     </aside>
   </div>
 </div>
+
 
 
