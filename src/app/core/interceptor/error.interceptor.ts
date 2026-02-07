@@ -19,6 +19,15 @@ export const errorsInterceptor: HttpInterceptorFn = (req, next) => {
         const isSuccess = status === "success" || [201, 202, 204].includes(numberCode) || numberCode === 200;
 
         if (!isSuccess && (numberCode || status === "error")) {
+          if (numberCode >= 400) {
+            const warnMessage = message || (errors?.length && errors[0].message) || "Error inesperado.";
+            _snackBarService.open({
+              type: numberCode === 404 ? "warning" : "error",
+              message: warnMessage,
+              duration: duracion,
+            });
+            return event;
+          }
           let mensaje = "";
           if (errors?.length && errors[0].message) {
             mensaje = `Error (${numberCode}): ${errors[0].message}`;
@@ -43,7 +52,6 @@ export const errorsInterceptor: HttpInterceptorFn = (req, next) => {
       return event;
     }),
     catchError((err: HttpErrorResponse) => {
-      if (err.status === 401 || err.status === 403) return throwError(() => err);
       if (req.url === environment.apiUrlBase) return throwError(() => err);
 
       let message = "";
@@ -61,6 +69,13 @@ export const errorsInterceptor: HttpInterceptorFn = (req, next) => {
         message = "Error inesperado";
       }
 
+      if (err.status >= 400) {
+        _snackBarService.open({
+          type: err.status === 404 ? "warning" : "error",
+          message,
+          duration: duracion,
+        });
+      }
       return throwError(() => new Error(message));
     }),
   );

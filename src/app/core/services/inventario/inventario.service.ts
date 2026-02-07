@@ -34,6 +34,9 @@ export class InventarioService {
   listaProductosDisponibles() {
     return this._http.get(`${this.apiUrl}/pegasus/inventario-sede/disponible`);
   }
+  listaProductosDisponiblesPaginado(payload: { datos?: any; pagina: number; tamanio: number }) {
+    return this._http.post(this.urlListaProductosDisponibles, payload);
+  }
   //agregar servicio que trae el stock de un producto
   stockProductos(id: number) {
     return this._http.get(`${this.apiUrl}/pegasus/inventario-sede/consultar-stock/${id}`);

@@ -35,7 +35,7 @@ export class NuevoUsuarioComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<NuevoUsuarioComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Usuario,
+    @Inject(MAT_DIALOG_DATA) public data: Usuario | null,
     private usuariosService: UsuarioService,
     private rolesService: RolesService,
     private sedesService: SedesService
@@ -78,7 +78,7 @@ export class NuevoUsuarioComponent implements OnInit {
         tipoUser: u.tipoUser,
         idcodTipoUser: u.idcodTipoUser,
         idSede: u.idSede,
-        rolesIds: u.roles.map(r => r.idRol),
+        rolesIds: (u.roles ?? []).map(r => r.idRol),
       });
     }
   }
@@ -93,7 +93,8 @@ export class NuevoUsuarioComponent implements OnInit {
 
   guardar(): void {
     const body = this.payload();
-    const pet$ = this.data.idUser ? this.usuariosService.editarUsuario(this.data.idUser!, body) : this.usuariosService.crearUsuario(body);
+    const id = this.data?.idUser;
+    const pet$ = id ? this.usuariosService.editarUsuario(id, body) : this.usuariosService.crearUsuario(body);
 
     pet$.subscribe({
       next: () => this.dialogRef.close(true),

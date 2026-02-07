@@ -3,6 +3,7 @@ layer(base);
 
 @import "tailwindcss";
 @import "swiper/css/bundle";
+@import "flatpickr/dist/flatpickr.min.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -1572,4 +1573,118 @@ pre[class*="language-"].line-numbers {
 .dark .mat-mdc-stepper-header .mat-step-icon path {
   fill: #ffffff !important;
   stroke: #ffffff !important;
+}
+
+/* ===== Flatpickr override (Dashboard) ===== */
+.flatpickr-calendar.flatpickr-right {
+  border-radius: 14px !important;
+  border: 1px solid #e5e7eb !important;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12) !important;
+  background: #ffffff !important;
+  overflow: hidden;
+}
+.flatpickr-calendar.flatpickr-right .flatpickr-months,
+.flatpickr-calendar.flatpickr-right .flatpickr-weekdays {
+  background: #f8fafc !important;
+  border-bottom: 1px solid #e5e7eb !important;
+}
+.flatpickr-calendar.flatpickr-right .flatpickr-day {
+  border-radius: 8px !important;
+  color: #0f172a !important;
+}
+.flatpickr-calendar.flatpickr-right .flatpickr-day:hover {
+  background: #e2e8f0 !important;
+}
+.flatpickr-calendar.flatpickr-right .flatpickr-day.selected,
+.flatpickr-calendar.flatpickr-right .flatpickr-day.startRange,
+.flatpickr-calendar.flatpickr-right .flatpickr-day.endRange {
+  background: #4f46e5 !important;
+  color: #ffffff !important;
+  border-color: #4f46e5 !important;
+}
+.flatpickr-calendar.flatpickr-right .flatpickr-day.inRange {
+  background: #eef2ff !important;
+  color: #4f46e5 !important;
+}
+
+.dark .flatpickr-calendar.flatpickr-right {
+  background: #0f172a !important;
+  border-color: #1f2937 !important;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35) !important;
+}
+.dark .flatpickr-calendar.flatpickr-right .flatpickr-months,
+.dark .flatpickr-calendar.flatpickr-right .flatpickr-weekdays {
+  background: #111827 !important;
+  border-color: #1f2937 !important;
+}
+.dark .flatpickr-calendar.flatpickr-right .flatpickr-day {
+  color: #e5e7eb !important;
+}
+.dark .flatpickr-calendar.flatpickr-right .flatpickr-day.inRange {
+  background: #1e293b !important;
+  color: #93c5fd !important;
+}
+.dark .flatpickr-calendar.flatpickr-right .flatpickr-day.selected,
+.dark .flatpickr-calendar.flatpickr-right .flatpickr-day.startRange,
+.dark .flatpickr-calendar.flatpickr-right .flatpickr-day.endRange {
+  background: #60a5fa !important;
+  color: #0b1220 !important;
+  border-color: #60a5fa !important;
+}
+
+/* Strong override for class list: rangeMode animate static flatpickr-right */
+.flatpickr-calendar.rangeMode.animate.static.flatpickr-right {
+  border-radius: 14px !important;
+  border: 1px solid #e5e7eb !important;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12) !important;
+  background: #ffffff !important;
+  overflow: hidden !important;
+}
+.flatpickr-calendar.rangeMode.animate.static.flatpickr-right .flatpickr-months,
+.flatpickr-calendar.rangeMode.animate.static.flatpickr-right .flatpickr-weekdays {
+  background: #f8fafc !important;
+  border-bottom: 1px solid #e5e7eb !important;
+}
+.flatpickr-calendar.rangeMode.animate.static.flatpickr-right .flatpickr-day {
+  border-radius: 8px !important;
+  color: #0f172a !important;
+}
+.flatpickr-calendar.rangeMode.animate.static.flatpickr-right .flatpickr-day:hover {
+  background: #e2e8f0 !important;
+}
+.flatpickr-calendar.rangeMode.animate.static.flatpickr-right .flatpickr-day.selected,
+.flatpickr-calendar.rangeMode.animate.static.flatpickr-right .flatpickr-day.startRange,
+.flatpickr-calendar.rangeMode.animate.static.flatpickr-right .flatpickr-day.endRange {
+  background: #4f46e5 !important;
+  color: #ffffff !important;
+  border-color: #4f46e5 !important;
+}
+.flatpickr-calendar.rangeMode.animate.static.flatpickr-right .flatpickr-day.inRange {
+  background: #eef2ff !important;
+  color: #4f46e5 !important;
+}
+
+.dark .flatpickr-calendar.rangeMode.animate.static.flatpickr-right {
+  background: #0f172a !important;
+  border-color: #1f2937 !important;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35) !important;
+}
+.dark .flatpickr-calendar.rangeMode.animate.static.flatpickr-right .flatpickr-months,
+.dark .flatpickr-calendar.rangeMode.animate.static.flatpickr-right .flatpickr-weekdays {
+  background: #111827 !important;
+  border-color: #1f2937 !important;
+}
+.dark .flatpickr-calendar.rangeMode.animate.static.flatpickr-right .flatpickr-day {
+  color: #e5e7eb !important;
+}
+.dark .flatpickr-calendar.rangeMode.animate.static.flatpickr-right .flatpickr-day.inRange {
+  background: #1e293b !important;
+  color: #93c5fd !important;
+}
+.dark .flatpickr-calendar.rangeMode.animate.static.flatpickr-right .flatpickr-day.selected,
+.dark .flatpickr-calendar.rangeMode.animate.static.flatpickr-right .flatpickr-day.startRange,
+.dark .flatpickr-calendar.rangeMode.animate.static.flatpickr-right .flatpickr-day.endRange {
+  background: #60a5fa !important;
+  color: #0b1220 !important;
+  border-color: #60a5fa !important;
 }

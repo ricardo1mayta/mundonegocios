@@ -1,5 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { Component, model, signal, ViewChild, viewChild } from "@angular/core";
+import { RouterModule } from "@angular/router";
 import { ReactiveFormsModule, FormGroup, FormControl, FormsModule } from "@angular/forms";
 import { MatNativeDateModule } from "@angular/material/core";
 import { MatDatepickerModule } from "@angular/material/datepicker";
@@ -31,6 +32,7 @@ import { SwitchComponent } from "src/app/shared/components/form/input/switch.com
     ReactiveFormsModule,
     FormsModule,
     SwitchComponent,
+    RouterModule,
   ],
   templateUrl: "./almacen.component.html",
   styleUrl: "./almacen.component.css",

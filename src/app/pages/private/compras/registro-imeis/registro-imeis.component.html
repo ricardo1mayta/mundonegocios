@@ -1,0 +1,164 @@
+<div class="w-full max-w-none -mx-4 md:-mx-6 px-4 md:px-6">
+  <div class="px-2 mb-4 flex flex-col gap-2">
+    <div class="flex items-center justify-between">
+      <h2 class="text-2xl font-semibold text-gray-800 dark:text-white/90">Registro de IMEIs</h2>
+      <span
+        class="inline-flex items-center rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700 ring-1 ring-emerald-200"
+      >
+        Compra
+      </span>
+    </div>
+    <div class="text-xs text-gray-500 dark:text-gray-400 flex flex-wrap gap-3">
+      <span>ID: {{ compra()?.id || "?" }}</span>
+      <span>Proveedor: {{ compra()?.provedor?.nombre || "?" }}</span>
+      <span>Fecha: {{ compra()?.fecha | date: "yyyy-MM-dd" }}</span>
+    </div>
+  </div>
+
+  <div class="text-gray-800 dark:text-white/90">
+    <div
+      class="sticky top-0 z-10 mb-4 rounded-xl border border-gray-100 bg-white/90 p-3 backdrop-blur shadow-sm dark:border-gray-800 dark:bg-gray-900/90"
+    >
+      <div class="grid gap-3 sm:grid-cols-3">
+        <div class="flex items-center gap-3">
+          <div class="h-9 w-9 rounded-lg bg-emerald-50 text-emerald-600 grid place-items-center text-sm font-bold">
+            #
+          </div>
+          <div>
+            <div class="text-xs text-gray-500 dark:text-gray-400">Productos</div>
+            <div class="text-sm font-semibold text-gray-800 dark:text-white/90">{{ totalProductos() }}</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="h-9 w-9 rounded-lg bg-sky-50 text-sky-600 grid place-items-center text-sm font-bold">OK</div>
+          <div>
+            <div class="text-xs text-gray-500 dark:text-gray-400">IMEIs registrados</div>
+            <div class="text-sm font-semibold text-gray-800 dark:text-white/90">
+              {{ totalRegistrados() }}
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="h-9 w-9 rounded-lg bg-amber-50 text-amber-600 grid place-items-center text-sm font-bold">!</div>
+          <div>
+            <div class="text-xs text-gray-500 dark:text-gray-400">Restantes</div>
+            <div class="text-sm font-semibold text-gray-800 dark:text-white/90">
+              {{ totalRestantes() }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid gap-4 lg:grid-cols-[320px_1fr]">
+      <!-- LISTADO LATERAL -->
+      <aside
+        class="bg-white rounded-xl shadow-sm border border-gray-100 p-3 h-max dark:bg-gray-900 dark:border-gray-800"
+      >
+        <div class="text-xs uppercase tracking-wider text-gray-400 px-2 pb-2">Productos</div>
+        <div class="space-y-2">
+          <button
+            *ngFor="let item of productos()"
+            type="button"
+            (click)="selectItem(item)"
+            class="w-full text-left rounded-lg border px-3 py-2 transition"
+            [ngClass]="
+              getDetalleId(item) === selectedDetalleId()
+                ? 'border-brand-500 bg-brand-50/60 text-brand-700 dark:bg-brand-500/10'
+                : 'border-gray-200 hover:bg-gray-50 dark:border-gray-800 dark:hover:bg-gray-800/50'
+            "
+          >
+            <div class="font-medium truncate">{{ item.productoDetalle?.nombreProducto }}</div>
+            <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+              {{ imeisCount(item) }}/{{ item.cantidad }} registrados || Restan
+              {{ (item.cantidad || 0) - imeisCount(item) }}
+            </div>
+          </button>
+        </div>
+      </aside>
+
+      <!-- DETALLE PRODUCTO -->
+      <section class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 dark:bg-gray-900 dark:border-gray-800">
+        <div *ngIf="selectedItem() as item; else emptyState">
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <div class="text-xs uppercase tracking-wider text-gray-400">Producto</div>
+              <div class="text-lg font-semibold text-gray-800 dark:text-white/90">
+                {{ item.productoDetalle?.nombreProducto }}
+              </div>
+              <div class="text-sm text-gray-500 dark:text-gray-400">Cantidad: {{ item.cantidad }}</div>
+            </div>
+            <div class="text-right">
+              <div class="text-xs text-gray-500 dark:text-gray-400">Registrados</div>
+              <div
+                class="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-2.5 py-1 text-xs font-semibold text-gray-700 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-200"
+              >
+                {{ imeisCount(item) }} / {{ item.cantidad }}
+              </div>
+              <div class="text-[11px] text-gray-500 dark:text-gray-400 mt-1">
+                Restan: {{ (item.cantidad || 0) - imeisCount(item) }}
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 space-y-3">
+            <label class="text-xs font-medium text-gray-600 dark:text-gray-300"
+              >IMEI (presione Enter para agregar)</label
+            >
+            <input
+              type="text"
+              class="input"
+              placeholder="Ingrese IMEI y presione Enter"
+              [(ngModel)]="imeiInputMap[getDetalleId(item)]"
+              (keydown.enter)="$event.preventDefault(); addImeis(item)"
+            />
+            <div class="flex items-center gap-2">
+              <button
+                type="button"
+                (click)="addImeis(item)"
+                class="inline-flex items-center justify-center gap-2 rounded-lg transition px-4 py-2 text-xs bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600"
+              >
+                Agregar
+              </button>
+              <button
+                type="button"
+                (click)="guardarImeis(item)"
+                [disabled]="imeiSavingMap[getDetalleId(item)]"
+                class="inline-flex items-center justify-center gap-2 rounded-lg transition px-4 py-2 text-xs bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:bg-gray-50 dark:bg-gray-800 dark:text-gray-300"
+              >
+                Guardar
+              </button>
+            </div>
+            <div *ngIf="imeiErrorMap[getDetalleId(item)]" class="text-xs text-rose-600">
+              {{ imeiErrorMap[getDetalleId(item)] }}
+            </div>
+
+            <div class="flex flex-wrap gap-2">
+              <span
+                *ngFor="let i of getImeis(getDetalleId(item))"
+                class="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1 text-xs font-semibold text-gray-700 shadow-sm dark:border-gray-800 dark:bg-gray-900 dark:text-gray-200"
+              >
+                {{ i }}
+                <button
+                  type="button"
+                  class="inline-flex h-4 w-4 items-center justify-center rounded-full bg-rose-50 text-rose-600 hover:bg-rose-100"
+                  (click)="removeImei(getDetalleId(item), i)"
+                  aria-label="Quitar IMEI"
+                >
+                  x
+                </button>
+              </span>
+              <span *ngIf="getImeis(getDetalleId(item)).length === 0" class="text-xs text-gray-400">
+                Sin IMEIs registrados
+              </span>
+            </div>
+          </div>
+        </div>
+        <ng-template #emptyState>
+          <div class="text-sm text-gray-500 dark:text-gray-400">No hay productos para registrar.</div>
+        </ng-template>
+      </section>
+    </div>
+  </div>
+</div>
+

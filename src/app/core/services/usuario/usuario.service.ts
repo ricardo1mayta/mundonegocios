@@ -44,6 +44,8 @@ export class UsuarioService {
 
   /** Eliminación lógica (PATCH) o DELETE según tu backend */
   eliminarUsuario(id: number) {
-    return this._http.patch(`${this.apiUrl}/pegasus/usuarios/${id}`, null);
+    return this._http.delete(`${this.apiUrl}/pegasus/usuarios/${id}`);
   }
 }
+
+

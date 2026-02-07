@@ -1,12 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, inject, signal, effect } from '@angular/core';
+import { Component, inject, signal, effect } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
 import { Router } from '@angular/router';
-import { PedidosService } from '../../../../core/services/pedidos/pedidos.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent } from '@angular/material/dialog';
-import { CotizacionesService } from '../../../../core/services/cotizaciones/cotizaciones.service';
 import { ComprasService } from '../../../../core/services/compras/compras.service';
 
 @Component({

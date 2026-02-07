@@ -1,31 +1,59 @@
-<app-form-crud titulo="Cotizaciones">
+<app-form-crud titulo="Guias de remision">
   <!-- FILTROS ------------------------------------------------------------ -->
   <div filtros class="text-gray-800 dark:text-white/90">
+    <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
+      <div>
+        <div class="text-sm font-semibold text-gray-800 dark:text-white/90">Guia de remision</div>
+        <div class="text-xs text-gray-500 dark:text-gray-400">Administra y consulta tus guias emitidas</div>
+      </div>
+      <button
+        type="button"
+        class="inline-flex items-center gap-2 rounded-lg bg-brand-500 px-3 py-2 text-xs font-semibold text-white shadow-theme-xs hover:bg-brand-600"
+        (click)="crearPedido()"
+      >
+        <mat-icon class="!text-[18px]">add</mat-icon>
+        Nueva guia
+      </button>
+    </div>
+
     <app-form-filter [formGroup]="filtroForm" [(filtros)]="filtros" [mostrarEstado]="false">
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        <!-- Buscador -->
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
+        <!-- Buscador -->
         <div class="sm:col-span-2 md:col-span-1 flex flex-col">
           <label for="buscador" class="text-md font-medium mt-4 mb-1 text-gray-800 dark:text-white/90">Buscador</label>
           <div class="relative">
             <input
               id="buscador"
               type="text"
-              placeholder="Buscar por código o nombre"
+              placeholder="Buscar por codigo o nombre"
               formControlName="buscador"
               class="input pl-10"
-              (keydown.enter)="aplicarFiltros()" />
+              (keydown.enter)="aplicarFiltros()"
+            />
             <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-              <!--   HeroIcon: magnifying-glass   -->
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7 7 0 1010 17.65l4.35 4.35z" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 text-gray-400 dark:text-gray-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M21 21l-4.35-4.35m0 0A7 7 0 1010 17.65l4.35 4.35z"
+                />
               </svg>
             </span>
           </div>
         </div>
 
-        <!-- Fecha desde -->
+        <!-- Fecha desde -->
         <div class="flex flex-col">
-          <label for="fechaDesde" class="text-md font-medium mt-4 mb-1 text-gray-800 dark:text-white/90">Fecha de creación (Desde)</label>
+          <label for="fechaDesde" class="text-md font-medium mt-4 mb-1 text-gray-800 dark:text-white/90"
+            >Fecha de creacion (Desde)</label
+          >
           <div class="relative">
             <input
               id="fechaDesde"
@@ -34,7 +62,8 @@
               formControlName="fechaDesde"
               [max]="filtroForm.get('fechaHasta')?.value"
               class="input pr-10"
-              (click)="fechaDesdePicker.open()" />
+              (click)="fechaDesdePicker.open()"
+            />
             <button
               type="button"
               class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400"
@@ -46,7 +75,7 @@
           </div>
         </div>
 
-        <!-- Fecha hasta -->
+        <!-- Fecha hasta -->
         <div class="self-end flex flex-col">
           <label for="fechaHasta" class="sr-only">Hasta</label>
           <div class="relative">
@@ -57,7 +86,8 @@
               formControlName="fechaHasta"
               [min]="filtroForm.get('fechaDesde')?.value"
               class="input pr-10"
-              (click)="fechaHastaPicker.open()" />
+              (click)="fechaHastaPicker.open()"
+            />
             <button
               type="button"
               class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400"
@@ -68,53 +98,93 @@
             <mat-datepicker #fechaHastaPicker></mat-datepicker>
           </div>
         </div>
+
+        <div class="flex items-end">
+          <button
+            type="button"
+            class="inline-flex h-10 items-center justify-center rounded-lg bg-gray-900 px-4 text-xs font-semibold text-white shadow-theme-xs hover:bg-gray-800 dark:bg-white dark:text-gray-900 dark:hover:bg-gray-100"
+            (click)="aplicarFiltros()"
+          >
+            Buscar
+          </button>
+        </div>
       </div>
     </app-form-filter>
   </div>
 
   <div class="rounded-lg bg-neutral-100 dark:bg-gray-900">
-    <app-form-list class="flex flex-col flex-auto p-4" etiquetaAgregar="Crear" (agregarClick)="crearPedido()" nombreExcel="Clientes API Keys" [configuracionExcel]="configuracionExcel">
+    <app-form-list
+      class="flex flex-col flex-auto p-4"
+      etiquetaAgregar="Crear"
+      (agregarClick)="crearPedido()"
+      nombreExcel="Guias de remision"
+      [configuracionExcel]="configuracionExcel"
+    >
       <app-data-table [urlApi]="urlApi()" [parametrosApi]="filtros()">
-        <app-columna-tabla titulo="Codigo" propiedad="codigo" />
-
-        <app-columna-tabla titulo="Tikect" propiedad="id">
-          <ng-template let-id="valor"
-            ><button class="text-red-600" (click)="viewPdf(id)"><mat-icon aria-label="Archivo PDF">picture_as_pdf</mat-icon></button>
-            <button (click)="downloadPdf(id)" class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600 disabled:bg-brand-300"><mat-icon>cloud_download</mat-icon></button></ng-template
-          >
-        </app-columna-tabla>
-
-        <app-columna-tabla titulo="Fecha Crea" propiedad="fechaCrea">
-          <ng-template let-fechaCrea="valor">
-            {{ fechaCrea | date : "dd/MM/yyyy" }}
+        <app-columna-tabla titulo="Ticket" propiedad="id">
+          <ng-template let-id="valor">
+            <div class="flex items-center gap-2">
+              <button
+                type="button"
+                class="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-gray-200 text-rose-600 hover:bg-rose-50 dark:border-gray-800 dark:hover:bg-rose-500/10"
+                (click)="viewPdf(id)"
+                title="Ver PDF"
+                aria-label="Ver PDF"
+              >
+                <mat-icon class="!text-[18px]">picture_as_pdf</mat-icon>
+              </button>
+              <button
+                type="button"
+                class="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-50 dark:border-gray-800 dark:text-gray-300 dark:hover:bg-gray-800/50"
+                (click)="downloadPdf(id)"
+                title="Descargar PDF"
+                aria-label="Descargar PDF"
+              >
+                <mat-icon class="!text-[18px]">cloud_download</mat-icon>
+              </button>
+            </div>
           </ng-template>
         </app-columna-tabla>
-        <app-columna-tabla titulo="Fecha Entrega" propiedad="fechaEntrega">
-          <ng-template let-fechaCrea="valor">
-            {{ fechaCrea | date : "dd/MM/yyyy" }}
+
+        <app-columna-tabla titulo="Serie" propiedad="serie" />
+        <app-columna-tabla titulo="Correlativo" propiedad="correlativo" />
+        <app-columna-tabla titulo="Fecha Emision" propiedad="fechaEmision">
+          <ng-template let-fechaEmision="valor">
+            {{ fechaEmision | date: "dd/MM/yyyy HH:mm" }}
           </ng-template>
         </app-columna-tabla>
+        <app-columna-tabla titulo="Cliente ID" propiedad="clienteDestinoId" />
 
-        <app-columna-tabla titulo="Apellido Cliente" propiedad="nombreCliente">
-          <ng-template let-nombreCliente="valor">
-            {{ nombreCliente | uppercase }}
+        <app-columna-tabla titulo="Estado" propiedad="estado">
+          <ng-template let-estado="valor">
+            <span
+              class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold"
+              [ngClass]="{
+                'bg-emerald-50 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300':
+                  estado === 1 || estado === 'Activo' || estado === 'ACTIVO',
+                'bg-amber-50 text-amber-700 dark:bg-amber-500/10 dark:text-amber-300':
+                  estado === 2 || estado === 'Pendiente' || estado === 'PENDIENTE',
+                'bg-rose-50 text-rose-700 dark:bg-rose-500/10 dark:text-rose-300':
+                  estado === 0 || estado === 3 || estado === 'Anulado' || estado === 'ANULADO',
+              }"
+            >
+              {{
+                estado === 1
+                  ? "Activo"
+                  : estado === 2
+                    ? "Pendiente"
+                    : estado === 0 || estado === 3
+                      ? "Anulado"
+                      : estado || "�"
+              }}
+            </span>
           </ng-template>
         </app-columna-tabla>
-        <app-columna-tabla titulo="Doc Cliente" propiedad="docCliente" />
-        <app-columna-tabla titulo="Direccion" propiedad="direccion" />
-        <app-columna-tabla titulo="Total" propiedad="total" />
-
-        <app-columna-tabla titulo="Status" propiedad="estado" />
-
-        <app-columna-tabla titulo="Usuario Crea" propiedad="usuarioCrea" />
 
         <app-accion-tabla etiqueta="Ver" icono="visibility" />
         <app-accion-tabla etiqueta="Editar" icono="edit" (accion)="editarPedido($event.datos)" />
-        <app-accion-tabla etiqueta="Generar Pedido" icono="delete" (accion)="generarPedido($event.datos)" />
+        <app-accion-tabla etiqueta="Generar Pedido" icono="receipt" (accion)="generarPedido($event.datos)" />
       </app-data-table>
     </app-form-list>
   </div>
 </app-form-crud>
-
-
-

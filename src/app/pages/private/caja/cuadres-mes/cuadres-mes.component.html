@@ -1,0 +1,108 @@
+<section class="p-4">
+  <div class="bg-white rounded-2xl border border-gray-100 shadow-sm dark:bg-gray-900 dark:border-gray-800">
+    <div class="flex flex-wrap items-center justify-between gap-4 p-6 border-b border-gray-100 dark:border-gray-800">
+      <div>
+        <h2 class="text-xl font-semibold text-gray-800 dark:text-white/90">Cuadres de Caja (Rango)</h2>
+        <p class="text-sm text-gray-500 dark:text-gray-400">Resumen diario del periodo</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <label class="text-sm text-gray-600 dark:text-gray-300">Desde</label>
+        <div class="relative">
+          <input matInput [matDatepicker]="desdePicker" class="input pr-10" [(ngModel)]="desde" (click)="desdePicker.open()" />
+          <button
+            type="button"
+            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400"
+            (click)="desdePicker.open()"
+          >
+            <span class="i-ph-calendar-blank text-lg"></span>
+          </button>
+          <mat-datepicker #desdePicker></mat-datepicker>
+        </div>
+        <label class="text-sm text-gray-600 dark:text-gray-300">Hasta</label>
+        <div class="relative">
+          <input matInput [matDatepicker]="hastaPicker" class="input pr-10" [(ngModel)]="hasta" (click)="hastaPicker.open()" />
+          <button
+            type="button"
+            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400"
+            (click)="hastaPicker.open()"
+          >
+            <span class="i-ph-calendar-blank text-lg"></span>
+          </button>
+          <mat-datepicker #hastaPicker></mat-datepicker>
+        </div>
+        <button
+          type="button"
+          (click)="cargar()"
+          class="inline-flex items-center justify-center gap-2 rounded-lg transition px-4 py-2 text-sm bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600 disabled:bg-brand-300"
+        >
+          Buscar
+        </button>
+      </div>
+    </div>
+
+    <div class="p-6 grid gap-4 lg:grid-cols-4">
+      <div class="rounded-xl border border-gray-200 p-4 dark:border-gray-800">
+        <div class="text-xs text-gray-500 dark:text-gray-400">Ventas total</div>
+        <div class="text-2xl font-semibold text-emerald-600 dark:text-emerald-300">S/ {{ totalVentas | number : "1.2-2" }}</div>
+      </div>
+      <div class="rounded-xl border border-gray-200 p-4 dark:border-gray-800">
+        <div class="text-xs text-gray-500 dark:text-gray-400">Compras total</div>
+        <div class="text-2xl font-semibold text-rose-600 dark:text-rose-300">S/ {{ totalCompras | number : "1.2-2" }}</div>
+      </div>
+      <div class="rounded-xl border border-gray-200 p-4 dark:border-gray-800">
+        <div class="text-xs text-gray-500 dark:text-gray-400">Gastos total</div>
+        <div class="text-2xl font-semibold text-amber-600 dark:text-amber-300">S/ {{ totalGastos | number : "1.2-2" }}</div>
+      </div>
+      <div class="rounded-xl border border-gray-200 p-4 dark:border-gray-800">
+        <div class="text-xs text-gray-500 dark:text-gray-400">Diferencia total</div>
+        <div class="text-2xl font-semibold" [ngClass]="totalDiferencia === 0 ? 'text-emerald-600 dark:text-emerald-300' : 'text-rose-600 dark:text-rose-300'">
+          S/ {{ totalDiferencia | number : "1.2-2" }}
+        </div>
+      </div>
+    </div>
+
+    <div class="px-6 pb-6">
+      <div class="rounded-xl border border-gray-200 dark:border-gray-800 overflow-hidden">
+        <div class="px-4 py-3 border-b border-gray-100 dark:border-gray-800 text-sm font-semibold text-gray-700 dark:text-gray-200">
+          Cuadres diarios
+        </div>
+        <div *ngIf="cargando" class="p-6 text-sm text-gray-500 dark:text-gray-400">
+          Cargando cuadres...
+        </div>
+        <div *ngIf="error" class="p-6 text-sm text-rose-600 dark:text-rose-300">
+          {{ error }}
+        </div>
+        <div *ngIf="!cargando && !error && !lista.length" class="p-6 text-sm text-gray-500 dark:text-gray-400">
+          No hay registros en el rango.
+        </div>
+        <div *ngIf="!cargando && !error && lista.length" class="overflow-x-auto">
+          <table class="min-w-full text-sm">
+            <thead class="bg-gray-50 text-gray-600 dark:bg-gray-900 dark:text-gray-300">
+              <tr>
+                <th class="px-4 py-3 text-left">Fecha</th>
+                <th class="px-4 py-3 text-left">Ventas</th>
+                <th class="px-4 py-3 text-left">Compras</th>
+                <th class="px-4 py-3 text-left">Gastos</th>
+                <th class="px-4 py-3 text-left">Saldo Final</th>
+                <th class="px-4 py-3 text-left">Diferencia</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let r of lista" class="border-t even:bg-gray-50 dark:even:bg-gray-800/40 dark:border-gray-800">
+                <td class="p-3 dark:text-white/90">{{ r.fecha }}</td>
+                <td class="p-3 dark:text-white/80">S/ {{ r.ventasTotal | number : "1.2-2" }}</td>
+                <td class="p-3 dark:text-white/80">S/ {{ r.comprasTotal | number : "1.2-2" }}</td>
+                <td class="p-3 dark:text-white/80">S/ {{ r.gastosTotal | number : "1.2-2" }}</td>
+                <td class="p-3 dark:text-white/90">S/ {{ r.saldoFinal | number : "1.2-2" }}</td>
+                <td class="p-3 font-semibold" [ngClass]="(r.diferencia || 0) === 0 ? 'text-emerald-600 dark:text-emerald-300' : 'text-rose-600 dark:text-rose-300'">
+                  S/ {{ r.diferencia | number : "1.2-2" }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

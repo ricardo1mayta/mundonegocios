@@ -2,7 +2,7 @@
 <section class="bg-white rounded-2xl shadow p-8 mb-8 dark:bg-gray-900">
   <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between mb-6">
     <h2 class="text-2xl font-bold text-gray-800 dark:text-white/90">Guía de Remisión</h2>
-    <span class="text-gray-400 text-sm dark:text-gray-500">Nueva Guía</span>
+    <span class="text-gray-400 text-sm dark:text-gray-500">{{ isEdit() ? "Editar Guía" : "Nueva Guía" }}</span>
   </div>
 
   <mat-horizontal-stepper linear class="w-full">
@@ -40,17 +40,28 @@
             <div class="relative">
               <input
                 type="text"
-                formControlName="clienteDestinoId"
                 placeholder="Cliente Destino"
                 [(ngModel)]="searchProvedor"
                 (ngModelChange)="updateSearchProvedor($event)"
-                class="w-full placeholder-gray-400 pl-12 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 transition disabled:bg-gray-100 dark:border-gray-700" />
-              <span class="absolute left-4 top-2.5 text-blue-800 cursor-pointer" (click)="agregarCliente()">
+                class="input pl-12"
+              />
+              <input type="hidden" formControlName="clienteDestinoId" />
+              <span
+                class="absolute left-4 top-2.5 text-blue-800 dark:text-blue-300 cursor-pointer"
+                (click)="agregarCliente()"
+              >
                 <mat-icon>search</mat-icon>
               </span>
               <!-- lista desplegable -->
-              <div *ngIf="suggestionsProvedor().length > 0" class="absolute z-20 left-0 w-full max-h-56 overflow-y-auto bg-white border rounded-lg shadow-lg mt-1 dark:bg-gray-900">
-                <div *ngFor="let prov of suggestionsProvedor()" (click)="selectProvider(prov)" class="flex items-center gap-3 px-4 py-2 cursor-pointer hover:bg-blue-50 transition">
+              <div
+                *ngIf="suggestionsProvedor().length > 0"
+                class="absolute z-20 left-0 w-full max-h-56 overflow-y-auto bg-white border border-gray-200 rounded-lg shadow-lg mt-1 dark:bg-gray-900 dark:border-gray-800"
+              >
+                <div
+                  *ngFor="let prov of suggestionsProvedor()"
+                  (click)="selectProvider(prov)"
+                  class="flex items-center gap-3 px-4 py-2 cursor-pointer hover:bg-blue-50 transition dark:text-gray-200 dark:hover:bg-blue-500/10"
+                >
                   <span class="i-ph-user text-xl text-indigo-600"></span>
                   <div class="text-sm">
                     <p class="font-medium leading-none">{{ prov.clienteNombre }}</p>
@@ -60,13 +71,21 @@
               </div>
             </div>
             <!-- tarjeta del proveedor elegido -->
-            <div *ngIf="selectedProvider()" class="flex items-center justify-between gap-4 px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg">
+            <div
+              *ngIf="selectedProvider()"
+              class="flex items-center justify-between gap-4 px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg dark:bg-blue-500/10 dark:border-blue-500/30"
+            >
               <div class="flex-1">
-                <p class="font-semibold text-sm text-blue-900">{{ selectedProvider()!.clienteNumerodocumento }}</p>
-                <p class="text-sm text-blue-800">{{ selectedProvider()!.clienteNombre }}</p>
+                <p class="font-semibold text-sm text-blue-900 dark:text-blue-200">
+                  {{ selectedProvider()!.clienteNumerodocumento }}
+                </p>
+                <p class="text-sm text-blue-800 dark:text-blue-300">{{ selectedProvider()!.clienteNombre }}</p>
                 <p class="text-xs text-gray-500 dark:text-gray-400">{{ selectedProvider()!.clienteEmail }}</p>
               </div>
-              <button (click)="clearProvider()" class="text-red-600 i-ph-trash-simple text-lg hover:text-red-800 transition"></button>
+              <button
+                (click)="clearProvider()"
+                class="text-red-600 i-ph-trash-simple text-lg hover:text-red-800 transition"
+              ></button>
             </div>
           </div>
           <!-- BUSCAR TERCERO -->
@@ -78,13 +97,25 @@
                 placeholder="Cliente tercero"
                 [(ngModel)]="searchTercero"
                 (ngModelChange)="updateSearchTercero($event)"
-                class="w-full placeholder-gray-400 pl-12 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 transition disabled:bg-gray-100 dark:border-gray-700" />
-              <span class="absolute left-4 top-2.5 text-blue-800 cursor-pointer" (click)="agregarTercero()">
+                class="input pl-12"
+              />
+              <input type="hidden" formControlName="clienteDestinoId" />
+              <span
+                class="absolute left-4 top-2.5 text-blue-800 dark:text-blue-300 cursor-pointer"
+                (click)="agregarTercero()"
+              >
                 <mat-icon>search</mat-icon>
               </span>
               <!-- lista desplegable -->
-              <div *ngIf="suggestionsTercero().length > 0" class="absolute z-20 left-0 w-full max-h-56 overflow-y-auto bg-white border rounded-lg shadow-lg mt-1 dark:bg-gray-900">
-                <div *ngFor="let prov of suggestionsTercero()" (click)="selectTercero(prov)" class="flex items-center gap-3 px-4 py-2 cursor-pointer hover:bg-blue-50 transition">
+              <div
+                *ngIf="suggestionsTercero().length > 0"
+                class="absolute z-20 left-0 w-full max-h-56 overflow-y-auto bg-white border border-gray-200 rounded-lg shadow-lg mt-1 dark:bg-gray-900 dark:border-gray-800"
+              >
+                <div
+                  *ngFor="let prov of suggestionsTercero()"
+                  (click)="selectTercero(prov)"
+                  class="flex items-center gap-3 px-4 py-2 cursor-pointer hover:bg-blue-50 transition dark:text-gray-200 dark:hover:bg-blue-500/10"
+                >
                   <span class="i-ph-user text-xl text-indigo-600"></span>
                   <div class="text-sm">
                     <p class="font-medium leading-none">{{ prov.clienteNombre }}</p>
@@ -94,13 +125,21 @@
               </div>
             </div>
             <!-- tarjeta del proveedor elegido -->
-            <div *ngIf="selectedTercero()" class="flex items-center justify-between gap-4 px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg">
+            <div
+              *ngIf="selectedTercero()"
+              class="flex items-center justify-between gap-4 px-4 py-3 bg-blue-50 border border-blue-200 rounded-lg dark:bg-blue-500/10 dark:border-blue-500/30"
+            >
               <div class="flex-1">
-                <p class="font-semibold text-sm text-blue-900">{{ selectedTercero()!.clienteNumerodocumento }}</p>
-                <p class="text-sm text-blue-800">{{ selectedTercero()!.clienteNombre }}</p>
+                <p class="font-semibold text-sm text-blue-900 dark:text-blue-200">
+                  {{ selectedTercero()!.clienteNumerodocumento }}
+                </p>
+                <p class="text-sm text-blue-800 dark:text-blue-300">{{ selectedTercero()!.clienteNombre }}</p>
                 <p class="text-xs text-gray-500 dark:text-gray-400">{{ selectedTercero()!.clienteEmail }}</p>
               </div>
-              <button (click)="clearTercero()" class="text-red-600 i-ph-trash-simple text-lg hover:text-red-800 transition"></button>
+              <button
+                (click)="clearTercero()"
+                class="text-red-600 i-ph-trash-simple text-lg hover:text-red-800 transition"
+              ></button>
             </div>
           </div>
         </div>
@@ -346,9 +385,61 @@
     </button>
   </div>
 
-  <div *ngIf="!detalles.length" class="text-sm text-gray-500 text-center py-8 dark:text-gray-400">Sin ítems añadidos.</div>
+  <div *ngIf="!detalles.length" class="text-sm text-gray-500 text-center py-8 dark:text-gray-400">
+    Sin ítems añadidos.
+  </div>
 
-  <div class="space-y-3"></div>
+  <div class="space-y-3">
+    <div
+      *ngFor="let det of detalleControls; let i = index; trackBy: trackById"
+      [formGroup]="det"
+      class="rounded-xl border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-800 dark:bg-gray-900"
+    >
+      <div class="flex flex-wrap items-start justify-between gap-3">
+        <div class="min-w-0 flex-1">
+          <div class="text-xs uppercase tracking-wider text-gray-400">Item</div>
+          <div class="text-sm font-semibold text-gray-800 dark:text-white/90">
+            {{ det.get("descripcion")?.value || "Producto" }}
+          </div>
+          <div class="text-xs text-gray-500 dark:text-gray-400">
+            ID Detalle: {{ det.get("detalleId")?.value || "�" }} cantidad: {{ det.get("cantidad")?.value || "0" }}
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button
+            type="button"
+            class="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50 dark:border-gray-800 dark:text-gray-300 dark:hover:bg-gray-800/50"
+            (click)="removeDetalle(i)"
+          >
+            <mat-icon class="!text-[18px]">delete</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <div class="mt-3">
+        <div
+          *ngIf="despachadosLoadingMap[det.get('detalleId')?.value]"
+          class="text-xs text-gray-500 dark:text-gray-400"
+        >
+          Cargando despachados...
+        </div>
+        <div *ngIf="despachadosErrorMap[det.get('detalleId')?.value]" class="text-xs text-rose-600">
+          {{ despachadosErrorMap[det.get("detalleId")?.value] }}
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <span
+            *ngFor="let i of despachadosMap[det.get('detalleId')?.value] || []"
+            class="inline-flex items-center rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700 shadow-sm dark:border-emerald-500/30 dark:bg-emerald-500/10 dark:text-emerald-300"
+          >
+            {{ i }}
+          </span>
+          <span *ngIf="(despachadosMap[det.get('detalleId')?.value] || []).length === 0" class="text-xs text-gray-400">
+            Sin IMEIs despachados
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- BOTÓN FINAL -->
   <div class="text-right pt-4">
@@ -358,10 +449,8 @@
       [disabled]="step1.invalid || step2.invalid || step3.invalid || !detalles.length"
       class="!h-10 !rounded-xl !px-6 !normal-case !bg-slate-900 hover:!bg-slate-800 !text-white disabled:!bg-slate-400 !shadow-theme-xs dark:!bg-slate-200 dark:!text-slate-900 dark:hover:!bg-white"
     >
-      Guardar guía
+      {{ isEdit() ? "Actualizar guía" : "Guardar guía" }}
     </button>
   </div>
 </section>
-
-
 

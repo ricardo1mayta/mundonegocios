@@ -168,4 +168,14 @@ export class VentasComponent implements OnInit {
       }
     });
   }
+
+  registrarImeis(pedido: Pedido) {
+    this.router.navigate([`/admin/ventas/registro-imeis/${pedido.id}`]);
+  }
+
+  generarGuia(pedido: Pedido) {
+    this.router.navigate(["/admin/guia/nueva-guia"], {
+      state: { pedidoId: pedido.id },
+    });
+  }
 }

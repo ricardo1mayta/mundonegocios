@@ -42,7 +42,7 @@ export class AppSidebarComponent {
   logo = this.auth.logo;
   navItems: Signal<NavItem[]> = toSignal(
     this.menuService.getMenuNew(this.idRol, this.idSede).pipe(
-      map((res: any) => res ?? res ?? []),
+      map((res: any) => this.ensureImeiMenu((res ?? res ?? []) as NavItem[])),
       catchError((err) => {
         console.error("Error cargando menús", err);
         return of([] as NavItem[]);
@@ -218,5 +218,21 @@ export class AppSidebarComponent {
         }
       })
       .unsubscribe();
+  }
+
+  private ensureImeiMenu(items: NavItem[]): NavItem[] {
+    const targetPath = "/admin/compras/consultar-imei";
+    const exists = items.some((i) => i.path === targetPath || i.subItems?.some((s) => s.path === targetPath));
+    if (exists) return items;
+
+    return [
+      {
+        name: "Seriales",
+        icon: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 4a7 7 0 1 0 4.39 12.47l3.57 3.56 1.41-1.41-3.56-3.57A7 7 0 0 0 11 4Zm0 2a5 5 0 1 1 0 10 5 5 0 0 1 0-10Z" fill="currentColor"/></svg>',
+        new: true,
+        subItems: [{ name: "Consultar IMEI", path: targetPath }],
+      },
+      ...items,
+    ];
   }
 }

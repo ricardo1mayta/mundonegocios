@@ -1,0 +1,100 @@
+<div class="p-4">
+  <div class="bg-white rounded-2xl border border-gray-100 shadow-sm dark:bg-gray-900 dark:border-gray-800">
+    <div class="flex items-start justify-between gap-4 p-6 border-b border-gray-100 dark:border-gray-800">
+      <div class="flex items-center gap-3">
+        <div class="h-11 w-11 rounded-xl bg-brand-50 text-brand-600 grid place-items-center dark:bg-brand-500/10 dark:text-brand-400">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11 4a7 7 0 1 0 4.39 12.47l3.57 3.56 1.41-1.41-3.56-3.57A7 7 0 0 0 11 4Zm0 2a5 5 0 1 1 0 10 5 5 0 0 1 0-10Z" fill="currentColor"/>
+          </svg>
+        </div>
+        <div>
+          <h2 class="text-xl font-semibold text-gray-800 dark:text-white/90">Consultador de IMEIs</h2>
+          <p class="text-sm text-gray-500 dark:text-gray-400">Procedencia de compra y trazabilidad</p>
+        </div>
+      </div>
+      <span class="inline-flex items-center rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700 ring-1 ring-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-200 dark:ring-emerald-400/30">
+        Consultas
+      </span>
+    </div>
+
+    <div class="p-6">
+      <div class="grid gap-3 sm:grid-cols-[1fr_auto_auto] items-center">
+        <div class="relative">
+          <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M11 4a7 7 0 1 0 4.39 12.47l3.57 3.56 1.41-1.41-3.56-3.57A7 7 0 0 0 11 4Zm0 2a5 5 0 1 1 0 10 5 5 0 0 1 0-10Z" fill="currentColor"/>
+            </svg>
+          </span>
+          <input
+            type="text"
+            class="input pl-9"
+            placeholder="Ingrese IMEI"
+            [(ngModel)]="imei"
+            (keydown.enter)="buscar()"
+          />
+        </div>
+        <button
+          type="button"
+          (click)="buscar()"
+          [disabled]="cargando"
+          class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-2.5 text-sm bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600 disabled:bg-brand-300"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11 4a7 7 0 1 0 4.39 12.47l3.57 3.56 1.41-1.41-3.56-3.57A7 7 0 0 0 11 4Zm0 2a5 5 0 1 1 0 10 5 5 0 0 1 0-10Z" fill="currentColor"/>
+          </svg>
+          Buscar
+        </button>
+        <button
+          type="button"
+          (click)="limpiar()"
+          class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-2.5 text-sm bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:bg-gray-50 dark:bg-gray-800 dark:text-gray-300 dark:text-gray-200"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 6l12 12M18 6l-12 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+          Limpiar
+        </button>
+      </div>
+
+      <div *ngIf="error" class="mt-4 rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-sm text-rose-700 dark:border-rose-900/40 dark:bg-rose-500/10 dark:text-rose-200">
+        {{ error }}
+      </div>
+
+      <div *ngIf="resultado" class="mt-5 grid gap-3 sm:grid-cols-2">
+        <div *ngIf="resultado?.imei" class="rounded-xl border border-gray-200 p-4 dark:border-gray-800">
+          <div class="text-xs text-gray-500 dark:text-gray-400">IMEI</div>
+          <div class="font-semibold text-gray-800 dark:text-white/90">{{ resultado?.imei }}</div>
+        </div>
+        <div *ngIf="resultado?.producto" class="rounded-xl border border-gray-200 p-4 dark:border-gray-800">
+          <div class="text-xs text-gray-500 dark:text-gray-400">Producto</div>
+          <div class="font-semibold text-gray-800 dark:text-white/90">{{ resultado?.producto }}</div>
+        </div>
+        <div *ngIf="resultado?.proveedorNombre" class="rounded-xl border border-gray-200 p-4 dark:border-gray-800">
+          <div class="text-xs text-gray-500 dark:text-gray-400">Proveedor</div>
+          <div class="font-semibold text-gray-800 dark:text-white/90">{{ resultado?.proveedorNombre }}</div>
+        </div>
+        <div *ngIf="resultado?.fechaCompra" class="rounded-xl border border-gray-200 p-4 dark:border-gray-800">
+          <div class="text-xs text-gray-500 dark:text-gray-400">Fecha compra</div>
+          <div class="font-semibold text-gray-800 dark:text-white/90">{{ resultado?.fechaCompra }}</div>
+        </div>
+        <div *ngIf="resultado?.serieCompra || resultado?.numeroCompra" class="rounded-xl border border-gray-200 p-4 dark:border-gray-800">
+          <div class="text-xs text-gray-500 dark:text-gray-400">Serie compra</div>
+          <div class="font-semibold text-gray-800 dark:text-white/90">{{ resultado?.serieCompra || resultado?.numeroCompra }}</div>
+        </div>
+        <div *ngIf="resultado?.clienteNombre || resultado?.clienteDocumento" class="rounded-xl border border-gray-200 p-4 dark:border-gray-800">
+          <div class="text-xs text-gray-500 dark:text-gray-400">Cliente</div>
+          <div class="font-semibold text-gray-800 dark:text-white/90">
+            {{ resultado?.clienteNombre }}{{ resultado?.clienteDocumento ? ' (DNI: ' + resultado?.clienteDocumento + ')' : '' }}
+          </div>
+        </div>
+        <div *ngIf="resultado?.usuarioRegistroNombre" class="rounded-xl border border-gray-200 p-4 dark:border-gray-800">
+          <div class="text-xs text-gray-500 dark:text-gray-400">Usuario registro</div>
+          <div class="font-semibold text-gray-800 dark:text-white/90">{{ resultado?.usuarioRegistroNombre }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

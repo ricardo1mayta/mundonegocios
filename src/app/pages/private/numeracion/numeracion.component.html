@@ -1,0 +1,112 @@
+<section class="p-4">
+  <div class="bg-white rounded-2xl border border-gray-100 shadow-sm dark:bg-gray-900 dark:border-gray-800">
+    <div class="flex items-center justify-between gap-4 p-6 border-b border-gray-100 dark:border-gray-800">
+      <div>
+        <h2 class="text-xl font-semibold text-gray-800 dark:text-white/90">Numeración por Sede</h2>
+        <p class="text-sm text-gray-500 dark:text-gray-400">Control de correlativos por tipo</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <label class="text-sm text-gray-600 dark:text-gray-300">Sede</label>
+        <select class="input" [(ngModel)]="idSede">
+          <option *ngFor="let s of sedes" [value]="s.id">{{ s.nomComercial || s.razonSocial || ('Sede ' + s.id) }}</option>
+        </select>
+        <button
+          type="button"
+          (click)="cargar()"
+          class="inline-flex items-center justify-center gap-2 rounded-lg transition px-4 py-2 text-sm bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600 disabled:bg-brand-300"
+        >
+          Buscar
+        </button>
+      </div>
+    </div>
+
+    <div class="p-6 grid gap-6 lg:grid-cols-[360px_1fr]">
+      <div class="rounded-xl border border-gray-200 p-4 dark:border-gray-800">
+        <div class="grid gap-4">
+          <label class="flex flex-col text-sm text-gray-700 dark:text-gray-200">
+            Tipo
+            <input type="text" class="input mt-1" [(ngModel)]="tipo" />
+          </label>
+          <label class="flex flex-col text-sm text-gray-700 dark:text-gray-200">
+            Serie
+            <input type="text" class="input mt-1" [(ngModel)]="serie" />
+          </label>
+          <label class="flex flex-col text-sm text-gray-700 dark:text-gray-200">
+            Número
+            <input type="number" class="input mt-1" [(ngModel)]="numero" />
+          </label>
+          <label class="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-200">
+            <input type="checkbox" [(ngModel)]="estado" />
+            Activo
+          </label>
+          <label class="flex flex-col text-sm text-gray-700 dark:text-gray-200">
+            Descripción
+            <textarea rows="2" class="input mt-1" [(ngModel)]="descripcion"></textarea>
+          </label>
+
+          <div *ngIf="error" class="rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-sm text-rose-700 dark:border-rose-900/40 dark:bg-rose-500/10 dark:text-rose-200">
+            {{ error }}
+          </div>
+
+          <button
+            type="button"
+            (click)="guardar()"
+            class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-2.5 text-sm bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600 disabled:bg-brand-300"
+          >
+            {{ editingId ? "Actualizar" : "Crear" }}
+          </button>
+          <button
+            *ngIf="editingId"
+            type="button"
+            (click)="limpiar()"
+            class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-2.5 text-sm bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:bg-gray-50 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
+          >
+            Cancelar
+          </button>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-gray-200 dark:border-gray-800 overflow-hidden">
+        <div class="px-4 py-3 border-b border-gray-100 dark:border-gray-800 text-sm font-semibold text-gray-700 dark:text-gray-200">
+          Lista de numeraciones
+        </div>
+        <div *ngIf="cargando" class="p-6 text-sm text-gray-500 dark:text-gray-400">
+          Cargando...
+        </div>
+        <div *ngIf="!cargando && !lista.length" class="p-6 text-sm text-gray-500 dark:text-gray-400">
+          Sin registros.
+        </div>
+        <div *ngIf="!cargando && lista.length" class="divide-y divide-gray-100 dark:divide-gray-800">
+          <div *ngFor="let n of lista" class="flex items-center justify-between gap-4 p-4">
+            <div class="min-w-0">
+              <div class="text-sm font-medium text-gray-800 dark:text-white/90 truncate">
+                {{ n.descripcion || "Tipo " + n.tipo }}
+              </div>
+              <div class="text-xs text-gray-500 dark:text-gray-400">
+                {{ n.serie }} - {{ n.numero }} | {{ n.estado ? "Activo" : "Inactivo" }}
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button
+                type="button"
+                (click)="editar(n.id)"
+                class="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-50 dark:border-gray-800 dark:text-gray-200 dark:hover:bg-gray-800/50"
+                aria-label="Editar"
+              >
+                <mat-icon class="!text-[18px]">edit</mat-icon>
+              </button>
+              <button
+                type="button"
+                (click)="eliminar(n.id)"
+                class="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-gray-200 text-rose-600 hover:bg-rose-50 dark:border-gray-800 dark:hover:bg-rose-500/10"
+                aria-label="Eliminar"
+              >
+                <mat-icon class="!text-[18px]">delete</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

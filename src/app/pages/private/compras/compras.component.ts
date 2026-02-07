@@ -16,11 +16,11 @@ import { NuevaCompraComponent } from './nueva-compra/nueva-compra.component';
 import { ComprasService } from '../../../core/services/compras/compras.service';
 import { EditarCompraComponent } from './editar-compra/editar-compra.component';
 import { Compra } from '../../../core/models/compras/compra';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { VisualizarCompraComponent } from './visualizar-compra/visualizar-compra.component';
 @Component({
   selector: 'app-compras',
-  imports: [CommonModule, MaterialModule, MatDatepickerModule, MatNativeDateModule, FormCrudComponent, FormFilterComponent, FormListComponent, DataTableModule, ReactiveFormsModule],
+  imports: [CommonModule, MaterialModule, MatDatepickerModule, MatNativeDateModule, FormCrudComponent, FormFilterComponent, FormListComponent, DataTableModule, ReactiveFormsModule, RouterModule],
   templateUrl: './compras.component.html',
   styleUrl: './compras.component.css',
 })
@@ -108,6 +108,11 @@ export class ComprasComponent implements OnInit {
       }
     });
   }
+
+  registrarImeis(compra: Compra) {
+    this.router.navigate([`/admin/compras/registro-imeis/${compra.id}`]);
+  }
+
   anularCompra(compra: Compra) {
     this.comprasService.anularCompra(compra.id).subscribe({
       next: () => {

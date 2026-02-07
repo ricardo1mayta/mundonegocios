@@ -3,12 +3,16 @@ import { DashboardLayoutComponent } from "./layout/dashboard-layout/dashboard-la
 import { VentasComponent } from "./ventas/ventas.component";
 import { ClientesComponent } from "./clientes/clientes.component";
 import { NuevaVentaComponent } from "./ventas/nueva-venta/nueva-venta.component";
+import { RegistroImeisVentaComponent } from "./ventas/registro-imeis-venta/registro-imeis-venta.component";
 import { MarcasComponent } from "./almacen/marcas/marcas.component";
 import { CategoriasComponent } from "./almacen/categorias/categorias.component";
 import { ProductosComponent } from "./almacen/productos/productos.component";
 import { InvertarioComponent } from "./almacen/invertario/invertario.component";
+import { ImeiDisponiblesComponent } from "./almacen/imei-disponibles/imei-disponibles.component";
 import { ComprasComponent } from "./compras/compras.component";
 import { NuevaCompraComponent } from "./compras/nueva-compra/nueva-compra.component";
+import { RegistroImeisComponent } from "./compras/registro-imeis/registro-imeis.component";
+import { ConsultarImeiComponent } from "./compras/consultar-imei/consultar-imei.component";
 import { ProveedoresComponent } from "./proveedores/proveedores.component";
 import { authGuard } from "../../core/interceptor/auth.guard";
 import { AlmacenComponent } from "./almacen/almacen.component";
@@ -33,6 +37,10 @@ import { ListarContizacionComponent } from "./fabricacion/pages/cotizacion/lista
 import { VerFichaComponent } from "./fabricacion/pages/ficha-tecnica-listar/ver-ficha/ver-ficha.component";
 import { ListaReportesComponent } from "./reportes/lista-reportes/lista-reportes.component";
 import { CuadreDiarioComponent } from "./reportes/lista-reportes/cuadre-diario/cuadre-diario.component";
+import { CuadreCajaComponent } from "./caja/cuadre-caja/cuadre-caja.component";
+import { CuadresMesComponent } from "./caja/cuadres-mes/cuadres-mes.component";
+import { RegistroGastosComponent } from "./gastos/registro-gastos/registro-gastos.component";
+import { NumeracionComponent } from "./numeracion/numeracion.component";
 import { AppLayoutComponent } from "src/app/shared/layout/app-layout/app-layout.component";
 
 export const routes: Routes = [
@@ -41,7 +49,7 @@ export const routes: Routes = [
     component: AppLayoutComponent,
     canActivate: [authGuard],
     children: [
-      // { path: "", component: DashboardComponent },
+      { path: "", component: DashboardComponent },
 
       {
         path: "ventas/pedidos",
@@ -54,6 +62,10 @@ export const routes: Routes = [
       {
         path: "ventas/newpedidos",
         component: NuevaVentaComponent,
+      },
+      {
+        path: "ventas/registro-imeis/:id",
+        component: RegistroImeisVentaComponent,
       },
       {
         path: "system-manager/marcas",
@@ -76,12 +88,20 @@ export const routes: Routes = [
         component: AlmacenComponent,
       },
       {
+        path: "inventario/imeis-disponibles",
+        component: ImeiDisponiblesComponent,
+      },
+      {
         path: "compras/lista",
         component: ComprasComponent,
       },
       {
         path: "compras/newcompra",
         component: NuevaCompraComponent,
+      },
+      {
+        path: "compras/registro-imeis/:id",
+        component: RegistroImeisComponent,
       },
       {
         path: "provedores/lista",
@@ -132,6 +152,11 @@ export const routes: Routes = [
 
       { path: "reportes/lista-reportes", component: ListaReportesComponent },
       { path: "reportes/cuadre-diario", component: CuadreDiarioComponent },
+      { path: "compras/consultar-imei", component: ConsultarImeiComponent },
+      { path: "caja/cuadre", component: CuadreCajaComponent },
+      { path: "caja/cuadres", component: CuadresMesComponent },
+      { path: "gastos/registro", component: RegistroGastosComponent },
+      { path: "system-manager/numeracion", component: NumeracionComponent },
     ],
   },
 ];

@@ -1,31 +1,66 @@
-<!-- Contenedor responsive (1 columna móvil, 2 columnas ≥ md) -->
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-  <!-- Card 1 -->
-  <div class="bg-white h-120 dark:bg-gray-800 rounded-xl shadow-md p-4 dark:bg-gray-900">
-    <h2 class="text-lg font-semibold mb-3 text-gray-700 dark:text-gray-200 dark:text-gray-300">Pedidos por sede</h2>
-    <div class="w-full">
-      <app-pedidos-grafico></app-pedidos-grafico>
-    </div>
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
+  <div
+    class="rounded-xl border border-emerald-100 bg-emerald-50/70 p-4 shadow-sm dark:border-emerald-900/40 dark:bg-emerald-500/10"
+  >
+    <div class="text-xs text-emerald-700/80 dark:text-emerald-200/80">Pedidos de hoy</div>
+    <div class="text-2xl font-semibold text-emerald-900 dark:text-emerald-100">{{ pedDia() }}</div>
   </div>
-
-  <!-- Card 2 -->
-  <div class="bg-white h-120 dark:bg-gray-800 rounded-xl shadow-md p-4 dark:bg-gray-900">
-    <h2 class="text-lg font-semibold mb-3 text-gray-700 dark:text-gray-200 dark:text-gray-300">Pedidos por todas las sedes</h2>
-    <div class="w-full">
-      <app-pedidos-general-grafico></app-pedidos-general-grafico>
-    </div>
+  <div class="rounded-xl border border-sky-100 bg-sky-50/70 p-4 shadow-sm dark:border-sky-900/40 dark:bg-sky-500/10">
+    <div class="text-xs text-sky-700/80 dark:text-sky-200/80">Pedidos del mes</div>
+    <div class="text-2xl font-semibold text-sky-900 dark:text-sky-100">{{ pedMes() }}</div>
   </div>
-  <div class="bg-white h-120 dark:bg-gray-800 rounded-xl shadow-md p-4 dark:bg-gray-900">
-    <h2 class="text-lg font-semibold mb-3 text-gray-700 dark:text-gray-200 dark:text-gray-300">Pedidos dia mes por sede</h2>
-    <div class="w-full">
-      <app-pedidos-dia-grafico [pedidosDia]="pedDia()" [pedidosMes]="pedMes()"></app-pedidos-dia-grafico>
-    </div>
+  <div
+    class="rounded-xl border border-violet-100 bg-violet-50/70 p-4 shadow-sm dark:border-violet-900/40 dark:bg-violet-500/10"
+  >
+    <div class="text-xs text-violet-700/80 dark:text-violet-200/80">Último mes (sede)</div>
+    <div class="text-2xl font-semibold text-violet-900 dark:text-violet-100">{{ ultimoMesSede() }}</div>
   </div>
-  <div class="bg-white h-120 dark:bg-gray-800 rounded-xl shadow-md p-4 dark:bg-gray-900">
-    <h2 class="text-lg font-semibold mb-3 text-gray-700 dark:text-gray-200 dark:text-gray-300">Pedidos dia mes todas las sedes</h2>
-    <div class="w-full">
-      <app-pedidos-dia-general-grafico [pedidosDia]="pedDia()" [pedidosMes]="pedMes()"></app-pedidos-dia-general-grafico>
-    </div>
+  <div
+    class="rounded-xl border border-amber-100 bg-amber-50/70 p-4 shadow-sm dark:border-amber-900/40 dark:bg-amber-500/10"
+  >
+    <div class="text-xs text-amber-700/80 dark:text-amber-200/80">Último mes (general)</div>
+    <div class="text-2xl font-semibold text-amber-900 dark:text-amber-100">{{ ultimoMesGeneral() }}</div>
   </div>
 </div>
 
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+  <app-monthly-sales-chart
+    [title]="'Pedidos mensuales por sede'"
+    [series]="monthlySeries()"
+    [categories]="monthlyCategories()"
+    [colors]="[
+      '#4F46E5',
+      '#22C55E',
+      '#F97316',
+      '#E11D48',
+      '#0EA5E9',
+      '#A855F7',
+      '#FACC15',
+      '#14B8A6',
+      '#EF4444',
+      '#6366F1',
+      '#10B981',
+      '#FB923C',
+    ]"
+    [distributed]="true"
+    [height]="380"
+  ></app-monthly-sales-chart>
+
+  <app-statics-chart
+    [title]="'Pedidos mensuales (todas las sedes)'"
+    [subtitle]="'Comparativo mensual consolidado'"
+    [series]="generalSeries()"
+    [categories]="generalCategories()"
+    [colors]="['#10B981', '#60A5FA']"
+  ></app-statics-chart>
+
+  <div class="xl:col-span-2">
+    <app-statics-chart
+      [title]="'Comparativo mensual (sede vs general)'"
+      [subtitle]="'Evolución en el tiempo'"
+      [series]="compareSeries()"
+      [categories]="monthlyCategories()"
+      [colors]="['#7C3AED', '#22C55E']"
+    ></app-statics-chart>
+  </div>
+</div>

@@ -66,11 +66,23 @@ export class UsuariosComponent {
   }
 
   editarUsuario(usuario: Usuario): void {
-    const dialogRef = this.dialog.open(NuevoUsuarioComponent, {
-      width: '80%',
-      data: usuario,
+    this.usuariosService.obtenerUsuario(usuario.idUser!).subscribe({
+      next: (res: any) => {
+        const data = res?.data ?? res ?? usuario;
+        const dialogRef = this.dialog.open(NuevoUsuarioComponent, {
+          width: '80%',
+          data,
+        });
+        dialogRef.afterClosed().subscribe((result: unknown) => result && this.buscar());
+      },
+      error: () => {
+        const dialogRef = this.dialog.open(NuevoUsuarioComponent, {
+          width: '80%',
+          data: usuario,
+        });
+        dialogRef.afterClosed().subscribe((result: unknown) => result && this.buscar());
+      },
     });
-    dialogRef.afterClosed().subscribe((res: unknown) => res && this.buscar());
   }
 
   eliminarUsuario(usuario: Usuario): void {

@@ -1,0 +1,102 @@
+<section class="p-4">
+  <div class="bg-white rounded-2xl border border-gray-100 shadow-sm dark:bg-gray-900 dark:border-gray-800">
+    <div class="flex items-center justify-between gap-4 p-6 border-b border-gray-100 dark:border-gray-800">
+      <div>
+        <h2 class="text-xl font-semibold text-gray-800 dark:text-white/90">Cuadre de Caja Diario</h2>
+        <p class="text-sm text-gray-500 dark:text-gray-400">Resumen de gastos por fecha</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <label class="text-sm text-gray-600 dark:text-gray-300">Fecha</label>
+        <div class="relative">
+          <input
+            matInput
+            [matDatepicker]="fechaPicker"
+            class="input pr-10"
+            [(ngModel)]="fecha"\r\n            (click)="fechaPicker.open()"
+            (dateChange)="onFechaChange()"
+          />
+          <button
+            type="button"
+            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400"
+            (click)="fechaPicker.open()"
+          >
+            <span class="i-ph-calendar-blank text-lg"></span>
+          </button>
+          <mat-datepicker #fechaPicker></mat-datepicker>
+        </div>
+      </div>
+    </div>
+
+    <div class="p-6 grid gap-6 lg:grid-cols-[360px_1fr]">
+      <div class="rounded-xl border border-gray-200 p-4 dark:border-gray-800 space-y-4">
+        <div>
+          <div class="text-xs text-gray-500 dark:text-gray-400">Ventas total</div>
+          <div class="text-2xl font-semibold text-emerald-600 dark:text-emerald-300">S/ {{ ventasTotal | number : "1.2-2" }}</div>
+        </div>
+        <div>
+          <div class="text-xs text-gray-500 dark:text-gray-400">Compras total</div>
+          <div class="text-xl font-semibold text-rose-600 dark:text-rose-300">S/ {{ comprasTotal | number : "1.2-2" }}</div>
+        </div>
+        <div>
+          <div class="text-xs text-gray-500 dark:text-gray-400">Gastos total</div>
+          <div class="text-xl font-semibold text-amber-600 dark:text-amber-300">S/ {{ gastosTotal | number : "1.2-2" }}</div>
+        </div>
+
+        <label class="flex flex-col text-sm text-gray-700 dark:text-gray-200">
+          Saldo inicial
+          <input type="number" class="input mt-1" [(ngModel)]="saldoInicial" />
+        </label>
+        <label class="flex flex-col text-sm text-gray-700 dark:text-gray-200">
+          Dinero en caja
+          <input type="number" class="input mt-1" [(ngModel)]="dineroEnCaja" />
+        </label>
+        <label class="flex flex-col text-sm text-gray-700 dark:text-gray-200">
+          Dinero en cuentas
+          <input type="number" class="input mt-1" [(ngModel)]="dineroEnCuentas" />
+        </label>
+        <label class="flex flex-col text-sm text-gray-700 dark:text-gray-200">
+          Mercadería
+          <input type="number" class="input mt-1" [(ngModel)]="mercaderia" />
+        </label>
+
+        <div class="rounded-lg border border-gray-200 p-3 dark:border-gray-800">
+          <div class="text-xs text-gray-500 dark:text-gray-400">Saldo final (calculado)</div>
+          <div class="text-lg font-semibold text-gray-800 dark:text-white/90">S/ {{ saldoFinal | number : "1.2-2" }}</div>
+          <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">Diferencia</div>
+          <div class="text-lg font-semibold" [ngClass]="diferencia === 0 ? 'text-emerald-600 dark:text-emerald-300' : 'text-rose-600 dark:text-rose-300'">
+            S/ {{ diferencia | number : "1.2-2" }}
+          </div>
+        </div>
+
+        <button
+          type="button"
+          (click)="guardar()"
+          class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-2.5 text-sm bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600 disabled:bg-brand-300"
+        >
+          {{ cuadreId ? "Actualizar cuadre" : "Guardar cuadre" }}
+        </button>
+        <div *ngIf="error" class="rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-sm text-rose-700 dark:border-rose-900/40 dark:bg-rose-500/10 dark:text-rose-200">
+          {{ error }}
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-gray-200 dark:border-gray-800 overflow-hidden">
+        <div class="px-4 py-3 border-b border-gray-100 dark:border-gray-800 text-sm font-semibold text-gray-700 dark:text-gray-200">
+          Ventas por tipo de pago
+        </div>
+        <div *ngIf="!ventasPorTipoPago.length" class="p-6 text-sm text-gray-500 dark:text-gray-400">
+          No hay ventas registradas para esta fecha.
+        </div>
+        <div *ngIf="ventasPorTipoPago.length" class="divide-y divide-gray-100 dark:divide-gray-800">
+          <div *ngFor="let v of ventasPorTipoPago" class="flex items-center justify-between gap-4 p-4">
+            <div class="min-w-0">
+              <div class="text-sm font-medium text-gray-800 dark:text-white/90 truncate">{{ v.tipoPago }}</div>
+            </div>
+            <div class="text-sm font-semibold text-gray-700 dark:text-gray-200">S/ {{ v.total | number : "1.2-2" }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

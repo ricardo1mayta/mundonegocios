@@ -133,6 +133,8 @@
         <app-columna-tabla titulo="Usuario Crea" propiedad="usuarioCrea" />
 
         <app-accion-tabla etiqueta="Ver" icono="visibility" (accion)="verPedido($event.datos)" />
+        <app-accion-tabla etiqueta="IMEIs" icono="qr_code_2" (accion)="registrarImeis($event.datos)" />
+        <app-accion-tabla etiqueta="Guia" icono="local_shipping" (accion)="generarGuia($event.datos)" />
         <app-accion-tabla etiqueta="Editar" icono="edit" (accion)="editarPedido($event.datos)" />
         <app-accion-tabla etiqueta="Anular" icono="settings" (accion)="anularPedido($event.datos)" />
       </app-data-table>

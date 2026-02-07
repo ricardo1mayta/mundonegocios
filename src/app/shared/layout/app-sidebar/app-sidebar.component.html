@@ -18,14 +18,18 @@
     }"
   >
     <a routerLink="/" class="flex items-center gap-3 min-w-0">
-      <!-- BADGE (siempre visible) -->
+      <!-- BADGE / LOGO (siempre visible) -->
       <div
         class="shrink-0 grid place-items-center rounded-xl ring-1 transition-all select-none w-10 h-10 text-sm font-extrabold tracking-wide shadow-sm shadow-black/5 dark:shadow-black/20"
-        [ngClass]="badgeClass()"
+        [ngClass]="logo() ? 'bg-transparent ring-gray-200 dark:ring-gray-800' : badgeClass()"
         [attr.aria-label]="'Empresa: ' + (empresa() ?? '')"
         title="{{ empresa() ?? '' }}"
       >
-        {{ initials() }}
+        @if (logo()) {
+          <img class="h-9 w-9 rounded-lg object-contain" [src]="logo()!" alt="Logo" />
+        } @else {
+          {{ initials() }}
+        }
       </div>
 
       <!-- NOMBRE (solo cuando expandido/hover/mobile) -->

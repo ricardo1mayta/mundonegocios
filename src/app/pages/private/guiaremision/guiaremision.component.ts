@@ -41,24 +41,18 @@ export class GuiaremisionComponent implements OnInit {
   dataTable = viewChild(DataTableComponent);
 
   configuracionExcel: IReporteExcel = {
-    titulo: 'Lista de pedidos',
-    fuente: 'Order de pedidos',
+    titulo: 'Guias de remision',
+    fuente: 'Guia de remision',
 
     columnas: [
-      { titulo: 'Codigo', propiedad: 'codigo' },
-      { titulo: 'Origen', propiedad: 'origen' },
-      { titulo: 'fechaCrea', propiedad: 'fechaCrea' },
-      { titulo: 'fechaCrea', propiedad: 'fechaEntrega' },
-      { titulo: 'nombreCliente', propiedad: 'nombreCliente' },
-      { titulo: 'Doc_Cliente', propiedad: 'docCliente' },
-      { titulo: 'Direccion', propiedad: 'direccion' },
-      { titulo: 'Total', propiedad: 'total' },
-      { titulo: 'observacion', propiedad: 'observacion' },
-      { titulo: 'status', propiedad: 'status' },
-      { titulo: 'tipoPago', propiedad: 'tipoPago' },
-      { titulo: 'pagoEfectivo', propiedad: 'pagoEfectivo' },
-      { titulo: 'otroModoPago', propiedad: 'otroModoPago' },
-      { titulo: 'usuarioCrea', propiedad: 'usuarioCrea' },
+      { titulo: 'ID', propiedad: 'id' },
+      { titulo: 'Tipo Doc', propiedad: 'tipoDoc' },
+      { titulo: 'Serie', propiedad: 'serie' },
+      { titulo: 'Correlativo', propiedad: 'correlativo' },
+      { titulo: 'Sede', propiedad: 'sedeId' },
+      { titulo: 'Fecha Emision', propiedad: 'fechaEmision' },
+      { titulo: 'Cliente ID', propiedad: 'clienteDestinoId' },
+      { titulo: 'Estado', propiedad: 'estado' },
       { titulo: 'Actions', propiedad: 'actions' },
     ],
   };
@@ -90,7 +84,7 @@ export class GuiaremisionComponent implements OnInit {
   }
   editarPedido(pedido: Pedido) {
     this.router.navigate(['/admin/guia/nueva-guia'], {
-      state: { compraId: pedido.id },
+      state: { guiaId: pedido.id },
     });
   }
 
@@ -134,3 +128,4 @@ export class GuiaremisionComponent implements OnInit {
     });
   }*/
 }
+

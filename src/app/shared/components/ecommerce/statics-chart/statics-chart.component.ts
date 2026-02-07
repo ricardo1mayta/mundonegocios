@@ -1,5 +1,5 @@
 
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnChanges, ViewChild, ViewEncapsulation } from '@angular/core';
 import flatpickr from 'flatpickr';
 import { Instance } from 'flatpickr/dist/types/instance';
 import { NgApexchartsModule } from 'ng-apexcharts';
@@ -23,8 +23,10 @@ import { ChartTabComponent } from '../../common/chart-tab/chart-tab.component';
   selector: 'app-statics-chart',
   imports: [NgApexchartsModule, ChartTabComponent],
   templateUrl: './statics-chart.component.html',
+  styleUrl: './statics-chart.component.css',
+  encapsulation: ViewEncapsulation.None,
 })
-export class StatisticsChartComponent implements AfterViewInit {
+export class StatisticsChartComponent implements AfterViewInit, OnChanges {
   @ViewChild('datepicker') datepicker!: ElementRef<HTMLInputElement>;
 
   ngAfterViewInit() {
@@ -44,7 +46,9 @@ export class StatisticsChartComponent implements AfterViewInit {
       },
     });
   }
-  public series: ApexAxisChartSeries = [
+  @Input() title = 'Statistics';
+  @Input() subtitle = "Target you\u2019ve set for each month";
+  @Input() series: ApexAxisChartSeries = [
     {
       name: 'Sales',
       data: [180, 190, 170, 160, 175, 165, 170, 205, 230, 210, 240, 235],
@@ -62,7 +66,7 @@ export class StatisticsChartComponent implements AfterViewInit {
     toolbar: { show: false },
   };
 
-  public colors: string[] = ['#465FFF', '#9CB9FF'];
+  @Input() colors: string[] = ['#465FFF', '#9CB9FF'];
 
   public stroke: ApexStroke = {
     curve: 'straight',
@@ -96,22 +100,24 @@ export class StatisticsChartComponent implements AfterViewInit {
     x: { format: 'dd MMM yyyy' },
   };
 
+  @Input() categories: string[] = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
+
   public xaxis: ApexXAxis = {
     type: 'category',
-    categories: [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ],
+    categories: this.categories,
     axisBorder: { show: false },
     axisTicks: { show: false },
     tooltip: { enabled: false },
@@ -135,4 +141,8 @@ export class StatisticsChartComponent implements AfterViewInit {
     position: 'top',
     horizontalAlign: 'left',
   };
+
+  ngOnChanges(): void {
+    this.xaxis = { ...this.xaxis, categories: this.categories };
+  }
 }

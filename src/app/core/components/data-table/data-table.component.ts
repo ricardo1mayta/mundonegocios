@@ -174,7 +174,7 @@ export class DataTableComponent {
       return;
     }
     const pageIndex0 = indice ?? this.paginaActual(); // 0-based (UI)
-    const pageBackend = pageIndex0 + 1; // 1-based (API)
+    const pageBackend = pageIndex0; // 0-based (API)
 
     const parametros = {
       datos: this.parametrosApi(),
@@ -183,15 +183,22 @@ export class DataTableComponent {
     };
 
     this.obtenerDatos<any>(this.metodoApi(), this.urlApi(), parametros).subscribe((resp) => {
-      const data = resp?.data;
+      const data = resp?.data ?? resp;
+      const lista =
+        data?.lista ??
+        data?.content ??
+        data?.items ??
+        (Array.isArray(data) ? data : null) ??
+        (Array.isArray(resp) ? resp : []) ??
+        [];
 
-      // backend devuelve 1-based -> convertir a 0-based
-      const backendPage = Number(data?.paginaActual ?? pageBackend);
-      this.paginaActual.set(Math.max(0, backendPage - 1));
+      // backend devuelve 0-based
+      const backendPage = Number(data?.paginaActual ?? data?.page ?? pageBackend);
+      this.paginaActual.set(Math.max(0, backendPage));
 
-      this.origenDatos = new MatTableDataSource<any>(data?.lista || []);
-      this.totalRegistros.set(Number(data?.totalRegistros ?? 0));
-      this.mostrarMensajeTablaVacia.set(false);
+      this.origenDatos = new MatTableDataSource<any>(lista);
+      this.totalRegistros.set(Number(data?.totalRegistros ?? data?.total ?? data?.totalElements ?? lista.length ?? 0));
+      this.mostrarMensajeTablaVacia.set(!lista.length);
     });
   }
 

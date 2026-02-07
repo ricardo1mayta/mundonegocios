@@ -1,5 +1,14 @@
 <app-form-crud titulo="Stock disponible">
   <div filtros>
+    <div class="mb-3 flex items-center justify-between">
+      <div class="text-sm font-medium text-gray-700 dark:text-gray-300">Inventario disponible</div>
+      <a
+        routerLink="/admin/inventario/imeis-disponibles"
+        class="inline-flex items-center gap-2 rounded-lg bg-brand-500 px-3 py-2 text-xs font-semibold text-white shadow-theme-xs hover:bg-brand-600"
+      >
+        Ver IMEIs disponibles
+      </a>
+    </div>
     <app-form-filter [formGroup]="filtroForm" [(filtros)]="filtros" [mostrarEstado]="false">
       <div class="grid gap-4">
         <!-- Buscador -->

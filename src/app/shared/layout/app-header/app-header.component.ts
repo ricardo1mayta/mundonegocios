@@ -25,6 +25,7 @@ export class AppHeaderComponent {
   ctx = this.auth.ctx; // signal completo
   nombre = this.auth.nombres; // computed
   empresa = this.auth.razonSocial;
+  logo = this.auth.logo;
   @ViewChild("searchInput") searchInput!: ElementRef<HTMLInputElement>;
 
   constructor(public sidebarService: SidebarService) {

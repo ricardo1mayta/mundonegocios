@@ -15,13 +15,13 @@ export class GuiaremisionService {
     return `${this.apiUrl}/pegasus/guia-remision/consultar-paginado`;
   }
   registrarGuiaRemision(pedido: any): Observable<any> {
-    return this._http.post(`${this.apiUrl}/pegasus/guia-remision`, pedido);
+    return this._http.post(`${this.apiUrl}/pegasus/guia-remision`, pedido, { observe: 'response' });
   }
   obtenerPedidoPorId(id: number): Observable<Cotizacion> {
     return this._http.get<Cotizacion>(`${this.apiUrl}/pegasus/guia-remision/${id}`);
   }
   editarGuiaRemision(id: any, pedido: any): Observable<any> {
-    return this._http.put(`${this.apiUrl}/pegasus/guia-remision/${id}`, pedido);
+    return this._http.put(`${this.apiUrl}/pegasus/guia-remision/${id}`, pedido, { observe: 'response' });
   }
   // agregar servicio tiket
 
