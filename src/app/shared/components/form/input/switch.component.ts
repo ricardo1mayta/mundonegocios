@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-switch',
@@ -17,7 +17,7 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
           class="block transition duration-150 ease-linear h-6 w-11 rounded-full"
           [ngClass]="
             (disabled
-              ? 'bg-gray-100 pointer-events-none dark:bg-gray-800'
+              ? switchColors.background + ' opacity-60 pointer-events-none'
               : switchColors.background)
           "
         ></div>
@@ -30,7 +30,7 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
     </label>
   `
 })
-export class SwitchComponent {
+export class SwitchComponent implements OnInit, OnChanges {
 
   @Input() label!: string;
   @Input() defaultChecked: boolean = false;
@@ -45,6 +45,12 @@ export class SwitchComponent {
     this.isChecked = this.defaultChecked;
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['defaultChecked']) {
+      this.isChecked = this.defaultChecked;
+    }
+  }
+
   handleToggle() {
     if (this.disabled) return;
     this.isChecked = !this.isChecked;
@@ -55,8 +61,8 @@ export class SwitchComponent {
     if (this.color === 'blue') {
       return {
         background: this.isChecked
-          ? 'bg-brand-500'
-          : 'bg-gray-200 dark:bg-white/10',
+          ? 'bg-emerald-500'
+          : 'bg-gray-200 dark:bg-gray-600',
         knob: this.isChecked
           ? 'translate-x-full bg-white'
           : 'translate-x-0 bg-white',
@@ -64,8 +70,8 @@ export class SwitchComponent {
     } else {
       return {
         background: this.isChecked
-          ? 'bg-gray-800 dark:bg-white/10'
-          : 'bg-gray-200 dark:bg-white/10',
+          ? 'bg-emerald-500'
+          : 'bg-gray-200 dark:bg-gray-600',
         knob: this.isChecked
           ? 'translate-x-full bg-white'
           : 'translate-x-0 bg-white',

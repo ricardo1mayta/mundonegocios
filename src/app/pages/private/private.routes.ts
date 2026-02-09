@@ -1,4 +1,4 @@
-import { Routes } from "@angular/router";
+﻿import { Routes } from "@angular/router";
 import { DashboardLayoutComponent } from "./layout/dashboard-layout/dashboard-layout.component";
 import { VentasComponent } from "./ventas/ventas.component";
 import { ClientesComponent } from "./clientes/clientes.component";
@@ -29,7 +29,7 @@ import { BomComponent } from "./fabricacion/pages/bom/bom/bom.component";
 import { CotizacionComponent } from "./fabricacion/pages/cotizacion/cotizacion/cotizacion.component";
 import { InsumosComponent } from "./fabricacion/pages/insumos/insumos/insumos.component";
 import { OpFlowComponent } from "./fabricacion/pages/op-flow/op-flow/op-flow.component";
-import { RequerimientosComponent } from "./fabricacion/pages/requerimientos/requerimientos/requerimientos.component";
+
 import { FichaTecnicaWizardComponent } from "./fabricacion/pages/ficha-tecnica-listar/ficha-tecnica/ficha-tecnica-wizard.component";
 import { FichaTecnicaListarComponent } from "./fabricacion/pages/ficha-tecnica-listar/ficha-tecnica-listar.component";
 import { ListarBomComponent } from "./fabricacion/pages/bom/listar-bom/listar-bom.component";
@@ -41,7 +41,11 @@ import { CuadreCajaComponent } from "./caja/cuadre-caja/cuadre-caja.component";
 import { CuadresMesComponent } from "./caja/cuadres-mes/cuadres-mes.component";
 import { RegistroGastosComponent } from "./gastos/registro-gastos/registro-gastos.component";
 import { NumeracionComponent } from "./numeracion/numeracion.component";
+import { SuperAdminComponent } from "./super-admin/super-admin.component";
 import { AppLayoutComponent } from "src/app/shared/layout/app-layout/app-layout.component";
+import { RequerimientosComponent } from "./fabricacion/pages/requerimientos/requerimientos/requerimientos.component";
+import { ProfileComponent } from "../profile/profile.component";
+import { SoporteComponent } from "./soporte/soporte.component";
 
 export const routes: Routes = [
   {
@@ -156,7 +160,10 @@ export const routes: Routes = [
       { path: "caja/cuadre", component: CuadreCajaComponent },
       { path: "caja/cuadres", component: CuadresMesComponent },
       { path: "gastos/registro", component: RegistroGastosComponent },
-      { path: "system-manager/numeracion", component: NumeracionComponent },
+      { path: "numeracion", component: NumeracionComponent },
+      { path: "super-admin", component: SuperAdminComponent },
+      { path: "profile", component: ProfileComponent },
+      { path: "soporte", component: SoporteComponent },
     ],
   },
 ];

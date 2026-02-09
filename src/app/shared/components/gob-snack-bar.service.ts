@@ -3,6 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackBarComponent } from './snack-bar/snack-bar.component';
 
 type SnackBarPayload = {
+  title?: string;
   message: string;
   type?: 'success' | 'error' | 'info' | 'warning';
   duration?: number;
@@ -13,9 +14,9 @@ export class GobSnackBarService {
   constructor(private snackBar: MatSnackBar) {}
 
   open(payload: SnackBarPayload) {
-    const { message, type = 'info', duration = 4000 } = payload;
+    const { title, message, type = 'info', duration = 4000 } = payload;
     this.snackBar.openFromComponent(SnackBarComponent, {
-      data: { message, type },
+      data: { title, message, type },
       duration,
       panelClass: [`snackbar-${type}`],
       verticalPosition: 'top',

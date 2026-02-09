@@ -151,6 +151,9 @@ export class DataTableComponent {
         this.origenDatos.data = this.datos();
         this.mostrarMensajeTablaVacia.set(!this.datos()?.length);
         this.actualizarEstadoCheckCabecera();
+        if (!this.urlApi()) {
+          this.totalRegistros.set(this.datos()?.length ?? 0);
+        }
       },
       { allowSignalWrites: true },
     );

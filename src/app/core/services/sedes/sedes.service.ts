@@ -1,10 +1,10 @@
-import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
-import { environment } from '../../../../environments/environment';
-import { Sede } from '../../models/sedes/sedes';
+import { HttpClient } from "@angular/common/http";
+import { inject, Injectable } from "@angular/core";
+import { environment } from "../../../../environments/environment";
+import { Sede } from "../../models/sedes/sedes";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class SedesService {
   private readonly apiUrl = environment.apiUrlBase;
@@ -24,9 +24,16 @@ export class SedesService {
   crearSede(sede: Sede) {
     return this._http.post(`${this.apiUrl}/pegasus/sedes`, sede);
   }
+  crearSedePadre(sede: Sede) {
+    return this._http.post(`${this.apiUrl}/pegasus/cuentas/crear`, sede);
+  }
 
   editarSede(id: number, sede: Sede) {
     return this._http.put(`${this.apiUrl}/pegasus/sedes/${id}`, sede);
+  }
+
+  editarSedePadre(id: number, sede: Sede) {
+    return this._http.put(`${this.apiUrl}/pegasus/admin/sedes/sedes-padre/${id}`, sede);
   }
 
   eliminarSede(id: number) {
@@ -47,4 +54,3 @@ export class SedesService {
     return this._http.get<Sede>(`${this.apiUrl}/pegasus/sedes/${id}`);
   }
 }
-

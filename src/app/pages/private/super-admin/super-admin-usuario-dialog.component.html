@@ -1,0 +1,64 @@
+<div class="modal-surface bg-white dark:bg-gray-900 dark:border-gray-800 dark:text-white/90">
+  <div class="flex items-center justify-between mb-4">
+    <h2 class="text-xl font-semibold text-gray-800 dark:text-white/90">
+      {{ esNuevo ? "Nuevo usuario" : "Editar usuario" }}
+    </h2>
+    <button mat-dialog-close class="text-gray-500 hover:text-gray-700 dark:text-gray-300">X</button>
+  </div>
+
+  <div class="grid gap-3 sm:grid-cols-2">
+    <label class="flex flex-col text-sm text-gray-700 dark:text-gray-200">
+      Username
+      <input class="input mt-1" [(ngModel)]="usuario.username" />
+    </label>
+    <label class="flex flex-col text-sm text-gray-700 dark:text-gray-200">
+      Password
+      <input class="input mt-1" [(ngModel)]="usuario.password" />
+    </label>
+    <label class="flex flex-col text-sm text-gray-700 dark:text-gray-200">
+      Correo
+      <input class="input mt-1" [(ngModel)]="usuario.emailUser" />
+    </label>
+    <label class="flex flex-col text-sm text-gray-700 dark:text-gray-200">
+      Apellidos
+      <input class="input mt-1" [(ngModel)]="usuario.apellidos" />
+    </label>
+    <label class="flex flex-col text-sm text-gray-700 dark:text-gray-200">
+      Tipo usuario
+      <input class="input mt-1" [(ngModel)]="usuario.tipoUser" />
+    </label>
+    <label class="flex flex-col text-sm text-gray-700 dark:text-gray-200">
+      Id Tipo User
+      <input class="input mt-1" [(ngModel)]="usuario.idcodTipoUser" />
+    </label>
+    <label class="flex flex-col text-sm text-gray-700 dark:text-gray-200 sm:col-span-2">
+      <mat-select
+        multiple
+        class="input"
+        [(ngModel)]="usuario.rolesIds"
+        [ngModelOptions]="{ standalone: true }"
+      >
+        <mat-option *ngFor="let r of roles" [value]="r.idRol">{{ r.nombreRol }}</mat-option>
+      </mat-select>
+    </label>
+    <label class="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-200 sm:col-span-2">
+      <input type="checkbox" [(ngModel)]="usuario.activo" />
+      Activo
+    </label>
+  </div>
+
+  <div class="mt-6 flex justify-end gap-2">
+    <button
+      mat-dialog-close
+      class="inline-flex items-center justify-center gap-2 rounded-lg transition px-4 py-2 text-sm bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
+    >
+      Cancelar
+    </button>
+    <button
+      (click)="guardar()"
+      class="inline-flex items-center justify-center gap-2 rounded-lg transition px-4 py-2 text-sm bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600"
+    >
+      {{ esNuevo ? "Crear" : "Guardar" }}
+    </button>
+  </div>
+</div>

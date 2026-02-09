@@ -1,0 +1,30 @@
+<div class="modal-surface bg-white dark:bg-gray-900 dark:border-gray-800 dark:text-white/90">
+  <div class="flex items-center justify-between mb-4">
+    <h2 class="text-xl font-semibold text-gray-800 dark:text-white/90">Editar sede padre</h2>
+    <button mat-dialog-close class="text-gray-500 hover:text-gray-700 dark:text-gray-300">✕</button>
+  </div>
+
+  <div class="grid gap-3 sm:grid-cols-2">
+    <label class="flex flex-col text-sm text-gray-700 dark:text-gray-200 sm:col-span-2">
+      Nombre
+      <input class="input mt-1" [(ngModel)]="sede.nombressede" />
+    </label>
+    <label class="flex flex-col text-sm text-gray-700 dark:text-gray-200 sm:col-span-2">
+      Correo
+      <input class="input mt-1" [(ngModel)]="sede.correo" />
+    </label>
+    <label class="flex flex-col text-sm text-gray-700 dark:text-gray-200 sm:col-span-2">
+      Contraseña
+      <input class="input mt-1" type="password" [(ngModel)]="sede.clave" />
+    </label>
+  </div>
+
+  <div class="mt-6 flex justify-end gap-2">
+    <button mat-dialog-close class="inline-flex items-center justify-center gap-2 rounded-lg transition px-4 py-2 text-sm bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700">
+      Cancelar
+    </button>
+    <button (click)="guardar()" class="inline-flex items-center justify-center gap-2 rounded-lg transition px-4 py-2 text-sm bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600">
+      Guardar
+    </button>
+  </div>
+</div>

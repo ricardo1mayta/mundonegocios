@@ -1,0 +1,164 @@
+<section class="p-4">
+  <div class="bg-white rounded-2xl border border-gray-100 shadow-sm dark:bg-gray-900 dark:border-gray-800">
+    <div class="flex items-center justify-between gap-4 p-6 border-b border-gray-100 dark:border-gray-800">
+      <div>
+        <h2 class="text-xl font-semibold text-gray-800 dark:text-white/90">Super Admin</h2>
+        <p class="text-sm text-gray-500 dark:text-gray-400">Sedes padre, sedes hijas y usuarios</p>
+      </div>
+    </div>
+
+    <div class="p-6 grid gap-6">
+      <div class="rounded-xl border border-gray-200 dark:border-gray-800 overflow-hidden">
+        <div
+          class="px-4 py-3 border-b border-gray-100 dark:border-gray-800 text-sm font-semibold text-gray-700 dark:text-gray-200 flex items-center justify-between gap-3"
+        >
+          <span>Sedes padre (todas)</span>
+          <button
+            type="button"
+            (click)="crearSedePadre()"
+            class="inline-flex items-center justify-center gap-2 rounded-lg transition px-3 py-2 text-xs bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600"
+          >
+            Nueva sede padre
+          </button>
+        </div>
+        <app-data-table
+          #tablaPadre
+          [urlApi]="api.urlSedesPadre"
+          [metodoApi]="'post'"
+          [parametrosApi]="parametrosPadres"
+          [tamanioPagina]="10"
+        >
+          <app-columna-tabla titulo="ID" propiedad="id" />
+          <app-columna-tabla titulo="Nombre" propiedad="nombressede" />
+          <app-columna-tabla titulo="Estado" propiedad="statusssede">
+            <ng-template let-estado="valor">
+              <span
+                class="text-xs font-semibold"
+                [ngClass]="estado ? 'text-emerald-600 dark:text-emerald-300' : 'text-rose-600 dark:text-rose-300'"
+              >
+                {{ estado ? "Activo" : "Inactivo" }}
+              </span>
+            </ng-template>
+          </app-columna-tabla>
+          <app-columna-tabla titulo="Vigencia" propiedad="vigencia" />
+          <app-accion-tabla etiqueta="Hijas" icono="list" (accion)="verHijas($event.datos)" />
+          <app-accion-tabla etiqueta="Editar" icono="edit" (accion)="seleccionarSedePadre($event.datos)" />
+        </app-data-table>
+      </div>
+
+      <div class="grid gap-6">
+        <div class="rounded-xl border border-gray-200 p-4 dark:border-gray-800">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <div class="text-sm font-semibold text-gray-700 dark:text-gray-200">Sedes hijas</div>
+              <div class="text-xs text-gray-500 dark:text-gray-400">Selecciona una sede padre para listar</div>
+            </div>
+            <button
+              type="button"
+              (click)="crearSedeHija()"
+              class="inline-flex items-center justify-center gap-2 rounded-lg transition px-4 py-2 text-sm bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600"
+            >
+              Nuevo registro
+            </button>
+          </div>
+          <div class="mt-4">
+            <app-data-table
+              #tablaHijas
+              [urlApi]="api.urlSedesHijas"
+              [metodoApi]="'post'"
+              [parametrosApi]="parametrosHijas"
+              [tamanioPagina]="10"
+            >
+              <app-columna-tabla titulo="ID" propiedad="id" />
+              <app-columna-tabla titulo="RUC" propiedad="ruc" />
+              <app-columna-tabla titulo="Nombre" propiedad="nomComercial" />
+              <app-columna-tabla titulo="Razon social" propiedad="razonSocial" />
+              <app-columna-tabla titulo="Estado" propiedad="status">
+                <ng-template let-estado="valor">
+                  <span
+                    class="text-xs font-semibold"
+                    [ngClass]="
+                      estado === '1' || estado === 1 || estado === true
+                        ? 'text-emerald-600 dark:text-emerald-300'
+                        : 'text-rose-600 dark:text-rose-300'
+                    "
+                  >
+                    {{ estado === "1" || estado === 1 || estado === true ? "Activo" : "Inactivo" }}
+                  </span>
+                </ng-template>
+              </app-columna-tabla>
+              <app-accion-tabla etiqueta="Editar" icono="edit" (accion)="editarSedeHija($event.datos)" />
+            </app-data-table>
+          </div>
+        </div>
+      </div>
+
+      <section class="rounded-2xl border border-gray-200 bg-white/70 p-4 shadow-sm dark:border-gray-800 dark:bg-gray-900/60">
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-gray-100 pb-3 dark:border-gray-800">
+          <div>
+            <div class="text-sm font-semibold text-gray-800 dark:text-gray-200">Usuarios (paginado)</div>
+            <div class="text-xs text-gray-500 dark:text-gray-400">Listado por sede hija seleccionada</div>
+          </div>
+          <div class="text-xs text-gray-500 dark:text-gray-400">
+            @if (sedeHijaId) { Sede activa: <span class="font-medium text-gray-700 dark:text-gray-200">#{{ sedeHijaId }}</span> }
+          </div>
+        </div>
+
+        <div class="pt-4 space-y-4">
+          <div *ngIf="!sedeHijaId" class="rounded-lg border border-dashed border-gray-200 p-4 text-sm text-gray-500 dark:border-gray-700 dark:text-gray-400">
+            Selecciona una sede hija para listar usuarios.
+          </div>
+          <div *ngIf="sedeHijaId" class="grid gap-3 sm:grid-cols-[1fr_auto] sm:items-end">
+            <div>
+              <label class="text-xs font-medium text-gray-600 dark:text-gray-300">Sede hija</label>
+              <select class="input mt-1 w-full" (change)="onSedeHijaSelect($any($event.target).value)">
+                <option *ngFor="let h of sedesHijas" [value]="h.id">
+                  {{ h.nomComercial || h.razonSocial || "Sede " + h.id }}
+                </option>
+              </select>
+            </div>
+            <button
+              type="button"
+              (click)="abrirUsuarioNuevo()"
+              class="inline-flex items-center justify-center gap-2 rounded-lg transition px-4 py-2 text-sm bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600"
+            >
+              Nuevo usuario
+            </button>
+          </div>
+          <div *ngIf="sedeHijaId">
+            <app-data-table
+              #tablaUsuarios
+              [urlApi]="api.urlUsuarios"
+              [metodoApi]="'post'"
+              [parametrosApi]="parametrosUsuarios"
+              [tamanioPagina]="10"
+            >
+              <app-columna-tabla titulo="ID" propiedad="idUser" />
+              <app-columna-tabla titulo="Usuario" propiedad="username" />
+              <app-columna-tabla titulo="Correo" propiedad="emailUser" />
+              <app-columna-tabla titulo="Activo" propiedad="activo">
+                <ng-template let-estado="valor">
+                  <span
+                    class="text-xs font-semibold"
+                    [ngClass]="estado ? 'text-emerald-600 dark:text-emerald-300' : 'text-rose-600 dark:text-rose-300'"
+                  >
+                    {{ estado ? "Activo" : "Inactivo" }}
+                  </span>
+                </ng-template>
+              </app-columna-tabla>
+              <app-columna-tabla titulo="Tipo" propiedad="tipoUser" />
+              <app-accion-tabla etiqueta="Editar" icono="edit" (accion)="editarUsuario($event.datos)" />
+            </app-data-table>
+          </div>
+        </div>
+      </section>
+
+      <div
+        *ngIf="error"
+        class="rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-sm text-rose-700 dark:border-rose-900/40 dark:bg-rose-500/10 dark:text-rose-200"
+      >
+        {{ error }}
+      </div>
+    </div>
+  </div>
+</section>

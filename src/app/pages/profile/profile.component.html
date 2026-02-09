@@ -4,8 +4,8 @@
     Profile
   </h3>
   <div class="space-y-6">
-    <div><app-user-meta-card/></div>
-    <div><app-user-info-card/></div>
-    <div><app-user-address-card/></div>
+    <div><app-user-meta-card [profile]="profile()"/></div>
+    <div><app-user-info-card [profile]="profile()"/></div>
+    <div><app-user-address-card [profile]="profile()"/></div>
   </div>
 </div>

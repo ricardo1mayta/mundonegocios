@@ -5,8 +5,8 @@
 
     <select
       class="h-9 rounded-xl border border-gray-300/40 bg-white px-3 text-sm text-gray-800 shadow-sm focus:outline-none focus:border-blue-500/60 focus:ring-2 focus:ring-blue-500/20 disabled:opacity-50 disabled:cursor-not-allowed dark:border-gray-700/50 dark:bg-gray-900 dark:text-gray-100 dark:text-white/90"
-      [ngModel]="pageSize"
-      (ngModelChange)="onPageSizeChange($event)"
+      [value]="pageSize"
+      (change)="onPageSizeChange($any($event.target).value)"
       [disabled]="loading"
     >
       <option *ngFor="let opt of pageSizeOptions" [value]="opt">{{ opt }}</option>

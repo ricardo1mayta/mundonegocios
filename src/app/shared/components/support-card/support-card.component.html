@@ -1,0 +1,30 @@
+<section class="support-card">
+  <div class="support-header">
+    <div class="support-avatar">
+      <img [src]="soporte.foto" [alt]="soporte.nombre" />
+    </div>
+    <div class="support-title">
+      <h3>{{ soporte.nombre }}</h3>
+      <p class="support-role">{{ soporte.cargo }}</p>
+      <p class="support-prof">{{ soporte.profesion }}</p>
+    </div>
+  </div>
+
+  <div class="support-body">
+    <p class="support-system">
+      <span class="support-system-name">{{ soporte.sistema }}</span>
+      <span class="support-system-desc">{{ soporte.descripcion }}</span>
+    </p>
+
+    <div class="support-contacts">
+      <div class="support-contact">
+        <span class="support-label">Soporte</span>
+        <span class="support-value">{{ soporte.telefono }}</span>
+      </div>
+      <div class="support-contact">
+        <span class="support-label">Correo</span>
+        <span class="support-value">{{ soporte.email }}</span>
+      </div>
+    </div>
+  </div>
+</section>

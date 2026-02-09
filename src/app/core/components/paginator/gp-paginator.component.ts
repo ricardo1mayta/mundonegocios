@@ -1,12 +1,11 @@
 import { CommonModule } from "@angular/common";
 import { Component, EventEmitter, Input, Output, computed, signal } from "@angular/core";
-import { FormsModule } from "@angular/forms";
 import { PageEvent } from "@angular/material/paginator";
 
 @Component({
   selector: "gp-paginator",
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule],
   templateUrl: "./gp-paginator.component.html",
 })
 export class GpPaginatorComponent {

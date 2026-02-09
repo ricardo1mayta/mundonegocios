@@ -1,5 +1,8 @@
 <div class="relative">
-  <button (click)="toggleDropdown()" class="flex items-center text-gray-700 dropdown-toggle dark:text-gray-400 dark:text-gray-300">
+  <button
+    (click)="toggleDropdown()"
+    class="flex items-center text-gray-700 dropdown-toggle dark:text-gray-400 dark:text-gray-300"
+  >
     <span class="mr-3 overflow-hidden rounded-full h-11 w-11">
       <img [src]="img()" alt="User" />
     </span>
@@ -31,7 +34,9 @@
     className="absolute right-0 mt-[17px] flex w-[260px] flex-col rounded-2xl border border-gray-200 p-3 shadow-theme-lg dark:border-gray-800 dark:bg-gray-dark"
   >
     <div>
-      <span class="block font-medium text-gray-700 text-theme-sm dark:text-gray-400 dark:text-gray-300"> Musharof Chowdhury </span>
+      <span class="block font-medium text-gray-700 text-theme-sm dark:text-gray-400 dark:text-gray-300">
+        Musharof Chowdhury
+      </span>
       <span class="mt-0.5 block text-theme-xs text-gray-500 dark:text-gray-400"> randomuser&#64;pimjo.com </span>
     </div>
 
@@ -40,7 +45,7 @@
         <app-dropdown-item-two
           (itemClick)="closeDropdown()"
           tag="a"
-          [to]="'/profile'"
+          [to]="'/admin/profile'"
           className="flex items-center gap-3 px-3 py-2 font-medium text-gray-700 rounded-lg group text-theme-sm hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300 dark:text-gray-300"
         >
           <svg
@@ -65,7 +70,7 @@
         <app-dropdown-item-two
           (itemClick)="closeDropdown()"
           tag="a"
-          [to]="'/profile'"
+          [to]="'/admin/system-manager/admin-sede'"
           className="flex items-center gap-3 px-3 py-2 font-medium text-gray-700 rounded-lg group text-theme-sm hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300 dark:text-gray-300"
         >
           <svg
@@ -90,7 +95,7 @@
         <app-dropdown-item-two
           (itemClick)="closeDropdown()"
           tag="a"
-          [to]="'/profile'"
+          [to]="'/admin/soporte'"
           className="flex items-center gap-3 px-3 py-2 font-medium text-gray-700 rounded-lg group text-theme-sm hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300 dark:text-gray-300"
         >
           <svg
@@ -136,5 +141,3 @@
     </a>
   </app-dropdown>
 </div>
-
-

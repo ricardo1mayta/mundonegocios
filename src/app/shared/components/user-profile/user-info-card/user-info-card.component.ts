@@ -1,47 +1,31 @@
-import { Component } from '@angular/core';
-import { ModalService } from '../../../services/modal.service';
-
-import { InputFieldComponent } from '../../form/input/input-field.component';
-import { ButtonComponent } from '../../ui/button/button.component';
-import { LabelComponent } from '../../form/label/label.component';
-import { ModalComponent } from '../../ui/modal/modal.component';
+import { Component, Input } from '@angular/core';
+import { MeResponse } from '../../../../core/services/auth.service';
 
 @Component({
   selector: 'app-user-info-card',
-  imports: [
-    InputFieldComponent,
-    ButtonComponent,
-    LabelComponent,
-    ModalComponent
-],
+  imports: [],
   templateUrl: './user-info-card.component.html',
   styles: ``
 })
 export class UserInfoCardComponent {
 
-  constructor(public modal: ModalService) {}
+  @Input() profile: MeResponse | null = null;
 
-  isOpen = false;
-  openModal() { this.isOpen = true; }
-  closeModal() { this.isOpen = false; }
-
-  user = {
-    firstName: 'Musharof',
-    lastName: 'Chowdhury',
-    email: 'randomuser@pimjo.com',
-    phone: '+09 363 398 46',
-    bio: 'Team Manager',
-    social: {
-      facebook: 'https://www.facebook.com/PimjoHQ',
-      x: 'https://x.com/PimjoHQ',
-      linkedin: 'https://www.linkedin.com/company/pimjo',
-      instagram: 'https://instagram.com/PimjoHQ',
-    },
-  };
-
-  handleSave() {
-    // Handle save logic here
-    console.log('Saving changes...');
-    this.modal.closeModal();
+  get nombres(): string {
+    return this.profile?.nombres || '—';
   }
+  get nombresede(): string {
+    return this.profile?.nombresede || '—';
+  }
+  get ruc(): string {
+    return this.profile?.ruc || '—';
+  }
+  get razonSocial(): string {
+    return this.profile?.razonSocial || '—';
+  }
+  get nombreComercial(): string {
+    return this.profile?.nombreComercial || '—';
+  }
+
+  
 }
