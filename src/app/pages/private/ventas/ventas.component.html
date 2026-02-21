@@ -35,9 +35,9 @@
           </div>
         </div>
 
-        <!-- Fecha desde -->
+        <!--â€ŠFecha desde -->
         <div class="flex flex-col">
-          <label for="fechaDesde" class="text-md font-medium mt-4 mb-1 dark:text-white/90">Fecha de creación (Desde)</label>
+          <label for="fechaDesde" class="text-md font-medium mt-4 mb-1 dark:text-white/90">Fecha Desde</label>
           <div class="relative">
             <input
               id="fechaDesde"
@@ -45,6 +45,8 @@
               [matDatepicker]="fechaDesdePicker"
               formControlName="fechaDesde"
               [max]="filtroForm.get('fechaHasta')?.value"
+              placeholder="dd/MM/yyyy"
+              autocomplete="off"
               class="input pr-10"
               (click)="fechaDesdePicker.open()"
             />
@@ -59,7 +61,7 @@
           </div>
         </div>
 
-        <!-- Fecha hasta -->
+        <!--â€ŠFecha hasta -->
         <div class="self-end flex flex-col">
           <label for="fechaHasta" class="sr-only">Hasta</label>
           <div class="relative">
@@ -69,6 +71,8 @@
               [matDatepicker]="fechaHastaPicker"
               formControlName="fechaHasta"
               [min]="filtroForm.get('fechaDesde')?.value"
+              placeholder="dd/MM/yyyy"
+              autocomplete="off"
               class="input pr-10"
               (click)="fechaHastaPicker.open()"
             />
@@ -94,7 +98,7 @@
       nombreExcel="PEDIDOS"
       [configuracionExcel]="configuracionExcel"
     >
-      <app-data-table [urlApi]="urlApi()" [parametrosApi]="filtros()" [urlExcel]="urlApiReporte()">
+      <app-data-table [urlApi]="urlApi()" [parametrosApi]="filtrosApi()" [urlExcel]="urlApiReporte()">
         <app-columna-tabla titulo="Codigo" propiedad="codigo" />
 
         <app-columna-tabla titulo="Tikect" propiedad="id">
@@ -141,6 +145,3 @@
     </app-form-list>
   </div>
 </app-form-crud>
-
-
-

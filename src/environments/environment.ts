@@ -1,7 +1,7 @@
 export const environment = {
-  production: false,
+  production: true,
   urlImgen: "",
-  //apiUrlBase: "https://api.sismas.pe",
+  //apiUrlBase: "https://api.sismas.pe/sismas-backend",
   apiUrlBase: "http://localhost:8080/sismas-backend",
   apiImagenes: "https://sismas.pe/img_publicas/serviceimgprod.php",
 };

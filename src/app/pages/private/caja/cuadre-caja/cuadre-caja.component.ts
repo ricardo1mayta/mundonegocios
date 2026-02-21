@@ -7,6 +7,7 @@ import { MatInputModule } from "@angular/material/input";
 import { forkJoin, of } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { CuadreDiarioService } from "../../../../core/services/cuadre-diario/cuadre-diario.service";
+import { ReportePedidosService } from "../../../../core/services/reportes/reporte-pedidos.service";
 
 @Component({
   selector: "app-cuadre-caja",
@@ -17,6 +18,7 @@ import { CuadreDiarioService } from "../../../../core/services/cuadre-diario/cua
 })
 export class CuadreCajaComponent {
   private cuadreService = inject(CuadreDiarioService);
+  private reporteService = inject(ReportePedidosService);
 
   fecha = new Date();
   cargando = false;
@@ -28,6 +30,7 @@ export class CuadreCajaComponent {
   ventasPorTipoPago: { tipoPago: string; total: number }[] = [];
   comprasTotal = 0;
   gastosTotal = 0;
+  montoMercaderiaKpi = 0;
 
   dineroEnCaja: number | null = null;
   dineroEnCuentas: number | null = null;
@@ -69,9 +72,9 @@ export class CuadreCajaComponent {
       ventas: this.cuadreService.getVentas(this.formatDate(this.fecha)).pipe(catchError(() => of(null))),
       compras: this.cuadreService.getCompras(this.formatDate(this.fecha)).pipe(catchError(() => of(null))),
       gastos: this.cuadreService.getGastos(this.formatDate(this.fecha)).pipe(catchError(() => of(null))),
+      mercaderiaKpi: this.reporteService.montoTotalMercaderia().pipe(catchError(() => of(null))),
     }).subscribe({
-      next: ({ cuadre, ventas, compras, gastos }) => {
-        // Cuadre guardado
+      next: ({ cuadre, ventas, compras, gastos, mercaderiaKpi }) => {
         const cuadreData = cuadre?.data ?? cuadre ?? null;
         if (cuadreData?.id) {
           this.cuadreId = cuadreData.id;
@@ -95,7 +98,6 @@ export class CuadreCajaComponent {
           this.cuadreId = null;
         }
 
-        // Ventas del día
         const ventasData = ventas?.data ?? ventas ?? null;
         const ventasLista = Array.isArray(ventasData?.ventasPorTipoPago)
           ? ventasData.ventasPorTipoPago
@@ -109,16 +111,29 @@ export class CuadreCajaComponent {
           this.ventasTotal = this.num(ventasData.total);
         }
 
-        // Compras del día
         const comprasData = compras?.data ?? compras ?? null;
         if (comprasData?.total != null) {
           this.comprasTotal = this.num(comprasData.total);
         }
 
-        // Gastos del día
         const gastosData = gastos?.data ?? gastos ?? null;
-        if (gastosData?.total != null) {
+        const gastosLista = Array.isArray(gastosData?.gastos)
+          ? gastosData.gastos
+          : Array.isArray(gastosData)
+          ? gastosData
+          : [];
+
+        if (gastosLista.length) {
+          this.gastosTotal = gastosLista.reduce((s: number, g: any) => s + this.num(g?.monto ?? g?.total ?? g?.importe), 0);
+        } else if (gastosData?.total != null) {
           this.gastosTotal = this.num(gastosData.total);
+        }
+
+        const mercaderiaKpiData = (mercaderiaKpi as any)?.data ?? mercaderiaKpi ?? 0;
+        this.montoMercaderiaKpi = this.num(mercaderiaKpiData);
+
+        if (!this.cuadreId && this.mercaderia == null) {
+          this.mercaderia = this.montoMercaderiaKpi;
         }
 
         this.cargando = false;
@@ -128,6 +143,10 @@ export class CuadreCajaComponent {
         this.cargando = false;
       },
     });
+  }
+
+  usarMontoMercaderiaKpi() {
+    this.mercaderia = this.montoMercaderiaKpi;
   }
 
   guardar() {

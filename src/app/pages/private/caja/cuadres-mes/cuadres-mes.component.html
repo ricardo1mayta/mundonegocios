@@ -40,7 +40,7 @@
       </div>
     </div>
 
-    <div class="p-6 grid gap-4 lg:grid-cols-4">
+    <div class="p-6 grid gap-4 lg:grid-cols-5">
       <div class="rounded-xl border border-gray-200 p-4 dark:border-gray-800">
         <div class="text-xs text-gray-500 dark:text-gray-400">Ventas total</div>
         <div class="text-2xl font-semibold text-emerald-600 dark:text-emerald-300">S/ {{ totalVentas | number : "1.2-2" }}</div>
@@ -52,6 +52,10 @@
       <div class="rounded-xl border border-gray-200 p-4 dark:border-gray-800">
         <div class="text-xs text-gray-500 dark:text-gray-400">Gastos total</div>
         <div class="text-2xl font-semibold text-amber-600 dark:text-amber-300">S/ {{ totalGastos | number : "1.2-2" }}</div>
+      </div>
+      <div class="rounded-xl border border-gray-200 p-4 dark:border-gray-800">
+        <div class="text-xs text-gray-500 dark:text-gray-400">Mercaderia total</div>
+        <div class="text-2xl font-semibold text-sky-600 dark:text-sky-300">S/ {{ totalMercaderia | number : "1.2-2" }}</div>
       </div>
       <div class="rounded-xl border border-gray-200 p-4 dark:border-gray-800">
         <div class="text-xs text-gray-500 dark:text-gray-400">Diferencia total</div>
@@ -83,6 +87,7 @@
                 <th class="px-4 py-3 text-left">Ventas</th>
                 <th class="px-4 py-3 text-left">Compras</th>
                 <th class="px-4 py-3 text-left">Gastos</th>
+                <th class="px-4 py-3 text-left">Mercaderia</th>
                 <th class="px-4 py-3 text-left">Saldo Final</th>
                 <th class="px-4 py-3 text-left">Diferencia</th>
               </tr>
@@ -93,6 +98,7 @@
                 <td class="p-3 dark:text-white/80">S/ {{ r.ventasTotal | number : "1.2-2" }}</td>
                 <td class="p-3 dark:text-white/80">S/ {{ r.comprasTotal | number : "1.2-2" }}</td>
                 <td class="p-3 dark:text-white/80">S/ {{ r.gastosTotal | number : "1.2-2" }}</td>
+                <td class="p-3 dark:text-white/80">S/ {{ r.mercaderia | number : "1.2-2" }}</td>
                 <td class="p-3 dark:text-white/90">S/ {{ r.saldoFinal | number : "1.2-2" }}</td>
                 <td class="p-3 font-semibold" [ngClass]="(r.diferencia || 0) === 0 ? 'text-emerald-600 dark:text-emerald-300' : 'text-rose-600 dark:text-rose-300'">
                   S/ {{ r.diferencia | number : "1.2-2" }}
@@ -105,4 +111,3 @@
     </div>
   </div>
 </section>
-

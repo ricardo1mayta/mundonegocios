@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, model, signal, ViewChild, viewChild } from "@angular/core";
+import { Component, inject, model, signal, ViewChild, viewChild } from "@angular/core";
 import { ReactiveFormsModule, FormGroup, FormControl, FormsModule } from "@angular/forms";
 import { MatNativeDateModule } from "@angular/material/core";
 import { MatDatepickerModule } from "@angular/material/datepicker";
@@ -20,6 +20,7 @@ import { SedesService } from "../../../../core/services/sedes/sedes.service";
 import { Sede } from "../../../../core/models/sedes/sedes";
 import { ImagePreviewDialogComponent } from "../../../../shared/components/image-preview-dialog/image-preview-dialog.component";
 import { SwitchComponent } from "src/app/shared/components/form/input/switch.component";
+import { RutaService } from "src/app/core/services/general/ruta.service";
 
 @Component({
   selector: "app-invertario",
@@ -60,7 +61,7 @@ export class InvertarioComponent {
 
     columnas: [{ titulo: "Codigo", propiedad: "codigo" }],
   };
-
+  private rutaService = inject(RutaService);
   constructor(
     private dialog: MatDialog,
     private inventarioService: InventarioService,
@@ -68,6 +69,10 @@ export class InvertarioComponent {
   ) {}
 
   ngOnInit(): void {
+    this.rutaService.setPermisosRuta({
+      puedeCrear: false,
+      puedeExportar: false,
+    });
     this.urlApi = signal(this.inventarioService.urlListaProductos);
     this.buscar();
     this.listarSedes();

@@ -44,6 +44,7 @@ export class NuevoUsuarioComponent implements OnInit {
     this.personalesForm = this.fb.group({
       username: ['', Validators.required],
       emailUser: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
       nombres: ['', Validators.required],
       apellidos: ['', Validators.required],
       img: [''],
@@ -65,6 +66,9 @@ export class NuevoUsuarioComponent implements OnInit {
     console.log('Sedes', this.data);
     /* edición */
     if (this.data) {
+      this.personalesForm.get('password')?.clearValidators();
+      this.personalesForm.get('password')?.updateValueAndValidity();
+
       const u = this.data as Usuario;
       this.personalesForm.patchValue({
         username: u.username,
@@ -85,10 +89,16 @@ export class NuevoUsuarioComponent implements OnInit {
 
   /* Combinar payload */
   private payload() {
-    return {
+    const payload = {
       ...this.personalesForm.value,
       ...this.configForm.value,
     };
+
+    if (this.data?.idUser && !payload.password) {
+      delete payload.password;
+    }
+
+    return payload;
   }
 
   guardar(): void {

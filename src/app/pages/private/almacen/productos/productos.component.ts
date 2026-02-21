@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, model, signal, ViewChild, viewChild } from "@angular/core";
+import { Component, inject, model, signal, ViewChild, viewChild } from "@angular/core";
 import { ReactiveFormsModule, FormGroup, FormControl, FormsModule } from "@angular/forms";
 import { MatNativeDateModule } from "@angular/material/core";
 import { MatDatepickerModule } from "@angular/material/datepicker";
@@ -12,13 +12,13 @@ import { FormFilterComponent } from "../../../../core/components/form-crud/form-
 import { FormListComponent } from "../../../../core/components/form-crud/form-list/form-list.component";
 import { MaterialModule } from "../../../../core/modules/material/material.module";
 
-
 import { CrearProductosComponent } from "./crear-productos/crear-productos.component";
 import { ProductosService } from "../../../../core/services/productos/productos.service";
 import { Producto } from "../../../../core/models/almacen/producto";
 import { ImagePreviewDialogComponent } from "../../../../shared/components/image-preview-dialog/image-preview-dialog.component";
 import { SwitchComponent } from "src/app/shared/components/form/input/switch.component";
 import { BadgeComponent } from "src/app/shared/components/ui/badge/badge.component";
+import { RutaService } from "src/app/core/services/general/ruta.service";
 
 @Component({
   selector: "app-productos",
@@ -40,7 +40,7 @@ import { BadgeComponent } from "src/app/shared/components/ui/badge/badge.compone
 })
 export class ProductosComponent {
   filtros = model<any>();
-
+  private rutaService = inject(RutaService);
   filtroForm = new FormGroup({
     buscador: new FormControl(),
     fechaDesde: new FormControl(),
@@ -69,6 +69,10 @@ export class ProductosComponent {
   ) {}
 
   ngOnInit(): void {
+    this.rutaService.setPermisosRuta({
+      puedeCrear: true,
+      puedeExportar: false,
+    });
     this.urlApi = signal(this.productosService.urlListaProductos);
     this.buscar();
   }

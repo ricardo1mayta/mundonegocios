@@ -38,10 +38,7 @@
         <!-- Fecha desde -->
         <div class="flex flex-col">
           <label class="text-md font-medium mt-4 mb-1 text-gray-800 dark:text-white/90">Sede</label>
-          <select
-            formControlName="fechaDesde"
-            class="input"
-          >
+          <select formControlName="fechaDesde" class="input">
             <option value="">Todas las sedes</option>
             <option *ngFor="let sede of sedes()" [value]="sede.id">{{ sede.nombresede }}</option>
           </select>
@@ -146,12 +143,7 @@
             ></app-switch>
           </ng-template>
         </app-columna-tabla>
-        <app-accion-tabla etiqueta="Ver" icono="visibility" />
-        <app-accion-tabla etiqueta="Editar" icono="edit" />
-        <app-accion-tabla etiqueta="Eliminar" icono="delete" />
       </app-data-table>
     </app-form-list>
   </div>
 </app-form-crud>
-
-

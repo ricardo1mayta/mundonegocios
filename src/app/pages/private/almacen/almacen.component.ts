@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, model, signal, ViewChild, viewChild } from "@angular/core";
+import { Component, inject, model, signal, ViewChild, viewChild } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { ReactiveFormsModule, FormGroup, FormControl, FormsModule } from "@angular/forms";
 import { MatNativeDateModule } from "@angular/material/core";
@@ -17,6 +17,7 @@ import { InventarioService } from "../../../core/services/inventario/inventario.
 import { EditarStockModalComponent } from "./invertario/editar-stock-modal/editar-stock-modal.component";
 import { ImagePreviewDialogComponent } from "../../../shared/components/image-preview-dialog/image-preview-dialog.component";
 import { SwitchComponent } from "src/app/shared/components/form/input/switch.component";
+import { RutaService } from "src/app/core/services/general/ruta.service";
 
 @Component({
   selector: "app-almacen",
@@ -45,7 +46,7 @@ export class AlmacenComponent {
     fechaDesde: new FormControl(),
     fechaHasta: new FormControl(),
   });
-
+  private rutaService = inject(RutaService);
   urlApi = signal("");
 
   @ViewChild(DataTableComponent)
@@ -64,6 +65,10 @@ export class AlmacenComponent {
   ) {}
 
   ngOnInit(): void {
+    this.rutaService.setPermisosRuta({
+      puedeCrear: false,
+      puedeExportar: false,
+    });
     this.urlApi = signal(this.inventarioService.urlListaProductosDisponibles);
     this.buscar();
   }

@@ -1,6 +1,7 @@
-import { CommonModule } from "@angular/common";
-import { Component, inject, model, OnInit, signal, viewChild } from "@angular/core";
+import { CommonModule, formatDate } from "@angular/common";
+import { Component, inject, model, OnInit, signal, viewChild, computed } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
+import { MAT_DATE_FORMATS, MAT_DATE_LOCALE, provideNativeDateAdapter } from "@angular/material/core";
 import { MaterialModule } from "../../../core/modules/material/material.module";
 import { FormCrudComponent } from "../../../core/components/form-crud/form-crud.component";
 import { FormFilterComponent } from "../../../core/components/form-crud/form-filter/form-filter.component";
@@ -16,7 +17,8 @@ import { Router } from "@angular/router";
 import { Pedido } from "../../../core/models/ventas/pedidos";
 import Swal from "sweetalert2";
 import { VisualizarVentaComponent } from "./visualizar-venta/visualizar-venta.component";
-
+import { debounceTime, distinctUntilChanged } from "rxjs/operators";
+import { RutaService } from "src/app/core/services/general/ruta.service";
 @Component({
   selector: "app-ventas",
   imports: [
@@ -30,7 +32,22 @@ import { VisualizarVentaComponent } from "./visualizar-venta/visualizar-venta.co
   ],
   templateUrl: "./ventas.component.html",
   styleUrl: "./ventas.component.css",
-  providers: [],
+  providers: [
+    provideNativeDateAdapter(),
+    { provide: MAT_DATE_LOCALE, useValue: "es-PE" },
+    {
+      provide: MAT_DATE_FORMATS,
+      useValue: {
+        parse: { dateInput: "DD/MM/YYYY" },
+        display: {
+          dateInput: "dd/MM/yyyy",
+          monthYearLabel: "MMM yyyy",
+          dateA11yLabel: "dd/MM/yyyy",
+          monthYearA11yLabel: "MMMM yyyy",
+        },
+      },
+    },
+  ],
 })
 export class VentasComponent implements OnInit {
   filtros = model<any>();
@@ -67,6 +84,17 @@ export class VentasComponent implements OnInit {
     ],
   };
 
+  filtrosApi = computed(() => {
+    const f = this.filtros();
+    if (!f) return null;
+
+    return {
+      ...f,
+      fechaDesde: this.formatearFecha(f.fechaDesde),
+      fechaHasta: this.formatearFecha(f.fechaHasta),
+    };
+  });
+  private rutaService = inject(RutaService);
   constructor(
     private dialog: MatDialog,
     private pedidosService: PedidosService,
@@ -76,6 +104,11 @@ export class VentasComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.rutaService.setPermisosRuta({
+      puedeCrear: true,
+      puedeExportar: false,
+    });
+    this.filtroForm.valueChanges.pipe(debounceTime(400), distinctUntilChanged()).subscribe(() => this.aplicarFiltros());
     console.log("URL del servicio:", this.pedidosService.urlConsultarPedidos);
 
     console.log("URL asignada:", this.urlApi());
@@ -88,13 +121,35 @@ export class VentasComponent implements OnInit {
   }
   aplicarFiltros(): void {
     const { buscador, fechaDesde, fechaHasta } = this.filtroForm.getRawValue();
+
     this.filtros.set({
       buscador: buscador?.trim() || null,
-      fechaDesde: fechaDesde ? new Date(fechaDesde) : null,
-      fechaHasta: fechaHasta ? new Date(fechaHasta) : null,
+      fechaDesde: this.formatearFecha(fechaDesde),
+      fechaHasta: this.formatearFecha(fechaHasta),
     });
     this.dataTable()?.recargarTabla(); // dispara la petición al backend
   }
+  private formatearFecha(valor: unknown): string | null {
+    if (!valor) return null;
+    if (valor instanceof Date) {
+      return formatDate(valor, "yyyy-MM-dd", "en-CA");
+    }
+    if (typeof valor !== "string") return null;
+    const texto = valor.trim();
+    if (!texto) return null;
+    const iso = texto.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if (iso) {
+      return texto;
+    }
+    const latam = texto.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+    if (latam) {
+      const [_, d, m, y] = latam;
+      return `${y}-${m}-${d}`;
+    }
+    const fecha = new Date(texto);
+    return isNaN(fecha.getTime()) ? null : formatDate(fecha, "yyyy-MM-dd", "en-CA");
+  }
+
   crearPedido() {
     this.router.navigate(["/admin/ventas/newpedidos"]);
   }

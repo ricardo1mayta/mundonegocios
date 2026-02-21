@@ -1,22 +1,26 @@
 <div class="flex flex-col gap-4" [ngClass]="class()">
   <div class="flex flex-col sm:flex-row sm:justify-end gap-2">
-    <button
-      mat-stroked-button
-      (click)="exportarExcel()"
-      class="w-full sm:w-auto !h-10 !px-4 !rounded-xl !normal-case !border-slate-300 !text-slate-700 hover:!bg-slate-50 dark:!border-white/10 dark:!text-slate-200 dark:hover:!bg-white/5"
-    >
-      <mat-icon class="!text-[20px] !mr-2 !text-slate-600 dark:!text-slate-200">file_download</mat-icon>
-      Exportar XLS
-    </button>
-
-    <button
-      mat-flat-button
-      (click)="agregarClick.emit()"
-      class="w-full sm:w-auto !h-10 !px-5 !rounded-xl !normal-case !bg-slate-900 hover:!bg-slate-800 !text-white !shadow-theme-xs dark:!bg-slate-200 dark:!text-slate-900 dark:hover:!bg-white"
-    >
-      <mat-icon class="!text-[20px] !mr-2 !text-white dark:!text-slate-900">add</mat-icon>
-      {{ etiquetaAgregar() }}
-    </button>
+    @if (permisoBotonExportar()) {
+      <button
+        mat-stroked-button
+        *ngIf="permisoBotonExportar()"
+        (click)="exportarExcel()"
+        class="w-full sm:w-auto !h-10 !px-4 !rounded-xl !normal-case !border-slate-300 !text-slate-700 hover:!bg-slate-50 dark:!border-white/10 dark:!text-slate-200 dark:hover:!bg-white/5"
+      >
+        <mat-icon class="!text-[20px] !mr-2 !text-slate-600 dark:!text-slate-200">file_download</mat-icon>
+        Exportar XLS
+      </button>
+    }
+    @if (permisoBotonAgregar()) {
+      <button
+        mat-flat-button
+        (click)="agregarClick.emit()"
+        class="w-full sm:w-auto !h-10 !px-5 !rounded-xl !normal-case !bg-slate-900 hover:!bg-slate-800 !text-white !shadow-theme-xs dark:!bg-slate-200 dark:!text-slate-900 dark:hover:!bg-white"
+      >
+        <mat-icon class="!text-[20px] !mr-2 !text-white dark:!text-slate-900">add</mat-icon>
+        {{ etiquetaAgregar() }}
+      </button>
+    }
   </div>
 
   <ng-content />

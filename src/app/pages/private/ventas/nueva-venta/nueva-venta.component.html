@@ -13,12 +13,18 @@
           [(ngModel)]="search"
           (ngModelChange)="updateSearch($event)"
           placeholder="Buscar Producto"
-          class="input pl-14" />
+          class="input pl-14"
+        />
         <span class="absolute left-4 top-3.5 text-gray-400 i-ph-magnifying-glass dark:text-gray-500"></span>
         <!-- LISTA DESPLEGABLE DE BÚSQUEDA -->
-        <div *ngIf="showSuggestions()" class="w-full sm:w-96 absolute z-20 left-0 h-64 overflow-y-auto bg-white border border-gray-200 rounded-lg shadow dark:border-gray-800 dark:bg-gray-900">
+        <div
+          *ngIf="showSuggestions()"
+          class="w-full sm:w-96 absolute z-20 left-0 h-64 overflow-y-auto bg-white border border-gray-200 rounded-lg shadow dark:border-gray-800 dark:bg-gray-900"
+        >
           <table class="min-w-full text-sm">
-            <thead class="sticky top-0 bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:text-gray-300">
+            <thead
+              class="sticky top-0 bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:text-gray-300"
+            >
               <tr>
                 <th class="px-3 py-2 text-left">Imagen</th>
                 <th class="px-3 py-2 text-left">Código</th>
@@ -28,14 +34,26 @@
             </thead>
 
             <tbody>
-              <tr *ngFor="let s of suggestions()" (click)="selectSuggestion(s)" class="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800">
+              <tr
+                *ngFor="let s of suggestions()"
+                (click)="selectSuggestion(s)"
+                class="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800"
+              >
                 <td class="px-3 py-2">
-                  <img [src]="s.imagen || ''" alt="" class="w-8 h-8 object-contain rounded bg-gray-100 dark:bg-gray-800" />
+                  <img
+                    [src]="s.imagen || ''"
+                    alt=""
+                    class="w-8 h-8 object-contain rounded bg-gray-100 dark:bg-gray-800"
+                  />
                 </td>
                 <td class="px-3 py-2">{{ s.codigo || s.id }}</td>
                 <td class="px-3 py-2">{{ s.nombreProducto }}</td>
                 <td class="px-3 py-2">
-                  <span class="px-2 py-0.5 rounded-full text-xs font-medium" [class.bg-green-200]="s.cantidad > 0" [class.bg-red-200]="s.cantidad === 0">
+                  <span
+                    class="px-2 py-0.5 rounded-full text-xs font-medium"
+                    [class.bg-green-200]="s.cantidad > 0"
+                    [class.bg-red-200]="s.cantidad === 0"
+                  >
                     {{ s.cantidad }}
                   </span>
                 </td>
@@ -50,11 +68,17 @@
           <button
             (click)="selectCat(cat)"
             class="px-4 py-1 rounded-full text-sm transition border"
-            [class.bg-blue-600]="selCat() === cat"
+            [class.bg-gray-900]="selCat() === cat"
+            [class.dark:bg-gray-100]="selCat() === cat"
             [class.text-white]="selCat() === cat"
+            [class.dark:text-gray-900]="selCat() === cat"
             [class.text-gray-600]="selCat() !== cat"
-            [class.border-blue-600]="selCat() === cat"
-            [class.border-gray-300]="selCat() !== cat">
+            [class.dark:text-gray-300]="selCat() !== cat"
+            [class.border-gray-900]="selCat() === cat"
+            [class.dark:border-gray-100]="selCat() === cat"
+            [class.border-gray-300]="selCat() !== cat"
+            [class.dark:border-gray-700]="selCat() !== cat"
+          >
             {{ cat }}
             <span class="ml-1 opacity-70">({{ categoryCount(cat) }})</span>
           </button>
@@ -79,42 +103,68 @@
           </thead>
 
           <tbody>
-            <tr *ngFor="let c of cart()" class="border-t border-gray-100 even:bg-gray-50 dark:border-gray-800 dark:even:bg-gray-800">
+            <tr
+              *ngFor="let c of cart()"
+              class="border-t border-gray-100 even:bg-gray-50 dark:border-gray-800 dark:even:bg-gray-800"
+            >
               <!-- OCULTAR EN MÓVIL -->
               <td class="p-2 hidden sm:table-cell">
-                <img [src]="c.productoDetalle.imagen || ''" alt="" class="w-8 h-8 object-contain rounded bg-gray-100 dark:bg-gray-800" />
+                <img
+                  [src]="c.productoDetalle.imagen || ''"
+                  alt=""
+                  class="w-8 h-8 object-contain rounded bg-gray-100 dark:bg-gray-800"
+                />
               </td>
 
               <td class="p-2">{{ c.productoDetalle.nombreProducto }}</td>
               <td class="p-2">{{ c.productoDetalle.cantidad }}</td>
 
               <td class="p-2">
-                <input type="number" [(ngModel)]="c.precio" (ngModelChange)="touchCart()" class="input w-16 text-center" />
+                <input
+                  type="number"
+                  [(ngModel)]="c.precio"
+                  (ngModelChange)="touchCart()"
+                  class="input w-25 text-center"
+                />
               </td>
 
               <td class="p-2 sm:flex items-center gap-1">
                 <button (click)="dec(c)" class="hidden sm:inline-flex px-2">−</button>
-                <input type="number" [(ngModel)]="c.cantidad" (ngModelChange)="touchCart()" class="input w-12 text-center" />
+                <input
+                  type="number"
+                  [(ngModel)]="c.cantidad"
+                  (ngModelChange)="touchCart()"
+                  class="input w-20 text-center"
+                />
                 <button (click)="inc(c)" class="hidden sm:inline-flex px-2">+</button>
               </td>
 
-              <td class="p-2">{{ c.precio * c.cantidad | number : "1.0-2" }}</td>
+              <td class="p-2">{{ c.precio * c.cantidad | number: "1.0-2" }}</td>
 
               <td class="p-2">
                 <button (click)="remove(c)" class="text-red-600">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="w-5 h-5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
                     <path
                       stroke-linecap="round"
                       stroke-linejoin="round"
                       stroke-width="2"
-                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3m5 0H6" />
+                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3m5 0H6"
+                    />
                   </svg>
                 </button>
               </td>
             </tr>
 
             <tr *ngIf="cart().length === 0">
-              <td colspan="7" class="p-4 text-center text-gray-500 dark:text-gray-400">No hay productos en el carrito</td>
+              <td colspan="7" class="p-4 text-center text-gray-500 dark:text-gray-400">
+                No hay productos en el carrito
+              </td>
             </tr>
           </tbody>
         </table>
@@ -122,7 +172,10 @@
 
       <!-- PRODUCTOS -->
       <div class="hidden sm:grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-6">
-        <div *ngFor="let p of paged()" class="rounded-xl shadow-sm overflow-hidden flex flex-col relative bg-white dark:bg-gray-900">
+        <div
+          *ngFor="let p of paged()"
+          class="rounded-xl shadow-sm overflow-hidden flex flex-col relative bg-white dark:bg-gray-900"
+        >
           <!-- Etiqueta Oferta -->
           <div *ngIf="p.statusoff" class="absolute left-0 top-0 m-3">
             <span class="bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">Oferta</span>
@@ -132,19 +185,30 @@
             <h3 class="font-medium leading-tight">{{ p.nombreProducto }}</h3>
             <p class="text-sm text-gray-500 dark:text-gray-400">
               <span *ngIf="p.statusoff">
-                <span class="line-through mr-2">{{ p.precioventa | number : "1.0-2" }}</span>
-                <span class="text-gray-500 font-semibold dark:text-gray-400">{{ p.preciooferta | number : "1.0-2" }}</span>
+                <span class="line-through mr-2">{{ p.precioventa | number: "1.0-2" }}</span>
+                <span class="text-gray-500 font-semibold dark:text-gray-400">{{
+                  p.preciooferta | number: "1.0-2"
+                }}</span>
               </span>
               <span *ngIf="!p.statusoff">
-                {{ p.precioventa | number : "1.0-2" }}
+                {{ p.precioventa | number: "1.0-2" }}
               </span>
             </p>
-            <p class="text-xs" [class.text-red-600]="p.cantidad === 0" [class.text-green-600]="p.cantidad > 0" [class.dark:text-red-400]="p.cantidad === 0" [class.dark:text-green-400]="p.cantidad > 0">Stock: {{ p.cantidad }}</p>
+            <p
+              class="text-xs"
+              [class.text-red-600]="p.cantidad === 0"
+              [class.text-green-600]="p.cantidad > 0"
+              [class.dark:text-red-400]="p.cantidad === 0"
+              [class.dark:text-green-400]="p.cantidad > 0"
+            >
+              Stock: {{ p.cantidad }}
+            </p>
           </div>
           <button
             (click)="addToCart(p)"
             [disabled]="p.cantidad === 0"
-            class="mx-4 mb-4 py-2 rounded-lg text-white transition disabled:bg-gray-300 disabled:cursor-not-allowed bg-blue-600 hover:bg-blue-700">
+            class="mx-4 mb-4 py-2 rounded-lg transition bg-gray-900 text-white hover:bg-gray-800 disabled:bg-gray-300 disabled:cursor-not-allowed dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-gray-200 dark:disabled:bg-gray-700 dark:disabled:text-gray-400"
+          >
             Agregar
           </button>
         </div>
@@ -163,9 +227,21 @@
         <div class="flex items-center gap-4">
           <span>Página {{ page() }} de {{ pageCount() }}</span>
 
-          <button (click)="prev()" [disabled]="page() === 1" class="w-8 h-8 grid place-content-center rounded border border-gray-300 dark:border-gray-700">‹</button>
+          <button
+            (click)="prev()"
+            [disabled]="page() === 1"
+            class="w-8 h-8 grid place-content-center rounded border border-gray-300 dark:border-gray-700"
+          >
+            ‹
+          </button>
 
-          <button (click)="next()" [disabled]="page() === pageCount()" class="w-8 h-8 grid place-content-center rounded border border-gray-300 dark:border-gray-700">›</button>
+          <button
+            (click)="next()"
+            [disabled]="page() === pageCount()"
+            class="w-8 h-8 grid place-content-center rounded border border-gray-300 dark:border-gray-700"
+          >
+            ›
+          </button>
         </div>
       </div>
     </div>
@@ -174,7 +250,7 @@
     <aside class="bg-white rounded-xl shadow p-6 space-y-6 h-max dark:bg-gray-900">
       <div class="bg-blue-200 rounded-lg text-center py-6 dark:bg-gray-800">
         <p class="text-lg font-semibold">Total</p>
-        <p class="text-3xl font-bold text-green-700">{{ total() | number : "1.0-2" }}</p>
+        <p class="text-3xl font-bold text-green-700">{{ total() | number: "1.0-2" }}</p>
       </div>
 
       <!-- Estado -->
@@ -195,7 +271,12 @@
           </select>
 
           <!-- Input de monto, ancho fijo y sin encogerse -->
-          <input type="number" [(ngModel)]="pago.monto" class="input w-24 sm:w-28 text-right flex-shrink-0" placeholder="S/ 0.00" />
+          <input
+            type="number"
+            [(ngModel)]="pago.monto"
+            class="input w-24 sm:w-28 text-right flex-shrink-0"
+            placeholder="S/ 0.00"
+          />
 
           <!-- Botón, ancho fijo y sin encogerse -->
           <button (click)="removePago(i)" class="text-red-500 i-ph-trash-simple text-lg flex-shrink-0">
@@ -203,15 +284,23 @@
           </button>
         </div>
 
-        <button (click)="addPago()" class="text-blue-600 text-sm hover:underline mt-1 dark:text-blue-400">+ Agregar otro método</button>
+        <button (click)="addPago()" class="text-gray-700 text-sm hover:underline mt-1 dark:text-gray-300">
+          + Agregar otro método
+        </button>
 
         <!-- Validación de suma -->
-        <div [class.text-red-600]="sumaPagos !== total()" class="text-sm font-medium">Total ingresado: {{ sumaPagos | number : "1.2-2" }} / Total venta: {{ total() | number : "1.2-2" }}</div>
+        <div [class.text-red-600]="sumaPagos !== total()" class="text-sm font-medium">
+          Total ingresado: {{ sumaPagos | number: "1.2-2" }} / Total venta: {{ total() | number: "1.2-2" }}
+        </div>
       </div>
 
       <div class="space-y-3">
         <label class="block text-sm font-medium dark:text-white/90">Fecha De Entrega</label>
-        <input type="datetime-local" [(ngModel)]="saleDate" class="w-full border border-gray-300 rounded-lg px-4 py-2 placeholder-gray-400 dark:border-gray-700" />
+        <input
+          type="datetime-local"
+          [(ngModel)]="saleDate"
+          class="w-full border border-gray-300 rounded-lg px-4 py-2 placeholder-gray-400 dark:border-gray-700"
+        />
       </div>
 
       <!-- BUSCAR CLIENTE -->
@@ -223,11 +312,21 @@
             placeholder="Cliente"
             [(ngModel)]="searchProvedor"
             (ngModelChange)="updateSearchProvedor($event)"
-            class="input pl-10" />
-          <span class="absolute left-3 top-2.5 text-blue-800 i-ph-magnifying-glass" (click)="agregarCliente()"> <mat-icon>search</mat-icon></span>
+            class="input pl-10"
+          />
+          <span class="absolute left-3 top-2.5 text-blue-800 i-ph-magnifying-glass" (click)="agregarCliente()">
+            <mat-icon>search</mat-icon></span
+          >
           <!-- lista desplegable -->
-          <div *ngIf="suggestionsProvedor().length > 0" class="absolute z-20 left-0 w-full max-h-56 overflow-y-auto bg-white border border-gray-200 rounded-lg shadow dark:border-gray-800 dark:bg-gray-900">
-            <div *ngFor="let prov of suggestionsProvedor()" (click)="selectProvider(prov)" class="flex items-center gap-3 px-4 py-2 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800">
+          <div
+            *ngIf="suggestionsProvedor().length > 0"
+            class="absolute z-20 left-0 w-full max-h-56 overflow-y-auto bg-white border border-gray-200 rounded-lg shadow dark:border-gray-800 dark:bg-gray-900"
+          >
+            <div
+              *ngFor="let prov of suggestionsProvedor()"
+              (click)="selectProvider(prov)"
+              class="flex items-center gap-3 px-4 py-2 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800"
+            >
               <span class="i-ph-user text-xl text-indigo-600"></span>
               <div class="text-sm">
                 <p class="font-medium leading-none">{{ prov.clienteNombre }}</p>
@@ -238,7 +337,10 @@
         </div>
 
         <!-- tarjeta del proveedor elegido -->
-        <div *ngIf="selectedProvider()" class="flex items-center justify-between gap-4 px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg dark:border-gray-800 dark:bg-gray-900">
+        <div
+          *ngIf="selectedProvider()"
+          class="flex items-center justify-between gap-4 px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg dark:border-gray-800 dark:bg-gray-900"
+        >
           <div class="flex-1">
             <p class="font-semibold text-sm">{{ selectedProvider()!.clienteNumerodocumento }}</p>
             <p class="text-sm">{{ selectedProvider()!.clienteNombre }}</p>
@@ -252,16 +354,22 @@
         <textarea rows="4" [(ngModel)]="note" class="input resize-none" placeholder="Nota adicional"></textarea>
       </div>
 
-      <button *ngIf="!isEdit()" (click)="pay()" class="w-full py-3 rounded-lg text-white font-medium bg-indigo-600 hover:bg-indigo-700 disabled:opacity-60" [disabled]="cart().length === 0">
+      <button
+        *ngIf="!isEdit()"
+        (click)="pay()"
+        class="w-full py-3 rounded-lg font-medium transition bg-gray-900 text-white hover:bg-gray-800 disabled:bg-gray-300 disabled:text-gray-500 dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-gray-200 dark:disabled:bg-gray-700 dark:disabled:text-gray-400"
+        [disabled]="cart().length === 0"
+      >
         Pagar
       </button>
-      <button *ngIf="isEdit()" (click)="pay()" class="w-full py-3 rounded-lg text-white font-medium bg-indigo-600 hover:bg-indigo-700 disabled:opacity-60" [disabled]="cart().length === 0">
+      <button
+        *ngIf="isEdit()"
+        (click)="pay()"
+        class="w-full py-3 rounded-lg font-medium transition bg-gray-900 text-white hover:bg-gray-800 disabled:bg-gray-300 disabled:text-gray-500 dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-gray-200 dark:disabled:bg-gray-700 dark:disabled:text-gray-400"
+        [disabled]="cart().length === 0"
+      >
         Actualizar
       </button>
     </aside>
   </div>
 </div>
-
-
-
-

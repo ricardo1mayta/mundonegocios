@@ -1,25 +1,26 @@
-import { CommonModule } from '@angular/common';
-import { Component, model, signal, ViewChild, viewChild } from '@angular/core';
-import { ReactiveFormsModule, FormGroup, FormControl, FormsModule } from '@angular/forms';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatDialog } from '@angular/material/dialog';
-import { DataTableComponent } from '../../../../core/components/data-table/data-table.component';
-import { IReporteExcel } from '../../../../core/components/data-table/data-table.model';
-import { DataTableModule } from '../../../../core/components/data-table/data-table.module';
-import { FormCrudComponent } from '../../../../core/components/form-crud/form-crud.component';
-import { FormFilterComponent } from '../../../../core/components/form-crud/form-filter/form-filter.component';
-import { FormListComponent } from '../../../../core/components/form-crud/form-list/form-list.component';
-import { MaterialModule } from '../../../../core/modules/material/material.module';
-import { ClientesService } from '../../../../core/services/clientes/clientes.service';
-import { EditarClienteComponent } from '../../clientes/editar-cliente/editar-cliente.component';
-import { MarcasService } from '../../../../core/services/marcas/marcas.service';
-import { CrearMarcaComponent } from './crear-marca/crear-marca.component';
-import { Marca } from '../../../../core/models/almacen/marca';
-import { SwitchComponent } from 'src/app/shared/components/form/input/switch.component';
+import { CommonModule } from "@angular/common";
+import { Component, inject, model, signal, ViewChild, viewChild } from "@angular/core";
+import { ReactiveFormsModule, FormGroup, FormControl, FormsModule } from "@angular/forms";
+import { MatNativeDateModule } from "@angular/material/core";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatDialog } from "@angular/material/dialog";
+import { DataTableComponent } from "../../../../core/components/data-table/data-table.component";
+import { IReporteExcel } from "../../../../core/components/data-table/data-table.model";
+import { DataTableModule } from "../../../../core/components/data-table/data-table.module";
+import { FormCrudComponent } from "../../../../core/components/form-crud/form-crud.component";
+import { FormFilterComponent } from "../../../../core/components/form-crud/form-filter/form-filter.component";
+import { FormListComponent } from "../../../../core/components/form-crud/form-list/form-list.component";
+import { MaterialModule } from "../../../../core/modules/material/material.module";
+import { ClientesService } from "../../../../core/services/clientes/clientes.service";
+import { EditarClienteComponent } from "../../clientes/editar-cliente/editar-cliente.component";
+import { MarcasService } from "../../../../core/services/marcas/marcas.service";
+import { CrearMarcaComponent } from "./crear-marca/crear-marca.component";
+import { Marca } from "../../../../core/models/almacen/marca";
+import { SwitchComponent } from "src/app/shared/components/form/input/switch.component";
+import { RutaService } from "src/app/core/services/general/ruta.service";
 
 @Component({
-  selector: 'app-marcas',
+  selector: "app-marcas",
   imports: [
     CommonModule,
     MaterialModule,
@@ -33,8 +34,8 @@ import { SwitchComponent } from 'src/app/shared/components/form/input/switch.com
     FormsModule,
     SwitchComponent,
   ],
-  templateUrl: './marcas.component.html',
-  styleUrl: './marcas.component.css',
+  templateUrl: "./marcas.component.html",
+  styleUrl: "./marcas.component.css",
 })
 export class MarcasComponent {
   filtros = model<any>();
@@ -45,43 +46,50 @@ export class MarcasComponent {
     fechaHasta: new FormControl(),
   });
 
-  urlApi = signal('');
-
+  urlApi = signal("");
+  private rutaService = inject(RutaService);
   @ViewChild(DataTableComponent)
   dataTable!: DataTableComponent;
 
   configuracionExcel: IReporteExcel = {
-    titulo: 'Lista de pedidos',
-    fuente: 'Order de pedidos',
+    titulo: "Lista de pedidos",
+    fuente: "Order de pedidos",
 
-    columnas: [{ titulo: 'Codigo', propiedad: 'codigo' }],
+    columnas: [{ titulo: "Codigo", propiedad: "codigo" }],
   };
 
-  constructor(private dialog: MatDialog, private marcaService: MarcasService) {}
+  constructor(
+    private dialog: MatDialog,
+    private marcaService: MarcasService,
+  ) {}
 
   ngOnInit(): void {
-    console.log('URL del servicio:', this.marcaService.urlListarMarcas);
+    this.rutaService.setPermisosRuta({
+      puedeCrear: true,
+      puedeExportar: false,
+    });
+    console.log("URL del servicio:", this.marcaService.urlListarMarcas);
     this.urlApi = signal(this.marcaService.urlListarMarcas);
 
-    console.log('URL asignada:', this.urlApi());
+    console.log("URL asignada:", this.urlApi());
     this.buscar();
   }
 
   buscar(): void {
-    console.log('buscar');
+    console.log("buscar");
     this.dataTable?.recargarTabla();
   }
 
   crearMarca(): void {
     const dialogRef = this.dialog.open(CrearMarcaComponent, {
-      width: '90%',
+      width: "90%",
       data: {
-        title: 'Crear Cliente Api Key',
-        boton: 'Guardar',
+        title: "Crear Cliente Api Key",
+        boton: "Guardar",
       },
     });
 
-    dialogRef.afterClosed().subscribe(resultado => {
+    dialogRef.afterClosed().subscribe((resultado) => {
       if (resultado) {
         this.buscar();
       }
@@ -93,19 +101,19 @@ export class MarcasComponent {
       next: () => {
         this.buscar();
       },
-      error: error => {
-        console.error('Error al eliminar la marca:', error);
+      error: (error) => {
+        console.error("Error al eliminar la marca:", error);
       },
     });
   }
   // editar
   editarMarca(marca: Marca): void {
     const dialogRef = this.dialog.open(CrearMarcaComponent, {
-      width: '90%',
+      width: "90%",
       data: marca,
     });
 
-    dialogRef.afterClosed().subscribe(resultado => {
+    dialogRef.afterClosed().subscribe((resultado) => {
       if (resultado) {
         this.buscar();
       }

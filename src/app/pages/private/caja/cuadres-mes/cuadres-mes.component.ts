@@ -51,12 +51,19 @@ export class CuadresMesComponent {
   get totalVentas(): number {
     return this.lista.reduce((s, r) => s + (Number(r?.ventasTotal) || 0), 0);
   }
+
   get totalCompras(): number {
     return this.lista.reduce((s, r) => s + (Number(r?.comprasTotal) || 0), 0);
   }
+
   get totalGastos(): number {
     return this.lista.reduce((s, r) => s + (Number(r?.gastosTotal) || 0), 0);
   }
+
+  get totalMercaderia(): number {
+    return this.lista.reduce((s, r) => s + (Number(r?.mercaderia) || 0), 0);
+  }
+
   get totalDiferencia(): number {
     return this.lista.reduce((s, r) => s + (Number(r?.diferencia) || 0), 0);
   }

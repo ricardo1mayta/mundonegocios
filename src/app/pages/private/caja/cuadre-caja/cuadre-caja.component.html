@@ -12,7 +12,8 @@
             matInput
             [matDatepicker]="fechaPicker"
             class="input pr-10"
-            [(ngModel)]="fecha"\r\n            (click)="fechaPicker.open()"
+            [(ngModel)]="fecha"
+            (click)="fechaPicker.open()"
             (dateChange)="onFechaChange()"
           />
           <button
@@ -41,6 +42,17 @@
           <div class="text-xs text-gray-500 dark:text-gray-400">Gastos total</div>
           <div class="text-xl font-semibold text-amber-600 dark:text-amber-300">S/ {{ gastosTotal | number : "1.2-2" }}</div>
         </div>
+        <div>
+          <div class="text-xs text-gray-500 dark:text-gray-400">Monto mercaderia (reportes)</div>
+          <div class="text-xl font-semibold text-sky-600 dark:text-sky-300">S/ {{ montoMercaderiaKpi | number : "1.2-2" }}</div>
+          <button
+            type="button"
+            class="mt-2 inline-flex items-center justify-center rounded-lg border border-sky-200 px-3 py-1.5 text-xs font-medium text-sky-700 hover:bg-sky-50 dark:border-sky-900/50 dark:text-sky-300 dark:hover:bg-sky-500/10"
+            (click)="usarMontoMercaderiaKpi()"
+          >
+            Usar este monto en Mercaderia
+          </button>
+        </div>
 
         <label class="flex flex-col text-sm text-gray-700 dark:text-gray-200">
           Saldo inicial
@@ -55,7 +67,7 @@
           <input type="number" class="input mt-1" [(ngModel)]="dineroEnCuentas" />
         </label>
         <label class="flex flex-col text-sm text-gray-700 dark:text-gray-200">
-          Mercadería
+          Mercaderia
           <input type="number" class="input mt-1" [(ngModel)]="mercaderia" />
         </label>
 
@@ -99,4 +111,3 @@
     </div>
   </div>
 </section>
-

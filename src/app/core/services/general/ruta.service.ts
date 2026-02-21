@@ -1,27 +1,25 @@
-import { inject, Injectable, signal } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { Injectable, signal } from "@angular/core";
+import { IPermisosRuta, IPermisoBoton } from "../../models/generic/general.model";
 
-import {
-  IPermisoBoton,
-  IPermisosRuta,
-} from '../../models/generic/general.model';
-
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: "root" })
 export class RutaService {
-  private router = inject(Router);
-  //private usuarioExternoService = inject(UsuarioExternoService);
   public permisosActuales = signal<IPermisoBoton[]>([]);
-  public permisos = signal<IPermisosRuta>({});
+  public permisos = signal<IPermisosRuta>({
+    puedeCrear: true,
+    puedeExportar: true,
+  } as any);
 
-  obtenerPermisoBoton(codigoBoton: string) {
-    if (!this.permisosActuales()?.length) {
-      return true;
-    }
+  setPermisosRuta(p: Partial<IPermisosRuta>) {
+    this.permisos.update((curr) => ({ ...curr, ...p }) as any);
+  }
 
-    return this.permisosActuales().some(
-      (permiso) => permiso.nombreOpcion === codigoBoton
-    );
+  setPermisosActuales(permisos: IPermisoBoton[]) {
+    this.permisosActuales.set(permisos ?? []);
+  }
+
+  obtenerPermisoBoton(nombreBoton: string): boolean {
+    const nombre = (nombreBoton ?? "").trim().toLowerCase();
+    if (!nombre) return false;
+    return this.permisosActuales().some((permiso) => (permiso?.nombreOpcion ?? "").trim().toLowerCase() === nombre);
   }
 }
