@@ -1,4 +1,4 @@
-﻿import { Routes } from "@angular/router";
+import { Routes } from "@angular/router";
 import { DashboardLayoutComponent } from "./layout/dashboard-layout/dashboard-layout.component";
 import { VentasComponent } from "./ventas/ventas.component";
 import { ClientesComponent } from "./clientes/clientes.component";
@@ -9,6 +9,7 @@ import { CategoriasComponent } from "./almacen/categorias/categorias.component";
 import { ProductosComponent } from "./almacen/productos/productos.component";
 import { InvertarioComponent } from "./almacen/invertario/invertario.component";
 import { ImeiDisponiblesComponent } from "./almacen/imei-disponibles/imei-disponibles.component";
+import { KardexComponent } from "./almacen/kardex/kardex.component";
 import { ComprasComponent } from "./compras/compras.component";
 import { NuevaCompraComponent } from "./compras/nueva-compra/nueva-compra.component";
 import { RegistroImeisComponent } from "./compras/registro-imeis/registro-imeis.component";
@@ -94,6 +95,10 @@ export const routes: Routes = [
       {
         path: "inventario/imeis-disponibles",
         component: ImeiDisponiblesComponent,
+      },
+      {
+        path: "inventario/kardex",
+        component: KardexComponent,
       },
       {
         path: "compras/lista",

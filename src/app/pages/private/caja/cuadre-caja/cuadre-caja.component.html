@@ -3,7 +3,7 @@
     <div class="flex items-center justify-between gap-4 p-6 border-b border-gray-100 dark:border-gray-800">
       <div>
         <h2 class="text-xl font-semibold text-gray-800 dark:text-white/90">Cuadre de Caja Diario</h2>
-        <p class="text-sm text-gray-500 dark:text-gray-400">Resumen de gastos por fecha</p>
+        <p class="text-sm text-gray-500 dark:text-gray-400">Enfoque en cuanto crece tu capital cada dia</p>
       </div>
       <div class="flex items-center gap-2">
         <label class="text-sm text-gray-600 dark:text-gray-300">Fecha</label>
@@ -70,13 +70,31 @@
           Mercaderia
           <input type="number" class="input mt-1" [(ngModel)]="mercaderia" />
         </label>
+        <label class="flex flex-col text-sm text-gray-700 dark:text-gray-200">
+          Mercaderia en camino
+          <input type="number" class="input mt-1" [(ngModel)]="mercaderiaEnCamino" />
+        </label>
 
-        <div class="rounded-lg border border-gray-200 p-3 dark:border-gray-800">
-          <div class="text-xs text-gray-500 dark:text-gray-400">Saldo final (calculado)</div>
-          <div class="text-lg font-semibold text-gray-800 dark:text-white/90">S/ {{ saldoFinal | number : "1.2-2" }}</div>
-          <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">Diferencia</div>
-          <div class="text-lg font-semibold" [ngClass]="diferencia === 0 ? 'text-emerald-600 dark:text-emerald-300' : 'text-rose-600 dark:text-rose-300'">
-            S/ {{ diferencia | number : "1.2-2" }}
+        <div class="rounded-lg border border-gray-200 p-3 dark:border-gray-800 space-y-2">
+          <div>
+            <div class="text-xs text-gray-500 dark:text-gray-400">Ganancia diaria (calculada)</div>
+            <div class="text-lg font-semibold" [ngClass]="gananciaDiaria >= 0 ? 'text-emerald-600 dark:text-emerald-300' : 'text-rose-600 dark:text-rose-300'">S/ {{ gananciaDiaria | number : "1.2-2" }}</div>
+          </div>
+          <div>
+            <div class="text-xs text-gray-500 dark:text-gray-400">Capital actual registrado</div>
+            <div class="text-lg font-semibold text-gray-800 dark:text-white/90">S/ {{ capitalActual | number : "1.2-2" }}</div>
+          </div>
+          <div>
+            <div class="text-xs text-gray-500 dark:text-gray-400">Aumento de capital vs saldo inicial</div>
+            <div class="text-xl font-semibold" [ngClass]="aumentoCapital >= 0 ? 'text-emerald-600 dark:text-emerald-300' : 'text-rose-600 dark:text-rose-300'">S/ {{ aumentoCapital | number : "1.2-2" }}</div>
+          </div>
+          <div class="border-t border-gray-100 pt-2 dark:border-gray-800">
+            <div class="text-xs text-gray-500 dark:text-gray-400">Saldo proyectado</div>
+            <div class="text-base font-semibold text-gray-800 dark:text-white/90">S/ {{ saldoFinal | number : "1.2-2" }}</div>
+            <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">Diferencia vs capital actual</div>
+            <div class="text-base font-semibold" [ngClass]="diferencia === 0 ? 'text-emerald-600 dark:text-emerald-300' : 'text-rose-600 dark:text-rose-300'">
+              S/ {{ diferencia | number : "1.2-2" }}
+            </div>
           </div>
         </div>
 

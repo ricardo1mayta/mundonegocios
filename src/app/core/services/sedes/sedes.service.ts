@@ -44,7 +44,10 @@ export class SedesService {
   obtenerTodasLasSedes() {
     return this._http.get(`${this.apiUrl}/pegasus/sedes`);
   }
-
+  /** Listado sin paginación */
+  obtenerTodasLasSedesLista() {
+    return this._http.get(`${this.apiUrl}/pegasus/sedes/lista`);
+  }
   /** Listado de sedes hijas */
   listarSedesHijas() {
     return this._http.get(`${this.apiUrl}/pegasus/sedes/hijas`);

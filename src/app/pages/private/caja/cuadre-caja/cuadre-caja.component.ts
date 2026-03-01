@@ -35,6 +35,7 @@ export class CuadreCajaComponent {
   dineroEnCaja: number | null = null;
   dineroEnCuentas: number | null = null;
   mercaderia: number | null = null;
+  mercaderiaEnCamino: number | null = null;
   saldoInicial: number | null = null;
 
   ngOnInit(): void {
@@ -59,8 +60,25 @@ export class CuadreCajaComponent {
     return this.num(this.saldoInicial) + this.ventasTotal - this.comprasTotal - this.gastosTotal;
   }
 
+  get gananciaDiaria(): number {
+    return this.ventasTotal - this.comprasTotal - this.gastosTotal;
+  }
+
+  get capitalActual(): number {
+    return (
+      this.num(this.dineroEnCaja) +
+      this.num(this.dineroEnCuentas) +
+      this.num(this.mercaderia) +
+      this.num(this.mercaderiaEnCamino)
+    );
+  }
+
+  get aumentoCapital(): number {
+    return this.capitalActual - this.num(this.saldoInicial);
+  }
+
   get diferencia(): number {
-    return this.num(this.dineroEnCaja) + this.num(this.dineroEnCuentas) + this.num(this.mercaderia) - this.saldoFinal;
+    return this.capitalActual - this.saldoFinal;
   }
 
   private cargarTodo() {
@@ -81,6 +99,7 @@ export class CuadreCajaComponent {
           this.dineroEnCuentas = cuadreData?.dineroEnCuentas ?? this.dineroEnCuentas;
           this.dineroEnCaja = cuadreData?.dineroEnCaja ?? this.dineroEnCaja;
           this.mercaderia = cuadreData?.mercaderia ?? this.mercaderia;
+          this.mercaderiaEnCamino = cuadreData?.mercaderiaEnCamino ?? this.mercaderiaEnCamino;
           this.saldoInicial = cuadreData?.saldoInicial ?? this.saldoInicial;
           if (Array.isArray(cuadreData?.ventasPorTipoPago)) {
             this.ventasPorTipoPago = cuadreData.ventasPorTipoPago;
@@ -160,7 +179,11 @@ export class CuadreCajaComponent {
       dineroEnCaja: this.num(this.dineroEnCaja),
       dineroEnCuentas: this.num(this.dineroEnCuentas),
       mercaderia: this.num(this.mercaderia),
+      mercaderiaEnCamino: this.num(this.mercaderiaEnCamino),
       saldoInicial: this.num(this.saldoInicial),
+      gananciaDiaria: this.gananciaDiaria,
+      capitalActual: this.capitalActual,
+      aumentoCapital: this.aumentoCapital,
       saldoFinal: this.saldoFinal,
       diferencia: this.diferencia,
     };

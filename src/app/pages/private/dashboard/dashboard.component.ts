@@ -1,4 +1,5 @@
-import { Component, computed, signal } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, NgZone, PLATFORM_ID, computed, effect, inject, signal } from '@angular/core';
 import { MonthlySalesChartComponent } from '../../../shared/components/ecommerce/monthly-sales-chart/monthly-sales-chart.component';
 import { StatisticsChartComponent } from '../../../shared/components/ecommerce/statics-chart/statics-chart.component';
 import { ReportePedidosService } from '../../../core/services/reportes/reporte-pedidos.service';
@@ -11,6 +12,10 @@ import type { ApexAxisChartSeries } from 'ng-apexcharts';
   styleUrl: './dashboard.component.css',
 })
 export class DashboardComponent {
+  private readonly platformId = inject(PLATFORM_ID);
+  private readonly ngZone = inject(NgZone);
+  private reflowTimeoutId?: ReturnType<typeof setTimeout>;
+
   pedDia = signal(0);
   pedMes = signal(0);
   monthlySeries = signal<ApexAxisChartSeries>([{ name: 'Pedidos', data: [] }]);
@@ -35,6 +40,13 @@ export class DashboardComponent {
   });
 
   constructor(private reportePedidosService: ReportePedidosService) {
+    effect(() => {
+      this.monthlySeries();
+      this.generalSeries();
+      this.compareSeries();
+      this.forceChartsReflow();
+    });
+
     this.reportePedidosService.getPedidosMensuales().subscribe((resp: any[]) => {
       this.monthlyCategories.set(resp.map((r) => `${String(r.mes).padStart(2, '0')}/${r.anio}`));
       const sedeData = resp.map((r) => r.total);
@@ -62,6 +74,28 @@ export class DashboardComponent {
         this.pedDia.set(data?.totalDia ?? 0);
         this.pedMes.set(data?.totalMes ?? 0);
       }
+    });
+
+    this.forceChartsReflow();
+  }
+
+  private forceChartsReflow(): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
+    if (this.reflowTimeoutId) {
+      clearTimeout(this.reflowTimeoutId);
+    }
+
+    this.ngZone.runOutsideAngular(() => {
+      requestAnimationFrame(() => {
+        window.dispatchEvent(new Event('resize'));
+      });
+
+      this.reflowTimeoutId = setTimeout(() => {
+        window.dispatchEvent(new Event('resize'));
+      }, 150);
     });
   }
 }
