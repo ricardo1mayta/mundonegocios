@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject, Subscription, timer, of } from "rxjs";
 import { catchError, finalize } from "rxjs/operators";
 import { NotificationsApi, NotificationItem } from "./notifications.api";
+import { AuthService } from "../auth.service";
 
 type NotificationsState = {
   loading: boolean;
@@ -26,9 +27,13 @@ export class NotificationsBusService {
   private sedeId: number | null = null;
   private pollSub: Subscription | null = null;
 
-  constructor(private readonly api: NotificationsApi) {}
+  constructor(
+    private readonly api: NotificationsApi,
+    private readonly auth: AuthService,
+  ) {}
 
   refresh(sedeId: number) {
+    if (!this.auth.isAuthenticated()) return;
     if (!sedeId || Number.isNaN(Number(sedeId))) return;
     this.sedeId = Number(sedeId);
     if (!this.pollSub) this.startPolling();
@@ -47,6 +52,10 @@ export class NotificationsBusService {
   }
 
   private fetch() {
+    if (!this.auth.isAuthenticated()) {
+      this.stopPolling();
+      return;
+    }
     if (!this.sedeId) return;
     this.stateSubject.next({ ...this.stateSubject.value, loading: true, error: null });
     this.api
@@ -71,6 +80,11 @@ export class NotificationsBusService {
         const merged = list.map((n) => ({ ...n, read: prevRead.get(n.id) ?? false }));
         this.setList(merged);
       });
+  }
+
+  private stopPolling() {
+    this.pollSub?.unsubscribe();
+    this.pollSub = null;
   }
 
   private setList(list: NotificationItem[]) {

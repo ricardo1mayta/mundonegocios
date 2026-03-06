@@ -1,41 +1,79 @@
-<!-- CONTENEDOR PRINCIPAL -->
-<div class="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4 dark:bg-gray-800 text-gray-800 dark:text-white/90">
-  <h1 class="text-2xl font-bold mb-4 text-gray-800 dark:text-white/90">Gestión de Menú</h1>
+<div class="min-h-screen bg-gray-100 p-4 text-gray-800 dark:bg-gray-800 dark:text-white/90">
+  <h1 class="mb-4 text-2xl font-bold">Gestion de Menu por Rol</h1>
 
-  <div class="bg-white rounded-lg shadow-lg p-6 max-w-xl mx-auto dark:bg-gray-900">
-    <!-- SELECTOR DE ROL ---------------------------------------------------->
-    <mat-form-field appearance="outline" class="w-full mb-6 no-outline combo-like">
-      <mat-select [formControl]="rolCtrl" placeholder="Seleccione">
-        <mat-option [value]="null" disabled>Seleccione</mat-option>
-        <mat-option *ngFor="let rol of roles()" [value]="rol.idRol">
-          {{ rol.descripcionRol }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+  <div class="grid grid-cols-1 gap-4 lg:grid-cols-3">
+    <section class="rounded-lg bg-white p-4 shadow dark:bg-gray-900 lg:col-span-1">
+      <h2 class="mb-3 text-lg font-semibold">Roles</h2>
 
-    <!-- ÁRBOL DE MENÚ ----------------------------------------------------->
-    <div class="bg-gray-50 rounded-lg p-4 dark:bg-gray-900">
-      <mat-tree #tree [dataSource]="dataSource()" [childrenAccessor]="childrenAccessor">
-        <!-- NODO HOJA (con checkbox) -->
-        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding class="flex items-center hover:bg-gray-100 dark:hover:bg-white/5 rounded transition">
-          <button mat-icon-button disabled></button>
-          <mat-checkbox class="mr-2" [checked]="checklist.isSelected(node)" (change)="onLeafToggle(node, $event.checked)"> </mat-checkbox>
-          <span class="font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">{{ node.name }}</span>
-        </mat-tree-node>
-
-        <!-- NODO RAMA (expandible, sin checkbox) -->
-        <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding class="flex items-center hover:bg-gray-100 dark:hover:bg-white/5 rounded transition">
-          <button mat-icon-button matTreeNodeToggle>
-            <mat-icon class="mat-icon-rtl-mirror">
-              {{ tree.isExpanded(node) ? "expand_more" : "chevron_right" }}
-            </mat-icon>
+      <div class="space-y-2" *ngIf="roles().length; else noRolesTpl">
+        <div
+          *ngFor="let rol of roles()"
+          class="role-card flex items-center justify-between rounded-md border border-gray-200 px-3 py-2 dark:border-gray-700"
+          [class.border-blue-500]="isRolSeleccionado(rol.idRol)"
+        >
+          <div>
+            <p class="font-medium">{{ rol.descripcionRol || rol.nombreRol }}</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">ID: {{ rol.idRol }}</p>
+          </div>
+          <button
+            mat-stroked-button
+            class="role-action-btn"
+            [class.role-action-btn--active]="isRolSeleccionado(rol.idRol)"
+            color="primary"
+            type="button"
+            (click)="seleccionarRol(rol.idRol)"
+          >
+            Marcar menu
           </button>
-          <mat-checkbox class="mr-2" [checked]="checklist.isSelected(node)" (change)="onLeafToggle(node, $event.checked)"> </mat-checkbox>
-          <span class="font-semibold text-blue-700 dark:text-blue-300">{{ node.name }}</span>
-        </mat-tree-node>
-      </mat-tree>
-    </div>
+        </div>
+      </div>
+
+      <ng-template #noRolesTpl>
+        <p class="text-sm text-gray-500 dark:text-gray-400">No hay roles para mostrar.</p>
+      </ng-template>
+    </section>
+
+    <section class="rounded-lg bg-white p-4 shadow dark:bg-gray-900 lg:col-span-2">
+      <div class="mb-3 flex items-center justify-between">
+        <h2 class="text-lg font-semibold">Menus del rol</h2>
+        <span class="text-sm text-gray-500 dark:text-gray-400" *ngIf="selectedRol() as rol">
+          Rol activo: {{ rol.descripcionRol || rol.nombreRol }}
+        </span>
+      </div>
+
+      <div *ngIf="!selectedRolId()" class="rounded-md bg-gray-50 p-3 text-sm text-gray-500 dark:bg-gray-800 dark:text-gray-400">
+        Selecciona un rol y pulsa "Marcar menu" para cargar y marcar sus menus.
+      </div>
+
+      <div class="rounded-lg bg-gray-50 p-4 dark:bg-gray-800" [class.opacity-60]="!selectedRolId()">
+        <mat-tree #tree [dataSource]="dataSource()" [childrenAccessor]="childrenAccessor">
+          <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding class="flex items-center rounded transition hover:bg-gray-100 dark:hover:bg-white/5">
+            <button mat-icon-button class="tree-placeholder-btn" disabled></button>
+            <mat-checkbox
+              class="mr-2"
+              [checked]="checklist.isSelected(node)"
+              [disabled]="!selectedRolId()"
+              (change)="onLeafToggle(node, $event.checked)"
+            ></mat-checkbox>
+            <span class="font-medium text-gray-700 dark:text-gray-200">{{ node.name }}</span>
+          </mat-tree-node>
+
+          <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding class="flex items-center rounded transition hover:bg-gray-100 dark:hover:bg-white/5">
+            <button mat-icon-button class="tree-toggle-btn" matTreeNodeToggle>
+              <mat-icon class="mat-icon-rtl-mirror">
+                {{ tree.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
+              </mat-icon>
+            </button>
+            <mat-checkbox
+              class="mr-2"
+              [checked]="checklist.isSelected(node)"
+              [disabled]="!selectedRolId()"
+              (change)="onLeafToggle(node, $event.checked)"
+            ></mat-checkbox>
+            <span class="font-semibold text-blue-700 dark:text-blue-300">{{ node.name }}</span>
+          </mat-tree-node>
+        </mat-tree>
+      </div>
+    </section>
   </div>
 </div>
-
-

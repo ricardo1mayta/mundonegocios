@@ -1,0 +1,81 @@
+:host {
+  --btn-text: #0f172a;
+  --btn-border: #cbd5e1;
+  --btn-bg-a: #ffffff;
+  --btn-bg-b: #f8fafc;
+  --btn-shadow: 0 8px 20px -12px rgba(15, 23, 42, 0.45);
+  --btn-hover-shadow: 0 12px 24px -12px rgba(15, 23, 42, 0.55);
+  --btn-accent-a: #2563eb;
+  --btn-accent-b: #1d4ed8;
+}
+
+:host-context(.dark) {
+  --btn-text: #e2e8f0;
+  --btn-border: #334155;
+  --btn-bg-a: #1e293b;
+  --btn-bg-b: #0f172a;
+  --btn-shadow: 0 8px 20px -12px rgba(2, 6, 23, 0.9);
+  --btn-hover-shadow: 0 12px 24px -12px rgba(2, 6, 23, 0.95);
+  --btn-accent-a: #3b82f6;
+  --btn-accent-b: #2563eb;
+}
+
+.role-card {
+  transition: border-color 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+}
+
+.role-card:hover {
+  box-shadow: 0 10px 18px -14px rgba(15, 23, 42, 0.55);
+}
+
+:host-context(.dark) .role-card:hover {
+  box-shadow: 0 12px 20px -14px rgba(2, 6, 23, 0.9);
+}
+
+.role-action-btn {
+  min-height: 36px;
+  padding: 0 14px;
+  border: 1px solid var(--btn-border) !important;
+  border-radius: 10px !important;
+  background: linear-gradient(180deg, var(--btn-bg-a), var(--btn-bg-b));
+  color: var(--btn-text) !important;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  box-shadow: var(--btn-shadow);
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+.role-action-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--btn-hover-shadow);
+  border-color: #94a3b8 !important;
+}
+
+:host-context(.dark) .role-action-btn:hover {
+  border-color: #475569 !important;
+}
+
+.role-action-btn:focus-visible {
+  outline: 0;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.22), var(--btn-hover-shadow);
+}
+
+.role-action-btn--active {
+  color: #ffffff !important;
+  border-color: transparent !important;
+  background: linear-gradient(180deg, var(--btn-accent-a), var(--btn-accent-b));
+  box-shadow: 0 12px 24px -14px rgba(37, 99, 235, 0.75);
+}
+
+.tree-toggle-btn,
+.tree-placeholder-btn {
+  border-radius: 8px;
+}
+
+.tree-toggle-btn:hover {
+  background: rgba(148, 163, 184, 0.18);
+}
+
+:host-context(.dark) .tree-toggle-btn:hover {
+  background: rgba(148, 163, 184, 0.24);
+}
