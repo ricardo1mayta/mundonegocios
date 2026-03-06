@@ -43,6 +43,7 @@ import { CuadresMesComponent } from "./caja/cuadres-mes/cuadres-mes.component";
 import { RegistroGastosComponent } from "./gastos/registro-gastos/registro-gastos.component";
 import { NumeracionComponent } from "./numeracion/numeracion.component";
 import { SuperAdminComponent } from "./super-admin/super-admin.component";
+import { PegasusAdminComponent } from "./pegasus-admin/pegasus-admin.component";
 import { AppLayoutComponent } from "src/app/shared/layout/app-layout/app-layout.component";
 import { RequerimientosComponent } from "./fabricacion/pages/requerimientos/requerimientos/requerimientos.component";
 import { ProfileComponent } from "../profile/profile.component";
@@ -139,6 +140,10 @@ export const routes: Routes = [
       {
         path: "system-manager/admin-perfil",
         component: MenuComponent,
+      },
+      {
+        path: "system-manager/admin-pegasus",
+        component: PegasusAdminComponent,
       },
       {
         path: "guia/listaguias",
