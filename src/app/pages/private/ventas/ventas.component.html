@@ -1,22 +1,19 @@
 <app-form-crud titulo="Ordenes de Pedidos">
-  <!-- FILTROS ------------------------------------------------------------ -->
   <div filtros>
     <app-form-filter [formGroup]="filtroForm" [(filtros)]="filtros" [mostrarEstado]="false">
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        <!-- Buscador -->
         <div class="sm:col-span-2 md:col-span-1 flex flex-col">
           <label for="buscador" class="text-md font-medium mt-4 mb-1 dark:text-white/90">Buscador</label>
           <div class="relative">
             <input
               id="buscador"
               type="text"
-              placeholder="Buscar por código o nombre"
+              placeholder="Buscar por codigo o nombre"
               formControlName="buscador"
               class="input pl-10"
               (keydown.enter)="aplicarFiltros()"
             />
             <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-              <!--   HeroIcon: magnifying-glass   -->
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 class="h-5 w-5 text-gray-400 dark:text-gray-500"
@@ -35,7 +32,6 @@
           </div>
         </div>
 
-        <!--â€ŠFecha desde -->
         <div class="flex flex-col">
           <label for="fechaDesde" class="text-md font-medium mt-4 mb-1 dark:text-white/90">Fecha Desde</label>
           <div class="relative">
@@ -61,7 +57,6 @@
           </div>
         </div>
 
-        <!--â€ŠFecha hasta -->
         <div class="self-end flex flex-col">
           <label for="fechaHasta" class="sr-only">Hasta</label>
           <div class="relative">
@@ -101,7 +96,7 @@
       <app-data-table [urlApi]="urlApi()" [parametrosApi]="filtrosApi()" [urlExcel]="urlApiReporte()">
         <app-columna-tabla titulo="Codigo" propiedad="codigo" />
 
-        <app-columna-tabla titulo="Tikect" propiedad="id">
+        <app-columna-tabla titulo="Tikect" propiedad="ticket">
           <ng-template let-id="valor"
             ><button class="text-red-600" (click)="viewPdf(id)">
               <mat-icon aria-label="Archivo PDF">picture_as_pdf</mat-icon>
@@ -109,34 +104,49 @@
             <button (click)="downloadPdf(id)"><mat-icon>cloud_download</mat-icon></button></ng-template
           >
         </app-columna-tabla>
+
         <app-columna-tabla titulo="Origen" propiedad="origen" />
+
         <app-columna-tabla titulo="Fecha Crea" propiedad="fechaCrea">
           <ng-template let-fechaCrea="valor">
             {{ fechaCrea | date: "dd/MM/yyyy" }}
           </ng-template>
         </app-columna-tabla>
+
         <app-columna-tabla titulo="Fecha Entrega" propiedad="fechaEntrega">
           <ng-template let-fechaCrea="valor">
             {{ fechaCrea | date: "dd/MM/yyyy" }}
           </ng-template>
         </app-columna-tabla>
 
-        <app-columna-tabla titulo="Apellido Cliente" propiedad="nombreCliente">
+        <app-columna-tabla titulo="Apellido Cliente" propiedad="nombreCliente" clase="px-4 py-2 text-center text-sm text-gray-800 dark:text-gray-100 min-w-[120px]">
           <ng-template let-nombreCliente="valor">
             {{ nombreCliente | uppercase }}
           </ng-template>
         </app-columna-tabla>
-        <app-columna-tabla titulo="Doc Cliente" propiedad="docCliente" />
-        <app-columna-tabla titulo="Direccion" propiedad="direccion" />
-        <app-columna-tabla titulo="Total" propiedad="total" />
 
+        <app-columna-tabla titulo="Doc Cliente" propiedad="docCliente" />
+        <app-columna-tabla titulo="Direccion" propiedad="direccion" clase="px-4 py-2 text-center text-sm text-gray-800 dark:text-gray-100 min-w-[120px]" />
+        <app-columna-tabla titulo="Total" propiedad="total" />
         <app-columna-tabla titulo="Status" propiedad="estado" />
         <app-columna-tabla titulo="Pago" propiedad="estadoPago" />
-        <app-columna-tabla titulo="Registro" propiedad="estadoPedido" />
-
+                <app-columna-tabla titulo="Registro" propiedad="estadoPedido" />
+        <app-columna-tabla titulo="Comprobante FE" propiedad="comprobanteFe">
+          <ng-template let-elemento="elemento">
+            <div *ngIf="elemento?.idDocumentoElectronico; else sinFe" class="flex flex-col items-center gap-1">
+              <span class="px-2 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">
+                {{ elemento?.tipoComprobanteEmitido || "EMITIDO" }}
+              </span>
+              <span class="text-xs text-slate-500">{{ elemento?.serie }}</span>
+              <span class="text-xs text-slate-400">ID FE: {{ elemento?.idDocumentoElectronico }}</span>
+            </div>
+            <ng-template #sinFe>-</ng-template>
+          </ng-template>
+        </app-columna-tabla>
         <app-columna-tabla titulo="Usuario Crea" propiedad="usuarioCrea" />
 
         <app-accion-tabla etiqueta="Ver" icono="visibility" (accion)="verPedido($event.datos)" />
+        <app-accion-tabla etiqueta="Emitir FE" icono="request_quote" (accion)="emitirFacturacion($event.datos)" />
         <app-accion-tabla etiqueta="IMEIs" icono="qr_code_2" (accion)="registrarImeis($event.datos)" />
         <app-accion-tabla etiqueta="Guia" icono="local_shipping" (accion)="generarGuia($event.datos)" />
         <app-accion-tabla etiqueta="Editar" icono="edit" (accion)="editarPedido($event.datos)" />

@@ -1,5 +1,5 @@
-import { CommonModule, formatDate } from "@angular/common";
-import { Component, inject, model, OnInit, signal, viewChild, computed } from "@angular/core";
+﻿import { CommonModule, formatDate } from "@angular/common";
+import { Component, computed, inject, model, OnInit, signal, viewChild } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE, provideNativeDateAdapter } from "@angular/material/core";
 import { MaterialModule } from "../../../core/modules/material/material.module";
@@ -19,6 +19,7 @@ import Swal from "sweetalert2";
 import { VisualizarVentaComponent } from "./visualizar-venta/visualizar-venta.component";
 import { debounceTime, distinctUntilChanged } from "rxjs/operators";
 import { RutaService } from "src/app/core/services/general/ruta.service";
+
 @Component({
   selector: "app-ventas",
   imports: [
@@ -66,7 +67,6 @@ export class VentasComponent implements OnInit {
   configuracionExcel: IReporteExcel = {
     titulo: "Lista de pedidos",
     fuente: "Order de pedidos",
-
     columnas: [
       { titulo: "Codigo", propiedad: "codigo" },
       { titulo: "Origen", propiedad: "origen" },
@@ -94,7 +94,9 @@ export class VentasComponent implements OnInit {
       fechaHasta: this.formatearFecha(f.fechaHasta),
     };
   });
+
   private rutaService = inject(RutaService);
+
   constructor(
     private dialog: MatDialog,
     private pedidosService: PedidosService,
@@ -109,16 +111,13 @@ export class VentasComponent implements OnInit {
       puedeExportar: false,
     });
     this.filtroForm.valueChanges.pipe(debounceTime(400), distinctUntilChanged()).subscribe(() => this.aplicarFiltros());
-    console.log("URL del servicio:", this.pedidosService.urlConsultarPedidos);
-
-    console.log("URL asignada:", this.urlApi());
     this.buscar();
   }
 
   buscar(): void {
-    console.log("buscar");
     this.dataTable()?.recargarTabla();
   }
+
   aplicarFiltros(): void {
     const { buscador, fechaDesde, fechaHasta } = this.filtroForm.getRawValue();
 
@@ -127,8 +126,9 @@ export class VentasComponent implements OnInit {
       fechaDesde: this.formatearFecha(fechaDesde),
       fechaHasta: this.formatearFecha(fechaHasta),
     });
-    this.dataTable()?.recargarTabla(); // dispara la petición al backend
+    this.dataTable()?.recargarTabla();
   }
+
   private formatearFecha(valor: unknown): string | null {
     if (!valor) return null;
     if (valor instanceof Date) {
@@ -138,9 +138,7 @@ export class VentasComponent implements OnInit {
     const texto = valor.trim();
     if (!texto) return null;
     const iso = texto.match(/^(\d{4})-(\d{2})-(\d{2})$/);
-    if (iso) {
-      return texto;
-    }
+    if (iso) return texto;
     const latam = texto.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
     if (latam) {
       const [_, d, m, y] = latam;
@@ -164,11 +162,43 @@ export class VentasComponent implements OnInit {
       });
       return;
     }
-    {
-      this.router.navigate(["/admin/ventas/newpedidos"], {
-        state: { compraId: pedido.id },
+
+    this.router.navigate(["/admin/ventas/newpedidos"], {
+      state: { compraId: pedido.id },
+    });
+  }
+
+  emitirFacturacion(pedido: Pedido) {
+    Swal.fire({
+      title: "Emitir comprobante",
+      text: "Se emitira boleta o factura segun el documento del cliente.",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Emitir",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (!result.isConfirmed) return;
+
+      this.pedidosService.emitirComprobante(pedido.id).subscribe({
+        next: () => {
+          Swal.fire({
+            icon: "success",
+            title: "Enviado",
+            text: "La emision del comprobante fue iniciada.",
+            timer: 1800,
+            showConfirmButton: false,
+          });
+          this.buscar();
+        },
+        error: (err) => {
+          Swal.fire({
+            icon: "error",
+            title: "Error al emitir",
+            text: err?.error?.message || "No se pudo emitir el comprobante.",
+          });
+        },
       });
-    }
+    });
   }
 
   viewPdf(id: number) {
@@ -183,20 +213,21 @@ export class VentasComponent implements OnInit {
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `ticket-${id}.pdf`; // ← nombre que recibirá el archivo
+      a.download = `ticket-${id}.pdf`;
       a.click();
-      URL.revokeObjectURL(url); // libera memoria
+      URL.revokeObjectURL(url);
     });
   }
+
   anularPedido(pedido: Pedido) {
     Swal.fire({
       html: `
-    <h2 style="text-align:center">¿Estás seguro?</h2>
-    <p style="text-align:center">No podrás revertir esto</p>
+    <h2 style="text-align:center">¿Estas seguro?</h2>
+    <p style="text-align:center">No podras revertir esto</p>
   `,
       icon: "warning",
       showCancelButton: true,
-      confirmButtonText: "Sí, anular",
+      confirmButtonText: "Si, anular",
       cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
@@ -206,21 +237,16 @@ export class VentasComponent implements OnInit {
       }
     });
   }
+
   verPedido(pedido: Pedido) {
-    // abrir modal
-    const dialogRef = this.dialog.open(VisualizarVentaComponent, {
-      width: "70rem", // coincide con max-w-3xl
+    this.dialog.open(VisualizarVentaComponent, {
+      width: "70rem",
       maxWidth: "95vw",
       data: {
-        title: "Crear Cliente ",
+        title: "Detalle Pedido",
         boton: "Guardar",
         pedido: pedido,
       },
-    });
-
-    dialogRef.afterClosed().subscribe((resultado: unknown) => {
-      if (resultado) {
-      }
     });
   }
 

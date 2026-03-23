@@ -8,7 +8,7 @@ import { Inventario } from '../../../../core/models/almacen/invetario';
 import { Router } from '@angular/router';
 import { ClientesService } from '../../../../core/services/clientes/clientes.service';
 import { Clientes } from '../../../../core/models/ventas/clientes';
-import { PedidosService } from '../../../../core/services/pedidos/pedidos.service';
+import { PedidosService, TipoComprobante } from '../../../../core/services/pedidos/pedidos.service';
 import { EstadosService } from '../../../../core/services/estados/estados.service';
 import { Estado } from '../../../../core/models/ventas/Estado';
 import { TipopagoService } from '../../../../core/services/tipopago/tipopago.service';
@@ -53,6 +53,7 @@ export class NuevaVentaComponent {
   estadosList = toSignal(this.estadosService.listarEstados('PEDIDOS').pipe(map(res => (res as any).data as Estado[])), { initialValue: [] });
   selectedProvider = signal<Clientes | null>(null);
   search = signal('');
+  tipoVenta = signal<'NORMAL' | 'BOLETA' | 'FACTURA'>('NORMAL');
   serie = signal('');
   selectEstado = signal(1);
   searchProvedor = signal('');
@@ -167,7 +168,9 @@ export class NuevaVentaComponent {
       this.saleDate.set(pedido.fechaEntrega);
       this.note.set(pedido.observacion);
       this.sendTicket.set(pedido.sendTicket);
-      this.serie.set(pedido.serie);
+      const tipoComprobante = (pedido.tipoComprobante as 'NORMAL' | 'BOLETA' | 'FACTURA' | undefined) ?? (pedido.serie?.startsWith('F') ? 'FACTURA' : pedido.serie?.startsWith('B') ? 'BOLETA' : 'NORMAL');
+      this.tipoVenta.set(tipoComprobante);
+      this.serie.set(pedido.serie ?? '');
       this.pagos.set(pedido.pagosPedido);
       this.selectEstado.set(pedido.estado.id);
     });
@@ -181,8 +184,9 @@ export class NuevaVentaComponent {
       this.saleDate.set(cotizacion.fechaEntrega);
       this.note.set(cotizacion.observacion);
       this.sendTicket.set(cotizacion.sendTicket);
+      this.tipoVenta.set('NORMAL');
       this.serie.set('');
-      this.pagos.set([]); // Inicializa con una fila vacía
+      this.pagos.set([]); // Inicializa con una fila vacia
       this.selectEstado.set(cotizacion.estado.id);
     });
   }
@@ -203,22 +207,39 @@ export class NuevaVentaComponent {
       sendTicket: this.sendTicket(),
       cliente: this.selectedProvider(),
       estado: this.selectEstado(),
-      serie: this.serie(),
       origen: 'Interno',
       pagosPedido: this.pagos(),
     };
     console.log(data);
 
     if (!this.editingId()) {
-      this.pedidosService.registrarPedido(data).subscribe({
-        next: () => {
-          console.log('Compra registrada exitosamente');
-          this.clearAll();
-        },
-        error: err => {
-          console.error('Error al registrar la compra:', err);
-        },
-      });
+
+      if (this.tipoVenta() === 'NORMAL') {
+        this.pedidosService.registrarPedido(data).subscribe({
+          next: () => {
+            console.log('Pedido registrado exitosamente');
+            this.clearAll();
+          },
+          error: err => {
+            console.error('Error al registrar el pedido:', err);
+          },
+        });
+      } else {
+        this.pedidosService
+          .registrarPedidoFacturacion({
+            pedido: data,
+            tipoComprobante: this.tipoVenta() as TipoComprobante,
+          })
+          .subscribe({
+            next: () => {
+              console.log('Pedido para facturacion registrado exitosamente');
+              this.clearAll();
+            },
+            error: err => {
+              console.error('Error al registrar el pedido para facturacion:', err);
+            },
+          });
+      }
     } else {
       this.pedidosService.editarPedido(this.editingId(), data).subscribe({
         next: () => {
@@ -311,16 +332,17 @@ export class NuevaVentaComponent {
     this.searchProvedor.set('');
     this.selCat.set('Todos');
     this.page.set(1);
+    this.tipoVenta.set('NORMAL');
     this.serie.set('');
     this.selectEstado.set(1); // estado por defecto
     this.saleDate.set(new Date().toISOString().slice(0, 16));
     this.note.set('');
     this.sendTicket.set(false);
-    // reinicia pagos: una fila con el primer tipo disponible o vacío
+    // reinicia pagos: una fila con el primer tipo disponible o vacio
     //const firstTipo = this.tiposPagoDisponibles()[0] ?? null;
     // this.pagos.set([{ tipo: firstTipo, monto: 0 }]);
     this.pagos.set([]);
-    // si estabas editando, sal del modo edición
+    // si estabas editando, sal del modo edicion
     this.isEdit.set(false);
     this.editingId.set(null);
     // recargar la lista de productos

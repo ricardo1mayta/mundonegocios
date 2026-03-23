@@ -4,6 +4,7 @@ import { VentasComponent } from "./ventas/ventas.component";
 import { ClientesComponent } from "./clientes/clientes.component";
 import { NuevaVentaComponent } from "./ventas/nueva-venta/nueva-venta.component";
 import { RegistroImeisVentaComponent } from "./ventas/registro-imeis-venta/registro-imeis-venta.component";
+import { FacturacionListadoComponent } from "./ventas/facturacion-listado.component";
 import { MarcasComponent } from "./almacen/marcas/marcas.component";
 import { CategoriasComponent } from "./almacen/categorias/categorias.component";
 import { ProductosComponent } from "./almacen/productos/productos.component";
@@ -72,6 +73,10 @@ export const routes: Routes = [
       {
         path: "ventas/registro-imeis/:id",
         component: RegistroImeisVentaComponent,
+      },
+      {
+        path: "ventas/facturacion",
+        component: FacturacionListadoComponent,
       },
       {
         path: "system-manager/marcas",

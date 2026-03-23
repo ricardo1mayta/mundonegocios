@@ -107,11 +107,11 @@ export class DataTableComponent {
   /*cambioPagina(e: { pageIndex: number; pageSize: number }) {
     this.pageIndex.set(e.pageIndex);
     this.pageSize.set(e.pageSize);
-    // aquí tu lógica: pedir data al backend, etc.
+    // aquÃƒÂ­ tu lÃƒÂ³gica: pedir data al backend, etc.
   }*/
 
   mostrarMensajeTablaVacia = signal<boolean>(true);
-  mensajeTablaVacia = input<string>("No se hallaron coincidencias para tu búsqueda, intenta cambiar tu búsqueda");
+  mensajeTablaVacia = input<string>("No se hallaron coincidencias para tu bÃƒÂºsqueda, intenta cambiar tu bÃƒÂºsqueda");
   paginable = input<boolean>(true);
   tamanioPagina = model<number>(5);
   paginaActual = signal<number>(0);
@@ -121,6 +121,7 @@ export class DataTableComponent {
   urlExcel = input<string>("");
   metodoExcel = input<"get" | "post" | "">("");
   parametrosApi = input<any>({});
+  opcionesApi = input<any>({});
   datos = model<any[]>([]);
   origenDatos = new MatTableDataSource<any>([]);
 
@@ -180,6 +181,7 @@ export class DataTableComponent {
     const pageBackend = pageIndex0; // 0-based (API)
 
     const parametros = {
+      ...this.opcionesApi(),
       datos: this.parametrosApi(),
       pagina: pageBackend,
       tamanio: this.tamanioPagina(),
@@ -321,7 +323,7 @@ export class DataTableComponent {
     }
   }
 
-  /** Métodos para los checks de selección */
+  /** MÃƒÂ©todos para los checks de selecciÃƒÂ³n */
   cambioCheckCabecera(evento: MatCheckboxChange) {
     this.checkCabeceraIndeterminado.set(false);
     this.checkCabeceraSeleccionada.set(evento.checked);

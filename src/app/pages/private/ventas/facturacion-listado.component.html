@@ -1,0 +1,132 @@
+<app-form-crud titulo="Facturacion electronica">
+  <div filtros>
+    <app-form-filter [formGroup]="filtroForm" [(filtros)]="filtros" [mostrarEstado]="false">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="sm:col-span-2 md:col-span-2 flex flex-col">
+          <label for="buscador" class="text-md font-medium mt-4 mb-1 dark:text-white/90">Buscador</label>
+          <input
+            id="buscador"
+            type="text"
+            placeholder="Buscar por pedido, cliente o documento"
+            formControlName="buscador"
+            class="input"
+            (keydown.enter)="aplicarFiltros()"
+          />
+        </div>
+
+        <div class="flex flex-col">
+          <label for="fechaDesde" class="text-md font-medium mt-4 mb-1 dark:text-white/90">Fecha Desde</label>
+          <div class="relative">
+            <input
+              id="fechaDesde"
+              matInput
+              [matDatepicker]="fechaDesdePicker"
+              formControlName="fechaDesde"
+              [max]="filtroForm.get('fechaHasta')?.value"
+              placeholder="dd/MM/yyyy"
+              autocomplete="off"
+              class="input pr-10"
+              (click)="fechaDesdePicker.open()"
+            />
+            <button
+              type="button"
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400"
+              (click)="fechaDesdePicker.open()"
+            >
+              <mat-icon class="!text-[18px]">calendar_today</mat-icon>
+            </button>
+            <mat-datepicker #fechaDesdePicker></mat-datepicker>
+          </div>
+        </div>
+
+        <div class="self-end flex flex-col">
+          <label for="fechaHasta" class="sr-only">Hasta</label>
+          <div class="relative">
+            <input
+              id="fechaHasta"
+              matInput
+              [matDatepicker]="fechaHastaPicker"
+              formControlName="fechaHasta"
+              [min]="filtroForm.get('fechaDesde')?.value"
+              placeholder="dd/MM/yyyy"
+              autocomplete="off"
+              class="input pr-10"
+              (click)="fechaHastaPicker.open()"
+            />
+            <button
+              type="button"
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400"
+              (click)="fechaHastaPicker.open()"
+            >
+              <mat-icon class="!text-[18px]">calendar_today</mat-icon>
+            </button>
+            <mat-datepicker #fechaHastaPicker></mat-datepicker>
+          </div>
+        </div>
+      </div>
+    </app-form-filter>
+  </div>
+
+  <div class="rounded-lg bg-neutral-100 dark:bg-gray-900">
+    <app-form-list
+      class="flex flex-col flex-auto p-4"
+      etiquetaAgregar="Volver a pedidos"
+      (agregarClick)="irAPedidos()"
+      nombreExcel="FACTURACION"
+      [configuracionExcel]="configuracionExcel"
+    >
+      <app-data-table [urlApi]="urlApi()" [parametrosApi]="filtrosApi()" [opcionesApi]="opcionesApi()">
+        <app-columna-tabla titulo="Pedido ID" propiedad="pedidoId" />
+        <app-columna-tabla titulo="Documento FE ID" propiedad="documentId" />
+        <app-columna-tabla titulo="Tipo" propiedad="tipoComprobante" />
+
+        <app-columna-tabla titulo="Estado SUNAT" propiedad="estadoSunat">
+          <ng-template let-elemento="elemento">
+            <span class="px-2 py-1 rounded-full text-xs font-semibold" [ngClass]="estadoClass(elemento)">
+              {{ estadoLabel(elemento) }}
+            </span>
+          </ng-template>
+        </app-columna-tabla>
+
+        <app-columna-tabla titulo="Serie" propiedad="serie" />
+        <app-columna-tabla titulo="Correlativo" propiedad="correlativo" />
+        <app-columna-tabla titulo="Doc Cliente" propiedad="clienteDocumento" />
+
+        <app-columna-tabla titulo="Cliente" propiedad="clienteNombre" clase="px-4 py-2 text-center text-sm text-gray-800 dark:text-gray-100 min-w-[120px]">
+          <ng-template let-valor="valor">{{ valor | uppercase }}</ng-template>
+        </app-columna-tabla>
+
+        <app-columna-tabla titulo="Total" propiedad="totalPedido" />
+
+        <app-columna-tabla titulo="Envio SUNAT" propiedad="fechaEnvioSunat">
+          <ng-template let-valor="valor">
+            {{ valor ? (valor | date: "dd/MM/yyyy HH:mm") : "-" }}
+          </ng-template>
+        </app-columna-tabla>
+
+        <app-columna-tabla titulo="Respuesta SUNAT" propiedad="fechaRespuestaSunat">
+          <ng-template let-valor="valor">
+            {{ valor ? (valor | date: "dd/MM/yyyy HH:mm") : "-" }}
+          </ng-template>
+        </app-columna-tabla>
+
+        <app-columna-tabla titulo="Codigo SUNAT" propiedad="sunatResponseCode" />
+        <app-columna-tabla titulo="Descripcion SUNAT" propiedad="sunatDescription" />
+
+        <app-columna-tabla titulo="Archivos FE" propiedad="accionesFe">
+          <ng-template let-elemento="elemento">
+            <div class="flex items-center justify-center gap-2">
+              <button type="button" class="text-emerald-600 hover:text-emerald-800" (click)="descargarXml(elemento)" matTooltip="Descargar XML">
+                <mat-icon>code</mat-icon>
+              </button>
+              <button type="button" class="text-red-600 hover:text-red-800" (click)="verPdf(elemento)" matTooltip="Ver PDF">
+                <mat-icon>picture_as_pdf</mat-icon>
+              </button>
+            </div>
+          </ng-template>
+        </app-columna-tabla>
+      </app-data-table>
+    </app-form-list>
+  </div>
+</app-form-crud>
+

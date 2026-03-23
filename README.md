@@ -5,7 +5,7 @@ TailAdmin Angular is a **free and open-source admin dashboard template** built w
 ![TailAdmin Angular Admin Dashboard](./angular-tailwind.png)
 
 
-With TailAdmin Angular, you’ll get access to a complete set of **dashboard UI components, elements, and ready-to-use pages** to build a modern, high-quality admin panel. Whether it’s for a **complex web application** or a **lightweight project**, TailAdmin Angular is designed to speed up development of any kind of dashboards and admin panels.
+With TailAdmin Angular, youâ€™ll get access to a complete set of **dashboard UI components, elements, and ready-to-use pages** to build a modern, high-quality admin panel. Whether itâ€™s for a **complex web application** or a **lightweight project**, TailAdmin Angular is designed to speed up development of any kind of dashboards and admin panels.
 
 TailAdmin leverages the **powerful ecosystem of Angular 20+**, along with **TypeScript** and the utility-first styling of **Tailwind CSS v4**. Combined, they make TailAdmin Angular a perfect foundation to launch your dashboard or admin panel quickly and effectively.
 
@@ -17,19 +17,19 @@ TailAdmin Angular comes with essential UI components and layouts for building **
 
 ### Quick Links
 
-- ✨ [Visit Website](https://tailadmin.com/)
-- 🚀 [Angular Demo](https://angular-demo.tailadmin.com/)
-- 📄 [Documentation](https://tailadmin.com/docs)
-- ⬇️ [Download](https://tailadmin.com/download)
-- 🖌️ [Figma Design File (Free Edition)](https://www.figma.com/community/file/1463141366275764364)
-- ⚡ [Get PRO Version](https://tailadmin.com/pricing)
+- âœ¨ [Visit Website](https://tailadmin.com/)
+- ðŸš€ [Angular Demo](https://angular-demo.tailadmin.com/)
+- ðŸ“„ [Documentation](https://tailadmin.com/docs)
+- â¬‡ï¸ [Download](https://tailadmin.com/download)
+- ðŸ–Œï¸ [Figma Design File (Free Edition)](https://www.figma.com/community/file/1463141366275764364)
+- âš¡ [Get PRO Version](https://tailadmin.com/pricing)
 ---
 
 ## Feature Comparison
 
-| Feature | Free Version | Pro Version 🌟 |
+| Feature | Free Version | Pro Version ðŸŒŸ |
 |---------|--------------|----------------|
-| **Dashboards** | 1 Unique Dashboard | 7 Unique Dashboards: Analytics, Ecommerce, Marketing, SaaS, CRM, Stocks, Logistics and more (more coming soon) 📈 |
+| **Dashboards** | 1 Unique Dashboard | 7 Unique Dashboards: Analytics, Ecommerce, Marketing, SaaS, CRM, Stocks, Logistics and more (more coming soon) ðŸ“ˆ |
 | **UI Elements and Components** | 100+ UI elements and components | Included in 500+ components and UI elements |
 | **Design Files** | Basic Figma design files | Complete Figma design system file |
 | **Support** | Community support| Email support |
@@ -84,7 +84,7 @@ npm start
 ```
 
 Then open:
-👉 `http://localhost:4200`
+ðŸ‘‰ `http://localhost:4200`
 
 ---
 
@@ -99,7 +99,7 @@ TailAdmin Angular ships with a rich set of **ready-to-use dashboard features**:
 * **Tables** and **charts** (line, bar, etc.)
 * **Authentication forms** and reusable input components
 * **UI elements**: alerts, dropdowns, modals, buttons, and more
-* Built-in **Dark Mode** 🕶️
+* Built-in **Dark Mode** ðŸ•¶ï¸
 * and many more
 
 
@@ -114,3 +114,59 @@ TailAdmin Angular ships with a rich set of **ready-to-use dashboard features**:
 - **Bug Fix**: Resolved `NG0100` ExpressionChangedAfterItHasBeenCheckedError in `PieChartTwoComponent`.
 - **Bug Fix**: Fixed `NG8113` warning in `AddApiKeyModalComponent` by removing unused imports.
 - **Cleanup**: Removed unused imports and optimized code across various components.
+
+## Integracion de facturacion electronica en pedidos (frontend)
+
+La pantalla de pedidos (`/admin/ventas/newpedidos`) ahora soporta dos flujos de guardado:
+
+- `tipoVenta = NORMAL`: usa el endpoint actual `POST /pegasus/pedidos`.
+- `tipoVenta = BOLETA | FACTURA`: usa `POST /pegasus/pedidos-facturacion/registrar` con payload:
+
+```json
+{
+  "pedido": { "...": "payload actual de pedidos" },
+  "tipoComprobante": "BOLETA"
+}
+```
+
+Notas de UI:
+
+- Campo `tipoVenta`: `NORMAL | BOLETA | FACTURA`.
+
+### Listado de pedidos (`/admin/ventas/pedidos`)
+
+Se agregaron dos columnas nuevas:
+
+- `Estado FE`: muestra el estado de facturacion electronica por pedido.
+- `Acciones FE`: botones por fila.
+
+Acciones FE disponibles:
+
+- `Consultar FE`: consulta `GET /pegasus/pedidos-facturacion/{pedidoId}/estado`.
+- `Facturar`: emite comprobante en pedidos sin FE finalizada usando:
+
+```json
+POST /pegasus/pedidos-facturacion/{pedidoId}/emitir
+{
+  "tipoComprobante": "FACTURA"
+}
+```
+
+- `Ver XML` y `Ver PDF`: se habilitan cuando estado es `SUNAT_ACEPTADO` y existen `rutaXml` / `rutaPdf`.
+
+### Polling de estado FE
+
+El frontend hace polling cada 45 segundos para pedidos en estados en proceso:
+
+- `PENDIENTE_EMISION`
+- `ENVIADO_A_FACTURACION`
+- `SUNAT_EN_PROCESO`
+
+Estados FE contemplados en UI:
+
+- `PENDIENTE_EMISION`
+- `ENVIADO_A_FACTURACION`
+- `SUNAT_EN_PROCESO`
+- `SUNAT_ACEPTADO`
+- `SUNAT_RECHAZADO`
+- `SUNAT_ERROR`
