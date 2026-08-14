@@ -96,7 +96,7 @@
       <app-data-table [urlApi]="urlApi()" [parametrosApi]="filtrosApi()" [urlExcel]="urlApiReporte()">
         <app-columna-tabla titulo="Codigo" propiedad="codigo" />
 
-        <app-columna-tabla titulo="Tikect" propiedad="ticket">
+        <app-columna-tabla titulo="Tikect" propiedad="id">
           <ng-template let-id="valor"
             ><button class="text-red-600" (click)="viewPdf(id)">
               <mat-icon aria-label="Archivo PDF">picture_as_pdf</mat-icon>

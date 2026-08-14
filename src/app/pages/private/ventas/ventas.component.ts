@@ -202,6 +202,7 @@ export class VentasComponent implements OnInit {
   }
 
   viewPdf(id: number) {
+    console.log(id)
     this.pedidosService.obtenerTiketPorId(id).subscribe((pdfData: Blob) => {
       const pdfUrl = URL.createObjectURL(pdfData);
       window.open(pdfUrl, "_blank");
