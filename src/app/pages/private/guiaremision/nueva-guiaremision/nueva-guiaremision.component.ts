@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, effect, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { Clientes } from '../../../../core/models/ventas/clientes';
 import { MatSelectModule } from '@angular/material/select';
 import { MatStepperModule } from '@angular/material/stepper';
@@ -19,11 +19,12 @@ import { PedidosService } from '../../../../core/services/pedidos/pedidos.servic
 import { ImeisService } from '../../../../core/services/imeis/imeis.service';
 import { AuthService, MeResponse } from '../../../../core/services/auth.service';
 import { GuiaremisionService } from '../../../../core/services/guiremision/guiaremision.service';
+import { PrimeNgModule } from 'src/app/core/modules/primeng/primeng.module';
 //import { GuiaRemisionRequest } from './models';
 
 @Component({
   selector: 'app-nueva-guiaremision',
-  imports: [CommonModule, FormsModule, MatIconModule, ReactiveFormsModule, MatStepperModule, MatSelectModule, NgxEditorModule, MatIcon, MaterialModule],
+  imports: [PrimeNgModule, CommonModule, FormsModule, MatIconModule, ReactiveFormsModule, MatStepperModule, MatSelectModule, NgxEditorModule, MaterialModule],
   templateUrl: './nueva-guiaremision.component.html',
   styleUrl: './nueva-guiaremision.component.css',
 })
@@ -351,7 +352,7 @@ export class NuevaGuiaremisionComponent {
     if (this.step1.invalid || this.step2.invalid || this.step3.invalid) return;
 
     const payload = this.buildGuiaPayload();
-    console.log('Guía de Remisión →', payload);
+    console.log('Guía de Remisión �?? ’', payload);
 
     const req$ = this.editingId() ? this.guiaService.editarGuiaRemision(this.editingId(), payload) : this.guiaService.registrarGuiaRemision(payload);
     req$.subscribe({

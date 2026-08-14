@@ -185,7 +185,7 @@ export class AppSidebarComponent {
     ];
 
     menuGroups.forEach((group) => {
-      const items = this.asArray(group.items); // ✅ aquí ya es NavItem[]
+      const items = this.asArray(group.items); // ? aquí ya es NavItem[]
 
       items.forEach((nav, i) => {
         nav.subItems?.forEach((subItem) => {

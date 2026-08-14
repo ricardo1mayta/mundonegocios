@@ -15,46 +15,12 @@
 
       <div class="flex flex-col">
         <label for="fechaDesde" class="text-md font-semibold mt-4 mb-1 text-slate-800 dark:text-white/90">Fecha (Desde)</label>
-        <div class="relative">
-          <input
-            id="fechaDesde"
-            matInput
-            [matDatepicker]="fechaDesdePicker"
-            formControlName="fechaDesde"
-            class="input pr-10"
-            (click)="fechaDesdePicker.open()"
-            (dateChange)="aplicarFiltros()" />
-          <button
-            type="button"
-            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400"
-            (click)="fechaDesdePicker.open()"
-          >
-            <mat-icon class="!text-[18px]">calendar_today</mat-icon>
-          </button>
-          <mat-datepicker #fechaDesdePicker></mat-datepicker>
-        </div>
+        <p-datepicker inputId="fechaDesde" formControlName="fechaDesde" dateFormat="yy-mm-dd" [showIcon]="true" appendTo="body" styleClass="prime-form-input" (onSelect)="aplicarFiltros()"></p-datepicker>
       </div>
 
       <div class="flex flex-col">
         <label for="fechaHasta" class="text-md font-semibold mt-4 mb-1 text-slate-800 dark:text-white/90">Fecha (Hasta)</label>
-        <div class="relative">
-          <input
-            id="fechaHasta"
-            matInput
-            [matDatepicker]="fechaHastaPicker"
-            formControlName="fechaHasta"
-            class="input pr-10"
-            (click)="fechaHastaPicker.open()"
-            (dateChange)="aplicarFiltros()" />
-          <button
-            type="button"
-            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400"
-            (click)="fechaHastaPicker.open()"
-          >
-            <mat-icon class="!text-[18px]">calendar_today</mat-icon>
-          </button>
-          <mat-datepicker #fechaHastaPicker></mat-datepicker>
-        </div>
+        <p-datepicker inputId="fechaHasta" formControlName="fechaHasta" dateFormat="yy-mm-dd" [showIcon]="true" appendTo="body" styleClass="prime-form-input" (onSelect)="aplicarFiltros()"></p-datepicker>
       </div>
 
       <div class="md:col-span-4 flex gap-2 justify-end pt-2">
@@ -78,7 +44,7 @@
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-3">
     <!-- Registros -->
     <div class="rounded-xl bg-white p-3 border border-slate-200 shadow-sm hover:shadow-md transition dark:bg-gray-900">
-      <div class="text-xs font-medium text-slate-500 dark:text-gray-400">N° Registros</div>
+      <div class="text-xs font-medium text-slate-500 dark:text-gray-400">NÂ° Registros</div>
       <div class="mt-1 text-xl font-bold text-slate-900 dark:text-white/90">
         {{ totalesView().registros | number: "1.0-0" }}
       </div>
@@ -118,34 +84,33 @@
 </div>
 
 <!-- TABLA -->
-<div class="reportes-table rounded-lg bg-white border overflow-auto dark:bg-gray-900">
-  <table mat-table [dataSource]="page().content" class="min-w-[900px] w-full">
-    <ng-container matColumnDef="fecha">
-      <th mat-header-cell *matHeaderCellDef>Fecha</th>
-      <td mat-cell *matCellDef="let r">{{ r.fecha | date: "dd/MM/yyyy" }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="codigo">
-      <th mat-header-cell *matHeaderCellDef>Código</th>
-      <td mat-cell *matCellDef="let r">{{ r.codigo }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="tipoPagoNombre">
-      <th mat-header-cell *matHeaderCellDef>Tipo Pago</th>
-      <td mat-cell *matCellDef="let r">{{ r.tipoPagoNombre }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="total">
-      <th mat-header-cell *matHeaderCellDef>Total</th>
-      <td mat-cell *matCellDef="let r">{{ r.total | number: "1.2-2" }}</td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
-
-  <mat-paginator [length]="page().totalElements" [pageIndex]="page().number" [pageSize]="page().size" [pageSizeOptions]="[5, 10, 20, 50, 100, 1000]" (page)="onPage($event)"> </mat-paginator>
+<div class="prime-table-wrapper reportes-table">
+  <p-table [value]="page().content" styleClass="prime-data-table" [scrollable]="true">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Fecha</th>
+        <th>Codigo</th>
+        <th>Tipo Pago</th>
+        <th>Total</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-r>
+      <tr>
+        <td>{{ r.fecha | date: "dd/MM/yyyy" }}</td>
+        <td>{{ r.codigo }}</td>
+        <td>{{ r.tipoPagoNombre }}</td>
+        <td>{{ r.total | number: "1.2-2" }}</td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr><td colspan="4" class="px-4 py-4 text-center italic text-slate-500">Sin registros</td></tr>
+    </ng-template>
+  </p-table>
 </div>
+<gp-paginator class="block mt-3" [length]="page().totalElements" [pageIndex]="page().number" [pageSize]="page().size" [pageSizeOptions]="[5, 10, 20, 50, 100, 1000]" (page)="onPage($event)"></gp-paginator>
+
+
+
 
 
 

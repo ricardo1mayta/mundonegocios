@@ -1,15 +1,14 @@
 import { Component, computed, contentChild, inject, input, output } from "@angular/core";
 import { CommonModule, NgClass } from "@angular/common";
-import { MatButtonModule } from "@angular/material/button";
-import { MatIconModule } from "@angular/material/icon";
 import { DataTableComponent } from "../../data-table/data-table.component";
 import { IReporteExcel } from "../../data-table/data-table.model";
 import { RutaService } from "../../../services/general/ruta.service";
+import { PrimeNgModule } from "../../../modules/primeng/primeng.module";
 
 @Component({
   selector: "app-form-list",
   standalone: true,
-  imports: [CommonModule, NgClass, MatButtonModule, MatIconModule],
+  imports: [CommonModule, NgClass, PrimeNgModule],
   templateUrl: "./form-list.component.html",
   styleUrl: "./form-list.component.scss",
 })

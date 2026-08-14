@@ -3,7 +3,7 @@
   <div filtros>
     <app-form-filter [formGroup]="filtroForm" [(filtros)]="filtros" [mostrarEstado]="false">
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        <!-- Buscador -->
+        <!--?Buscador -->
         <div class="sm:col-span-2 md:col-span-2 flex flex-col">
           <label for="buscador" class="text-md font-medium mt-4 mb-1 text-gray-800 dark:text-white/90">Buscador</label>
           <div class="relative">
@@ -35,7 +35,7 @@
           </div>
         </div>
 
-        <!-- Fecha desde -->
+        <!--?Fecha desde -->
         <div class="flex flex-col">
           <label class="text-md font-medium mt-4 mb-1 text-gray-800 dark:text-white/90">Sede</label>
           <select formControlName="fechaDesde" class="input">
@@ -44,7 +44,7 @@
           </select>
         </div>
 
-        <!-- Fecha hasta -->
+        <!--?Fecha hasta -->
       </div>
     </app-form-filter>
   </div>
@@ -117,7 +117,7 @@
         <app-columna-tabla titulo="Stock" propiedad="cantidad">
           <ng-template let-cantidad="valor" let-elemento="elemento">
             <!-- Botón que abre el modal -->
-            <button mat-icon-button color="primary" aria-label="Editar stock" (click)="abrirModalStock(elemento)">
+            <button color="primary" aria-label="Editar stock" (click)="abrirModalStock(elemento)">
               {{ cantidad }}
             </button>
           </ng-template>
@@ -147,3 +147,4 @@
     </app-form-list>
   </div>
 </app-form-crud>
+

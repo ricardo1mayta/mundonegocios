@@ -5,11 +5,12 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material/core";
 import { MatInputModule } from "@angular/material/input";
 import { CuadreDiarioService } from "../../../../core/services/cuadre-diario/cuadre-diario.service";
+import { PrimeNgModule } from 'src/app/core/modules/primeng/primeng.module';
 
 @Component({
   selector: "app-cuadres-mes",
   standalone: true,
-  imports: [CommonModule, FormsModule, MatDatepickerModule, MatNativeDateModule, MatInputModule],
+  imports: [PrimeNgModule, CommonModule, FormsModule, MatDatepickerModule, MatNativeDateModule, MatInputModule],
   templateUrl: "./cuadres-mes.component.html",
   styleUrl: "./cuadres-mes.component.css",
 })

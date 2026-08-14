@@ -1,35 +1,25 @@
 <!-- CABECERA -->
 <section class="bg-white rounded-2xl shadow p-8 mb-8 dark:bg-gray-900">
   <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between mb-6">
-    <h2 class="text-2xl font-bold text-gray-800 dark:text-white/90">Guía de Remisión</h2>
-    <span class="text-gray-400 text-sm dark:text-gray-500">{{ isEdit() ? "Editar Guía" : "Nueva Guía" }}</span>
+    <h2 class="text-2xl font-bold text-gray-800 dark:text-white/90">Gu�?? ?­a de Remisi�?? ?³n</h2>
+    <span class="text-gray-400 text-sm dark:text-gray-500">{{ isEdit() ? "Editar Gu�?? ?­a" : "Nueva Gu�?? ?­a" }}</span>
   </div>
 
-  <mat-horizontal-stepper linear class="w-full">
+  <p-stepper [value]="1" class="w-full">
+      <p-step-list>
+        <p-step [value]="1">Datos</p-step>
+        <p-step [value]="2">Envio</p-step>
+        <p-step [value]="3">Transportista</p-step>
+      </p-step-list>
+      <p-step-panels>
     <!-- =============== PASO 1 – Datos =============== -->
-    <mat-step [stepControl]="step1" label="Datos">
+    <p-step-panel [value]="1"><ng-template #content let-activateCallback="activateCallback">
       <form [formGroup]="step1" class="space-y-6 py-4">
         <!-- serie/correlativo/fecha -->
         <div class="grid gap-6 md:grid-cols-6">
           <label class="flex flex-col md:col-span-2 dark:text-white/90">
-            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">Fecha emisión</span>
-            <div class="relative">
-              <input
-                matInput
-                [matDatepicker]="fechaEmisionPicker"
-                formControlName="fechaEmision"
-                class="input pr-10"
-                (click)="fechaEmisionPicker.open()"
-              />
-              <button
-                type="button"
-                class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400"
-                (click)="fechaEmisionPicker.open()"
-              >
-                <mat-icon class="!text-[18px]">calendar_today</mat-icon>
-              </button>
-              <mat-datepicker #fechaEmisionPicker></mat-datepicker>
-            </div>
+            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">Fecha emisi�?? ?³n</span>
+            <p-datepicker formControlName="fechaEmision" dateFormat="yy-mm-dd" [showIcon]="true" appendTo="body" styleClass="prime-form-input"></p-datepicker>
           </label>
         </div>
 
@@ -50,7 +40,7 @@
                 class="absolute left-4 top-2.5 text-blue-800 dark:text-blue-300 cursor-pointer"
                 (click)="agregarCliente()"
               >
-                <mat-icon>search</mat-icon>
+                <i class="pi pi-search"></i>
               </span>
               <!-- lista desplegable -->
               <div
@@ -104,7 +94,7 @@
                 class="absolute left-4 top-2.5 text-blue-800 dark:text-blue-300 cursor-pointer"
                 (click)="agregarTercero()"
               >
-                <mat-icon>search</mat-icon>
+                <i class="pi pi-search"></i>
               </span>
               <!-- lista desplegable -->
               <div
@@ -144,16 +134,15 @@
           </div>
         </div>
 
-        <!-- observación -->
+        <!-- observaci�?? ?³n -->
         <label class="flex flex-col dark:text-white/90">
-          <span class="mb-2 font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">Observación</span>
+          <span class="mb-2 font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">Observaci�?? ?³n</span>
           <textarea formControlName="observacion" rows="2" class="input"></textarea>
         </label>
 
         <div class="flex justify-end gap-2 pt-2">
           <button
-            mat-flat-button
-            matStepperNext
+              (click)="activateCallback(2)"
             [disabled]="step1.invalid"
             class="!h-10 !rounded-xl !px-5 !normal-case !bg-slate-900 hover:!bg-slate-800 !text-white disabled:!bg-slate-400 !shadow-theme-xs dark:!bg-slate-200 dark:!text-slate-900 dark:hover:!bg-white"
           >
@@ -161,18 +150,18 @@
           </button>
         </div>
       </form>
-    </mat-step>
+    </ng-template></p-step-panel>
 
-    <!-- =============== PASO 2 – Envío =============== -->
-    <mat-step [stepControl]="step2" label="Envío">
+    <!-- =============== PASO 2 – Env�?? ?­o =============== -->
+    <p-step-panel [value]="2"><ng-template #content let-activateCallback="activateCallback">
       <form [formGroup]="step2" class="space-y-6 py-4">
         <div class="grid gap-6 md:grid-cols-6">
           <label class="flex flex-col dark:text-white/90">
-            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">Cód. Traslado</span>
+            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">C�?? ?³d. Traslado</span>
             <input formControlName="envioCodTraslado" class="input" />
           </label>
           <label class="flex flex-col md:col-span-2 dark:text-white/90">
-            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">Descripción</span>
+            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">Descripci�?? ?³n</span>
             <input formControlName="envioDesTraslado" class="input" />
           </label>
           <label class="flex flex-col dark:text-white/90">
@@ -181,26 +170,10 @@
           </label>
           <label class="flex flex-col dark:text-white/90">
             <span class="mb-2 font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">Fec. Traslado</span>
-            <div class="relative">
-              <input
-                matInput
-                [matDatepicker]="envioFecTrasladoPicker"
-                formControlName="envioFecTraslado"
-                class="input pr-10"
-                (click)="envioFecTrasladoPicker.open()"
-              />
-              <button
-                type="button"
-                class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400"
-                (click)="envioFecTrasladoPicker.open()"
-              >
-                <mat-icon class="!text-[18px]">calendar_today</mat-icon>
-              </button>
-              <mat-datepicker #envioFecTrasladoPicker></mat-datepicker>
-            </div>
+            <p-datepicker formControlName="envioFecTraslado" dateFormat="yy-mm-dd" [showIcon]="true" appendTo="body" styleClass="prime-form-input"></p-datepicker>
           </label>
           <label class="flex flex-col dark:text-white/90">
-            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">Cód. Puerto</span>
+            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">C�?? ?³d. Puerto</span>
             <input formControlName="envioCodPuerto" class="input" />
           </label>
         </div>
@@ -211,7 +184,7 @@
             <div class="flex items-center gap-4 mt-1">
               <label class="flex items-center gap-2 dark:text-white/90">
                 <input type="radio" formControlName="envioIndTransbordo" [value]="true" />
-                <span>Sí</span>
+                <span>S�?? ?­</span>
               </label>
               <label class="flex items-center gap-2 dark:text-white/90">
                 <input type="radio" formControlName="envioIndTransbordo" [value]="false" />
@@ -261,7 +234,7 @@
             </label>
           </div>
           <label class="flex flex-col dark:text-white/90">
-            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">Dirección llegada</span>
+            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">Direcci�?? ?³n llegada</span>
             <input formControlName="envioLlegadaDireccion" class="input" />
           </label>
         </div>
@@ -293,22 +266,20 @@
             </label>
           </div>
           <label class="flex flex-col dark:text-white/90">
-            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">Dirección partida</span>
+            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">Direcci�?? ?³n partida</span>
             <input formControlName="envioPartidaDireccion" class="input" />
           </label>
         </div>
 
         <div class="flex justify-between gap-2 pt-2">
           <button
-            mat-stroked-button
-            matStepperPrevious
+              (click)="activateCallback(1)"
             class="!h-10 !rounded-xl !px-5 !normal-case !border-slate-300 !text-slate-700 hover:!bg-slate-50 dark:!border-white/10 dark:!text-slate-200 dark:hover:!bg-white/5"
           >
             Volver
           </button>
           <button
-            mat-flat-button
-            matStepperNext
+              (click)="activateCallback(2)"
             [disabled]="step2.invalid"
             class="!h-10 !rounded-xl !px-5 !normal-case !bg-slate-900 hover:!bg-slate-800 !text-white disabled:!bg-slate-400 !shadow-theme-xs dark:!bg-slate-200 dark:!text-slate-900 dark:hover:!bg-white"
           >
@@ -316,10 +287,10 @@
           </button>
         </div>
       </form>
-    </mat-step>
+    </ng-template></p-step-panel>
 
     <!-- =============== PASO 3 – Transportista =============== -->
-    <mat-step [stepControl]="step3" label="Transportista">
+    <p-step-panel [value]="3"><ng-template #content let-activateCallback="activateCallback">
       <form [formGroup]="step3" class="space-y-6 py-4">
         <div class="grid gap-6 md:grid-cols-6">
           <label class="flex flex-col dark:text-white/90">
@@ -333,7 +304,7 @@
             <input formControlName="envioTransportistaNumDoc" class="input" />
           </label>
           <label class="flex flex-col md:col-span-2 dark:text-white/90">
-            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">Razón Social</span>
+            <span class="mb-2 font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">Raz�?? ?³n Social</span>
             <input formControlName="envioTransportistaRznSocial" class="input" />
           </label>
           <label class="flex flex-col dark:text-white/90">
@@ -357,36 +328,34 @@
 
         <div class="flex justify-between gap-2 pt-2">
           <button
-            mat-stroked-button
-            matStepperPrevious
+              (click)="activateCallback(1)"
             class="!h-10 !rounded-xl !px-5 !normal-case !border-slate-300 !text-slate-700 hover:!bg-slate-50 dark:!border-white/10 dark:!text-slate-200 dark:hover:!bg-white/5"
           >
             Volver
           </button>
           <button
-            mat-flat-button
-            matStepperNext
+              (click)="activateCallback(2)"
             class="!h-10 !rounded-xl !px-5 !normal-case !bg-slate-900 hover:!bg-slate-800 !text-white !shadow-theme-xs dark:!bg-slate-200 dark:!text-slate-900 dark:hover:!bg-white"
           >
             Detalle
           </button>
         </div>
       </form>
-    </mat-step>
-  </mat-horizontal-stepper>
+    </ng-template></p-step-panel>
+  </p-step-panels></p-stepper>
 </section>
 
 <!-- =============== Detalle =============== -->
 <section class="bg-white rounded-2xl shadow p-8 mt-8 space-y-6 dark:bg-gray-900">
   <div class="flex justify-between items-center mb-4">
-    <h3 class="text-xl font-semibold text-gray-800 dark:text-white/90">Detalle de Ítems</h3>
-    <button mat-mini-fab color="primary" (click)="addDetalle()">
-      <mat-icon>add</mat-icon>
+    <h3 class="text-xl font-semibold text-gray-800 dark:text-white/90">Detalle de �?? ?tems</h3>
+    <button color="primary" (click)="addDetalle()">
+      <i class="pi pi-plus"></i>
     </button>
   </div>
 
   <div *ngIf="!detalles.length" class="text-sm text-gray-500 text-center py-8 dark:text-gray-400">
-    Sin ítems añadidos.
+    Sin �?? ?­tems a�?? ?±adidos.
   </div>
 
   <div class="space-y-3">
@@ -402,7 +371,7 @@
             {{ det.get("descripcion")?.value || "Producto" }}
           </div>
           <div class="text-xs text-gray-500 dark:text-gray-400">
-            ID Detalle: {{ det.get("detalleId")?.value || "�" }} cantidad: {{ det.get("cantidad")?.value || "0" }}
+            ID Detalle: {{ det.get("detalleId")?.value || "ï¿½" }} cantidad: {{ det.get("cantidad")?.value || "0" }}
           </div>
         </div>
         <div class="flex items-center gap-2">
@@ -411,7 +380,7 @@
             class="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50 dark:border-gray-800 dark:text-gray-300 dark:hover:bg-gray-800/50"
             (click)="removeDetalle(i)"
           >
-            <mat-icon class="!text-[18px]">delete</mat-icon>
+            <i class="pi pi-trash !text-[18px]"></i>
           </button>
         </div>
       </div>
@@ -441,16 +410,15 @@
     </div>
   </div>
 
-  <!-- BOTÓN FINAL -->
+  <!-- BOT�?? ?“N FINAL -->
   <div class="text-right pt-4">
     <button
-      mat-flat-button
+
       (click)="guardar()"
       [disabled]="step1.invalid || step2.invalid || step3.invalid || !detalles.length"
       class="!h-10 !rounded-xl !px-6 !normal-case !bg-slate-900 hover:!bg-slate-800 !text-white disabled:!bg-slate-400 !shadow-theme-xs dark:!bg-slate-200 dark:!text-slate-900 dark:hover:!bg-white"
     >
-      {{ isEdit() ? "Actualizar guía" : "Guardar guía" }}
+      {{ isEdit() ? "Actualizar gu�?? ?­a" : "Guardar gu�?? ?­a" }}
     </button>
   </div>
 </section>
-

@@ -1,7 +1,8 @@
+import { PrimeNgModule } from 'src/app/core/modules/primeng/primeng.module';
 import { CommonModule } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { MatDialogContent, MatDialogActions, MatDialogClose, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { Sede } from '../../../../core/models/sedes/sedes';
 import { SedesService } from '../../../../core/services/sedes/sedes.service';
@@ -10,7 +11,7 @@ import { MaterialModule } from '../../../../core/modules/material/material.modul
 import { MatStepperModule } from '@angular/material/stepper';
 @Component({
   selector: 'app-nueva-sede',
-  imports: [MatStepperModule, MaterialModule, CommonModule, ReactiveFormsModule, MatDialogClose, MatIconModule, MatDialogContent],
+  imports: [PrimeNgModule, MatStepperModule, MaterialModule, CommonModule, ReactiveFormsModule, MatIconModule],
   templateUrl: './nueva-sede.component.html',
   styleUrl: './nueva-sede.component.css',
 })

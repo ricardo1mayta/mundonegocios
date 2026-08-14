@@ -39,7 +39,7 @@ export const errorsInterceptor: HttpInterceptorFn = (req, next) => {
           throw new Error(mensaje);
         }
 
-        // ✅ Mostrar success SOLO si es success y el code NO es 200
+        // ? Mostrar success SOLO si es success y el code NO es 200
         if (isSuccess && message && numberCode !== 200) {
           _snackBarService.open({
             type: "success",

@@ -18,11 +18,11 @@ import { CrearMarcaComponent } from "./crear-marca/crear-marca.component";
 import { Marca } from "../../../../core/models/almacen/marca";
 import { SwitchComponent } from "src/app/shared/components/form/input/switch.component";
 import { RutaService } from "src/app/core/services/general/ruta.service";
+import { PrimeNgModule } from 'src/app/core/modules/primeng/primeng.module';
 
 @Component({
   selector: "app-marcas",
-  imports: [
-    CommonModule,
+  imports: [PrimeNgModule, CommonModule,
     MaterialModule,
     MatDatepickerModule,
     MatNativeDateModule,

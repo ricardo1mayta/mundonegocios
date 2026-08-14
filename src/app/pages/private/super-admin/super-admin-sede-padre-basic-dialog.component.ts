@@ -6,11 +6,12 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material/core";
 import { MatInputModule } from "@angular/material/input";
 import { SedesService } from "../../../core/services/sedes/sedes.service";
+import { PrimeNgModule } from 'src/app/core/modules/primeng/primeng.module';
 
 @Component({
   selector: "app-super-admin-sede-padre-basic-dialog",
   standalone: true,
-  imports: [CommonModule, FormsModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule, MatInputModule],
+  imports: [PrimeNgModule, CommonModule, FormsModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule, MatInputModule],
   templateUrl: "./super-admin-sede-padre-basic-dialog.component.html",
 })
 export class SuperAdminSedePadreBasicDialogComponent {
@@ -30,6 +31,10 @@ export class SuperAdminSedePadreBasicDialogComponent {
   private formatDate(d: Date): string {
     const pad = (n: number) => String(n).padStart(2, "0");
     return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+  }
+
+  cerrar() {
+    this.dialogRef.close(false);
   }
 
   guardar() {

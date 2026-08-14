@@ -16,11 +16,11 @@ import { Sede } from "../../../../core/models/sedes/sedes";
 import { SedesService } from "../../../../core/services/sedes/sedes.service";
 import { SwitchComponent } from "src/app/shared/components/form/input/switch.component";
 import { RutaService } from "src/app/core/services/general/ruta.service";
+import { PrimeNgModule } from 'src/app/core/modules/primeng/primeng.module';
 
 @Component({
   selector: "app-sedes",
-  imports: [
-    CommonModule,
+  imports: [PrimeNgModule, CommonModule,
     MaterialModule,
     MatDatepickerModule,
     MatNativeDateModule,

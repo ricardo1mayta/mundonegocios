@@ -14,10 +14,11 @@ import { MaterialModule } from '../../../../../../core/modules/material/material
 import { CotizacionCompraService } from '../../../../../../core/services/contizaciocompra/contizacioncompra.service';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { PrimeNgModule } from 'src/app/core/modules/primeng/primeng.module';
 
 @Component({
   selector: 'app-listar-contizacion',
-  imports: [CommonModule, MaterialModule, MatDatepickerModule, MatNativeDateModule, FormCrudComponent, FormFilterComponent, FormListComponent, DataTableModule, ReactiveFormsModule],
+  imports: [PrimeNgModule, CommonModule, MaterialModule, MatDatepickerModule, MatNativeDateModule, FormCrudComponent, FormFilterComponent, FormListComponent, DataTableModule, ReactiveFormsModule],
   templateUrl: './listar-contizacion.component.html',
   styleUrl: './listar-contizacion.component.css',
 })
@@ -89,11 +90,11 @@ export class ListarContizacionComponent {
   anular(row: any) {
     this.service.anular(row.id).subscribe({
       next: () => {
-        this.snack.open('Cotización anulada ✅', 'Cerrar', { duration: 2500 });
+        this.snack.open('Cotización anulada ?', 'Cerrar', { duration: 2500 });
         this.dataTable()?.recargarTabla();
       },
       error: e => {
-        const msg = e?.error?.message ?? 'No se pudo anular ❌';
+        const msg = e?.error?.message ?? 'No se pudo anular ?';
         this.snack.open(msg, 'Cerrar', { duration: 3500 });
       },
     });

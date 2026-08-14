@@ -1,8 +1,10 @@
+import { PrimeNgModule } from 'src/app/core/modules/primeng/primeng.module';
 import { Component, signal, inject, computed } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTreeModule } from '@angular/material/tree';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
@@ -22,7 +24,7 @@ interface MenuNode {
   standalone: true,
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.css',
-  imports: [CommonModule, MatIconModule, MatCheckboxModule, MatButtonModule, MatTreeModule, MatSnackBarModule],
+  imports: [FormsModule, PrimeNgModule, CommonModule, MatIconModule, MatCheckboxModule, MatButtonModule, MatTreeModule, MatSnackBarModule],
 })
 export class MenuComponent {
   roles = signal<Rol[]>([]);

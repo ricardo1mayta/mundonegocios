@@ -1,11 +1,11 @@
-<div class="gob-container flex justify-start pt-2">
-    <a routerLink="/">
-        <mat-icon class="text-slate-500">home</mat-icon>
-    </a>
-    @for (r of routes(); track $index) {
-        <mat-icon class="text-slate-500">chevron_right</mat-icon>
-        <div [ngClass]="{ 'text-blue-700': $index === routes().length - 1 }">
-            {{ r }}
-        </div>
-    }
+<div class="gob-container flex justify-start items-center gap-1 pt-2">
+  <a routerLink="/" class="inline-flex items-center text-slate-500">
+    <i class="pi pi-home"></i>
+  </a>
+  @for (r of routes(); track $index) {
+    <i class="pi pi-chevron-right text-slate-500 text-xs"></i>
+    <div [ngClass]="{ 'text-blue-700': $index === routes().length - 1 }">
+      {{ r }}
+    </div>
+  }
 </div>

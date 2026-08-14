@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialogContent, MatDialogActions, MatDialogClose } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { MaterialModule } from '../../../../core/modules/material/material.module';
 import { RolesService } from '../../../../core/services/roles/roles.service';
@@ -18,7 +18,7 @@ export interface DialogData {
 
 @Component({
   selector: 'app-nuevo-rol',
-  imports: [CommonModule, ReactiveFormsModule, MatDialogContent, MatDialogActions, MatDialogClose, MatIconModule],
+  imports: [CommonModule, ReactiveFormsModule, MatIconModule],
   templateUrl: './nuevo-rol.component.html',
   styleUrl: './nuevo-rol.component.css',
 })

@@ -7,12 +7,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatNativeDateModule } from '@angular/material/core';
 import { RequerimientoDTO } from '../../../../../../core/models/fabricacion/fabricacion.models';
 import { FabricacionApi } from '../../../../../../core/services/fabricacion/fabricacion.api';
+import { PrimeNgModule } from 'src/app/core/modules/primeng/primeng.module';
 
 @Component({
   selector: 'app-requerimientos',
   standalone: true,
-  imports: [
-    CommonModule,
+  imports: [PrimeNgModule, CommonModule,
     ReactiveFormsModule,
     MatDatepickerModule,
     MatInputModule,

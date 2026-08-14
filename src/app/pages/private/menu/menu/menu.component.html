@@ -16,7 +16,6 @@
             <p class="text-xs text-gray-500 dark:text-gray-400">ID: {{ rol.idRol }}</p>
           </div>
           <button
-            mat-stroked-button
             class="role-action-btn"
             [class.role-action-btn--active]="isRolSeleccionado(rol.idRol)"
             color="primary"
@@ -46,33 +45,26 @@
       </div>
 
       <div class="rounded-lg bg-gray-50 p-4 dark:bg-gray-800" [class.opacity-60]="!selectedRolId()">
-        <mat-tree #tree [dataSource]="dataSource()" [childrenAccessor]="childrenAccessor">
-          <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding class="flex items-center rounded transition hover:bg-gray-100 dark:hover:bg-white/5">
-            <button mat-icon-button class="tree-placeholder-btn" disabled></button>
-            <mat-checkbox
-              class="mr-2"
-              [checked]="checklist.isSelected(node)"
-              [disabled]="!selectedRolId()"
-              (change)="onLeafToggle(node, $event.checked)"
-            ></mat-checkbox>
-            <span class="font-medium text-gray-700 dark:text-gray-200">{{ node.name }}</span>
-          </mat-tree-node>
-
-          <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding class="flex items-center rounded transition hover:bg-gray-100 dark:hover:bg-white/5">
-            <button mat-icon-button class="tree-toggle-btn" matTreeNodeToggle>
-              <mat-icon class="mat-icon-rtl-mirror">
-                {{ tree.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
-              </mat-icon>
-            </button>
-            <mat-checkbox
-              class="mr-2"
-              [checked]="checklist.isSelected(node)"
-              [disabled]="!selectedRolId()"
-              (change)="onLeafToggle(node, $event.checked)"
-            ></mat-checkbox>
-            <span class="font-semibold text-blue-700 dark:text-blue-300">{{ node.name }}</span>
-          </mat-tree-node>
-        </mat-tree>
+        <div class="space-y-1">
+          <ng-container *ngTemplateOutlet="menuNodesTpl; context: { $implicit: dataSource(), level: 0 }"></ng-container>
+        </div>
+        <ng-template #menuNodesTpl let-nodes let-level="level">
+          <div *ngFor="let node of nodes" class="space-y-1">
+            <div class="flex items-center rounded px-2 py-1 transition hover:bg-gray-100 dark:hover:bg-white/5" [style.padding-left.px]="level * 18">
+              <span class="tree-placeholder-btn" *ngIf="!node.children?.length"></span>
+              <i *ngIf="node.children?.length" class="pi pi-chevron-down mr-2 text-xs text-gray-500"></i>
+              <p-checkbox
+                class="mr-2"
+                [binary]="true"
+                [ngModel]="checklist.isSelected(node)"
+                [disabled]="!selectedRolId()"
+                (onChange)="onLeafToggle(node, $event.checked)"
+              ></p-checkbox>
+              <span [class.font-semibold]="node.children?.length" [class.text-blue-700]="node.children?.length" class="font-medium text-gray-700 dark:text-gray-200 dark:text-blue-300">{{ node.name }}</span>
+            </div>
+            <ng-container *ngIf="node.children?.length" [ngTemplateOutlet]="menuNodesTpl" [ngTemplateOutletContext]="{ $implicit: node.children, level: level + 1 }"></ng-container>
+          </div>
+        </ng-template>
       </div>
     </section>
   </div>

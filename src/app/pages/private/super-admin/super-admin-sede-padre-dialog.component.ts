@@ -3,11 +3,12 @@ import { Component, Inject } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { MatDialogModule, MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { SedesService } from "../../../core/services/sedes/sedes.service";
+import { PrimeNgModule } from "../../../core/modules/primeng/primeng.module";
 
 @Component({
   selector: "app-super-admin-sede-padre-dialog",
   standalone: true,
-  imports: [CommonModule, FormsModule, MatDialogModule],
+  imports: [CommonModule, FormsModule, MatDialogModule, PrimeNgModule],
   templateUrl: "./super-admin-sede-padre-dialog.component.html",
 })
 export class SuperAdminSedePadreDialogComponent {

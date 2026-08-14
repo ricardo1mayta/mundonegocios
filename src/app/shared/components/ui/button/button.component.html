@@ -1,20 +1,17 @@
 <button
+  pButton
   type="button"
-  [ngClass]="
-    'inline-flex items-center justify-center gap-2 rounded-lg transition ' +
-    className + ' ' +
-    sizeClasses + ' ' +
-    variantClasses + ' ' +
-    disabledClasses
-  "
   [disabled]="disabled"
+  [outlined]="variant === 'outline'"
+  [severity]="variant === 'outline' ? 'secondary' : undefined"
+  [class]="styleClass"
   (click)="onClick($event)"
- class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600 disabled:bg-brand-300">
+>
   @if (startIcon) {
-  <span class="flex items-center" [innerHTML]="startIcon | safeHtml"></span>
+    <span class="p-button-icon p-button-icon-left" [innerHTML]="startIcon | safeHtml"></span>
   }
-  <ng-content></ng-content>
+  <span class="p-button-label"><ng-content></ng-content></span>
   @if (endIcon) {
-  <span class="flex items-center" [innerHTML]="endIcon | safeHtml"></span>
+    <span class="p-button-icon p-button-icon-right" [innerHTML]="endIcon | safeHtml"></span>
   }
 </button>

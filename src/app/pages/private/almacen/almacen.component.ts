@@ -16,7 +16,6 @@ import { MaterialModule } from "../../../core/modules/material/material.module";
 import { InventarioService } from "../../../core/services/inventario/inventario.service";
 import { EditarStockModalComponent } from "./invertario/editar-stock-modal/editar-stock-modal.component";
 import { ImagePreviewDialogComponent } from "../../../shared/components/image-preview-dialog/image-preview-dialog.component";
-import { SwitchComponent } from "src/app/shared/components/form/input/switch.component";
 import { RutaService } from "src/app/core/services/general/ruta.service";
 
 @Component({
@@ -32,7 +31,6 @@ import { RutaService } from "src/app/core/services/general/ruta.service";
     DataTableModule,
     ReactiveFormsModule,
     FormsModule,
-    SwitchComponent,
     RouterModule,
   ],
   templateUrl: "./almacen.component.html",

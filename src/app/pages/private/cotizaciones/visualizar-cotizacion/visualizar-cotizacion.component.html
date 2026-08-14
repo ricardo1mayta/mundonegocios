@@ -1,12 +1,12 @@
 <div class="modal-surface">
-  <button mat-icon-button [mat-dialog-close]="true" class="hover:bg-blue-900/40 rounded-full p-1">
-    <mat-icon>close</mat-icon>
+  <button type="button" (click)="cerrar()" class="hover:bg-blue-900/40 rounded-full p-1">
+    <i class="pi pi-times"></i>
   </button>
   <div class="px-2 pr-14 mb-6">
     <h2 class="text-2xl font-semibold text-gray-800 dark:text-white/90">Visualización de Cotización</h2>
   </div>
 
-  <mat-dialog-content class="p-0">
+  <div class="p-0">
     <div class="flex flex-col gap-2 p-1 max-w-[1600px] mx-auto">
     <div class="grid lg:grid-cols-[1fr_360px] gap-2">
       <!-- IZQUIERDA -->
@@ -79,12 +79,13 @@
       </aside>
     </div>
     </div>
-  </mat-dialog-content>
+  </div>
 
-  <mat-dialog-actions class="mt-6 flex justify-end gap-2 px-2">
-    <button type="reset" [mat-dialog-close]="true" class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:bg-gray-50 dark:bg-gray-800 dark:text-gray-300 dark:text-gray-200">Cerrar</button>
-  </mat-dialog-actions>
+  <div class="mt-6 flex justify-end gap-2 px-2">
+    <button type="reset" (click)="cerrar()" class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:bg-gray-50 dark:bg-gray-800 dark:text-gray-300 dark:text-gray-200">Cerrar</button>
+  </div>
 </div>
+
 
 
 

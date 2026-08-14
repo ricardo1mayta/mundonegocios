@@ -15,22 +15,17 @@ import {
 } from "@angular/core";
 import { IEventoBoton, IEventoCheck, IReporteExcel, IListaPaginada, IListaPaginadaPeticion } from "./data-table.model";
 import { HttpClient } from "@angular/common/http";
-import { MatPaginator, MatPaginatorIntl, MatPaginatorModule, PageEvent } from "@angular/material/paginator";
-import { MatButtonModule } from "@angular/material/button";
-import { MatIconModule } from "@angular/material/icon";
-import { MatTableDataSource, MatTableModule } from "@angular/material/table";
 import { SelectionModel } from "@angular/cdk/collections";
-import { MatCheckboxChange, MatCheckboxModule } from "@angular/material/checkbox";
-import { PaginatorIntl } from "./paginator-intl";
 import { CommonModule, DatePipe } from "@angular/common";
-import { MatMenuModule } from "@angular/material/menu";
+import { FormsModule } from "@angular/forms";
 import { RutaService } from "../../services/general/ruta.service";
 import { IRespuestaApi } from "../../models/generic/general.model";
 import { IColumna, IContenido } from "../../models/excel/excel.model";
 import { ExcelService } from "../../services/excel/excel.service";
-import { MaterialModule } from "../../modules/material/material.module";
 import { ViewEncapsulation } from "@angular/core";
-import { GpPaginatorComponent } from "../paginator/gp-paginator.component";
+import { GpPageEvent, GpPaginatorComponent } from "../paginator/gp-paginator.component";
+import { PrimeNgModule } from "../../modules/primeng/primeng.module";
+import { MenuItem } from "primeng/api";
 @Component({
   selector: "app-columna-tabla",
   standalone: true,
@@ -67,22 +62,10 @@ export class AccionTablaComponent {
   standalone: true,
   imports: [
     CommonModule,
-    MaterialModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatButtonModule,
-    MatIconModule,
-    MatMenuModule,
-    MatCheckboxModule,
+    FormsModule,
     GpPaginatorComponent,
-  ],
-  providers: [
-    {
-      provide: MatPaginatorIntl,
-      useClass: PaginatorIntl,
-    },
-    DatePipe,
-  ],
+    PrimeNgModule, ],
+  providers: [DatePipe],
   templateUrl: "./data-table.component.html",
   styleUrl: "./data-table.component.scss",
 })
@@ -107,11 +90,11 @@ export class DataTableComponent {
   /*cambioPagina(e: { pageIndex: number; pageSize: number }) {
     this.pageIndex.set(e.pageIndex);
     this.pageSize.set(e.pageSize);
-    // aquÃƒÂ­ tu lÃƒÂ³gica: pedir data al backend, etc.
+    // aquí tu lógica: pedir data al backend, etc.
   }*/
 
   mostrarMensajeTablaVacia = signal<boolean>(true);
-  mensajeTablaVacia = input<string>("No se hallaron coincidencias para tu bÃƒÂºsqueda, intenta cambiar tu bÃƒÂºsqueda");
+  mensajeTablaVacia = input<string>("No se hallaron coincidencias para tu búsqueda, intenta cambiar tu búsqueda");
   paginable = input<boolean>(true);
   tamanioPagina = model<number>(5);
   paginaActual = signal<number>(0);
@@ -123,9 +106,8 @@ export class DataTableComponent {
   parametrosApi = input<any>({});
   opcionesApi = input<any>({});
   datos = model<any[]>([]);
-  origenDatos = new MatTableDataSource<any>([]);
-
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  origenDatos: { data: any[] } = { data: [] };
+  filasTabla = signal<any[]>([]);
 
   height = input<string>("auto");
   ngHeight = computed(() => {
@@ -150,6 +132,7 @@ export class DataTableComponent {
     effect(
       () => {
         this.origenDatos.data = this.datos();
+        this.filasTabla.set(this.datos() ?? []);
         this.mostrarMensajeTablaVacia.set(!this.datos()?.length);
         this.actualizarEstadoCheckCabecera();
         if (!this.urlApi()) {
@@ -163,10 +146,6 @@ export class DataTableComponent {
       if (this.urlApi() && this.parametrosApi()) {
         this.recargarTabla(0);
       }
-    });
-
-    effect(() => {
-      this.origenDatos.paginator = this.paginator;
     });
   }
   /* ngAfterViewInit() {
@@ -201,7 +180,8 @@ export class DataTableComponent {
       const backendPage = Number(data?.paginaActual ?? data?.page ?? pageBackend);
       this.paginaActual.set(Math.max(0, backendPage));
 
-      this.origenDatos = new MatTableDataSource<any>(lista);
+      this.origenDatos = { data: lista };
+      this.filasTabla.set(lista);
       this.totalRegistros.set(Number(data?.totalRegistros ?? data?.total ?? data?.totalElements ?? lista.length ?? 0));
       this.mostrarMensajeTablaVacia.set(!lista.length);
     });
@@ -312,7 +292,7 @@ export class DataTableComponent {
     }
     return contenidoExcel;
   }
-  cambioPagina(e: PageEvent) {
+  cambioPagina(e: GpPageEvent) {
     const indexActual = this.paginaActual();
     const sizeActual = this.tamanioPagina();
 
@@ -323,12 +303,12 @@ export class DataTableComponent {
     }
   }
 
-  /** MÃƒÂ©todos para los checks de selecciÃƒÂ³n */
-  cambioCheckCabecera(evento: MatCheckboxChange) {
+  /** Métodos para los checks de selección */
+  cambioCheckCabecera(checked: boolean) {
     this.checkCabeceraIndeterminado.set(false);
-    this.checkCabeceraSeleccionada.set(evento.checked);
+    this.checkCabeceraSeleccionada.set(checked);
 
-    if (!evento.checked) {
+    if (!checked) {
       this.seleccion.clear();
     } else {
       this.seleccion.select(...this.datosIniciales);
@@ -336,15 +316,15 @@ export class DataTableComponent {
 
     this.cambioSeleccionados.emit({
       fila: null,
-      seleccionado: evento.checked,
+      seleccionado: checked,
       filasSeleccionadas: this.seleccion.selected,
     });
   }
 
-  cambioCheck(fila: any, evento: MatCheckboxChange) {
+  cambioCheck(fila: any, checked: boolean) {
     this.seleccion.toggle(fila);
 
-    if (evento.checked) {
+    if (checked) {
       const todosChecksSeleccionados = this.todosChecksSeleccionados();
       this.checkCabeceraIndeterminado.set(!todosChecksSeleccionados);
       this.checkCabeceraSeleccionada.set(todosChecksSeleccionados);
@@ -355,7 +335,7 @@ export class DataTableComponent {
 
     this.cambioSeleccionados.emit({
       fila: fila,
-      seleccionado: evento.checked,
+      seleccionado: checked,
       filasSeleccionadas: this.seleccion.selected,
     });
   }
@@ -389,9 +369,40 @@ export class DataTableComponent {
   }
 
   limpiar() {
-    this.origenDatos = new MatTableDataSource<any>([]);
+    this.origenDatos = { data: [] };
+    this.filasTabla.set([]);
     this.totalRegistros.set(0);
     this.mostrarMensajeTablaVacia.set(true);
     this.actualizarEstadoCheckCabecera();
+  }
+  obtenerItemsAcciones(fila: any, indiceFila: number): MenuItem[] {
+    return this.botones()
+      .filter((boton) => !boton.mostrarCuando() || boton.mostrarCuando()!(fila))
+      .map((boton) => ({
+        label: boton.etiqueta(),
+        icon: this.normalizarIconoPrime(boton.icono()),
+        command: () => boton.accion.emit({ datos: fila, indiceFila }),
+      }));
+  }
+
+  private normalizarIconoPrime(icono: string): string {
+    const mapaIconos: Record<string, string> = {
+      add: "pi pi-plus",
+      close: "pi pi-times",
+      delete: "pi pi-trash",
+      edit: "pi pi-pencil",
+      more_vert: "pi pi-ellipsis-v",
+      print: "pi pi-print",
+      remove: "pi pi-minus",
+      save: "pi pi-save",
+      search: "pi pi-search",
+      visibility: "pi pi-eye",
+    };
+
+    if (icono.startsWith("pi ")) {
+      return icono;
+    }
+
+    return mapaIconos[icono] ?? `pi pi-${icono.replace(/_/g, "-")}`;
   }
 }

@@ -36,23 +36,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
       <div>
         <label class="text-xs text-gray-500 dark:text-white/90 dark:text-gray-400">Fecha requerida</label>
-        <div class="relative">
-          <input
-            matInput
-            [matDatepicker]="fechaRequeridaPicker"
-            formControlName="fechaRequerida"
-            class="input pr-10"
-            (click)="fechaRequeridaPicker.open()"
-          />
-          <button
-            type="button"
-            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400"
-            (click)="fechaRequeridaPicker.open()"
-          >
-            <mat-icon class="!text-[18px]">calendar_today</mat-icon>
-          </button>
-          <mat-datepicker #fechaRequeridaPicker></mat-datepicker>
-        </div>
+        <p-datepicker formControlName="fechaRequerida" dateFormat="yy-mm-dd" [showIcon]="true" appendTo="body" styleClass="prime-form-input"></p-datepicker>
       </div>
       <div>
         <label class="text-xs text-gray-500 dark:text-white/90 dark:text-gray-400">Presupuesto objetivo</label>
@@ -67,6 +51,8 @@
     <div *ngIf="created()" class="text-sm text-green-700">Creado ID: {{ created()!.id }} | Estado: {{ created()!.estado }}</div>
   </form>
 </div>
+
+
 
 
 

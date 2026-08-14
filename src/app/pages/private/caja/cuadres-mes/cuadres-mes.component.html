@@ -7,29 +7,9 @@
       </div>
       <div class="flex items-center gap-2">
         <label class="text-sm text-gray-600 dark:text-gray-300">Desde</label>
-        <div class="relative">
-          <input matInput [matDatepicker]="desdePicker" class="input pr-10" [(ngModel)]="desde" (click)="desdePicker.open()" />
-          <button
-            type="button"
-            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400"
-            (click)="desdePicker.open()"
-          >
-            <span class="i-ph-calendar-blank text-lg"></span>
-          </button>
-          <mat-datepicker #desdePicker></mat-datepicker>
-        </div>
+        <p-datepicker dateFormat="yy-mm-dd" [showIcon]="true" appendTo="body" styleClass="prime-form-input"></p-datepicker>
         <label class="text-sm text-gray-600 dark:text-gray-300">Hasta</label>
-        <div class="relative">
-          <input matInput [matDatepicker]="hastaPicker" class="input pr-10" [(ngModel)]="hasta" (click)="hastaPicker.open()" />
-          <button
-            type="button"
-            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400"
-            (click)="hastaPicker.open()"
-          >
-            <span class="i-ph-calendar-blank text-lg"></span>
-          </button>
-          <mat-datepicker #hastaPicker></mat-datepicker>
-        </div>
+        <p-datepicker dateFormat="yy-mm-dd" [showIcon]="true" appendTo="body" styleClass="prime-form-input"></p-datepicker>
         <button
           type="button"
           (click)="cargar()"

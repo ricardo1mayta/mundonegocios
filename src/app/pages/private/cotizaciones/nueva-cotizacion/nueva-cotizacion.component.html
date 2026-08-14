@@ -121,7 +121,7 @@
                 />
               </td>
               <td class="p-2 sm:flex items-center gap-1">
-                <button (click)="dec(c)" class="hidden sm:inline-flex px-2">−</button>
+                <button (click)="dec(c)" class="hidden sm:inline-flex px-2">-</button>
                 <input
                   type="number"
                   [(ngModel)]="c.cantidad"
@@ -258,7 +258,7 @@
             class="input pl-10"
           />
           <span class="absolute left-3 top-2.5 text-gray-500 dark:text-gray-400 i-ph-magnifying-glass" (click)="agregarCliente()">
-            <mat-icon>search</mat-icon></span
+            <i class="pi pi-search"></i></span
           >
           <!-- lista desplegable -->
           <div
@@ -316,3 +316,4 @@
     </aside>
   </div>
 </div>
+

@@ -116,7 +116,7 @@
         <div class="flex items-start justify-between gap-3">
           <div>
             <h2 class="font-semibold text-gray-900 dark:text-white/90">Tabla de Medidas (por talla)</h2>
-            <p class="text-xs text-gray-500 dark:text-gray-400">Registra la <b>talla</b>, la <b>parte</b>, el <b>valor en cm</b> y la <b>tolerancia (± cm)</b>.</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Registra la <b>talla</b>, la <b>parte</b>, el <b>valor en cm</b> y la <b>tolerancia (Â± cm)</b>.</p>
           </div>
 
           <button
@@ -132,7 +132,7 @@
             >Total: <b>{{ medidas.length }}</b></span
           >
           <span class="text-gray-400 dark:text-gray-500">|</span>
-          <span>Ej: M / Pecho / 52 / ±1</span>
+          <span>Ej: M / Pecho / 52 / Â±1</span>
         </div>
 
         <div class="overflow-x-auto border rounded-2xl dark:border-gray-800">
@@ -142,7 +142,7 @@
                 <th class="text-left p-3 w-28">Talla</th>
                 <th class="text-left p-3">Parte (medida)</th>
                 <th class="text-left p-3 w-44">Valor (cm)</th>
-                <th class="text-left p-3 w-44">Tolerancia (± cm)</th>
+                <th class="text-left p-3 w-44">Tolerancia (Â± cm)</th>
                 <th class="p-3 w-16"></th>
               </tr>
             </thead>
@@ -173,13 +173,13 @@
                 <td class="p-3">
                   <div class="relative">
                     <input class="input pr-10" type="number" min="0" step="0.1" placeholder="Ej: 1" formControlName="tolerancia" />
-                    <span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 dark:text-gray-400">± cm</span>
+                    <span class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 dark:text-gray-400">Â± cm</span>
                   </div>
                 </td>
 
                 <td class="p-3 text-right">
                   <button type="button" class="text-red-500" aria-label="Eliminar">
-                    <mat-icon (click)="removeMedida(i)" fontIcon="delete"></mat-icon>
+                    <i (click)="removeMedida(i)"  class="pi pi-trash"></i>
                   </button>
                 </td>
               </tr>
@@ -246,7 +246,7 @@
                 </td>
 
                 <td class="p-3 text-right">
-                  <button type="button" class="text-red-500" aria-label="Eliminar"><mat-icon (click)="removePieza(i)" fontIcon="delete"></mat-icon></button>
+                  <button type="button" class="text-red-500" aria-label="Eliminar"><i (click)="removePieza(i)"  class="pi pi-trash"></i></button>
                 </td>
               </tr>
             </tbody>
@@ -316,8 +316,8 @@
 
                 <td class="p-3">
                   <div class="flex gap-2">
-                    <button type="button" class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm border disabled:opacity-50 bg-white text-slate-700 ring-1 ring-inset ring-slate-300 hover:bg-slate-50 disabled:bg-slate-100 dark:bg-gray-900 dark:text-slate-200 dark:ring-white/10 dark:hover:bg-white/[0.03]" (click)="moveOperacionUp(i)" [disabled]="i === 0">↑</button>
-                    <button type="button" class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm border disabled:opacity-50 bg-white text-slate-700 ring-1 ring-inset ring-slate-300 hover:bg-slate-50 disabled:bg-slate-100 dark:bg-gray-900 dark:text-slate-200 dark:ring-white/10 dark:hover:bg-white/[0.03]" (click)="moveOperacionDown(i)" [disabled]="i === operaciones.length - 1">↓</button>
+                    <button type="button" class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm border disabled:opacity-50 bg-white text-slate-700 ring-1 ring-inset ring-slate-300 hover:bg-slate-50 disabled:bg-slate-100 dark:bg-gray-900 dark:text-slate-200 dark:ring-white/10 dark:hover:bg-white/[0.03]" (click)="moveOperacionUp(i)" [disabled]="i === 0">?</button>
+                    <button type="button" class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm border disabled:opacity-50 bg-white text-slate-700 ring-1 ring-inset ring-slate-300 hover:bg-slate-50 disabled:bg-slate-100 dark:bg-gray-900 dark:text-slate-200 dark:ring-white/10 dark:hover:bg-white/[0.03]" (click)="moveOperacionDown(i)" [disabled]="i === operaciones.length - 1">?</button>
                   </div>
                 </td>
 
@@ -461,6 +461,7 @@
     </div>
   </form>
 </div>
+
 
 
 

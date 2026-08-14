@@ -5,12 +5,12 @@ import { finalize } from 'rxjs/operators';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { MatTableModule } from '@angular/material/table';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatNativeDateModule } from '@angular/material/core';
+import { PrimeNgModule } from '../../../../../core/modules/primeng/primeng.module';
+import { GpPageEvent, GpPaginatorComponent } from '../../../../../core/components/paginator/gp-paginator.component';
 import { ReportePedidosService, PageResponse, VwReporteGananciaDetalleDto } from '../../../../../core/services/reportes/reporte-pedidos.service';
 
 type PageLike<T> = {
@@ -28,13 +28,12 @@ type PageLike<T> = {
     ReactiveFormsModule,
     MatCardModule,
     MatButtonModule,
-    MatTableModule,
-    MatPaginatorModule,
     MatDatepickerModule,
     MatInputModule,
     MatIconModule,
     MatNativeDateModule,
     DatePipe,
+    PrimeNgModule, GpPaginatorComponent,
   ],
   templateUrl: './compras-producto-detallado.component.html',
   styleUrl: './compras-producto-detallado.component.css',
@@ -83,7 +82,7 @@ export class ComprasProductoDetalladoComponent {
     this.buscar(0, this.page().size);
   }
 
-  onPage(e: PageEvent) {
+  onPage(e: GpPageEvent) {
     this.buscar(e.pageIndex, e.pageSize);
   }
 
@@ -203,3 +202,4 @@ export class ComprasProductoDetalladoComponent {
     return this.toYmd(parsed);
   }
 }
+

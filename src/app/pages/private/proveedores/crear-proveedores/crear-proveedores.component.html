@@ -1,20 +1,24 @@
 <div class="modal-surface">
   <button
-    mat-icon-button
-    mat-dialog-close
     class="!absolute !right-4 !top-4 !z-[9999] !rounded-lg hover:!bg-gray-100 dark:hover:!bg-white/5"
   >
-    <mat-icon class="!text-gray-500 dark:!text-gray-400">close</mat-icon>
+    <i class="!text-gray-500 dark:!text-gray-400" class="pi pi-times"></i>
   </button>
   <div class="px-2 pr-14 mb-6">
     <h2 class="text-2xl font-semibold text-gray-800 dark:text-white/90">Proveedor</h2>
   </div>
 
   <!-- STEPPER -->
-  <mat-dialog-content class="max-h-[85vh] overflow-y-auto p-0">
-    <mat-horizontal-stepper linear>
+  <div class="max-h-[85vh] overflow-y-auto p-0">
+    <p-stepper [value]="1" class="w-full">
+      <p-step-list>
+        <p-step [value]="1">Documento</p-step>
+        <p-step [value]="2">Direccion</p-step>
+        <p-step [value]="3">Contacto</p-step>
+      </p-step-list>
+      <p-step-panels>
       <!-- 1. Documento -->
-      <mat-step [stepControl]="docForm" label="Documento">
+      <p-step-panel [value]="1"><ng-template #content let-activateCallback="activateCallback">
         <form [formGroup]="docForm" class="space-y-4 py-4">
           <div class="grid grid-cols-1 md:grid-cols-6 gap-4">
             <label class="flex flex-col md:col-span-2 dark:text-white/90">
@@ -25,14 +29,14 @@
             </label>
 
             <label class="flex flex-col md:col-span-2 relative dark:text-white/90">
-              <span class="mb-1">Nº doc.</span>
+              <span class="mb-1">NÂº doc.</span>
               <input formControlName="numerodocumento" class="input pr-10" (keydown.enter)="buscarEnSunat()" />
               <button
                 type="button"
                 (click)="buscarEnSunat()"
                 class="absolute right-2 top-7 text-blue-600 hover:text-blue-800"
               >
-                <mat-icon>search</mat-icon>
+                <i class="pi pi-search"></i>
               </button>
             </label>
 
@@ -44,8 +48,7 @@
 
           <div class="flex justify-end gap-2 pt-2">
             <button
-              mat-flat-button
-              matStepperNext
+              (click)="activateCallback(2)"
               [disabled]="docForm.invalid"
               class="!h-10 !rounded-xl !px-5 !normal-case !bg-slate-900 hover:!bg-slate-800 !text-white disabled:!bg-slate-400 !shadow-theme-xs dark:!bg-slate-200 dark:!text-slate-900 dark:hover:!bg-white"
             >
@@ -53,10 +56,10 @@
             </button>
           </div>
         </form>
-      </mat-step>
+      </ng-template></p-step-panel>
 
       <!-- 2. Dirección -->
-      <mat-step [stepControl]="dirForm" label="Dirección">
+      <p-step-panel [value]="2"><ng-template #content let-activateCallback="activateCallback">
         <form [formGroup]="dirForm" class="space-y-4 py-4">
           <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
             <label class="flex flex-col md:col-span-2 dark:text-white/90">
@@ -95,16 +98,14 @@
 
           <div class="flex justify-between gap-2 pt-2">
             <button
-              mat-stroked-button
-              matStepperPrevious
+              (click)="activateCallback(1)"
               class="!h-10 !rounded-xl !px-5 !normal-case !border-gray-300 !text-gray-700 hover:!bg-gray-50 dark:!border-white/10 dark:!text-gray-300 dark:hover:!bg-white/5"
             >
               Volver
             </button>
 
             <button
-              mat-flat-button
-              matStepperNext
+              (click)="activateCallback(2)"
               [disabled]="dirForm.invalid"
               class="!h-10 !rounded-xl !px-5 !normal-case !bg-slate-900 hover:!bg-slate-800 !text-white disabled:!bg-slate-400 !shadow-theme-xs dark:!bg-slate-200 dark:!text-slate-900 dark:hover:!bg-white"
             >
@@ -112,10 +113,10 @@
             </button>
           </div>
         </form>
-      </mat-step>
+      </ng-template></p-step-panel>
 
       <!-- 3. Contacto -->
-      <mat-step [stepControl]="contactoForm" label="Contacto">
+      <p-step-panel [value]="3"><ng-template #content let-activateCallback="activateCallback">
         <form [formGroup]="contactoForm" class="space-y-4 py-4">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <label class="flex flex-col dark:text-white/90">
@@ -130,15 +131,13 @@
 
           <div class="flex justify-between gap-2 pt-2">
             <button
-              mat-stroked-button
-              matStepperPrevious
+              (click)="activateCallback(1)"
               class="!h-10 !rounded-xl !px-5 !normal-case !border-gray-300 !text-gray-700 hover:!bg-gray-50 dark:!border-white/10 dark:!text-gray-300 dark:hover:!bg-white/5"
             >
               Volver
             </button>
 
             <button
-              mat-flat-button
               type="button"
               (click)="guardar()"
               [disabled]="contactoForm.invalid"
@@ -148,10 +147,11 @@
             </button>
           </div>
         </form>
-      </mat-step>
-    </mat-horizontal-stepper>
-  </mat-dialog-content>
+      </ng-template></p-step-panel>
+    </p-step-panels></p-stepper>
+  </div>
 </div>
+
 
 
 

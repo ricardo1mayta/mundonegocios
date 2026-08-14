@@ -1,18 +1,17 @@
-import { NgClass } from '@angular/common';
-import { Component, input, signal } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
+import { NgClass } from "@angular/common";
+import { Component, input, signal } from "@angular/core";
+import { PrimeNgModule } from "../../modules/primeng/primeng.module";
 
 @Component({
-    selector: 'app-form-crud',
-    standalone: true,
-    imports: [MatIconModule, MatButtonModule, NgClass],
-    templateUrl: './form-crud.component.html',
-    styleUrl: './form-crud.component.scss',
+  selector: "app-form-crud",
+  standalone: true,
+  imports: [NgClass, PrimeNgModule],
+  templateUrl: "./form-crud.component.html",
+  styleUrl: "./form-crud.component.scss",
 })
 export class FormCrudComponent {
-    titulo = input.required<string>();
-    tituloFiltros = input<string>('Filtros de Búsqueda');
-    mostrarFiltros = signal<boolean>(true);
-    mensajeAdvertencia = input<string>();
+  titulo = input.required<string>();
+  tituloFiltros = input<string>("Filtros de Busqueda");
+  mostrarFiltros = signal<boolean>(true);
+  mensajeAdvertencia = input<string>();
 }

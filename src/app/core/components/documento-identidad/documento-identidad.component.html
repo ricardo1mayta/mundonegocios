@@ -1,33 +1,25 @@
 <div class="flex flex-col">
-  <mat-label>Documento de Identidad</mat-label>
+  <label class="prime-form-label">Documento de Identidad</label>
   <div class="flex flex-col sm:flex-row items-start gap-2">
-    <mat-form-field class="w-full sm:flex-shrink">
-      <mat-select [formControl]="tipoDocumentoFormControl">
-        @for (x of tiposDocumento(); track $index) {
-        <mat-option [value]="x.idTipo">
-          {{ x.descripcionCorta }}
-        </mat-option>
-        }
-      </mat-select>
-      <mat-error> Tipo de documento es requerido </mat-error>
-    </mat-form-field>
+    <div class="w-full sm:flex-shrink">
+      <p-select [formControl]="tipoDocumentoFormControl" [options]="tiposDocumento()" optionLabel="descripcionCorta" optionValue="idTipo" appendTo="body" styleClass="prime-form-input"></p-select>
+      <small class="p-error"> Tipo de documento es requerido </small>
+    </div>
     <div class="flex gap-2 w-full sm:flex-grow">
-      <mat-form-field class="flex-grow">
-        <input matInput [formControl]="numeroDocumentoFormControl" />
-        <mat-error>
-          @if (numeroDocumentoFormControl.hasError('required')) { Número de documento es requerido } @else if ( numeroDocumentoFormControl.hasError('pattern') ) { Documento debe tener solo números }
-          @else if (tipoDocumentoFormControl.value === TIPO_DNI) { @if ( numeroDocumentoFormControl.hasError('minlength') || numeroDocumentoFormControl.hasError('maxlength') ) { Número de documento
-          debe tener 8 dígitos } } @else { @if (numeroDocumentoFormControl.hasError('minlength')) { Número de documento debe tener al menos
+      <div class="flex-grow">
+        <input pInputText class="prime-form-input" [formControl]="numeroDocumentoFormControl" />
+        <small class="p-error">
+          @if (numeroDocumentoFormControl.hasError('required')) { Numero de documento es requerido } @else if ( numeroDocumentoFormControl.hasError('pattern') ) { Documento debe tener solo numeros }
+          @else if (tipoDocumentoFormControl.value === TIPO_DNI) { @if ( numeroDocumentoFormControl.hasError('minlength') || numeroDocumentoFormControl.hasError('maxlength') ) { Numero de documento
+          debe tener 8 digitos } } @else { @if (numeroDocumentoFormControl.hasError('minlength')) { Numero de documento debe tener al menos
           {{ numeroDocumentoFormControl.getError("minlength").requiredLength }}
-          caracteres } @else if ( numeroDocumentoFormControl.hasError('maxlength') ) { Número de documento no puede tener más de
+          caracteres } @else if ( numeroDocumentoFormControl.hasError('maxlength') ) { Numero de documento no puede tener mas de
           {{ numeroDocumentoFormControl.getError("maxlength").requiredLength }}
           caracteres } }
-        </mat-error>
-      </mat-form-field>
+        </small>
+      </div>
       @if (permitirBuscar()) {
-      <button mat-icon-button (click)="buscarPersona()" class="!bg-blue-800 hover:!bg-blue-700 mt-2">
-        <mat-icon class="text-white">search</mat-icon>
-      </button>
+      <p-button type="button" icon="pi pi-search" (onClick)="buscarPersona()" styleClass="mt-2"></p-button>
       }
     </div>
   </div>

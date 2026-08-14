@@ -3,15 +3,14 @@ import { Component, Inject } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { MatDialogModule, MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { UsuarioService } from "../../../core/services/usuario/usuario.service";
-import { MatSelectModule } from "@angular/material/select";
 import { Rol } from "src/app/core/models/roles/rol";
 import { RolesService } from "src/app/core/services/roles/roles.service";
-import { MaterialModule } from "src/app/core/modules/material/material.module";
+import { PrimeNgModule } from "src/app/core/modules/primeng/primeng.module";
 
 @Component({
   selector: "app-super-admin-usuario-dialog",
   standalone: true,
-  imports: [CommonModule, FormsModule, MatDialogModule, MaterialModule, MatSelectModule],
+  imports: [CommonModule, FormsModule, MatDialogModule, PrimeNgModule],
   templateUrl: "./super-admin-usuario-dialog.component.html",
 })
 export class SuperAdminUsuarioDialogComponent {

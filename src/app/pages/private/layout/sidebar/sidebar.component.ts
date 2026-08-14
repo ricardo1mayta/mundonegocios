@@ -21,7 +21,7 @@ export class SidebarComponent implements OnInit {
   datatosuario: any;
 
   /* ====== ui state ====== */
-  colapsado = false; // ancho: w-64 ↔ w-20
+  colapsado = false; // ancho: w-64 ? w-20
   expandedItems = new Set<object>(); // ramas abiertas (modo ancho)
   hoverParent: any | null = null; // padre que muestra fly-out (modo colapsado)
 

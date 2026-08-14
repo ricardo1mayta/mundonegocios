@@ -16,52 +16,12 @@
 
         <div class="flex flex-col">
           <label for="fechaDesde" class="text-md font-medium mt-4 mb-1 dark:text-white/90">Fecha Desde</label>
-          <div class="relative">
-            <input
-              id="fechaDesde"
-              matInput
-              [matDatepicker]="fechaDesdePicker"
-              formControlName="fechaDesde"
-              [max]="filtroForm.get('fechaHasta')?.value"
-              placeholder="dd/MM/yyyy"
-              autocomplete="off"
-              class="input pr-10"
-              (click)="fechaDesdePicker.open()"
-            />
-            <button
-              type="button"
-              class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400"
-              (click)="fechaDesdePicker.open()"
-            >
-              <mat-icon class="!text-[18px]">calendar_today</mat-icon>
-            </button>
-            <mat-datepicker #fechaDesdePicker></mat-datepicker>
-          </div>
+          <p-datepicker inputId="fechaDesde" formControlName="fechaDesde" dateFormat="yy-mm-dd" [showIcon]="true" appendTo="body" styleClass="prime-form-input"></p-datepicker>
         </div>
 
         <div class="self-end flex flex-col">
           <label for="fechaHasta" class="sr-only">Hasta</label>
-          <div class="relative">
-            <input
-              id="fechaHasta"
-              matInput
-              [matDatepicker]="fechaHastaPicker"
-              formControlName="fechaHasta"
-              [min]="filtroForm.get('fechaDesde')?.value"
-              placeholder="dd/MM/yyyy"
-              autocomplete="off"
-              class="input pr-10"
-              (click)="fechaHastaPicker.open()"
-            />
-            <button
-              type="button"
-              class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400"
-              (click)="fechaHastaPicker.open()"
-            >
-              <mat-icon class="!text-[18px]">calendar_today</mat-icon>
-            </button>
-            <mat-datepicker #fechaHastaPicker></mat-datepicker>
-          </div>
+          <p-datepicker inputId="fechaHasta" formControlName="fechaHasta" dateFormat="yy-mm-dd" [showIcon]="true" appendTo="body" styleClass="prime-form-input"></p-datepicker>
         </div>
       </div>
     </app-form-filter>
@@ -117,10 +77,10 @@
           <ng-template let-elemento="elemento">
             <div class="flex items-center justify-center gap-2">
               <button type="button" class="text-emerald-600 hover:text-emerald-800" (click)="descargarXml(elemento)" matTooltip="Descargar XML">
-                <mat-icon>code</mat-icon>
+                <i class="pi pi-code"></i>
               </button>
               <button type="button" class="text-red-600 hover:text-red-800" (click)="verPdf(elemento)" matTooltip="Ver PDF">
-                <mat-icon>picture_as_pdf</mat-icon>
+                <i class="pi pi-file-pdf"></i>
               </button>
             </div>
           </ng-template>
@@ -129,4 +89,6 @@
     </app-form-list>
   </div>
 </app-form-crud>
+
+
 

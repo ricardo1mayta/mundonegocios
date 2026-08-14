@@ -1,20 +1,23 @@
 <div class="modal-surface">
   <button
-    mat-icon-button
-    mat-dialog-close
     class="!absolute !right-4 !top-4 !z-[9999] !rounded-lg hover:!bg-gray-100 dark:hover:!bg-white/5"
   >
-    <mat-icon class="!text-gray-500 dark:!text-gray-400">close</mat-icon>
+    <i class="!text-gray-500 dark:!text-gray-400" class="pi pi-times"></i>
   </button>
   <div class="px-2 pr-14 mb-6">
     <h2 class="text-2xl font-semibold text-gray-800 dark:text-white/90">Usuario</h2>
   </div>
 
   <!-- WIZARD -->
-  <mat-dialog-content class="max-h-[80vh] overflow-y-auto p-0">
-    <mat-horizontal-stepper #stepper linear>
+  <div class="max-h-[80vh] overflow-y-auto p-0">
+    <p-stepper [value]="1" class="w-full">
+      <p-step-list>
+        <p-step [value]="1">Datos personales</p-step>
+        <p-step [value]="2">Config & Roles</p-step>
+      </p-step-list>
+      <p-step-panels>
       <!-- Paso 1 -->
-      <mat-step [stepControl]="personalesForm" label="Datos personales">
+      <p-step-panel [value]="1"><ng-template #content let-activateCallback="activateCallback">
         <form [formGroup]="personalesForm" class="grid grid-cols-1 md:grid-cols-2 gap-4 py-4">
           <div>
             <label class="label dark:text-white/90">Username</label>
@@ -48,8 +51,7 @@
 
           <div class="col-span-full flex justify-end gap-2 pt-2">
             <button
-              mat-flat-button
-              matStepperNext
+              (click)="activateCallback(2)"
               [disabled]="personalesForm.invalid"
               class="!h-10 !rounded-xl !px-5 !normal-case !bg-slate-900 hover:!bg-slate-800 !text-white disabled:!bg-slate-400 !shadow-theme-xs dark:!bg-slate-200 dark:!text-slate-900 dark:hover:!bg-white"
             >
@@ -57,10 +59,10 @@
             </button>
           </div>
         </form>
-      </mat-step>
+      </ng-template></p-step-panel>
 
       <!-- Paso 2 -->
-      <mat-step [stepControl]="configForm" label="Config & Roles">
+      <p-step-panel [value]="2"><ng-template #content let-activateCallback="activateCallback">
         <form [formGroup]="configForm" class="grid grid-cols-1 md:grid-cols-2 gap-4 py-4">
           <div>
             <label class="label dark:text-white/90">Activo</label>
@@ -83,28 +85,22 @@
 
           <div>
             <label class="label dark:text-white/90">Sede</label>
-            <mat-select formControlName="idSede" class="input">
-              <mat-option *ngFor="let s of sedes" [value]="s.id">{{ s.nombresede }}</mat-option>
-            </mat-select>
+            <p-select formControlName="idSede" [options]="sedes" optionLabel="nombresede" optionValue="id" appendTo="body" styleClass="prime-form-input"></p-select>
           </div>
 
           <div class="md:col-span-2">
             <label class="label dark:text-white/90">Roles</label>
-            <mat-select formControlName="rolesIds" multiple class="input">
-              <mat-option *ngFor="let r of roles" [value]="r.idRol">{{ r.nombreRol }}</mat-option>
-            </mat-select>
+            <p-multiselect formControlName="rolesIds" [options]="roles" optionLabel="nombreRol" optionValue="idRol" appendTo="body" styleClass="prime-form-input"></p-multiselect>
           </div>
 
           <div class="col-span-full flex justify-between gap-2 pt-2">
             <button
-              mat-stroked-button
-              matStepperPrevious
+              (click)="activateCallback(1)"
               class="!h-10 !rounded-xl !px-5 !normal-case !border-slate-300 !text-slate-700 hover:!bg-slate-50 dark:!border-white/10 dark:!text-slate-200 dark:hover:!bg-white/5"
             >
               Volver
             </button>
             <button
-              mat-flat-button
               [disabled]="configForm.invalid"
               (click)="guardar()"
               class="!h-10 !rounded-xl !px-5 !normal-case !bg-slate-900 hover:!bg-slate-800 !text-white disabled:!bg-slate-400 !shadow-theme-xs dark:!bg-slate-200 dark:!text-slate-900 dark:hover:!bg-white"
@@ -113,7 +109,7 @@
             </button>
           </div>
         </form>
-      </mat-step>
-    </mat-horizontal-stepper>
-  </mat-dialog-content>
+      </ng-template></p-step-panel>
+    </p-step-panels></p-stepper>
+  </div>
 </div>

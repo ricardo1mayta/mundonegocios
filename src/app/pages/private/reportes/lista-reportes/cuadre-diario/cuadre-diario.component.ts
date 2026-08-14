@@ -3,13 +3,13 @@ import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { MatTableModule } from '@angular/material/table';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatNativeDateModule } from '@angular/material/core';
 import { finalize } from 'rxjs';
+import { PrimeNgModule } from '../../../../../core/modules/primeng/primeng.module';
+import { GpPageEvent, GpPaginatorComponent } from '../../../../../core/components/paginator/gp-paginator.component';
 import { ReportePedidosService, PageResponse } from '../../../../../core/services/reportes/reporte-pedidos.service';
 
 export type VwVentasCuadrePagoDto = {
@@ -28,13 +28,12 @@ export type VwVentasCuadrePagoDto = {
     ReactiveFormsModule,
     MatCardModule,
     MatButtonModule,
-    MatTableModule,
-    MatPaginatorModule,
     MatDatepickerModule,
     MatInputModule,
     MatIconModule,
     MatNativeDateModule,
     DatePipe,
+    PrimeNgModule, GpPaginatorComponent,
   ],
   templateUrl: './cuadre-diario.component.html',
   styleUrl: './cuadre-diario.component.css',
@@ -82,7 +81,7 @@ export class CuadreDiarioComponent {
     this.buscar(0, this.page().size);
   }
 
-  onPage(e: PageEvent) {
+  onPage(e: GpPageEvent) {
     this.buscar(e.pageIndex, e.pageSize);
   }
 
@@ -109,7 +108,7 @@ export class CuadreDiarioComponent {
     return { key, label: label || 'SIN TIPO' };
   }
 
-  // ✅ agrupar dinámicamente por tipoPagoNombre
+  // ? agrupar dinámicamente por tipoPagoNombre
   private calcTotales(rows: VwVentasCuadrePagoDto[]) {
     const map = new Map<string, { tipo: string; monto: number; count: number }>();
 
@@ -211,3 +210,4 @@ export class CuadreDiarioComponent {
     return this.toYmd(parsed);
   }
 }
+

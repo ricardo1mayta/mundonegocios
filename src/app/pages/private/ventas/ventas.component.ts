@@ -1,4 +1,4 @@
-﻿import { CommonModule, formatDate } from "@angular/common";
+import { CommonModule, formatDate } from "@angular/common";
 import { Component, computed, inject, model, OnInit, signal, viewChild } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE, provideNativeDateAdapter } from "@angular/material/core";
@@ -8,6 +8,7 @@ import { FormFilterComponent } from "../../../core/components/form-crud/form-fil
 import { FormListComponent } from "../../../core/components/form-crud/form-list/form-list.component";
 import { DataTableModule } from "../../../core/components/data-table/data-table.module";
 import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
+import { PrimeNgModule } from 'src/app/core/modules/primeng/primeng.module';
 
 import { DataTableComponent } from "../../../core/components/data-table/data-table.component";
 import { IReporteExcel } from "../../../core/components/data-table/data-table.model";
@@ -22,8 +23,7 @@ import { RutaService } from "src/app/core/services/general/ruta.service";
 
 @Component({
   selector: "app-ventas",
-  imports: [
-    CommonModule,
+  imports: [PrimeNgModule, CommonModule,
     MaterialModule,
     FormCrudComponent,
     FormFilterComponent,

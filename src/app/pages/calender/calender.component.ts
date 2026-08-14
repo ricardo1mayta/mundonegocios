@@ -1,6 +1,7 @@
 import { KeyValuePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FullCalendarComponent, FullCalendarModule } from '@fullcalendar/angular';
+import { PrimeNgModule } from 'src/app/core/modules/primeng/primeng.module';
 
 import { Component, ViewChild } from '@angular/core';
 import { EventInput, CalendarOptions, DateSelectArg, EventClickArg } from '@fullcalendar/core';
@@ -20,8 +21,7 @@ interface CalendarEvent extends EventInput {
 
 @Component({
   selector: 'app-calender',
-  imports: [
-    FormsModule,
+  imports: [PrimeNgModule, FormsModule,
     KeyValuePipe,
     FullCalendarModule,
     ModalComponent,

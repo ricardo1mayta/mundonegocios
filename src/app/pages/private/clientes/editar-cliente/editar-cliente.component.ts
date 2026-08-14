@@ -1,11 +1,12 @@
+import { PrimeNgModule } from 'src/app/core/modules/primeng/primeng.module';
 import { Component, effect, inject, signal } from '@angular/core';
 import { ModalComponent } from '../../../../core/components/modal/modal.component';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { ClientesService } from '../../../../core/services/clientes/clientes.service';
 import { CommonModule } from '@angular/common';
-import { MatDialogContent, MatDialogActions, MatDialogClose, MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
-import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 import { UbigeoService } from '../../../../core/services/ubigeo/ubigeo.service';
 import { CodigosService } from '../../../../core/services/codigos/codigos.service';
 import { SunatService } from '../../../../core/services/codigos/sunat.service';
@@ -34,7 +35,7 @@ type EditarClienteData = {
 @Component({
   selector: 'app-editar-cliente',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatStepperModule, MatSelectModule, MatDialogModule, NgxEditorModule, MatIcon, MaterialModule, MatIconModule, MatDialogContent],
+  imports: [PrimeNgModule, CommonModule, ReactiveFormsModule, MatStepperModule, MatSelectModule, MatDialogModule, NgxEditorModule, MaterialModule, MatIconModule],
   templateUrl: './editar-cliente.component.html',
   styleUrl: './editar-cliente.component.css',
 })
@@ -177,7 +178,7 @@ export class EditarClienteComponent {
 
   seteaUbigeo(codigo: string): void {
     if (!/^\d{6}$/.test(codigo)) {
-      console.warn('Código de ubigeo inválido →', codigo);
+      console.warn('Código de ubigeo inválido �?? ’', codigo);
       return;
     }
 

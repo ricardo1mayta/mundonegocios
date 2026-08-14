@@ -20,10 +20,10 @@ import { Router, RouterModule } from "@angular/router";
 import { VisualizarCompraComponent } from "./visualizar-compra/visualizar-compra.component";
 import { RutaService } from "src/app/core/services/general/ruta.service";
 import { IPermisoBoton } from "src/app/core/models/generic/general.model";
+import { PrimeNgModule } from 'src/app/core/modules/primeng/primeng.module';
 @Component({
   selector: "app-compras",
-  imports: [
-    CommonModule,
+  imports: [PrimeNgModule, CommonModule,
     MaterialModule,
     MatDatepickerModule,
     MatNativeDateModule,

@@ -1,3 +1,4 @@
+import { PrimeNgModule } from 'src/app/core/modules/primeng/primeng.module';
 import { CommonModule } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule, FormGroup } from '@angular/forms';
@@ -18,7 +19,7 @@ import { SwitchComponent } from 'src/app/shared/components/form/input/switch.com
 @Component({
   selector: 'app-nuevo-usuario',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatStepperModule, MatSelectModule, MatIconModule, MatDialogModule, MaterialModule, SwitchComponent],
+  imports: [PrimeNgModule, CommonModule, ReactiveFormsModule, MatStepperModule, MatSelectModule, MatIconModule, MatDialogModule, MaterialModule, SwitchComponent],
   templateUrl: './nuevo-usuario.component.html',
   styleUrl: './nuevo-usuario.component.css',
 })

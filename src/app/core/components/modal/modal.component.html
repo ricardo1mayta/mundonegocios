@@ -1,39 +1,30 @@
 <div class="bg-red-700 text-white flex justify-between items-center p-4">
   <h2 class="text-lg font-semibold">{{ data.titulo }}</h2>
-  <button mat-icon-button [mat-dialog-close]="true" class="text-white">
-    <mat-icon class="text-white">close</mat-icon>
-  </button>
+  <p-button
+    type="button"
+    icon="pi pi-times"
+    [text]="true"
+    [rounded]="true"
+    severity="secondary"
+    ariaLabel="Cerrar"
+  ></p-button>
 </div>
-<mat-dialog-content class="px-6 py-2">
-  <div class="flex flex-col">
+<div class="px-6 py-4">
+  <div class="flex flex-col gap-4">
     <div class="flex justify-center">
-      @if (data.tipo === 'info') {
-      <mat-icon class="text-blue-500 !text-8xl !w-24 !h-24">info</mat-icon>
-      } @else if (data.tipo === 'error') {
-      <mat-icon class="text-red-500 !text-8xl !w-24 !h-24">error</mat-icon>
-      } @else if (data.tipo === 'warning') {
-      <mat-icon class="text-yellow-500 !text-8xl !w-24 !h-24">warning</mat-icon>
-      } @else if (data.tipo === 'question') {
-      <mat-icon class="text-blue-500 !text-8xl !w-24 !h-24">help</mat-icon>
-      } @else if (data.tipo === 'success') {
-      <mat-icon class="text-green-500 !text-8xl !w-24 !h-24">check_circle</mat-icon>
-      } @else {
-      <mat-icon class="text-blue-500 !text-8xl !w-24 !h-24">{{ data.icono }}</mat-icon>
-      }
+      <i [class]="iconClass() + ' text-7xl'"></i>
     </div>
     <div [innerHTML]="data.mensaje"></div>
   </div>
-</mat-dialog-content>
-<mat-dialog-actions class="!flex !justify-center !gap-2">
+</div>
+<div class="prime-dialog-footer !justify-center px-6 pb-4">
   @if (mostrarAceptar()) {
-  <button mat-flat-button [mat-dialog-close]="true" cdkFocusInitial>
-    {{ textoAceptar() }}
-  </button>
-  } @if (mostrarNo()) {
-  <button mat-raised-button mat-dialog-close>{{ textoNo() }}</button>
-  } @if (mostrarCancelar()) {
-  <button mat-raised-button mat-dialog-close>
-    {{ textoCancelar() }}
-  </button>
+    <p-button type="button" [label]="textoAceptar()" cdkFocusInitial></p-button>
   }
-</mat-dialog-actions>
+  @if (mostrarNo()) {
+    <p-button type="button" [label]="textoNo()" severity="secondary" [outlined]="true"></p-button>
+  }
+  @if (mostrarCancelar()) {
+    <p-button type="button" [label]="textoCancelar()" severity="secondary" [outlined]="true"></p-button>
+  }
+</div>

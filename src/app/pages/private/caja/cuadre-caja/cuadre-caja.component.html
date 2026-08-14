@@ -7,24 +7,7 @@
       </div>
       <div class="flex items-center gap-2">
         <label class="text-sm text-gray-600 dark:text-gray-300">Fecha</label>
-        <div class="relative">
-          <input
-            matInput
-            [matDatepicker]="fechaPicker"
-            class="input pr-10"
-            [(ngModel)]="fecha"
-            (click)="fechaPicker.open()"
-            (dateChange)="onFechaChange()"
-          />
-          <button
-            type="button"
-            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400"
-            (click)="fechaPicker.open()"
-          >
-            <span class="i-ph-calendar-blank text-lg"></span>
-          </button>
-          <mat-datepicker #fechaPicker></mat-datepicker>
-        </div>
+        <p-datepicker dateFormat="yy-mm-dd" [showIcon]="true" appendTo="body" styleClass="prime-form-input" (onSelect)="onFechaChange()"></p-datepicker>
       </div>
     </div>
 

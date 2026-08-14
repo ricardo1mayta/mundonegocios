@@ -1,15 +1,21 @@
 import { CommonModule } from "@angular/common";
 import { Component, EventEmitter, Input, Output, computed, signal } from "@angular/core";
-import { PageEvent } from "@angular/material/paginator";
+import { PrimeNgModule } from "../../modules/primeng/primeng.module";
+
+export interface GpPageEvent {
+  pageIndex: number;
+  pageSize: number;
+  length: number;
+  previousPageIndex?: number;
+}
 
 @Component({
   selector: "gp-paginator",
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, PrimeNgModule],
   templateUrl: "./gp-paginator.component.html",
 })
 export class GpPaginatorComponent {
-  // ✅ inputs como setters -> actualizan signals internos
   private _length = signal(0);
   @Input() set length(v: number) {
     this._length.set(Number(v ?? 0));
@@ -45,48 +51,17 @@ export class GpPaginatorComponent {
     return this._loading();
   }
 
-  @Output() page = new EventEmitter<PageEvent>();
+  @Output() page = new EventEmitter<GpPageEvent>();
 
-  totalPages = computed(() => {
-    const size = Math.max(1, this._pageSize());
-    return Math.max(1, Math.ceil(this._length() / size));
-  });
+  firstRecord = computed(() => this._pageIndex() * this._pageSize());
+  totalPages = computed(() => Math.max(1, Math.ceil(this._length() / Math.max(1, this._pageSize()))));
 
-  from = computed(() => (this._length() <= 0 ? 0 : this._pageIndex() * this._pageSize() + 1));
-  to = computed(() => Math.min(this._length(), (this._pageIndex() + 1) * this._pageSize()));
-
-  canPrev = computed(() => !this._loading() && this._pageIndex() > 0);
-  canNext = computed(() => !this._loading() && this._pageIndex() < this.totalPages() - 1);
-
-  private emit(nextIndex: number, nextSize: number) {
+  onPageChange(event: any) {
     this.page.emit({
-      pageIndex: nextIndex,
-      pageSize: nextSize,
+      pageIndex: Number(event.page ?? 0),
+      pageSize: Number(event.rows ?? this._pageSize()),
       length: this._length(),
       previousPageIndex: this._pageIndex(),
     });
-  }
-
-  first() {
-    if (!this.canPrev()) return;
-    this.emit(0, this._pageSize());
-  }
-  prev() {
-    if (!this.canPrev()) return;
-    this.emit(Math.max(0, this._pageIndex() - 1), this._pageSize());
-  }
-  next() {
-    if (!this.canNext()) return;
-    this.emit(Math.min(this.totalPages() - 1, this._pageIndex() + 1), this._pageSize());
-  }
-  last() {
-    if (!this.canNext()) return;
-    this.emit(this.totalPages() - 1, this._pageSize());
-  }
-
-  onPageSizeChange(v: any) {
-    const newSize = Number(v);
-    if (!Number.isFinite(newSize) || newSize <= 0) return;
-    this.emit(0, newSize); // backend: al cambiar size vuelves a 0
   }
 }

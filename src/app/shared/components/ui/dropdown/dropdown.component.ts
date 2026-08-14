@@ -4,7 +4,7 @@ import { Component, Input, Output, EventEmitter, ElementRef, ViewChild, AfterVie
 @Component({
   selector: 'app-dropdown',
   templateUrl: './dropdown.component.html',
-  imports:[CommonModule]
+  imports: [CommonModule]
 })
 export class DropdownComponent implements AfterViewInit, OnDestroy {
   @Input() isOpen = false;

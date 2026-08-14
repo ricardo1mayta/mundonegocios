@@ -14,6 +14,7 @@ import { MaterialModule } from "../../../../core/modules/material/material.modul
 import { ClientesService } from "../../../../core/services/clientes/clientes.service";
 import { EditarClienteComponent } from "../../clientes/editar-cliente/editar-cliente.component";
 import { MarcasService } from "../../../../core/services/marcas/marcas.service";
+import { PrimeNgModule } from 'src/app/core/modules/primeng/primeng.module';
 
 import { Marca } from "../../../../core/models/almacen/marca";
 import { CrearCategoriaComponent } from "./crear-categoria/crear-categoria.component";
@@ -23,8 +24,7 @@ import { RutaService } from "src/app/core/services/general/ruta.service";
 
 @Component({
   selector: "app-categorias",
-  imports: [
-    CommonModule,
+  imports: [PrimeNgModule, CommonModule,
     MaterialModule,
     MatDatepickerModule,
     MatNativeDateModule,

@@ -55,7 +55,7 @@ export class AuthService {
   readonly refreshToken = signal<string | null>(localStorage.getItem(LS.refreshToken));
   readonly expiresAt = signal<number>(+(localStorage.getItem(LS.expiresAt) ?? 0));
 
-  /** Contexto (/me) → SOLO memoria */
+  /** Contexto (/me) ? SOLO memoria */
   readonly ctx = signal<MeResponse | null>(null);
 
   /* ===================== LOGIN ===================== */

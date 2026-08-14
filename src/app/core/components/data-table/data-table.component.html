@@ -1,124 +1,84 @@
-<div class="rounded-lg shadow-md bg-white dark:bg-gray-dark dark:bg-gray-900 core-data-table" [ngStyle]="ngHeight()">
-  <div class="overflow-auto">
-    <table mat-table [dataSource]="origenDatos" class="min-w-full">
-      <!-- Checkbox Column -->
-      @if (mostrarColumnaSeleccion() && !paginable()) {
-        <ng-container matColumnDef="seleccion">
-          <th
-            mat-header-cell
-            *matHeaderCellDef
-            class="text-xs font-semibold px-4 py-2 text-center text-gray-700 dark:text-gray-200 !bg-blue-500/10 dark:!bg-blue-400/15 dark:text-gray-300"
-          >
-            <mat-checkbox
-              (change)="$event ? cambioCheckCabecera($event) : null"
-              [checked]="checkCabeceraSeleccionada()"
+<div class="prime-table-wrapper core-data-table" [ngStyle]="ngHeight()">
+  <p-table [value]="filasTabla()" styleClass="prime-data-table" [scrollable]="true">
+    <ng-template pTemplate="header">
+      <tr>
+        @if (mostrarColumnaSeleccion() && !paginable()) {
+          <th>
+            <p-checkbox
+              [binary]="true"
+              [ngModel]="checkCabeceraSeleccionada()"
               [indeterminate]="checkCabeceraIndeterminado()"
-            >
-            </mat-checkbox>
+              (onChange)="cambioCheckCabecera($event.checked)"
+            ></p-checkbox>
           </th>
+        }
 
-          <td mat-cell *matCellDef="let row" class="px-4 py-2 text-center">
-            <mat-checkbox
+        @for (col of columnas(); track $index) {
+          <th>{{ col.titulo() }}</th>
+        }
+
+        @if (botones().length > 0) {
+          <th>Acciones</th>
+        }
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-element let-i="rowIndex">
+      <tr>
+        @if (mostrarColumnaSeleccion() && !paginable()) {
+          <td class="px-4 py-2 text-center">
+            <p-checkbox
+              [binary]="true"
+              [ngModel]="seleccion.isSelected(element)"
               (click)="$event.stopPropagation()"
-              (change)="$event ? cambioCheck(row, $event) : null"
-              [checked]="seleccion.isSelected(row)"
-            >
-            </mat-checkbox>
+              (onChange)="cambioCheck(element, $event.checked)"
+            ></p-checkbox>
           </td>
-        </ng-container>
-      }
+        }
 
-      @for (col of columnas(); track $index) {
-        <ng-container [matColumnDef]="col.propiedad()">
-          <th
-            mat-header-cell
-            *matHeaderCellDef
-            class="text-xs font-semibold px-4 py-2 text-center text-gray-700 dark:text-gray-200 !bg-blue-500/10 dark:!bg-blue-400/15 dark:text-gray-300"
-          >
-            {{ col.titulo() }}
-          </th>
-
-          <td
-            mat-cell
-            *matCellDef="let element; let i = index"
-            [class]="col.clase() || 'px-4 py-2 text-center text-sm text-gray-800 dark:text-gray-100'"
-          >
+        @for (col of columnas(); track $index) {
+          <td [class]="col.clase() || 'px-4 py-2 text-center text-sm'">
             @if (col.plantilla()) {
               <ng-container
                 [ngTemplateOutlet]="col.plantilla()!"
                 [ngTemplateOutletContext]="{ valor: element[col.propiedad()], elemento: element }"
               ></ng-container>
             } @else if (col.esEstado()) {
-              <span
-                [ngClass]="element[col.propiedad()] ? 'text-green-600 font-semibold' : 'text-red-600 font-semibold'"
-              >
-                {{ element[col.propiedad()] ? "Activo" : "Inactivo" }}
-              </span>
+              <p-tag
+                [value]="element[col.propiedad()] ? 'Activo' : 'Inactivo'"
+                [severity]="element[col.propiedad()] ? 'success' : 'danger'"
+              ></p-tag>
             } @else {
               {{ element[col.propiedad()] }}
             }
           </td>
-        </ng-container>
-      }
+        }
 
-      <ng-container matColumnDef="acciones">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          class="text-xs font-semibold px-4 py-2 text-center text-gray-700 dark:text-gray-200 !bg-blue-500/10 dark:!bg-blue-400/15 dark:text-gray-300"
-        >
-          Acciones
-        </th>
+        @if (botones().length > 0) {
+          <td class="px-4 py-2 text-center">
+            <p-menu #menuAcciones [model]="obtenerItemsAcciones(element, i)" [popup]="true" appendTo="body"></p-menu>
+            <p-button
+              type="button"
+              icon="pi pi-ellipsis-v"
+              severity="secondary"
+              [text]="true"
+              [rounded]="true"
+              ariaLabel="Acciones"
+              (onClick)="menuAcciones.toggle($event)"
+            ></p-button>
+          </td>
+        }
+      </tr>
+    </ng-template>
 
-        <td mat-cell *matCellDef="let element; let i = index" class="px-4 py-2 text-center">
-          <button
-            mat-icon-button
-            [matMenuTriggerFor]="menuAcciones"
-            class="text-slate-500 hover:text-slate-700 dark:text-slate-300 dark:hover:text-white"
-          >
-            <mat-icon class="!text-slate-600 dark:!text-slate-200">more_vert</mat-icon>
-          </button>
-
-          <mat-menu
-            #menuAcciones="matMenu"
-            [overlapTrigger]="false"
-            panelClass="!bg-white dark:!bg-gray-900 !text-gray-800 dark:!text-gray-100 !shadow-xl !border !border-gray-200/70 dark:!border-gray-700/70"
-          >
-            @for (boton of botones(); track $index) {
-              <button
-                mat-menu-item
-                (click)="boton.accion.emit({ datos: element, indiceFila: i })"
-                class="!text-slate-700 dark:!text-slate-100"
-              >
-                <mat-icon class="!text-slate-500 dark:!text-slate-300">{{ boton.icono() }}</mat-icon>
-                <span class="ml-2">{{ boton.etiqueta() }}</span>
-              </button>
-            }
-          </mat-menu>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td [attr.colspan]="columnasAMostrar().length" class="px-4 py-4 text-center italic text-slate-500">
+          {{ mensajeTablaVacia() }}
         </td>
-      </ng-container>
-
-      <tr
-        mat-header-row
-        *matHeaderRowDef="columnasAMostrar(); sticky: true"
-        class="!bg-blue-900/10 dark:!bg-blue-700/15"
-      ></tr>
-
-      <tr
-        mat-row
-        *matRowDef="let row; let i = index; columns: columnasAMostrar()"
-        class="hover:bg-gray-50 dark:hover:bg-white/5"
-      ></tr>
-    </table>
-
-    @if (mostrarMensajeTablaVacia()) {
-      <div
-        class="text-center p-4 text-gray-600 dark:text-gray-300 italic border border-t-0 border-gray-200 dark:border-gray-700 dark:text-gray-400 dark:border-gray-800"
-      >
-        {{ mensajeTablaVacia() }}
-      </div>
-    }
-  </div>
+      </tr>
+    </ng-template>
+  </p-table>
 </div>
 
 @if (paginable() && totalRegistros() > 0) {

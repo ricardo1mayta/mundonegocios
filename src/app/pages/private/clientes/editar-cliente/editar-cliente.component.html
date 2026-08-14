@@ -3,11 +3,9 @@
 >
   <!-- Cerrar -->
   <button
-    mat-icon-button
-    mat-dialog-close
     class="!absolute !right-4 !top-4 !z-[9999] !rounded-lg hover:!bg-gray-100 dark:hover:!bg-white/5"
   >
-    <mat-icon class="!text-gray-500 dark:!text-gray-400">close</mat-icon>
+    <i class="!text-gray-500 dark:!text-gray-400" class="pi pi-times"></i>
   </button>
 
   <!-- Header -->
@@ -17,10 +15,16 @@
   </div>
 
   <!-- Contenido -->
-  <mat-dialog-content class="max-h-[75vh] overflow-y-auto custom-scrollbar p-0">
-    <mat-horizontal-stepper linear class="bg-transparent">
+  <div class="max-h-[75vh] overflow-y-auto custom-scrollbar p-0">
+    <p-stepper [value]="1" class="w-full">
+      <p-step-list>
+        <p-step [value]="1">Documento</p-step>
+        <p-step [value]="2">Direccion</p-step>
+        <p-step [value]="3">Contacto</p-step>
+      </p-step-list>
+      <p-step-panels>
       <!-- Paso 1 -->
-      <mat-step [stepControl]="docForm" label="Documento">
+      <p-step-panel [value]="1"><ng-template #content let-activateCallback="activateCallback">
         <form [formGroup]="docForm" class="pt-4 space-y-4">
           <div class="grid grid-cols-1 md:grid-cols-6 gap-4">
             <label class="flex flex-col gap-1 md:col-span-2 dark:text-white/90">
@@ -34,7 +38,7 @@
             </label>
 
             <label class="flex flex-col gap-1 md:col-span-2 relative dark:text-white/90">
-              <span class="text-theme-sm font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">Nº Documento *</span>
+              <span class="text-theme-sm font-medium text-gray-700 dark:text-gray-300 dark:text-gray-200">NÂº Documento *</span>
 
               <input
                 formControlName="clienteNumerodocumento"
@@ -49,7 +53,7 @@
                 class="absolute right-2 top-[30px] h-9 w-9 inline-flex items-center justify-center rounded-lg border border-gray-200 bg-gray-50 hover:bg-gray-100 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10 dark:bg-gray-900 dark:border-gray-800"
                 matTooltip="Buscar en SUNAT"
               >
-                <mat-icon class="!text-gray-600 dark:!text-gray-300">search</mat-icon>
+                <i class="!text-gray-600 dark:!text-gray-300" class="pi pi-search"></i>
               </button>
             </label>
 
@@ -66,8 +70,7 @@
           <!-- Acciones -->
           <div class="flex justify-end gap-2 pt-2">
             <button
-              mat-flat-button
-              matStepperNext
+              (click)="activateCallback(2)"
               [disabled]="docForm.invalid"
               class="!h-10 !rounded-xl !px-5 !normal-case !bg-slate-900 hover:!bg-slate-800 !text-white disabled:!bg-slate-400 !shadow-theme-xs dark:!bg-slate-200 dark:!text-slate-900 dark:hover:!bg-white"
             >
@@ -75,10 +78,10 @@
             </button>
           </div>
         </form>
-      </mat-step>
+      </ng-template></p-step-panel>
 
       <!-- Paso 2 -->
-      <mat-step [stepControl]="dirForm" label="Dirección">
+      <p-step-panel [value]="2"><ng-template #content let-activateCallback="activateCallback">
         <form [formGroup]="dirForm" class="pt-4 space-y-4">
           <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
             <label class="flex flex-col gap-1 md:col-span-2 dark:text-white/90">
@@ -95,7 +98,7 @@
               <input
                 formControlName="clienteDireccion"
                 class="input !h-11 !rounded-xl !border-gray-300 dark:!border-white/10 dark:!bg-gray-900/40"
-                placeholder="Av / Jr / Calle, N°..."
+                placeholder="Av / Jr / Calle, NÂ°..."
               />
             </label>
           </div>
@@ -138,16 +141,14 @@
           <!-- Acciones -->
           <div class="flex justify-between gap-2 pt-2">
             <button
-              mat-stroked-button
-              matStepperPrevious
+              (click)="activateCallback(1)"
               class="!h-10 !rounded-xl !px-5 !normal-case !border-gray-300 !text-gray-700 hover:!bg-gray-50 dark:!border-white/10 dark:!text-gray-300 dark:hover:!bg-white/5"
             >
               Volver
             </button>
 
             <button
-              mat-flat-button
-              matStepperNext
+              (click)="activateCallback(2)"
               [disabled]="dirForm.invalid"
               class="!h-10 !rounded-xl !px-5 !normal-case !bg-slate-900 hover:!bg-slate-800 !text-white disabled:!bg-slate-400 !shadow-theme-xs dark:!bg-slate-200 dark:!text-slate-900 dark:hover:!bg-white"
             >
@@ -155,10 +156,10 @@
             </button>
           </div>
         </form>
-      </mat-step>
+      </ng-template></p-step-panel>
 
       <!-- Paso 3 -->
-      <mat-step [stepControl]="contactoForm" label="Contacto">
+      <p-step-panel [value]="3"><ng-template #content let-activateCallback="activateCallback">
         <form [formGroup]="contactoForm" class="pt-4 space-y-4">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <label class="flex flex-col gap-1 dark:text-white/90">
@@ -183,15 +184,13 @@
           <!-- Acciones -->
           <div class="flex justify-between gap-2 pt-2">
             <button
-              mat-stroked-button
-              matStepperPrevious
+              (click)="activateCallback(1)"
               class="!h-10 !rounded-xl !px-5 !normal-case !border-gray-300 !text-gray-700 hover:!bg-gray-50 dark:!border-white/10 dark:!text-gray-300 dark:hover:!bg-white/5"
             >
               Volver
             </button>
 
             <button
-              mat-flat-button
               type="button"
               (click)="guardar()"
               [disabled]="contactoForm.invalid"
@@ -201,10 +200,11 @@
             </button>
           </div>
         </form>
-      </mat-step>
-    </mat-horizontal-stepper>
-  </mat-dialog-content>
+      </ng-template></p-step-panel>
+    </p-step-panels></p-stepper>
+  </div>
 </div>
+
 
 
 

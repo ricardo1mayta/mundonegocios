@@ -8,11 +8,12 @@ import { forkJoin, of } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { CuadreDiarioService } from "../../../../core/services/cuadre-diario/cuadre-diario.service";
 import { ReportePedidosService } from "../../../../core/services/reportes/reporte-pedidos.service";
+import { PrimeNgModule } from 'src/app/core/modules/primeng/primeng.module';
 
 @Component({
   selector: "app-cuadre-caja",
   standalone: true,
-  imports: [CommonModule, FormsModule, MatDatepickerModule, MatNativeDateModule, MatInputModule],
+  imports: [PrimeNgModule, CommonModule, FormsModule, MatDatepickerModule, MatNativeDateModule, MatInputModule],
   templateUrl: "./cuadre-caja.component.html",
   styleUrl: "./cuadre-caja.component.css",
 })

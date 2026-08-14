@@ -1,7 +1,8 @@
+import { PrimeNgModule } from 'src/app/core/modules/primeng/primeng.module';
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule, MatDialogClose, MatDialogContent } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatSelectModule } from '@angular/material/select';
 
@@ -15,14 +16,14 @@ import { Categoria } from '../../../../../core/models/almacen/categoria';
 import { Editor, NgxEditorModule } from 'ngx-editor';
 import { environment } from '../../../../../../environments/environment';
 import { Producto } from '../../../../../core/models/almacen/producto';
-import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { MaterialModule } from '../../../../../core/modules/material/material.module';
 import { SwitchComponent } from 'src/app/shared/components/form/input/switch.component';
 
 @Component({
   selector: 'app-crear-productos',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatStepperModule, MatSelectModule, MatDialogModule, NgxEditorModule, MatIcon, MaterialModule, MatIconModule, MatDialogContent, SwitchComponent],
+  imports: [PrimeNgModule, CommonModule, ReactiveFormsModule, MatStepperModule, MatSelectModule, MatDialogModule, NgxEditorModule, MaterialModule, MatIconModule, SwitchComponent],
   templateUrl: './crear-productos.component.html',
   styleUrl: './crear-productos.component.css',
 })

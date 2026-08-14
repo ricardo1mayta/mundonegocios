@@ -1,5 +1,7 @@
-import { CommonModule } from '@angular/common';
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { CommonModule } from "@angular/common";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { FormsModule } from "@angular/forms";
+import { PrimeNgModule } from "../../../../core/modules/primeng/primeng.module";
 
 export interface Option {
   value: string;
@@ -7,49 +9,26 @@ export interface Option {
 }
 
 @Component({
-  selector: 'app-multi-select',
-  imports: [
-    CommonModule,
-  ],
-  templateUrl: './multi-select.component.html',
-  styles: ``
+  selector: "app-multi-select",
+  imports: [CommonModule, FormsModule, PrimeNgModule],
+  templateUrl: "./multi-select.component.html",
+  styles: ``,
 })
 export class MultiSelectComponent {
-
-  @Input() label: string = '';
+  @Input() label: string = "";
   @Input() options: Option[] = [];
   @Input() defaultSelected: string[] = [];
   @Input() disabled: boolean = false;
   @Output() selectionChange = new EventEmitter<string[]>();
 
   selectedOptions: string[] = [];
-  isOpen = false;
 
   ngOnInit() {
     this.selectedOptions = [...this.defaultSelected];
   }
 
-  toggleDropdown() {
-    if (!this.disabled) this.isOpen = !this.isOpen;
-  }
-
-  handleSelect(optionValue: string) {
-    if (this.selectedOptions.includes(optionValue)) {
-      this.selectedOptions = this.selectedOptions.filter(v => v !== optionValue);
-    } else {
-      this.selectedOptions = [...this.selectedOptions, optionValue];
-    }
+  onChange(values: string[]) {
+    this.selectedOptions = values ?? [];
     this.selectionChange.emit(this.selectedOptions);
-  }
-
-  removeOption(value: string) {
-    this.selectedOptions = this.selectedOptions.filter(opt => opt !== value);
-    this.selectionChange.emit(this.selectedOptions);
-  }
-
-  get selectedValuesText(): string[] {
-    return this.selectedOptions
-      .map(value => this.options.find(option => option.value === value)?.text || '')
-      .filter(Boolean);
   }
 }

@@ -4,82 +4,12 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         <div class="sm:col-span-2 md:col-span-1 flex flex-col">
           <label for="buscador" class="text-md font-medium mt-4 mb-1 dark:text-white/90">Buscador</label>
-          <div class="relative">
-            <input
-              id="buscador"
-              type="text"
-              placeholder="Buscar por codigo o nombre"
-              formControlName="buscador"
-              class="input pl-10"
-              (keydown.enter)="aplicarFiltros()"
-            />
-            <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5 text-gray-400 dark:text-gray-500"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="2"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M21 21l-4.35-4.35m0 0A7 7 0 1010 17.65l4.35 4.35z"
-                />
-              </svg>
-            </span>
-          </div>
-        </div>
-
-        <div class="flex flex-col">
-          <label for="fechaDesde" class="text-md font-medium mt-4 mb-1 dark:text-white/90">Fecha Desde</label>
-          <div class="relative">
-            <input
-              id="fechaDesde"
-              matInput
-              [matDatepicker]="fechaDesdePicker"
-              formControlName="fechaDesde"
-              [max]="filtroForm.get('fechaHasta')?.value"
-              placeholder="dd/MM/yyyy"
-              autocomplete="off"
-              class="input pr-10"
-              (click)="fechaDesdePicker.open()"
-            />
-            <button
-              type="button"
-              class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400"
-              (click)="fechaDesdePicker.open()"
-            >
-              <mat-icon class="!text-[18px]">calendar_today</mat-icon>
-            </button>
-            <mat-datepicker #fechaDesdePicker></mat-datepicker>
-          </div>
+          <p-datepicker inputId="buscador" formControlName="buscador" dateFormat="yy-mm-dd" [showIcon]="true" appendTo="body" styleClass="prime-form-input"></p-datepicker>
         </div>
 
         <div class="self-end flex flex-col">
           <label for="fechaHasta" class="sr-only">Hasta</label>
-          <div class="relative">
-            <input
-              id="fechaHasta"
-              matInput
-              [matDatepicker]="fechaHastaPicker"
-              formControlName="fechaHasta"
-              [min]="filtroForm.get('fechaDesde')?.value"
-              placeholder="dd/MM/yyyy"
-              autocomplete="off"
-              class="input pr-10"
-              (click)="fechaHastaPicker.open()"
-            />
-            <button
-              type="button"
-              class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400"
-              (click)="fechaHastaPicker.open()"
-            >
-              <mat-icon class="!text-[18px]">calendar_today</mat-icon>
-            </button>
-            <mat-datepicker #fechaHastaPicker></mat-datepicker>
-          </div>
+          <p-datepicker inputId="fechaHasta" formControlName="fechaHasta" dateFormat="yy-mm-dd" [showIcon]="true" appendTo="body" styleClass="prime-form-input"></p-datepicker>
         </div>
       </div>
     </app-form-filter>
@@ -99,9 +29,9 @@
         <app-columna-tabla titulo="Tikect" propiedad="id">
           <ng-template let-id="valor"
             ><button class="text-red-600" (click)="viewPdf(id)">
-              <mat-icon aria-label="Archivo PDF">picture_as_pdf</mat-icon>
+              <i aria-label="Archivo PDF" class="pi pi-file-pdf"></i>
             </button>
-            <button (click)="downloadPdf(id)"><mat-icon>cloud_download</mat-icon></button></ng-template
+            <button (click)="downloadPdf(id)"><i class="pi pi-download"></i></button></ng-template
           >
         </app-columna-tabla>
 
@@ -155,3 +85,5 @@
     </app-form-list>
   </div>
 </app-form-crud>
+
+

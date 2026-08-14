@@ -6,11 +6,12 @@ import { MatNativeDateModule } from "@angular/material/core";
 import { MatInputModule } from "@angular/material/input";
 import { MatIconModule } from "@angular/material/icon";
 import { GastosService } from "../../../../core/services/gastos/gastos.service";
+import { PrimeNgModule } from 'src/app/core/modules/primeng/primeng.module';
 
 @Component({
   selector: "app-registro-gastos",
   standalone: true,
-  imports: [CommonModule, FormsModule, MatDatepickerModule, MatNativeDateModule, MatInputModule, MatIconModule],
+  imports: [PrimeNgModule, CommonModule, FormsModule, MatDatepickerModule, MatNativeDateModule, MatInputModule, MatIconModule],
   templateUrl: "./registro-gastos.component.html",
   styleUrl: "./registro-gastos.component.css",
 })

@@ -1,5 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { Component, inject, model, OnInit, signal, viewChild } from "@angular/core";
+import { PrimeNgModule } from 'src/app/core/modules/primeng/primeng.module';
 
 import { MatDatepickerModule } from "@angular/material/datepicker";
 
@@ -23,8 +24,7 @@ import { VisualizarCompraComponent } from "src/app/pages/private/compras/visuali
 
 @Component({
   selector: "app-listar-bom",
-  imports: [
-    CommonModule,
+  imports: [PrimeNgModule, CommonModule,
     MaterialModule,
     MatDatepickerModule,
     MatNativeDateModule,
@@ -115,10 +115,10 @@ export class ListarBomComponent implements OnInit {
   registrarProducto(compra: Compra) {
     this.comprasService.repgistarProducto(compra.id).subscribe({
       next: () => {
-        this.snack.open("Producto registrado ✅", "Cerrar", { duration: 2500 });
+        this.snack.open("Producto registrado ?", "Cerrar", { duration: 2500 });
       },
       error: (e) => {
-        const msg = e?.error?.message ?? "No se pudo registrar el producto ❌";
+        const msg = e?.error?.message ?? "No se pudo registrar el producto ?";
         this.snack.open(msg, "Cerrar", { duration: 3500 });
       },
     });

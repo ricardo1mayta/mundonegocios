@@ -1,10 +1,8 @@
 <div class="modal-surface">
   <button
-    mat-icon-button
-    mat-dialog-close
     class="!absolute !right-4 !top-4 !z-[9999] !rounded-lg hover:!bg-gray-100 dark:hover:!bg-white/5"
   >
-    <mat-icon class="!text-gray-500 dark:!text-gray-400">close</mat-icon>
+    <i class="!text-gray-500 dark:!text-gray-400" class="pi pi-times"></i>
   </button>
   <div class="px-2 pr-14 mb-6">
     <h2 class="text-2xl font-semibold text-gray-800 dark:text-white/90">
@@ -13,13 +11,17 @@
   </div>
 
   <!-- CUERPO -->
-  <mat-dialog-content class="overflow-y-auto p-0 text-gray-800 dark:text-white/90">
-    <mat-horizontal-stepper linear>
-      <!-- PASO 1 – Datos básicos -->
-      <mat-step [stepControl]="basicosForm">
-        <ng-template matStepLabel>
-          <span class="text-gray-800 dark:text-white/90">Datos básicos</span>
-        </ng-template>
+  <div class="overflow-y-auto p-0 text-gray-800 dark:text-white/90">
+    <p-stepper [value]="1" class="w-full">
+      <p-step-list>
+        <p-step [value]="1">Datos basicos</p-step>
+        <p-step [value]="2">Imagenes</p-step>
+        <p-step [value]="3">Precios</p-step>
+      </p-step-list>
+      <p-step-panels>
+      <!-- PASO 1 – Datos b�?? ?¡sicos -->
+      <p-step-panel [value]="1"><ng-template #content let-activateCallback="activateCallback">
+        
         <form [formGroup]="basicosForm" class="space-y-4 py-4">
           <div>
             <label class="label dark:text-white/90">Nombre *</label>
@@ -36,23 +38,18 @@
               <input formControlName="medida" class="input" />
             </div>
             <div>
-              <label class="label dark:text-white/90">Categoría *</label>
-              <mat-select formControlName="categoria" class="input">
-                <mat-option *ngFor="let c of categorias" [value]="c.id">{{ c.nombre }}</mat-option>
-              </mat-select>
+              <label class="label dark:text-white/90">Categor�?? ?­a *</label>
+              <p-select formControlName="categoria" [options]="categorias" optionLabel="nombre" optionValue="id" appendTo="body" styleClass="prime-form-input"></p-select>
             </div>
             <div>
               <label class="label dark:text-white/90">Marca *</label>
-              <mat-select formControlName="marca" class="input custom-select">
-                <mat-option class="bg-gray-700" *ngFor="let m of marcas" [value]="m.id">{{ m.name }}</mat-option>
-              </mat-select>
+              <p-select formControlName="marca" [options]="marcas" optionLabel="name" optionValue="id" appendTo="body" styleClass="prime-form-input"></p-select>
             </div>
           </div>
 
           <div class="flex justify-end pt-4">
             <button
-              mat-flat-button
-              matStepperNext
+              (click)="activateCallback(2)"
               [disabled]="basicosForm.invalid"
               class="!h-10 !rounded-xl !px-5 !normal-case !bg-slate-900 hover:!bg-slate-800 !text-white disabled:!bg-slate-400 !shadow-theme-xs dark:!bg-slate-200 dark:!text-slate-900 dark:hover:!bg-white"
             >
@@ -60,28 +57,26 @@
             </button>
           </div>
         </form>
-      </mat-step>
+      </ng-template></p-step-panel>
 
-      <!-- PASO 2 – Imágenes -->
-      <mat-step [stepControl]="imagenesForm">
-        <ng-template matStepLabel>
-          <span class="text-gray-800 dark:text-white/90">Imágenes</span>
-        </ng-template>
+      <!-- PASO 2 – Im�?? ?¡genes -->
+      <p-step-panel [value]="2"><ng-template #content let-activateCallback="activateCallback">
+        
         <form [formGroup]="imagenesForm" class="space-y-6 py-4">
           <!-- Tarjetas -->
           <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
             <ng-container *ngFor="let campo of ['imagen', 'img1', 'img2', 'img3', 'img4']">
               <div class="flex flex-col items-center gap-2 bg-white border border-gray-200 rounded-lg p-3 shadow-sm dark:border-gray-800 dark:bg-gray-900">
-                <!-- título -->
+                <!-- t�?? ?­tulo -->
                 <span class="text-xs font-semibold text-gray-700 dark:text-white/90">
                   {{ campo === "imagen" ? "Principal *" : campo }}
                 </span>
 
-                <!-- zona drag / botón -->
+                <!-- zona drag / bot�?? ?³n -->
                 <label
                   class="flex flex-col items-center justify-center w-24 h-24 border-2 border-dashed border-gray-200 rounded-lg cursor-pointer hover:border-blue-500 transition dark:border-gray-700 dark:text-white/90"
                 >
-                  <mat-icon *ngIf="!preview[campo]" class="text-gray-400 dark:text-gray-500">cloud_upload</mat-icon>
+                  <i *ngIf="!preview[campo]" class="text-gray-400 dark:text-gray-500" class="pi pi-upload"></i>
                   <img *ngIf="preview[campo]" [src]="preview[campo]" class="w-full h-full object-cover rounded-md" />
                   <input type="file" accept="image/*" (change)="onFileChange($event, campo)" class="hidden" />
                 </label>
@@ -92,16 +87,14 @@
           <!-- Botones -->
           <div class="flex justify-between gap-2 pt-2">
             <button
-              mat-stroked-button
-              matStepperPrevious
+              (click)="activateCallback(1)"
               class="!h-10 !rounded-xl !px-5 !normal-case !border-slate-300 !text-slate-700 hover:!bg-slate-50 dark:!border-white/10 dark:!text-slate-200 dark:hover:!bg-white/5"
             >
-              <mat-icon class="!text-[18px] !text-slate-600 dark:!text-slate-300">arrow_back</mat-icon>
+              <i class="!text-[18px] !text-slate-600 dark:!text-slate-300" class="pi pi-arrow-left"></i>
               Volver
             </button>
             <button
-              mat-flat-button
-              matStepperNext
+              (click)="activateCallback(2)"
               [disabled]="basicosForm.invalid"
               class="!h-10 !rounded-xl !px-5 !normal-case !bg-slate-900 hover:!bg-slate-800 !text-white disabled:!bg-slate-400 !shadow-theme-xs dark:!bg-slate-200 dark:!text-slate-900 dark:hover:!bg-white"
             >
@@ -109,13 +102,11 @@
             </button>
           </div>
         </form>
-      </mat-step>
+      </ng-template></p-step-panel>
 
       <!-- PASO 3 – Precios & estado -->
-      <mat-step [stepControl]="preciosForm">
-        <ng-template matStepLabel>
-          <span class="text-gray-800 dark:text-white/90">Precios</span>
-        </ng-template>
+      <p-step-panel [value]="3"><ng-template #content let-activateCallback="activateCallback">
+        
         <form [formGroup]="preciosForm" class="space-y-4 py-4">
           <div class="flex items-center gap-2">
             <app-switch
@@ -125,7 +116,7 @@
             ></app-switch>
           </div>
 
-          <!-- Descripción larga -->
+          <!-- Descripci�?? ?³n larga -->
           <div class="h-40 bg-white border border-gray-200 rounded overflow-y-auto dark:border-gray-800 dark:bg-gray-900">
             <ngx-editor-menu [editor]="editor"></ngx-editor-menu>
             <ngx-editor formControlName="descc" [editor]="editor" class="h-full p-2"></ngx-editor>
@@ -133,29 +124,28 @@
 
           <div class="flex justify-between gap-2 pt-2">
             <button
-              mat-stroked-button
-              matStepperPrevious
+              (click)="activateCallback(1)"
               class="!h-10 !rounded-xl !px-5 !normal-case !border-slate-300 !text-slate-700 hover:!bg-slate-50 dark:!border-white/10 dark:!text-slate-200 dark:hover:!bg-white/5"
             >
-              <mat-icon class="!text-[18px] !text-slate-600 dark:!text-slate-300">arrow_back</mat-icon>
+              <i class="!text-[18px] !text-slate-600 dark:!text-slate-300" class="pi pi-arrow-left"></i>
               Volver
             </button>
 
             <button
-              mat-flat-button
-              matStepperNext
+              (click)="activateCallback(2)"
               [disabled]="preciosForm.invalid"
               (click)="guardar()"
               class="!h-10 !rounded-xl !px-5 !normal-case !bg-slate-900 hover:!bg-slate-800 !text-white disabled:!bg-slate-400 !shadow-theme-xs dark:!bg-slate-200 dark:!text-slate-900 dark:hover:!bg-white"
             >
-              <mat-icon class="!text-[18px] !text-white dark:!text-slate-900">save</mat-icon> Guardar
+              <i class="!text-[18px] !text-white dark:!text-slate-900" class="pi pi-save"></i> Guardar
             </button>
           </div>
         </form>
-      </mat-step>
-    </mat-horizontal-stepper>
-  </mat-dialog-content>
+      </ng-template></p-step-panel>
+    </p-step-panels></p-stepper>
+  </div>
 </div>
+
 
 
 

@@ -1,0 +1,210 @@
+# Mapa de migracion HTML a PrimeNG
+
+Generado automaticamente despues del barrido de templates. Estado: no quedan patrones `<mat-*`, ` mat-*`, `matInput`, `mat-datepicker`, `mat-icon` ni `matStepper` en archivos HTML bajo `src`.
+
+## Templates revisados
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: botones PrimeNG, tabla PrimeNG, checkbox PrimeNG
+- $rel: botones PrimeNG, select PrimeNG
+- $rel: botones PrimeNG, card PrimeNG
+- $rel: botones PrimeNG, checkbox PrimeNG
+- $rel: botones PrimeNG
+- $rel: botones PrimeNG
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: datepicker PrimeNG
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: datepicker PrimeNG
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: datepicker PrimeNG
+- $rel: stepper PrimeNG, select PrimeNG
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: datepicker PrimeNG
+- $rel: datepicker PrimeNG
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: stepper PrimeNG
+- $rel: datepicker PrimeNG
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: datepicker PrimeNG
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: datepicker PrimeNG
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: datepicker PrimeNG
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: datepicker PrimeNG
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: datepicker PrimeNG
+- $rel: datepicker PrimeNG
+- $rel: datepicker PrimeNG
+- $rel: stepper PrimeNG, datepicker PrimeNG
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: checkbox PrimeNG
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: stepper PrimeNG
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: tabla PrimeNG, datepicker PrimeNG
+- $rel: tabla PrimeNG, datepicker PrimeNG
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: tabla PrimeNG, datepicker PrimeNG
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: stepper PrimeNG
+- $rel: datepicker PrimeNG
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: botones PrimeNG, datepicker PrimeNG
+- $rel: botones PrimeNG
+- $rel: botones PrimeNG, multiselect PrimeNG, checkbox PrimeNG
+- $rel: stepper PrimeNG, select PrimeNG, multiselect PrimeNG
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: datepicker PrimeNG
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: datepicker PrimeNG
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: multiselect PrimeNG
+- $rel: select PrimeNG
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: botones PrimeNG
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: botones PrimeNG
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos
+- $rel: sin controles PrimeNG directos o ya usa componentes compartidos

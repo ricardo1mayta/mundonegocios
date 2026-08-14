@@ -1,108 +1,51 @@
 <div class="notificaciones-titulo">
-  <mat-icon class="gob-color-primary-red-800">notifications</mat-icon>
-  <div class="gob-headline gob-headline__h4 gob-color-text-800">
-    Notificaciones
-  </div>
+  <i class="pi pi-bell gob-color-primary-red-800"></i>
+  <div class="gob-headline gob-headline__h4 gob-color-text-800">Notificaciones</div>
 </div>
-<mat-nav-list class="gob-mat-list-notificaciones">
-  <mat-list-item routerLink="example">
-    <div class="flex gap-1.5">
-      <div class="flex justify-center items-center">
-        <gob-avatar
-          label="info"
-          className="gob-bg-primary-red-300 gob-color-primary-red-600"
-          [isIcon]="true"
-          [isRounded]="true"
-        />
-      </div>
-      <div>
-        <div class="gob-paragraph gob-color-text-800 notificacion-descripcion">
-          Expediente N° 8116680-2024-TCE - PAS tiene decretos observados
-        </div>
-        <div class="gob-paragraph gob-paragraph--xs gob-color-text-600">
-          05/08/2024 01:24 hrs
-        </div>
-      </div>
+<nav class="gob-mat-list-notificaciones flex flex-col">
+  <a routerLink="example" class="flex gap-1.5 px-4 py-3 hover:bg-surface-100">
+    <div class="flex justify-center items-center">
+      <span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-red-100 text-red-600"><i class="pi pi-info-circle"></i></span>
     </div>
-  </mat-list-item>
-  <mat-list-item routerLink="example">
-    <div class="flex gap-1.5">
-      <div class="flex justify-center items-center">
-        <gob-avatar
-          label="info"
-          className="gob-bg-primary-red-300 gob-color-primary-red-600"
-          [isIcon]="true"
-          [isRounded]="true"
-        />
-      </div>
-      <div>
-        <div class="gob-paragraph gob-color-text-800 notificacion-descripcion">
-          Expediente N° 0116671-2024-TCE - PAS tiene decretos observados
-        </div>
-        <div class="gob-paragraph gob-paragraph--xs gob-color-text-600">
-          05/08/2024 01:24 hrs
-        </div>
-      </div>
+    <div>
+      <div class="gob-paragraph gob-color-text-800 notificacion-descripcion">Expediente N 8116680-2024-TCE - PAS tiene decretos observados</div>
+      <div class="gob-paragraph gob-paragraph--xs gob-color-text-600">05/08/2024 01:24 hrs</div>
     </div>
-  </mat-list-item>
-  <mat-list-item routerLink="example">
-    <div class="flex gap-1.5">
-      <div class="flex justify-center items-center">
-        <gob-avatar
-          label="fiber_new"
-          className="gob-bg-secondary-purple-500 gob-color-secondary-purple-700"
-          [isIcon]="true"
-          [isRounded]="true"
-        />
-      </div>
-      <div>
-        <div class="gob-paragraph gob-color-text-800 notificacion-descripcion">
-          Expediente N° 0116680-2024-TCE - PAS ha sido asignado
-        </div>
-        <div class="gob-paragraph gob-paragraph--xs gob-color-text-600">
-          05/08/2024 01:24 hrs
-        </div>
-      </div>
+  </a>
+  <a routerLink="example" class="flex gap-1.5 px-4 py-3 hover:bg-surface-100">
+    <div class="flex justify-center items-center">
+      <span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-red-100 text-red-600"><i class="pi pi-info-circle"></i></span>
     </div>
-  </mat-list-item>
-  <mat-list-item routerLink="example">
-    <div class="flex gap-1.5">
-      <div class="flex justify-center items-center">
-        <gob-avatar
-          label="keyboard_return"
-          className="gob-bg-secondary-yellow-300 gob-color-secondary-yellow-600"
-          [isIcon]="true"
-          [isRounded]="true"
-        />
-      </div>
-      <div>
-        <div class="gob-paragraph gob-color-text-800 notificacion-descripcion">
-          Expediente N° 0116680-2024-TCE - PAS devuelto
-        </div>
-        <div class="gob-paragraph gob-paragraph--xs gob-color-text-600">
-          05/08/2024 01:24 hrs
-        </div>
-      </div>
+    <div>
+      <div class="gob-paragraph gob-color-text-800 notificacion-descripcion">Expediente N 0116671-2024-TCE - PAS tiene decretos observados</div>
+      <div class="gob-paragraph gob-paragraph--xs gob-color-text-600">05/08/2024 01:24 hrs</div>
     </div>
-  </mat-list-item>
-  <mat-list-item routerLink="example">
-    <div class="flex gap-1.5">
-      <div class="flex justify-center items-center">
-        <gob-avatar
-          label="fiber_new"
-          className="gob-bg-secondary-purple-500 gob-color-secondary-purple-700"
-          [isIcon]="true"
-          [isRounded]="true"
-        />
-      </div>
-      <div>
-        <div class="gob-paragraph gob-color-text-800 notificacion-descripcion">
-          Expediente N° 0116680-2024-TCE - PAS ha sido asignado
-        </div>
-        <div class="gob-paragraph gob-paragraph--xs gob-color-text-600">
-          05/08/2024 01:24 hrs
-        </div>
-      </div>
+  </a>
+  <a routerLink="example" class="flex gap-1.5 px-4 py-3 hover:bg-surface-100">
+    <div class="flex justify-center items-center">
+      <span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-purple-100 text-purple-700"><i class="pi pi-inbox"></i></span>
     </div>
-  </mat-list-item>
-</mat-nav-list>
+    <div>
+      <div class="gob-paragraph gob-color-text-800 notificacion-descripcion">Expediente N 0116680-2024-TCE - PAS ha sido asignado</div>
+      <div class="gob-paragraph gob-paragraph--xs gob-color-text-600">05/08/2024 01:24 hrs</div>
+    </div>
+  </a>
+  <a routerLink="example" class="flex gap-1.5 px-4 py-3 hover:bg-surface-100">
+    <div class="flex justify-center items-center">
+      <span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-yellow-100 text-yellow-700"><i class="pi pi-reply"></i></span>
+    </div>
+    <div>
+      <div class="gob-paragraph gob-color-text-800 notificacion-descripcion">Expediente N 0116680-2024-TCE - PAS devuelto</div>
+      <div class="gob-paragraph gob-paragraph--xs gob-color-text-600">05/08/2024 01:24 hrs</div>
+    </div>
+  </a>
+  <a routerLink="example" class="flex gap-1.5 px-4 py-3 hover:bg-surface-100">
+    <div class="flex justify-center items-center">
+      <span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-purple-100 text-purple-700"><i class="pi pi-inbox"></i></span>
+    </div>
+    <div>
+      <div class="gob-paragraph gob-color-text-800 notificacion-descripcion">Expediente N 0116680-2024-TCE - PAS ha sido asignado</div>
+      <div class="gob-paragraph gob-paragraph--xs gob-color-text-600">05/08/2024 01:24 hrs</div>
+    </div>
+  </a>
+</nav>

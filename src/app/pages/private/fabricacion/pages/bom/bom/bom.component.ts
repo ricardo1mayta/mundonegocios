@@ -8,12 +8,11 @@ import { FichaService } from '../../../../../../core/services/ficha/ficha.servic
 import { InsumoService } from '../../../../../../core/services/insumo/insumo.service';
 import { FichaOption, InsumoOption } from '../../../../../../core/models/fabricacion/fabricacion.models';
 import { BomService } from '../../../../../../core/services/bom/bom.service';
-import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-bom',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatIcon],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './bom.component.html',
   styleUrls: ['./bom.component.css'],
 })
@@ -68,7 +67,7 @@ export class BomComponent {
   }
   // buscar al escribir
   ngOnInit() {
-    // ✅ estado: navegación o refresh
+    // ? estado: navegación o refresh
     const st = (this.router.getCurrentNavigation()?.extras.state ?? history.state) as any;
 
     const fichaId = st?.fichaId as number | undefined;
@@ -84,12 +83,12 @@ export class BomComponent {
 
     // Si es "nuevo BOM desde ficha"
     if (fichaId) {
-      this.isEdit.set(false); // 👈 importante: NO es editar BOM
+      this.isEdit.set(false); // ?? importante: NO es editar BOM
       this.editingId.set(null);
       this.cargarFicha(fichaId);
     }
 
-    // 🔽 tu autocomplete
+    // ?? tu autocomplete
     this.form
       .get('fichaTxt')!
       .valueChanges.pipe(
@@ -98,7 +97,7 @@ export class BomComponent {
         distinctUntilChanged(),
         tap(() => {
           this.openFicha = true;
-          // ❗Esto está raro: estás poniendo codigo null cuando tipeas fichaTxt.
+          // ?Esto está raro: estás poniendo codigo null cuando tipeas fichaTxt.
           // Mejor limpia idFicha, no codigo:
           this.form.get('idFicha')!.setValue(null, { emitEvent: false });
         }),
@@ -134,7 +133,7 @@ export class BomComponent {
             id: bom.id ?? id,
             idFicha: bom.idFicha ?? null,
             codigo: bom.codigo ?? '',
-            fichaTxt: bom.nombreFicha ?? bom.fichaTxt ?? '', // 👈 tu JSON trae nombreFicha
+            fichaTxt: bom.nombreFicha ?? bom.fichaTxt ?? '', // ?? tu JSON trae nombreFicha
             nombre: bom.nombre ?? 'BOM-DEFAULT',
           });
 
@@ -150,10 +149,10 @@ export class BomComponent {
           const detalles = (bom.detalles ?? []) as any[];
           detalles.forEach((d, idx) => {
             const g = this.fb.nonNullable.group({
-              // ✅ tu JSON tiene insumo.id (idInsumo viene null)
+              // ? tu JSON tiene insumo.id (idInsumo viene null)
               idInsumo: this.fb.control<number | null>(d.insumo?.id ?? d.idInsumo ?? null),
 
-              // ✅ tu JSON tiene insumo.nombre
+              // ? tu JSON tiene insumo.nombre
               insumoTxt: this.fb.control<string>(d.insumo?.nombre ?? ''),
 
               cantidadPorUnidad: this.fb.control<number>(Number(d.cantidadPorUnidad ?? 0)),
@@ -227,11 +226,11 @@ export class BomComponent {
             {
               idFicha: ficha.id ?? id,
               codigo: ficha.codigo ?? '',
-              fichaTxt: ficha.nombre ?? '', // ✅ para mostrar en input
+              fichaTxt: ficha.nombre ?? '', // ? para mostrar en input
               nombre: (ficha.nombre ?? 'BOM-DEFAULT') + ' Plantilla',
             },
             { emitEvent: false },
-          ); // ✅ evita triggers raros
+          ); // ? evita triggers raros
 
           this.openFicha = false;
           this.fichaOptions = [];
@@ -352,6 +351,5 @@ export class BomComponent {
     this.openFicha = false;
   }
 }
-
 
 

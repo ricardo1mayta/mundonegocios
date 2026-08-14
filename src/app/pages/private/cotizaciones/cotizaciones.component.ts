@@ -12,6 +12,7 @@ import { MatNativeDateModule, provideNativeDateAdapter } from "@angular/material
 import { DataTableComponent } from "../../../core/components/data-table/data-table.component";
 import { IReporteExcel } from "../../../core/components/data-table/data-table.model";
 import { PedidosService } from "../../../core/services/pedidos/pedidos.service";
+import { PrimeNgModule } from 'src/app/core/modules/primeng/primeng.module';
 
 import { Router } from "@angular/router";
 import { Compra } from "../../../core/models/compras/compra";
@@ -23,8 +24,7 @@ import { VisualizarCotizacionComponent } from "./visualizar-cotizacion/visualiza
 import { RutaService } from "src/app/core/services/general/ruta.service";
 @Component({
   selector: "app-cotizaciones",
-  imports: [
-    CommonModule,
+  imports: [PrimeNgModule, CommonModule,
     MaterialModule,
     MatDatepickerModule,
     MatNativeDateModule,
@@ -124,7 +124,7 @@ export class CotizacionesComponent implements OnInit {
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `ticket-${id}.pdf`; // ← nombre que recibirá el archivo
+      a.download = `ticket-${id}.pdf`; // ? nombre que recibirá el archivo
       a.click();
       URL.revokeObjectURL(url); // libera memoria
     });

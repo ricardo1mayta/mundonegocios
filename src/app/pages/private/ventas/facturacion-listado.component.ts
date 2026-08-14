@@ -5,6 +5,7 @@ import { debounceTime, distinctUntilChanged } from "rxjs/operators";
 import { Router } from "@angular/router";
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE, provideNativeDateAdapter } from "@angular/material/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { PrimeNgModule } from 'src/app/core/modules/primeng/primeng.module';
 
 import { MaterialModule } from "../../../core/modules/material/material.module";
 import { FormCrudComponent } from "../../../core/components/form-crud/form-crud.component";
@@ -18,8 +19,7 @@ import { RutaService } from "src/app/core/services/general/ruta.service";
 
 @Component({
   selector: "app-facturacion-listado",
-  imports: [
-    CommonModule,
+  imports: [PrimeNgModule, CommonModule,
     MaterialModule,
     FormCrudComponent,
     FormFilterComponent,

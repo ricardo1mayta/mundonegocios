@@ -1,10 +1,10 @@
 <div class="modal-surface">
-  <button mat-icon-button [mat-dialog-close]="true" class="hover:bg-blue-900/40 rounded-full p-1"><mat-icon>close</mat-icon></button>
+  <button type="button" (click)="cerrar()" class="hover:bg-blue-900/40 rounded-full p-1"><i class="pi pi-times"></i></button>
   <div class="px-2 pr-14 mb-6">
     <h2 class="text-2xl font-semibold text-gray-800 dark:text-white/90">Cliente</h2>
   </div>
 
-  <mat-dialog-content class="p-0">
+  <div class="p-0">
     <form [formGroup]="form" (ngSubmit)="guardar()" class="space-y-6">
     <!-- Nombre del rol -->
     <div class="flex flex-col gap-1">
@@ -20,14 +20,15 @@
       <p *ngIf="form.get('descripcionRol')?.hasError('required') && form.get('descripcionRol')?.touched" class="text-red-600 text-sm">Campo obligatorio</p>
     </div>
     </form>
-  </mat-dialog-content>
+  </div>
 
   <!-- BOTONES -->
-  <mat-dialog-actions class="mt-6 flex justify-end gap-2 px-2">
+  <div class="mt-6 flex justify-end gap-2 px-2">
     <button type="submit" [disabled]="form.invalid" (click)="guardar()" class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600 disabled:bg-brand-300">Guardar</button>
-    <button type="reset" [mat-dialog-close]="true" class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:bg-gray-50 dark:bg-gray-800 dark:text-gray-300 dark:text-gray-200">Cerrar</button>
-  </mat-dialog-actions>
+    <button type="reset" (click)="cerrar()" class="inline-flex items-center justify-center gap-2 rounded-lg transition px-5 py-3.5 text-sm bg-gray-100 text-gray-700 hover:bg-gray-200 disabled:bg-gray-50 dark:bg-gray-800 dark:text-gray-300 dark:text-gray-200">Cerrar</button>
+  </div>
 </div>
+
 
 
 

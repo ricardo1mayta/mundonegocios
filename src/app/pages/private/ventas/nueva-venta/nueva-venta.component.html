@@ -4,9 +4,9 @@
     <!-- IZQUIERDA -->
 
     <div class="space-y-6">
-      <!-- TÃTULO -->
+      <!-- TÍTULO -->
       <h1 class="text-2xl font-semibold text-gray-800 dark:text-white/90">Nuevo Pedido</h1>
-      <!-- BÃšSQUEDA -->
+      <!-- BÚSQUEDA -->
       <div class="relative">
         <input
           type="text"
@@ -16,7 +16,7 @@
           class="input pl-14"
         />
         <span class="absolute left-4 top-3.5 text-gray-400 i-ph-magnifying-glass dark:text-gray-500"></span>
-        <!-- LISTA DESPLEGABLE DE BÃšSQUEDA -->
+        <!-- LISTA DESPLEGABLE DE BÚSQUEDA -->
         <div
           *ngIf="showSuggestions()"
           class="w-full sm:w-96 absolute z-20 left-0 h-64 overflow-y-auto bg-white border border-gray-200 rounded-lg shadow dark:border-gray-800 dark:bg-gray-900"
@@ -27,7 +27,7 @@
             >
               <tr>
                 <th class="px-3 py-2 text-left">Imagen</th>
-                <th class="px-3 py-2 text-left">CÃ³digo</th>
+                <th class="px-3 py-2 text-left">Código</th>
                 <th class="px-3 py-2 text-left">Nombre</th>
                 <th class="px-3 py-2 text-left">Stock</th>
               </tr>
@@ -90,7 +90,7 @@
         <table class="min-w-[280px] w-full text-sm">
           <thead class="bg-gray-50 text-gray-600 dark:bg-gray-900 dark:text-gray-400 dark:text-gray-300">
             <tr>
-              <!-- OCULTAR EN MÃ“VIL -->
+              <!-- OCULTAR EN MÓVIL -->
               <th class="px-2 py-2 text-left hidden sm:table-cell">Imagen</th>
 
               <th class="px-2 py-2 text-left">Nombre</th>
@@ -107,7 +107,7 @@
               *ngFor="let c of cart()"
               class="border-t border-gray-100 even:bg-gray-50 dark:border-gray-800 dark:even:bg-gray-800"
             >
-              <!-- OCULTAR EN MÃ“VIL -->
+              <!-- OCULTAR EN MÓVIL -->
               <td class="p-2 hidden sm:table-cell">
                 <img
                   [src]="c.productoDetalle.imagen || ''"
@@ -129,7 +129,7 @@
               </td>
 
               <td class="p-2 sm:flex items-center gap-1">
-                <button (click)="dec(c)" class="hidden sm:inline-flex px-2">âˆ’</button>
+                <button (click)="dec(c)" class="hidden sm:inline-flex px-2">-</button>
                 <input
                   type="number"
                   [(ngModel)]="c.cantidad"
@@ -215,9 +215,9 @@
       </div>
       <!-- PAGINADOR -->
       <div class="hidden sm:flex flex-wrap items-center justify-between gap-4 mt-6 text-sm select-none">
-        <!-- productos por pÃ¡gina -->
+        <!-- productos por página -->
         <div class="flex items-center gap-2">
-          <span>Productos por pÃ¡gina:</span>
+          <span>Productos por página:</span>
           <select [(ngModel)]="pageSize" (ngModelChange)="changePageSize($event)" class="input w-auto px-2 py-1">
             <option *ngFor="let s of pageSizes" [ngValue]="s">{{ s }}</option>
           </select>
@@ -225,14 +225,14 @@
 
         <!-- indicador y flechas -->
         <div class="flex items-center gap-4">
-          <span>PÃ¡gina {{ page() }} de {{ pageCount() }}</span>
+          <span>Página {{ page() }} de {{ pageCount() }}</span>
 
           <button
             (click)="prev()"
             [disabled]="page() === 1"
             class="w-8 h-8 grid place-content-center rounded border border-gray-300 dark:border-gray-700"
           >
-            â€¹
+            ‹
           </button>
 
           <button
@@ -240,7 +240,7 @@
             [disabled]="page() === pageCount()"
             class="w-8 h-8 grid place-content-center rounded border border-gray-300 dark:border-gray-700"
           >
-            â€º
+            ›
           </button>
         </div>
       </div>
@@ -268,7 +268,7 @@
           <option value="FACTURA">FACTURA</option>
         </select>
       </div>
-      <!-- MÃ‰TODOS DE PAGO -->
+      <!-- MÉTODOS DE PAGO -->
       <div class="space-y-3">
         <div *ngFor="let pago of pagos(); let i = index" class="flex flex-wrap items-center gap-2 w-full">
           <!-- Select que se estira y se contrae -->
@@ -286,17 +286,17 @@
             placeholder="S/ 0.00"
           />
 
-          <!-- BotÃ³n, ancho fijo y sin encogerse -->
+          <!-- Botón, ancho fijo y sin encogerse -->
           <button (click)="removePago(i)" class="text-red-500 i-ph-trash-simple text-lg flex-shrink-0">
             <span>X</span>
           </button>
         </div>
 
         <button (click)="addPago()" class="text-gray-700 text-sm hover:underline mt-1 dark:text-gray-300">
-          + Agregar otro mÃ©todo
+          + Agregar otro método
         </button>
 
-        <!-- ValidaciÃ³n de suma -->
+        <!-- Validación de suma -->
         <div [class.text-red-600]="sumaPagos !== total()" class="text-sm font-medium">
           Total ingresado: {{ sumaPagos | number: "1.2-2" }} / Total venta: {{ total() | number: "1.2-2" }}
         </div>
@@ -313,7 +313,7 @@
 
       <!-- BUSCAR CLIENTE -->
       <div class="space-y-3">
-        <!-- caja de bÃºsqueda -->
+        <!-- caja de búsqueda -->
         <div class="relative">
           <input
             type="text"
@@ -323,7 +323,7 @@
             class="input pl-10"
           />
           <span class="absolute left-3 top-2.5 text-blue-800 i-ph-magnifying-glass" (click)="agregarCliente()">
-            <mat-icon>search</mat-icon></span
+            <i class="pi pi-search"></i></span
           >
           <!-- lista desplegable -->
           <div
@@ -381,3 +381,4 @@
     </aside>
   </div>
 </div>
+

@@ -1,5 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { Component, inject, model, OnInit, signal, viewChild } from "@angular/core";
+import { PrimeNgModule } from 'src/app/core/modules/primeng/primeng.module';
 
 import { MatDatepickerModule } from "@angular/material/datepicker";
 
@@ -23,8 +24,7 @@ import { VisualizarCompraComponent } from "../../../compras/visualizar-compra/vi
 
 @Component({
   selector: "app-ficha-tecnica-listar",
-  imports: [
-    CommonModule,
+  imports: [PrimeNgModule, CommonModule,
     MaterialModule,
     MatDatepickerModule,
     MatNativeDateModule,

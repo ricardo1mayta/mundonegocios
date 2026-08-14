@@ -179,7 +179,7 @@ export class RegistroImeisVentaComponent {
     if (!detalleId || !imei) return;
     if (this.despachadosDeletingMap[imei]) return;
     Swal.fire({
-      title: "¿Eliminar IMEI despachado?",
+      title: "Â¿Eliminar IMEI despachado?",
       text: `Se quitará el IMEI ${imei} del despacho.`,
       icon: "warning",
       showCancelButton: true,

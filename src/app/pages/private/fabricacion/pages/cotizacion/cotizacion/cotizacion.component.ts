@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 
 import { CotizacionCompraService } from '../../../../../../core/services/contizaciocompra/contizacioncompra.service';
-import { BomService } from '../../../../../../core/services/bom/bom.service'; // ✅
+import { BomService } from '../../../../../../core/services/bom/bom.service'; // ?
 
 @Component({
   selector: 'app-cotizacion',
@@ -18,7 +18,7 @@ export class CotizacionComponent {
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private api = inject(CotizacionCompraService);
-  private apiBom = inject(BomService); // ✅
+  private apiBom = inject(BomService); // ?
 
   loading = signal(false);
   cotizacionId = signal<number | null>(null);
@@ -50,7 +50,7 @@ export class CotizacionComponent {
       return;
     }
 
-    // ✅ Si no hay cotizacionId pero sí bomId => cargar BOM para previsualizar grilla
+    // ? Si no hay cotizacionId pero sí bomId => cargar BOM para previsualizar grilla
     if (bomId) {
       this.form.get('bomId')?.setValue(bomId, { emitEvent: false });
       this.cargarBomPreview(bomId);
@@ -254,6 +254,5 @@ export class CotizacionComponent {
     window.print();
   }
 }
-
 
 

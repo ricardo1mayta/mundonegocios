@@ -21,7 +21,10 @@
             ],
             "allowedCommonJsDependencies": [
                "prismjs",
-               "polylabel"
+               "polylabel",
+               "sweetalert2",
+               "xlsx-js-style",
+               "file-saver"
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
@@ -31,6 +34,7 @@
               }
             ],
             "styles": [
+              "node_modules/primeicons/primeicons.css",
               "src/styles.css"
             ],
             "scripts": [
@@ -91,6 +95,7 @@
               }
             ],
             "styles": [
+              "node_modules/primeicons/primeicons.css",
               "src/styles.css"
             ],
             "scripts": []

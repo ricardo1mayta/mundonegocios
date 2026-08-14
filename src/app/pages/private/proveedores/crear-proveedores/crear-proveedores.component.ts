@@ -1,3 +1,4 @@
+import { PrimeNgModule } from 'src/app/core/modules/primeng/primeng.module';
 import { Component, effect, inject, signal } from "@angular/core";
 import { ModalComponent } from "../../../../core/components/modal/modal.component";
 import { FormBuilder, NonNullableFormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
@@ -6,14 +7,11 @@ import { Clientes } from "../../../../core/models/ventas/clientes";
 import { ClientesService } from "../../../../core/services/clientes/clientes.service";
 import { CommonModule } from "@angular/common";
 import {
-  MatDialogContent,
-  MatDialogActions,
-  MatDialogClose,
   MAT_DIALOG_DATA,
   MatDialogRef,
   MatDialogModule,
 } from "@angular/material/dialog";
-import { MatIcon, MatIconModule } from "@angular/material/icon";
+import { MatIconModule } from "@angular/material/icon";
 import { UbigeoService } from "../../../../core/services/ubigeo/ubigeo.service";
 import { CodigosService } from "../../../../core/services/codigos/codigos.service";
 import { SunatService } from "../../../../core/services/codigos/sunat.service";
@@ -44,17 +42,15 @@ type CrearProveedorData = {
 @Component({
   selector: "app-crear-proveedores",
   standalone: true,
-  imports: [
+  imports: [PrimeNgModule, 
     CommonModule,
     ReactiveFormsModule,
     MatStepperModule,
     MatSelectModule,
     MatDialogModule,
     NgxEditorModule,
-    MatIcon,
     MaterialModule,
     MatIconModule,
-    MatDialogContent,
   ],
   templateUrl: "./crear-proveedores.component.html",
   styleUrl: "./crear-proveedores.component.css",
@@ -196,7 +192,7 @@ export class CrearProveedoresComponent {
 
   seteaUbigeo(codigo: string): void {
     if (!/^\d{6}$/.test(codigo)) {
-      console.warn("Código de ubigeo inválido →", codigo);
+      console.warn("Código de ubigeo inválido �?? ’", codigo);
       return;
     }
 

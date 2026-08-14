@@ -5,12 +5,12 @@ import { Inventario } from '../../../../core/models/almacen/invetario';
 import { Router } from '@angular/router';
 import { PedidosService } from '../../../../core/services/pedidos/pedidos.service';
 import { MatIconModule } from '@angular/material/icon';
-import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-visualizar-venta',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatIconModule, MatDialogContent, MatDialogActions, MatDialogClose],
+  imports: [CommonModule, FormsModule, MatIconModule],
   templateUrl: './visualizar-venta.component.html',
   styleUrl: './visualizar-venta.component.css',
 })
@@ -26,6 +26,7 @@ export class VisualizarVentaComponent {
   pageSizes = [10, 20, 30];
 
   private readonly data = inject(MAT_DIALOG_DATA) as { pedido?: { id?: number } };
+  private readonly dialogRef = inject(MatDialogRef<VisualizarVentaComponent>);
   pedido = signal<any>(null);
 
   constructor() {
@@ -41,5 +42,9 @@ export class VisualizarVentaComponent {
     this.pedidosService.obtenerPedidoPorId(id).subscribe((comp: any) => {
       this.pedido.set(comp.data);
     });
+  }
+
+  cerrar(): void {
+    this.dialogRef.close(true);
   }
 }
